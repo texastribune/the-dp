@@ -1,0 +1,22 @@
+<table class="layout-table">
+  <tr>
+    <th>Name</th>
+    <td>{{ object.name }}</td>
+  </tr>
+  <tr>
+    <th>slug</th>
+    <td>{{ object.slug }}</td>
+  </tr>
+  {% if object.system %}
+	  <tr>
+	    <th>System</th>
+	    <td>{{ object.system }}</td>
+	  </tr>
+  {% endif %}
+  {% if object.url %}
+	  <tr>
+	    <th>Website</th>
+	    <td><a href="http://{{ object.url }}" target="_blank">{{ object.url }}</a></td>
+	  </tr>
+  {% endif %}
+</table>

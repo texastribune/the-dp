@@ -1,0 +1,16 @@
+{% block main %}
+<ul>
+  {% for object in object_list %}
+    <li>
+      <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+      {% if object.institution_set.exists %}
+        <ul>
+          {% for inst in object.institution_set.all %}
+            <li><a href="{{ inst.get_absolute_url }}">{{ inst.name }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

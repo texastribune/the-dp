@@ -19,6 +19,10 @@ class System(ContactFieldsMixin):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('system_detail', (), {'slug': self.slug})
+
 
 class Institution(ContactFieldsMixin):
     name = models.CharField(max_length=60)
@@ -27,4 +31,11 @@ class Institution(ContactFieldsMixin):
     system = models.ForeignKey(System, null=True, blank=True)
 
     def __unicode__(self):
-        return self.name
+        if self.system:
+            return u"%s - %s" % (self.system, self.name)
+        else:
+            return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('institution_detail', (), {'slug': self.slug})
