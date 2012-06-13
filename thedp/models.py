@@ -44,6 +44,9 @@ class Institution(ContactFieldsMixin):
     # administrator officer
     system = models.ForeignKey(System, null=True, blank=True)
 
+    # hi
+    ipeds_id = models.IntegerField(null=True, blank=True)
+
     def __unicode__(self):
         if self.system:
             return u"%s - %s" % (self.system, self.name)
