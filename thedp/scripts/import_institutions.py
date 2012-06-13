@@ -6,7 +6,7 @@ source: http://www.txhighereddata.org/Interactive/Institutions.cfm
 import urllib2
 
 from django.template.defaultfilters import slugify
-from lxml import html as etree
+from htmltableDictReader import DictReader
 
 from thedp.models import Institution, System
 
@@ -37,22 +37,11 @@ I_MAP = {'Institution Name': 'name',
          'Website Address': 'url'}
 
 
-def normalize_keys(data, mapping=[]):
-    for key in data.keys():
-        if key in mapping:
-            value = data.pop(key)
-            data[mapping[key]] = value
-
-
 def pull(institution_type, source):
     r = urllib2.urlopen(source)
-    doc = etree.parse(r)
-    rows = doc.xpath('//tr')
+    reader = DictReader(r, mapping=I_MAP)
 
-    headings = [x.text_content().strip() for x in rows[0].getchildren()]
-    for row in rows[1:]:
-        data = dict(zip(headings, [x.text_content().strip() for x in row.getchildren()]))
-        normalize_keys(data, mapping=I_MAP)
+    for data in reader:
         if not data['name']:
             continue
         data.pop('TODO')
