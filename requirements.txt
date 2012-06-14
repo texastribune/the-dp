@@ -3,3 +3,7 @@ armstrong.core.arm-layout==1.1.1
 
 lxml==2.3.4
 requests==0.13.1
+
+# text processing
+nltk
+numpy
