@@ -7,6 +7,8 @@ from .views import RenderModelDetailView
 
 
 urlpatterns = patterns('',
+    url(r'^$', 'django.views.generic.simple.redirect_to',
+        {'url': '/institution/'}, name="home"),
     url(r'^institution/$', ListView.as_view(
         queryset=Institution.objects.all().order_by('name')), name="institution_list"),
     url(r'^institution/(?P<slug>[-\w]+)/$', DetailView.as_view(
