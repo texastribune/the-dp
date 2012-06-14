@@ -1,6 +1,18 @@
-{% load layout_helpers %}
+{% load layout_helpers humanize %}
 
 
 {% block main %}
   {% render_model object "table" %}
+
+  <h3>Price Trends</h3>
+  Tuition: (year &ndash; in-state / out-of-state)
+  <ul>
+    {% for year in object.pricetrend_set.all %}
+      <li>
+        {{ year }} &ndash;
+        ${{ year.in_state_tuition_and_fees|intcomma }} /
+        ${{ year.out_of_state_tuition_and_fees|intcomma }}
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
