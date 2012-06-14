@@ -27,6 +27,7 @@ class ContactFieldsMixin(models.Model):
 
     class Meta:
         abstract = True
+        app_label = 'thedp'
 
 
 class System(ContactFieldsMixin):

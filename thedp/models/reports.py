@@ -16,6 +16,7 @@ class YearBasedInstitutionStatModel(models.Model):
     class Meta:
         abstract = True
         unique_together = ('year', 'institution')
+        app_label = 'thedp'
 
 
 class PriceTrend(YearBasedInstitutionStatModel):
