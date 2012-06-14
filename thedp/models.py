@@ -45,6 +45,7 @@ class Institution(ContactFieldsMixin):
             choices=INSTITUTION_CHOICES, null=True, blank=True)
     # administrator officer
     system = models.ForeignKey(System, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     # Integrated Postsecondary Education Data System ID
     ipeds_id = models.IntegerField(null=True, blank=True)
