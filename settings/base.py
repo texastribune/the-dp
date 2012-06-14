@@ -1,4 +1,13 @@
 # Django settings for thedp project.
+import os
+
+# From armstrong.cli. This function will eventually be in an armstrong
+# utils package, at which point we should stop duplicating it here.
+
+
+def project_dir(*paths):
+    base = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+    return os.path.join(base, *paths)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -106,6 +115,7 @@ ROOT_URLCONF = 'testproject.urls'
 WSGI_APPLICATION = 'testproject.wsgi.application'
 
 TEMPLATE_DIRS = (
+    project_dir('templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -125,6 +135,11 @@ INSTALLED_APPS = [
 
     'armstrong.core.arm_layout',
     'thedp',
+
+
+    # pinax theme bootstrap
+    'pinax_theme_bootstrap',
+    'django_forms_bootstrap',
 ]
 
 # A sample logging configuration. The only tangible logging
