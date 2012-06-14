@@ -1,4 +1,6 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+
 
 INSTITUTION_CHOICES = (
         ("pub_u", "Public University"),
@@ -44,8 +46,12 @@ class Institution(ContactFieldsMixin):
     # administrator officer
     system = models.ForeignKey(System, null=True, blank=True)
 
-    # hi
+    # Integrated Postsecondary Education Data System ID
     ipeds_id = models.IntegerField(null=True, blank=True)
+    # Office of Postsecondary Education ID
+    # only Title IV schools have this. This is a 6 digit zero padded number with
+    # a two digit suffix for each location/branch
+    ope_id = models.CharField(max_length=8, null=True, blank=True)
 
     def __unicode__(self):
         if self.system:
@@ -60,3 +66,13 @@ class Institution(ContactFieldsMixin):
     @property
     def type(self):
         return dict(INSTITUTION_CHOICES).get(self.institution_type)
+
+    @staticmethod
+    def get_unique_name(name):
+        ignored = ('st', 'saint', 'college', 'university', 'county', 'district', 'the', 'of', 'at')
+        filtered_bits = [x for x in slugify(name).split('-') if x not in ignored]
+        return ''.join(filtered_bits)
+
+    @property
+    def unique_name(self):
+        return Institution.get_unique_name(self.name)

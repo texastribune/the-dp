@@ -1,3 +1,4 @@
+{% load layout_helpers %}
 <table class="layout-table">
   <tr>
     <th>Name</th>
@@ -7,16 +8,19 @@
     <th>slug</th>
     <td>{{ object.slug }}</td>
   </tr>
+  <tr>
+    <th>IPEDS ID</th>
+    <td>{{ object.ipeds_id }}</td>
+  </tr>
+  <tr>
+    <th>OPE ID</th>
+    <td>{{ object.ope_id }}</td>
+  </tr>
   {% if object.system %}
 	  <tr>
 	    <th>System</th>
 	    <td>{{ object.system }}</td>
 	  </tr>
   {% endif %}
-  {% if object.url %}
-	  <tr>
-	    <th>Website</th>
-	    <td><a href="http://{{ object.url }}" target="_blank">{{ object.url }}</a></td>
-	  </tr>
-  {% endif %}
+  {% render_model object "contactfields_as_rows" %}
 </table>

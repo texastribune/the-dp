@@ -1,0 +1,30 @@
+{% if object.address %}
+  <tr>
+    <th>Address</th>
+    <td>{{ object.address }}</td>
+  </tr>
+{% endif %}
+{% if object.city %}
+  <tr>
+    <th>city</th>
+    <td>{{ object.city }}</td>
+  </tr>
+{% endif %}
+{% if object.zip_code %}
+  <tr>
+    <th>Zip</th>
+    <td>{{ object.zip_code }}</td>
+  </tr>
+{% endif %}
+{% if object.phone %}
+  <tr>
+    <th>Phone</th>
+    <td>{{ object.phone }}</td>
+  </tr>
+{% endif %}
+{% if object.url %}
+  <tr>
+    <th>Website</th>
+    <td><a href="http://{{ object.url }}" target="_blank">{{ object.url }}</a></td>
+  </tr>
+{% endif %}
