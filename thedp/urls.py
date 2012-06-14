@@ -7,7 +7,7 @@ from .views import RenderModelDetailView
 
 urlpatterns = patterns('',
     url(r'^institution/$', ListView.as_view(
-        model=Institution), name="institution_list"),
+        queryset=Institution.objects.all().order_by('name')), name="institution_list"),
     url(r'^institution/(?P<slug>[-\w]+)/$', RenderModelDetailView.as_view(
         model=Institution, layout="table"), name="institution_detail"),
     url(r'^system/$', ListView.as_view(
