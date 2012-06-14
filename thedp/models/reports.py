@@ -15,8 +15,12 @@ class YearBasedInstitutionStatModel(models.Model):
 
     class Meta:
         abstract = True
-        unique_together = ('year', 'institution')
         app_label = 'thedp'
+        ordering = ['year']
+        unique_together = ('year', 'institution')
+
+    def __unicode__(self):
+        return u"%d" % self.year
 
 
 class PriceTrend(YearBasedInstitutionStatModel):
