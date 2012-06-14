@@ -1,3 +1,9 @@
+"""
+Attempt to assign as many IPED IDs to Institutions as this script can find
+
+Requires downloading a list of institutions from http://nces.ed.gov/ipeds
+
+"""
 import sys
 
 from htmltableDictReader import DictReader
