@@ -2,6 +2,9 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 
+__all__ = ['System', 'Institution']
+
+
 INSTITUTION_CHOICES = (
         ("pub_u", "Public University"),
         ("pub_cc", "Community College"),
