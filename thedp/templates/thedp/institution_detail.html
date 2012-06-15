@@ -16,4 +16,16 @@
       </li>
     {% endfor %}
   </ul>
+
+  <h3>SAT Scores</h3>
+  75th Percentile: (year &ndash; verbal / math)
+  <ul>
+    {% for year in object.sattestscores_set.all %}
+      <li>
+        {{ year }} &ndash;
+        {{ year.sat_i_verbal_75th_percentile }} /
+        {{ year.sat_i_math_75th_percentile }}
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
