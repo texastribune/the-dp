@@ -58,6 +58,8 @@ def process_single_year(path):
         inst = Institution.objects.get(ipeds_id=row['UnitId'])
         data = dict()
         for key, value in row.items():
+            if not value:
+                continue
             fieldname = underscore(key)
             if fieldname in valid_report_fields:
                 if fieldname.endswith("percent"): value = value[:-1]  # XXX
@@ -67,14 +69,25 @@ def process_single_year(path):
         r.save()
 
 
-def main():
-    path = sys.argv[1]
-
+def process_file(path):
     report_name, ext = os.path.splitext(os.path.basename(path))
     if ext == ".html":
         process_year_based(path)
     elif ext == ".csv":
         process_single_year(path)
+
+
+def main():
+    path = sys.argv[1]
+
+    if os.path.isdir(path):
+        files = []
+        for foo in os.walk(path):
+            files.extend([os.path.join(foo[0], bar) for bar in foo[2]])
+        for filepath in files:
+            process_file(filepath)
+    else:
+        process_file(path)
 
 
 if __name__ == "__main__":
