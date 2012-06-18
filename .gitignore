@@ -1,3 +1,8 @@
 *.pyc
 .codeintel
-testproject
+.DS_Store
+db.sqlite
+
+bin
+
+exampleproject/settings/local.py
