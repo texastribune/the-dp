@@ -21,9 +21,10 @@ def get_report(report_model):
     try:
         Report = ContentType.objects.get(model=report_model).model_class()
         valid_report_fields = Report._meta.get_all_field_names()  # TODO remove fields like `id` ?
+        unique_together_fields = Report._meta.unique_together[0]
     except ContentType.DoesNotExist:
         raise NotImplementedReport(report_model)
-    return Report, valid_report_fields
+    return Report, unique_together_fields, valid_report_fields
 
 
 def process_year_based(path):
@@ -32,7 +33,7 @@ def process_year_based(path):
     report_name = os.path.splitext(os.path.basename(path))[0]
     report_model = report_name.lower()
 
-    Report, valid_report_fields = get_report(report_model)
+    Report, unique_together_fields, valid_report_fields = get_report(report_model)
 
     reader = DictReader(open(path, 'r'))
     reader.fieldnames[0] = 'UnitId'
@@ -66,7 +67,7 @@ def process_single_year(path):
     reader = DictReader(f)
 
     try:
-        Report, valid_report_fields = get_report(report_model)
+        Report, unique_together_fields, valid_report_fields = get_report(report_model)
     except NotImplementedReport:
         print "* SAMPLE MODEL CLASS DEF *"
         print "class %s(YearBasedInstitutionStatModel):" % model_model
@@ -77,16 +78,24 @@ def process_single_year(path):
 
     for row in reader:
         inst = Institution.objects.get(ipeds_id=row['UnitId'])
+        get_args = dict()
         data = dict()
         for key, value in row.items():
             if not value:
                 continue
             fieldname = underscore(key)
+            if fieldname in unique_together_fields:
+                get_args[fieldname] = value
             if fieldname in valid_report_fields:
                 if fieldname.startswith("percent") or fieldname.endswith("percent"):
                     value = value[:-1]  # XXX
-                data[fieldname] = value
-        r, _ = Report.objects.get_or_create(institution=inst, year=year)
+                if value:
+                    data[fieldname] = value
+        # XXX
+        if 'gender' in unique_together_fields:
+            r, _ = Report.objects.get_or_create(institution=inst, year=year, gender=get_args['gender'])
+        else:
+            r, _ = Report.objects.get_or_create(institution=inst, year=year)
         r.__dict__.update(data)
         r.save()
 
