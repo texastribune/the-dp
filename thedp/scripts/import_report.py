@@ -60,11 +60,20 @@ def process_single_year(path):
     info_string = f.readline()
     report_name, year_range = re.match(r"^(.+)\s([\-\d]+),$", info_string).groups()
     year = year_range[:2] + year_range[-2:]
-    report_model = report_name.replace(" ", "").lower()
-
-    Report, valid_report_fields = get_report(report_model)
+    model_model = report_name.replace(" ", "")
+    report_model = model_model.lower()
 
     reader = DictReader(f)
+
+    try:
+        Report, valid_report_fields = get_report(report_model)
+    except NotImplementedReport:
+        print "* SAMPLE MODEL CLASS DEF *"
+        print "class %s(YearBasedInstitutionStatModel):" % model_model
+        for field in reader.fieldnames[2:]:
+            if field:
+                print "    %s = models.IntegerField(null=True, blank=True)" % underscore(field)
+        raise
 
     for row in reader:
         inst = Institution.objects.get(ipeds_id=row['UnitId'])
