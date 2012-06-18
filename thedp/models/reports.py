@@ -44,6 +44,17 @@ class SATTestScores(YearBasedInstitutionStatModel):
     students_submitting_sat_scores_percent = models.IntegerField(null=True, blank=True)
 
 
+class GenderManager(models.Manager):
+    def men(self):
+        return self.get_query_set().filter(gender='Men')
+
+    def women(self):
+        return self.get_query_set().filter(gender='Women')
+
+    def total(self):
+        return self.get_query_set().filter(gender='Total')
+
+
 class Admissions(YearBasedInstitutionStatModel):
     # TODO make a gender/year based? what about ethnicity?
     gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
@@ -52,6 +63,8 @@ class Admissions(YearBasedInstitutionStatModel):
     number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
     percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
     percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+
+    objects = GenderManager()
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution', 'gender')
