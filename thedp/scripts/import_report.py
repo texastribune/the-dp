@@ -83,7 +83,8 @@ def process_single_year(path):
                 continue
             fieldname = underscore(key)
             if fieldname in valid_report_fields:
-                if fieldname.endswith("percent"): value = value[:-1]  # XXX
+                if fieldname.startswith("percent") or fieldname.endswith("percent"):
+                    value = value[:-1]  # XXX
                 data[fieldname] = value
         r, _ = Report.objects.get_or_create(institution=inst, year=year)
         r.__dict__.update(data)

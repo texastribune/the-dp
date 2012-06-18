@@ -5,7 +5,7 @@ in the IPEDS source
 
 """
 
-__all__ = ['PriceTrend', 'SATTestScores']
+__all__ = ['PriceTrend', 'SATTestScores', 'Admissions']
 
 
 class YearBasedInstitutionStatModel(models.Model):
@@ -37,3 +37,16 @@ class SATTestScores(YearBasedInstitutionStatModel):
     sat_i_math_75th_percentile = models.IntegerField(null=True, blank=True)
     students_submitting_sat_scores_number = models.IntegerField(null=True, blank=True)
     students_submitting_sat_scores_percent = models.IntegerField(null=True, blank=True)
+
+
+class Admissions(YearBasedInstitutionStatModel):
+    # TODO make a gender/year based? what about ethnicity?
+    gender = models.TextField(max_length=20, null=True, blank=True)
+    number_of_applicants = models.IntegerField(null=True, blank=True)
+    number_admitted = models.IntegerField(null=True, blank=True)
+    number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
+    percent_of_applicants_admitted = models.IntegerField(null=True, blank=True)
+    percent_of_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
+
+    class Meta(YearBasedInstitutionStatModel.Meta):
+        unique_together = ('year', 'institution', 'gender')
