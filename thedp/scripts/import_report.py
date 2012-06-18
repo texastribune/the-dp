@@ -98,6 +98,7 @@ def process_single_year(path):
             r, _ = Report.objects.get_or_create(institution=inst, year=year)
         r.__dict__.update(data)
         r.save()
+    print "updated %s %s" % (path, year)
 
 
 def process_file(path):

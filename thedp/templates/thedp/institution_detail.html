@@ -28,4 +28,16 @@
       </li>
     {% endfor %}
   </ul>
+
+  <h3>Admissions</h3>
+  Year, % admitted, % of admitted who enrolled
+  <ul>
+    {% for year in object.admissions_set.total %}
+      <li>
+        {{ year }} &ndash;
+        {{ year.percent_of_applicants_admitted }}%
+        {{ year.percent_of_admitted_who_enrolled }}%
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
