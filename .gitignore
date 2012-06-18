@@ -1,2 +1,4 @@
 *.pyc
+db.sqlite
+bin
 settings/local.py
