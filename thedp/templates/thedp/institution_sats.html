@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+
+
+{% block head_title %}SAT Scores{% endblock %}
+
+
+{% block main %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>School</th>
+      <th>Type</th>
+      <th colspan=3>Stats</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+      <tr>
+        <td>
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        </td>
+        <td>
+          {{ object.scores.sat_i_verbal_25th_percentile }}
+        </td>
+        <td>
+          {{ object.scores.sat_i_verbal_75th_percentile }}
+        </td>
+        <td>
+          {{ object.scores.sat_i_math_25th_percentile }}
+        </td>
+        <td>
+          {{ object.scores.sat_i_math_75th_percentile }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

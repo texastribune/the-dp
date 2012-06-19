@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, url
 from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Institution, System
-from .views import InstitutionListView, RenderModelDetailView
+from .views import InstitutionListView, RenderModelDetailView, SATListView
 
 
 urlpatterns = patterns('',
@@ -14,4 +14,5 @@ urlpatterns = patterns('',
         model=System), name="system_list"),
     url(r'^system/(?P<slug>[-\w]+)/$', RenderModelDetailView.as_view(
         model=System, layout="table"), name="system_detail"),
+    url(r'^SAT/$', SATListView.as_view(), name="sat_search"),
 )
