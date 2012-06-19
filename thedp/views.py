@@ -15,7 +15,7 @@ class RenderModelDetailView(DetailView):
 
 
 class InstitutionListView(ListView):
-    queryset = Institution.objects.all().annotate(
+    queryset = Institution.objects.filter(ipeds_id__isnull=False).annotate(
         num_pricetrends=Count('pricetrend', distinct=True),
         num_sattestscores=Count('sattestscores', distinct=True),
         num_admissions=Count('admissions', distinct=True)).order_by('name')
