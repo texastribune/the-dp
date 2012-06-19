@@ -2,11 +2,34 @@
 
 
 {% block main %}
-<ul>
-  {% for object in object_list %}
-    <li>
-      <a href="{{ object.get_absolute_url }}">{{ object }} ({{ object.type }})</a>
-    </li>
-  {% endfor %}
-</ul>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>School</th>
+      <th>Type</th>
+      <th colspan=3>Stats</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+      <tr>
+        <td>
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        </td>
+        <td>
+          {{ object.type }}
+        </td>
+        <td>
+          {{ object.num_pricetrends }}
+        </td>
+        <td>
+          {{ object.num_sattestscores }}
+        </td>
+        <td>
+          {{ object.num_admissions }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

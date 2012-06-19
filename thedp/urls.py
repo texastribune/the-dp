@@ -2,13 +2,12 @@ from django.conf.urls.defaults import patterns, url
 from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Institution, System
-from .views import RenderModelDetailView
+from .views import InstitutionListView, RenderModelDetailView
 
 
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name="thedp/index.html"), name="home"),
-    url(r'^institution/$', ListView.as_view(
-        queryset=Institution.objects.all().order_by('name')), name="institution_list"),
+    url(r'^institution/$', InstitutionListView.as_view(), name="institution_list"),
     url(r'^institution/(?P<slug>[-\w]+)/$', DetailView.as_view(
         model=Institution), name="institution_detail"),
     url(r'^system/$', ListView.as_view(
