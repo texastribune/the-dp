@@ -42,6 +42,7 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
+SITE_NAME = "THEDP"
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -138,9 +139,20 @@ INSTALLED_APPS = [
 
 
     # pinax theme bootstrap
+    'support',
     'pinax_theme_bootstrap',
     'django_forms_bootstrap',
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "support.context_processors.bootstrap_context")
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
