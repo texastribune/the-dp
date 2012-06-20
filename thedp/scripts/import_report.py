@@ -53,26 +53,57 @@ def process_csv(path):
         reader = DictReader(f)
         process_single_year(year, reader, model_model)
     except AttributeError:
-        # TODO
-        raise
+        report_name = re.match(r"(.*) for selected years", info_string).groups()[0]
+        model_model = re.sub(r"\W", "", report_name)
+        reader = DictReader(f)
+        process_year_based(reader, model_model)
 
 
 def process_year_based(reader, model_model):
     report_model = model_model.lower()
 
-    Report, unique_together_fields, valid_report_fields = get_report(report_model)
+    try:
+        Report, unique_together_fields, valid_report_fields = get_report(report_model)
+    except NotImplementedReport:
+        print "* SAMPLE MODEL CLASS DEF *"
+        print "class %s(YearBasedInstitutionStatModel):" % model_model
+        for field in reader.fieldnames[2:]:
+            if field and not re.match(r"\d+", field):
+                print "    %s = models.IntegerField(null=True, blank=True)" % underscore(field)
+        raise
 
-    years_idx_start = 3  # index where field names turn into years
+    years_idx_start = None
+    for i, field in enumerate(reader.fieldnames):
+        try:
+            int(field)
+            years_idx_start = i
+            break
+        except ValueError:
+            pass
+
+    reader.fieldnames = map(underscore, reader.fieldnames)
+    unique_together_fields = list(unique_together_fields)
+    unique_together_fields.remove('year')  # manually added
+    unique_together_fields.remove('institution')  # manually added
 
     for row in reader:
-        inst = Institution.objects.get(ipeds_id=row['UnitId'])
-        report_field = underscore(row['label'])
+        if 'label' in reader.fieldnames:
+            report_field = underscore(row['label'])
+        else:
+            report_field = 'value'
+            assert 'value' in valid_report_fields
+
+        inst = Institution.objects.get(ipeds_id=row['unitid'])
+        get_args = dict(
+            institution=inst)
+        for field in unique_together_fields:
+            get_args[field] = row[field]
         # logger.info(extra_info=row)
         if report_field in valid_report_fields:
             for year in reader.fieldnames[years_idx_start:]:
                 value = row[year]
                 if value:
-                    r, _ = Report.objects.get_or_create(institution=inst, year=year)
+                    r, _ = Report.objects.get_or_create(year=year, **get_args)
                     setattr(r, report_field, row[year])
                     r.save()
 

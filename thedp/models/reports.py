@@ -5,7 +5,7 @@ in the IPEDS source
 
 """
 
-__all__ = ['PriceTrend', 'SATTestScores', 'Admissions']
+__all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates']
 
 GENDER_CHOICES = (
     ('Men', 'Men'),
@@ -35,9 +35,11 @@ class GenderFieldsMixin(models.Model):
         abstract = True
 
 
-class EthnicFieldsMixin(object):
-    # gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
-    pass
+class EthnicFieldsMixin(models.Model):
+    raceethnicity = models.TextField(max_length=20, null=True, blank=True)
+
+    class Meta:
+        abstract = True
 
 
 class PriceTrend(YearBasedInstitutionStatModel):
@@ -79,3 +81,10 @@ class Admissions(YearBasedInstitutionStatModel, GenderFieldsMixin):
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution', 'gender')
+
+
+class Degreescertificates(YearBasedInstitutionStatModel, GenderFieldsMixin, EthnicFieldsMixin):
+    value = models.IntegerField(null=True, blank=True)
+
+    class Meta(YearBasedInstitutionStatModel.Meta):
+        unique_together = ('year', 'institution', 'gender', 'raceethnicity')
