@@ -22,7 +22,8 @@ class InstitutionListView(ListView):
 
 
 class SATListView(ListView):
-    queryset = Institution.objects.filter(ipeds_id__isnull=False).exclude(sattestscores__isnull=True)
+    queryset = Institution.objects.filter(ipeds_id__isnull=False).\
+               exclude(sattestscores__isnull=True).order_by('name')
     template_name_suffix = "_sats"
 
     def get_queryset(self):
@@ -36,4 +37,16 @@ class SATListView(ListView):
             if x.scores.sat_i_math_25th_percentile:
                 x.bar_m = dict(left=x.scores.sat_i_math_25th_percentile - MIN,
                           width=x.scores.sat_i_math_75th_percentile - x.scores.sat_i_math_25th_percentile)
+        return qs
+
+
+class DegreesListView(ListView):
+    queryset = Institution.objects.filter(ipeds_id__isnull=False).exclude(degreescertificates__isnull=True).order_by('name')
+
+    def get_queryset(self):
+        qs = self.queryset
+        for x in qs:
+            data = x.degreescertificates_set.filter(gender='Total', raceethnicity='Total').latest('year')
+            x.num_pricetrends = data.year
+            x.num_sattestscores = data.value
         return qs
