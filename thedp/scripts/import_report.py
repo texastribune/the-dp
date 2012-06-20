@@ -53,18 +53,25 @@ def process_year_based(path):
                     r.save()
 
 
-def process_single_year(path):
+def process_csv(path):
     from csv import DictReader
 
     f = open(path, 'r')
     f.readline()  # skip first line
     info_string = f.readline()
-    report_name, year_range = re.match(r"^(.+)\s([\-\d]+),$", info_string).groups()
-    year = year_range[:2] + year_range[-2:]
-    model_model = report_name.replace(" ", "")
-    report_model = model_model.lower()
+    try:
+        report_name, year_range = re.match(r"^(.+)\s([\-\d]+),$", info_string).groups()
+        year = year_range[:2] + year_range[-2:]
+        model_model = report_name.replace(" ", "")
+        reader = DictReader(f)
+        process_single_year(year, reader, model_model)
+    except AttributeError:
+        # TODO
+        raise
 
-    reader = DictReader(f)
+
+def process_single_year(year, reader, model_model):
+    report_model = model_model.lower()
 
     try:
         Report, unique_together_fields, valid_report_fields = get_report(report_model)
@@ -98,7 +105,7 @@ def process_single_year(path):
             r, _ = Report.objects.get_or_create(institution=inst, year=year)
         r.__dict__.update(data)
         r.save()
-    print "updated %s %s" % (path, year)
+    print "UPDATED %s %s" % (model_model, year)
 
 
 def process_file(path):
@@ -107,7 +114,7 @@ def process_file(path):
         if ext == ".html":
             process_year_based(path)
         elif ext == ".csv":
-            process_single_year(path)
+            process_csv(path)
     except NotImplementedReport:
         # logger.error()
         pass
