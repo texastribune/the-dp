@@ -4,13 +4,32 @@
 {% block head_title %}SAT Scores{% endblock %}
 
 
+{% block extra_style %}{{ block.super }}
+<style type="text/css">
+.paper {
+  padding-top: 0;
+  position: relative;
+  min-width: 400px;
+}
+.bar {
+  position: absolute;
+}
+.verbal {
+  background: blue;
+}
+.math {
+  background: red;
+}
+</style>
+{% endblock %}
+
+
 {% block main %}
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
       <th>School</th>
-      <th>Type</th>
-      <th colspan=3>Stats</th>
+      <th>SAT Scores</th>
     </tr>
   </thead>
   <tbody>
@@ -20,16 +39,17 @@
           <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
         </td>
         <td>
-          {{ object.scores.sat_i_verbal_25th_percentile }}
-        </td>
-        <td>
-          {{ object.scores.sat_i_verbal_75th_percentile }}
-        </td>
-        <td>
-          {{ object.scores.sat_i_math_25th_percentile }}
-        </td>
-        <td>
-          {{ object.scores.sat_i_math_75th_percentile }}
+          <section class=paper>
+            {% if object.scores.sat_i_verbal_25th_percentile %}
+              <span class="label pull-left">{{ object.scores.sat_i_verbal_25th_percentile }}</span>
+              <span class="label pull-right">{{ object.scores.sat_i_verbal_75th_percentile }}</span>
+              <div class="label bar verbal" style="left: {{ object.bar_v.left }}px; width: {{ object.bar_v.width }}px;">verbal</div>
+            {% endif %}
+            <br>
+            <span class="label pull-left">{{ object.scores.sat_i_math_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.scores.sat_i_math_75th_percentile }}</span>
+            <div class="label bar math" style="left: {{ object.bar_m.left }}px; width: {{ object.bar_m.width }}px;">math</div>
+          </section>
         </td>
       </tr>
     {% endfor %}
