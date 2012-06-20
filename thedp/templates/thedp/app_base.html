@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+
+
+{% block nav %}
+  <ul class="nav">
+    <li><a href="{% url system_list %}">Systems</a></li>
+    <li><a href="{% url institution_list %}">Institutions</a></li>
+    <li><a href="{% url sat_search %}">SATs</a></li>
+  </ul>
+{% endblock %}
+
+
+{% block body %}
+  {% block main %}
+  {% endblock %}
+{% endblock %}
