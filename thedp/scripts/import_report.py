@@ -18,39 +18,26 @@ def underscore(s):
 
 
 def get_report(report_model):
+    INTERNAL_FIELDS = ['id', 'institution', 'year', 'gender']
     try:
         Report = ContentType.objects.get(model=report_model).model_class()
-        valid_report_fields = Report._meta.get_all_field_names()  # TODO remove fields like `id` ?
+        valid_report_fields = Report._meta.get_all_field_names()
+        valid_report_fields = [x for x in valid_report_fields if x not in INTERNAL_FIELDS]
         unique_together_fields = Report._meta.unique_together[0]
     except ContentType.DoesNotExist:
         raise NotImplementedReport(report_model)
     return Report, unique_together_fields, valid_report_fields
 
 
-def process_year_based(path):
+def process_html(path):
     from htmltableDictReader import DictReader
 
     report_name = os.path.splitext(os.path.basename(path))[0]
-    report_model = report_name.lower()
-
-    Report, unique_together_fields, valid_report_fields = get_report(report_model)
-
+    model_model = report_name.replace(" ", "")
     reader = DictReader(open(path, 'r'))
     reader.fieldnames[0] = 'UnitId'
     reader.fieldnames[2] = 'label'
-    years_idx_start = 3  # index where field names turn into years
-
-    for row in reader:
-        inst = Institution.objects.get(ipeds_id=row['UnitId'])
-        report_field = underscore(row['label'])
-        # logger.info(extra_info=row)
-        if report_field in valid_report_fields:
-            for year in reader.fieldnames[years_idx_start:]:
-                value = row[year]
-                if value:
-                    r, _ = Report.objects.get_or_create(institution=inst, year=year)
-                    setattr(r, report_field, row[year])
-                    r.save()
+    process_year_based(reader, model_model)
 
 
 def process_csv(path):
@@ -68,6 +55,26 @@ def process_csv(path):
     except AttributeError:
         # TODO
         raise
+
+
+def process_year_based(reader, model_model):
+    report_model = model_model.lower()
+
+    Report, unique_together_fields, valid_report_fields = get_report(report_model)
+
+    years_idx_start = 3  # index where field names turn into years
+
+    for row in reader:
+        inst = Institution.objects.get(ipeds_id=row['UnitId'])
+        report_field = underscore(row['label'])
+        # logger.info(extra_info=row)
+        if report_field in valid_report_fields:
+            for year in reader.fieldnames[years_idx_start:]:
+                value = row[year]
+                if value:
+                    r, _ = Report.objects.get_or_create(institution=inst, year=year)
+                    setattr(r, report_field, row[year])
+                    r.save()
 
 
 def process_single_year(year, reader, model_model):
@@ -112,7 +119,7 @@ def process_file(path):
     try:
         report_name, ext = os.path.splitext(os.path.basename(path))
         if ext == ".html":
-            process_year_based(path)
+            process_html(path)
         elif ext == ".csv":
             process_csv(path)
     except NotImplementedReport:
