@@ -25,7 +25,19 @@ class YearBasedInstitutionStatModel(models.Model):
         unique_together = ('year', 'institution')
 
     def __unicode__(self):
-        return u"%d" % self.year
+        return u"%s" % self.year
+
+
+class GenderFieldsMixin(models.Model):
+    gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+
+class EthnicFieldsMixin(object):
+    # gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
+    pass
 
 
 class PriceTrend(YearBasedInstitutionStatModel):
@@ -55,9 +67,8 @@ class GenderManager(models.Manager):
         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel):
+class Admissions(YearBasedInstitutionStatModel, GenderFieldsMixin):
     # TODO make a gender/year based? what about ethnicity?
-    gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
     number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
