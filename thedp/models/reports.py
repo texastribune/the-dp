@@ -7,10 +7,30 @@ in the IPEDS source
 
 __all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates']
 
-GENDER_CHOICES = (
-    ('Men', 'Men'),
-    ('Women', 'Women'),
-    ('Total', 'Total'))
+# GENDER_CHOICES = (
+#     ('Men', 'Men'),
+#     ('Women', 'Women'),
+#     ('Total', 'Total'))
+
+
+# RACE_CHOICES = (
+#     ('nra', 'Nonresident alien'),
+#     ('white', 'White'),
+#     ('black', 'African American'),
+#     ('hispanic', 'Hispanic'),
+#     ('native', 'Native American'),
+#     ('asian', 'Asian/Pacific'),
+#     ('unknown', 'Race/ethnicity unknown'))
+
+
+# IPEDS_RACE_CHOICES = (
+#     ('nra', 'Nonresident alien'),
+#     ('white', 'White non-Hispanic'),
+#     ('black', 'Black non-Hispanic'),
+#     ('hispanic', 'Hispanic'),
+#     ('native', 'American Indian or Alaska Native'),
+#     ('asian', 'Asian or Pacific Islander'),
+#     ('unknown', 'Race/ethnicity unknown'))
 
 
 class YearBasedInstitutionStatModel(models.Model):
@@ -28,18 +48,29 @@ class YearBasedInstitutionStatModel(models.Model):
         return u"%s" % self.year
 
 
-class GenderFieldsMixin(models.Model):
-    gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
+# class GenderFieldsMixin(models.Model):
+#     gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
 
-    class Meta:
-        abstract = True
+#     class Meta:
+#         abstract = True
 
 
-class EthnicFieldsMixin(models.Model):
-    raceethnicity = models.TextField(max_length=20, null=True, blank=True)
+# def make_int_fields(name, fields, prefix=''):
+#     """ Created a model mixin with a series of IntegerFields """
+#     attrs = dict()
 
-    class Meta:
-        abstract = True
+#     for field in fields:
+#         attrs['%s%s' % (prefix, field)] = models.IntegerField(null=True, blank=True)
+
+#     attrs['Meta'] = type('Meta', (), dict(
+#                         abstract=True,
+#                     ))
+#     # attrs['__module__'] = 'schools'
+
+#     return type(name, (models.Model,), attrs)
+
+
+# EthnicFieldsMixin = make_int_fields('EthnicFieldsMixin', dict(RACE_CHOICES).keys(), prefix='total_')
 
 
 class PriceTrend(YearBasedInstitutionStatModel):
@@ -58,18 +89,18 @@ class SATTestScores(YearBasedInstitutionStatModel):
     students_submitting_sat_scores_percent = models.IntegerField(null=True, blank=True)
 
 
-class GenderManager(models.Manager):
-    def men(self):
-        return self.get_query_set().filter(gender='Men')
+# class GenderManager(models.Manager):
+#     def men(self):
+#         return self.get_query_set().filter(gender='Men')
 
-    def women(self):
-        return self.get_query_set().filter(gender='Women')
+#     def women(self):
+#         return self.get_query_set().filter(gender='Women')
 
-    def total(self):
-        return self.get_query_set().filter(gender='Total')
+#     def total(self):
+#         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel, GenderFieldsMixin):
+class Admissions(YearBasedInstitutionStatModel):
     # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
@@ -77,14 +108,14 @@ class Admissions(YearBasedInstitutionStatModel, GenderFieldsMixin):
     percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
     percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
 
-    objects = GenderManager()
+    # objects = GenderManager()
 
     class Meta(YearBasedInstitutionStatModel.Meta):
-        unique_together = ('year', 'institution', 'gender')
+        unique_together = ('year', 'institution')
 
 
-class Degreescertificates(YearBasedInstitutionStatModel, GenderFieldsMixin, EthnicFieldsMixin):
+class Degreescertificates(YearBasedInstitutionStatModel):
     value = models.IntegerField(null=True, blank=True)
 
     class Meta(YearBasedInstitutionStatModel.Meta):
-        unique_together = ('year', 'institution', 'gender', 'raceethnicity')
+        unique_together = ('year', 'institution')
