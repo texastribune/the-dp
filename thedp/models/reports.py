@@ -5,7 +5,8 @@ in the IPEDS source
 
 """
 
-__all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates']
+__all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates',
+'ACTtestscores', 'EnrollmentbystudentlevelFall']
 
 # GENDER_CHOICES = (
 #     ('Men', 'Men'),
@@ -122,6 +123,18 @@ class Admissions(YearBasedInstitutionStatModel):
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
+
+
+# TODO better name
+class EnrollmentbystudentlevelFall(YearBasedInstitutionStatModel):
+    student_level = models.CharField(max_length=40, null=True, blank=True) # TODO choices
+    full_time_men = models.IntegerField(null=True, blank=True)
+    full_time_women = models.IntegerField(null=True, blank=True)
+    full_time_total = models.IntegerField(null=True, blank=True)
+    part_time_men = models.IntegerField(null=True, blank=True)
+    part_time_women = models.IntegerField(null=True, blank=True)
+    part_time_total = models.IntegerField(null=True, blank=True)
+    grand_total = models.IntegerField(null=True, blank=True)
 
 
 class Degreescertificates(YearBasedInstitutionStatModel):
