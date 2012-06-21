@@ -124,7 +124,7 @@ def process_single_year(year, reader, model_model):
 
     for row in reader:
         inst = Institution.objects.get(ipeds_id=row['UnitId'])
-        get_args = dict()
+        get_args = dict(institution=inst, year=year)
         data = dict()
         for key, value in row.items():
             if not value:
@@ -142,17 +142,13 @@ def process_single_year(year, reader, model_model):
                 continue
 
             if fieldname in unique_together_fields:
-                get_args[fieldname] = value
-            if fieldname in valid_report_fields:
+                get_args[str(fieldname)] = value
+            elif fieldname in valid_report_fields:
                 if fieldname.startswith("percent") or fieldname.endswith("percent"):
                     value = value[:-1]  # XXX
                 if value:
                     data[fieldname] = value
-        # XXX
-        if 'gender' in unique_together_fields:
-            r, _ = Report.objects.get_or_create(institution=inst, year=year, gender=get_args['gender'])
-        else:
-            r, _ = Report.objects.get_or_create(institution=inst, year=year)
+        r, _ = Report.objects.get_or_create(**get_args)
         r.__dict__.update(data)
         r.save()
     print "UPDATED %s %s" % (model_model, year)
