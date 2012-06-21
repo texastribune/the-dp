@@ -127,7 +127,12 @@ class Admissions(YearBasedInstitutionStatModel):
 
 # TODO better name
 class EnrollmentbystudentlevelFall(YearBasedInstitutionStatModel):
-    student_level = models.CharField(max_length=40, null=True, blank=True) # TODO choices
+    LEVEL_CHOICES = (
+        ('undergrad', 'Undergraduate total'),
+        ('grad', 'Graduate'),
+        ('pro', 'First-professional'),
+        ('total', 'All students total'))
+    student_level = models.CharField(max_length=40, choices=LEVEL_CHOICES, null=True, blank=True) # TODO choices
     full_time_men = models.IntegerField(null=True, blank=True)
     full_time_women = models.IntegerField(null=True, blank=True)
     full_time_total = models.IntegerField(null=True, blank=True)
@@ -135,6 +140,9 @@ class EnrollmentbystudentlevelFall(YearBasedInstitutionStatModel):
     part_time_women = models.IntegerField(null=True, blank=True)
     part_time_total = models.IntegerField(null=True, blank=True)
     grand_total = models.IntegerField(null=True, blank=True)
+
+    class Meta(YearBasedInstitutionStatModel.Meta):
+        unique_together = ('year', 'institution', 'student_level')
 
 
 class Degreescertificates(YearBasedInstitutionStatModel):

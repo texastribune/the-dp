@@ -4,6 +4,7 @@ import sys
 import os
 
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import FieldDoesNotExist
 from django.template.defaultfilters import slugify
 
 from thedp.models import Institution
@@ -129,6 +130,17 @@ def process_single_year(year, reader, model_model):
             if not value:
                 continue
             fieldname = underscore(key)
+
+            # translate value
+            try:
+                model_field = Report._meta.get_field(fieldname)
+                if model_field.choices:
+                    _ = dict([v, k] for k, v in model_field.choices)
+                    value = _[value]  # let this explode with IndexError
+            except FieldDoesNotExist:
+                # fieldname won't be in unique_together_fields or valid_report_fields
+                continue
+
             if fieldname in unique_together_fields:
                 get_args[fieldname] = value
             if fieldname in valid_report_fields:
