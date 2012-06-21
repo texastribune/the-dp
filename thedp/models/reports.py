@@ -89,6 +89,16 @@ class SATTestScores(YearBasedInstitutionStatModel):
     students_submitting_sat_scores_percent = models.IntegerField(null=True, blank=True)
 
 
+class ACTtestscores(YearBasedInstitutionStatModel):
+    act_composite_25th_percentile = models.IntegerField(null=True, blank=True)
+    act_composite_75th_percentile = models.IntegerField(null=True, blank=True)
+    act_english_25th_percentile = models.IntegerField(null=True, blank=True)
+    act_english_75th_percentile = models.IntegerField(null=True, blank=True)
+    act_math_25th_percentile = models.IntegerField(null=True, blank=True)
+    act_math_75th_percentile = models.IntegerField(null=True, blank=True)
+    students_submitting_act_scores_number = models.IntegerField(null=True, blank=True)
+    students_submitting_act_scores_percent = models.IntegerField(null=True, blank=True)
+
 # class GenderManager(models.Manager):
 #     def men(self):
 #         return self.get_query_set().filter(gender='Men')
