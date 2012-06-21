@@ -48,7 +48,7 @@ def process_csv(path):
     f.readline()  # skip first line
     info_string = f.readline()
     try:
-        report_name, year_range = re.match(r"^(.+)\s([\-\d]+),$", info_string).groups()
+        report_name, year_range = re.match(r"^(.+)\s(?:Fall\s)([\-\d]+),$", info_string).groups()
         year = year_range[:2] + year_range[-2:]
         model_model = report_name.replace(" ", "")
         reader = DictReader(f)

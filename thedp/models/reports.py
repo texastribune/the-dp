@@ -6,7 +6,7 @@ in the IPEDS source
 """
 
 __all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates',
-'ACTtestscores', 'EnrollmentbystudentlevelFall']
+'ACTtestscores', 'Enrollmentbystudentlevel']
 
 # GENDER_CHOICES = (
 #     ('Men', 'Men'),
@@ -126,13 +126,14 @@ class Admissions(YearBasedInstitutionStatModel):
 
 
 # TODO better name
-class EnrollmentbystudentlevelFall(YearBasedInstitutionStatModel):
+class Enrollmentbystudentlevel(YearBasedInstitutionStatModel):
+    # these choices are how they are found in the CSV
     LEVEL_CHOICES = (
         ('undergrad', 'Undergraduate total'),
         ('grad', 'Graduate'),
         ('pro', 'First-professional'),
         ('total', 'All students total'))
-    student_level = models.CharField(max_length=40, choices=LEVEL_CHOICES, null=True, blank=True) # TODO choices
+    student_level = models.CharField(max_length=40, choices=LEVEL_CHOICES, null=True, blank=True)
     full_time_men = models.IntegerField(null=True, blank=True)
     full_time_women = models.IntegerField(null=True, blank=True)
     full_time_total = models.IntegerField(null=True, blank=True)
