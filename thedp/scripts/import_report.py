@@ -127,6 +127,7 @@ def process_single_year(year, reader, model_model):
         get_args = dict(institution=inst, year=year)
         data = dict()
         for key, value in row.items():
+            value = value.strip()
             if not value:
                 continue
             fieldname = underscore(key)
@@ -150,11 +151,16 @@ def process_single_year(year, reader, model_model):
                     data[fieldname] = value
         r, _ = Report.objects.get_or_create(**get_args)
         r.__dict__.update(data)
-        r.save()
+        try:
+            r.save()
+        except ValueError:
+            # XXX hack for trying to save bad data
+            pass
     print "UPDATED %s %s" % (model_model, year)
 
 
 def process_file(path):
+    print "start process", path
     try:
         report_name, ext = os.path.splitext(os.path.basename(path))
         if ext == ".html":
@@ -164,6 +170,7 @@ def process_file(path):
     except NotImplementedReport:
         # logger.error()
         pass
+    print "processed", path
 
 
 def main():

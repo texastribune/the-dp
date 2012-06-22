@@ -132,6 +132,7 @@ class Enrollmentbystudentlevel(YearBasedInstitutionStatModel):
         ('undergrad', 'Undergraduate total'),
         ('grad', 'Graduate'),
         ('pro', 'First-professional'),
+        ('gradpro', 'Graduate and first-professional'),
         ('total', 'All students total'))
     student_level = models.CharField(max_length=40, choices=LEVEL_CHOICES, null=True, blank=True)
     full_time_men = models.IntegerField(null=True, blank=True)
