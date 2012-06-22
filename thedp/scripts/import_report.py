@@ -40,6 +40,8 @@ def process_html(path):
     reader.fieldnames[2] = 'label'
     process_year_based(reader, model_model)
 
+NAME_EXTRACTOR = r"^(.+?)\s(?:Fall\s)?([\-\d]+),$"
+
 
 def process_csv(path):
     from csv import DictReader
@@ -48,7 +50,7 @@ def process_csv(path):
     f.readline()  # skip first line
     info_string = f.readline()
     try:
-        report_name, year_range = re.match(r"^(.+)\s(?:Fall\s)([\-\d]+),$", info_string).groups()
+        report_name, year_range = re.match(NAME_EXTRACTOR, info_string).groups()
         year = year_range[:2] + year_range[-2:]
         model_model = report_name.replace(" ", "")
         reader = DictReader(f)
