@@ -3,8 +3,7 @@ Django==1.4
 armstrong.core.arm-layout==1.1.1
 django-extensions
 django-debug-toolbar
-pinax-theme-bootstrap
-
+-e git://github.com/crccheck/pinax-theme-bootstrap.git@5db381d#egg=pinax_theme_bootstrap-dev
 
 # use last good ipython that worked with shell_plus, must go before ipdb
 ipython==0.10.2
