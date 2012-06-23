@@ -14,6 +14,6 @@ urlpatterns = patterns('',
         model=System), name="system_list"),
     url(r'^system/(?P<slug>[-\w]+)/$', RenderModelDetailView.as_view(
         model=System, layout="table"), name="system_detail"),
-    url(r'^SAT/$', SATListView.as_view(), name="sat_search"),
+    url(r'^testing/$', SATListView.as_view(), name="sat_search"),
     url(r'^degrees/$', DegreesListView.as_view(), name="degrees_count"),
 )

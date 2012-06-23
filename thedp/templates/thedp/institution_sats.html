@@ -17,9 +17,7 @@
 .verbal {
   background: blue;
 }
-.math {
-  background: red;
-}
+.math { background: red; }
 </style>
 {% endblock %}
 
@@ -49,6 +47,12 @@
             <span class="label pull-left">{{ object.scores.sat_i_math_25th_percentile }}</span>
             <span class="label pull-right">{{ object.scores.sat_i_math_75th_percentile }}</span>
             <div class="label bar math" style="left: {{ object.bar_m.left }}px; width: {{ object.bar_m.width }}px;">math</div>
+            {% if object.scores2 %}
+              <br>
+              <span class="label pull-left">{{ object.scores2.act_composite_25th_percentile }}</span>
+              <span class="label pull-right">{{ object.scores2.act_composite_75th_percentile }}</span>
+              <div class="label bar label-warning" style="left: {{ object.bar_a.left }}px; width: {{ object.bar_a.width }}px;">act</div>
+            {% endif %}
           </section>
         </td>
       </tr>
