@@ -10,10 +10,11 @@ ipython==0.10.2
 ipdb
 
 
+# app requirements
+lxml==2.3.4
 
 
 # for the initial population of institutions
-# lxml==2.3.4
 # requests==0.13.1
 # text processing
 # nltk
