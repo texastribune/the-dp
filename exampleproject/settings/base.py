@@ -139,7 +139,6 @@ INSTALLED_APPS = [
 
 
     # pinax theme bootstrap
-    'support',
     'pinax_theme_bootstrap',
     'django_forms_bootstrap',
 ]
@@ -152,7 +151,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    "support.context_processors.bootstrap_context")
+    "pinax_theme_bootstrap.context_processors.theme_context")
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
