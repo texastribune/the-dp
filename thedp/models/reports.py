@@ -36,7 +36,7 @@ __all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates',
 
 class YearBasedInstitutionStatModel(models.Model):
     """ base class """
-    year = models.IntegerField(default=1970)
+    year = models.IntegerField(default=1970, verbose_name=u'Year')
     institution = models.ForeignKey('Institution')
 
     class Meta:
@@ -114,6 +114,14 @@ class SATTestScores(YearBasedInstitutionStatModel, SimpleChartable):
     sat_i_math_75th_percentile = models.IntegerField(null=True, blank=True)
     students_submitting_sat_scores_number = models.IntegerField(null=True, blank=True)
     students_submitting_sat_scores_percent = models.IntegerField(null=True, blank=True)
+
+    chart_series = (('year', "%d"),
+                    ('sat_i_verbal_25th_percentile', "%d"),
+                    ('sat_i_verbal_75th_percentile', "%d"),
+                    ('sat_i_math_25th_percentile', "%d"),
+                    ('sat_i_math_75th_percentile', "%d"),
+                    ('students_submitting_sat_scores_number', "%d"),
+                    ('students_submitting_sat_scores_percent', "%d%%"))
 
 
 class ACTtestscores(YearBasedInstitutionStatModel):
