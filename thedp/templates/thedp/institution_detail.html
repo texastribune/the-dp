@@ -29,6 +29,19 @@
     {% endfor %}
   </ul>
 
+  <h3>ACT Scores</h3>
+  75th Percentile: (year &ndash; english / math / composite)
+  <ul>
+    {% for year in object.acttestscores_set.all %}
+      <li>
+        {{ year }} &ndash;
+        {{ year.act_english_75th_percentile }} /
+        {{ year.act_math_75th_percentile }} /
+        {{ year.act_composite_75th_percentile }}
+      </li>
+    {% endfor %}
+  </ul>
+
   <h3>Admissions</h3>
   Year, % admitted, % of admitted who enrolled
   <ul>
