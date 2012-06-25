@@ -2,6 +2,9 @@
 {% load layout_helpers humanize simple_charts %}
 
 
+{% block head_title %}{{ object.name }}{% endblock %}
+
+
 {% block main %}
   {% render_model object "table" %}
 
@@ -35,4 +38,7 @@
       </li>
     {% endfor %}
   </ul>
+
+  <h3>Enrollment</h3>
+  {% simple_chart object "enrollmentbystudentlevel_set" %}
 {% endblock %}

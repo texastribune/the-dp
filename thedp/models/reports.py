@@ -160,7 +160,7 @@ class Admissions(YearBasedInstitutionStatModel):
 
 
 # TODO better name
-class Enrollmentbystudentlevel(YearBasedInstitutionStatModel):
+class Enrollmentbystudentlevel(YearBasedInstitutionStatModel, SimpleChartable):
     # these choices are how they are found in the CSV
     LEVEL_CHOICES = (
         ('undergrad', 'Undergraduate total'),
