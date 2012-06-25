@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped table-condensed">
+  {% block thead %}
+  <thead>
+    <tr>
+      {% for data in object_list.model.chart_header %}
+        <th>{{ data }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  {% endblock %}
+  {% block tbody %}
+  <tbody>
+    {% for row in object_list %}
+      <tr>
+        {% for data in row.chart_set %}
+          <td>{{ data }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+  {% endblock %}
+</table>

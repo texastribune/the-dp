@@ -49,6 +49,22 @@ class YearBasedInstitutionStatModel(models.Model):
         return u"%s" % self.year
 
 
+# XXX
+class SimpleChartable(models.Model):
+    chart_series = []
+
+    class Meta:
+        abstract = True
+        app_label = 'chart'
+
+    def chart_header(self):
+        return [self._meta.get_field(field).verbose_name for field, format in self.chart_series]
+
+    def chart_set(self):
+        # TODO pep-0378, needs python 2.7
+        return [format % getattr(self, field) for field, format in self.chart_series]
+
+
 # class GenderFieldsMixin(models.Model):
 #     gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
 
@@ -74,11 +90,16 @@ class YearBasedInstitutionStatModel(models.Model):
 # EthnicFieldsMixin = make_int_fields('EthnicFieldsMixin', dict(RACE_CHOICES).keys(), prefix='total_')
 
 
-class PriceTrend(YearBasedInstitutionStatModel):
+class PriceTrend(YearBasedInstitutionStatModel, SimpleChartable):
     """ PriceTrend.html """
     on_campus_in_statetotal = models.IntegerField(null=True, blank=True)
     in_state_tuition_and_fees = models.IntegerField(null=True, blank=True)
     out_of_state_tuition_and_fees = models.IntegerField(null=True, blank=True)
+
+    chart_series = (('year', "%d"),
+                    ('on_campus_in_statetotal', "$%d"),
+                    ('in_state_tuition_and_fees', "$%d"),
+                    ('out_of_state_tuition_and_fees', "$%d"))
 
 
 class SATTestScores(YearBasedInstitutionStatModel):
