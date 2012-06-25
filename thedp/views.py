@@ -47,7 +47,7 @@ class SATListView(ListView):
             score = x.scores2
             if score.act_composite_25th_percentile:
                 x.bar_a = dict(left=multiplier * (score.act_composite_25th_percentile - ACTMIN),
-                          width=multiplier * (score.act_composite_25th_percentile - score.act_composite_75th_percentile))
+                          width=multiplier * (score.act_composite_75th_percentile - score.act_composite_25th_percentile))
         return qs
 
 
