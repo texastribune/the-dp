@@ -6,20 +6,10 @@
   {% render_model object "table" %}
 
   <h3>Price Trends</h3>
-  Tuition: (year &ndash; in-state / out-of-state)
   {% simple_chart object "pricetrend_set" %}
 
   <h3>SAT Scores</h3>
-  75th Percentile: (year &ndash; verbal / math)
-  <ul>
-    {% for year in object.sattestscores_set.all %}
-      <li>
-        {{ year }} &ndash;
-        {{ year.sat_i_verbal_75th_percentile }} /
-        {{ year.sat_i_math_75th_percentile }}
-      </li>
-    {% endfor %}
-  </ul>
+  {% simple_chart object "sattestscores_set" %}
 
   <h3>ACT Scores</h3>
   75th Percentile: (year &ndash; english / math / composite)
