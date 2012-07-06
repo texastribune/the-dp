@@ -1,4 +1,7 @@
 from django.db import models
+
+from .base import APP_LABEL
+
 """
 field names are slugified().replace('-', '_') versions of the labels given
 in the IPEDS source
@@ -41,7 +44,7 @@ class YearBasedInstitutionStatModel(models.Model):
 
     class Meta:
         abstract = True
-        app_label = 'thedp'
+        app_label = APP_LABEL
         ordering = ['year']
         unique_together = ('year', 'institution')
 

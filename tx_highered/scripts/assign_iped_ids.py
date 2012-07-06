@@ -9,7 +9,7 @@ import sys
 from htmltableDictReader import DictReader
 from nltk.metrics import edit_distance as distance
 
-from thedp.models import Institution
+from tx_highered.models import Institution
 
 filename = sys.argv[1]
 

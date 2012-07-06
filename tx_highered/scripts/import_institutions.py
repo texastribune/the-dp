@@ -8,7 +8,7 @@ import urllib2
 from django.template.defaultfilters import slugify
 from htmltableDictReader import DictReader
 
-from thedp.models import Institution, System
+from tx_highered.models import Institution, System
 
 # CONFIGURATION
 SOURCE = "http://www.txhighereddata.org/Interactive/Institutionsshow_Excel.cfm?All=1"

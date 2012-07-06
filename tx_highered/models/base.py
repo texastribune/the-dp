@@ -6,6 +6,9 @@ from django.template.defaultfilters import slugify
 __all__ = ['System', 'Institution']
 
 
+APP_LABEL = 'tx_highered'
+
+
 INSTITUTION_CHOICES = (
         ("pub_u", "Public University"),
         ("pub_cc", "Community College"),
@@ -31,7 +34,7 @@ class ContactFieldsMixin(models.Model):
 
     class Meta:
         abstract = True
-        app_label = 'thedp'
+        app_label = APP_LABEL
 
 
 class System(ContactFieldsMixin):

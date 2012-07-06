@@ -1,4 +1,3 @@
-# Django settings for thedp project.
 import os
 
 # From armstrong.cli. This function will eventually be in an armstrong
@@ -21,7 +20,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'thedp',                      # Or path to database file if using sqlite3.
+        'NAME': 'tx_highered',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -136,7 +135,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
 
     'armstrong.core.arm_layout',
-    'thedp',
+    'tx_highered',
 
 
     # pinax theme bootstrap

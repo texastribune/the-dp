@@ -6,7 +6,7 @@ from .views import InstitutionListView, RenderModelDetailView, SATListView, Degr
 
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name="thedp/index.html"), name="home"),
+    url(r'^$', TemplateView.as_view(template_name="tx_highered/index.html"), name="home"),
     url(r'^institution/$', InstitutionListView.as_view(), name="institution_list"),
     url(r'^institution/(?P<slug>[-\w]+)/$', DetailView.as_view(
         model=Institution), name="institution_detail"),

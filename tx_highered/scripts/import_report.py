@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import FieldDoesNotExist
 from django.template.defaultfilters import slugify
 
-from thedp.models import Institution
+from tx_highered.models import Institution
 
 
 class NotImplementedReport(Exception):

@@ -6,7 +6,7 @@ class ImportReport(unittest.TestCase):
     def test_name_extractor_regexp(self):
         import re
 
-        from thedp.scripts.import_report import NAME_EXTRACTOR
+        from tx_highered.scripts.import_report import NAME_EXTRACTOR
 
         info_strings = (
             ("ACT test scores 2009-10,", ("ACT test scores", "2009-10")),
