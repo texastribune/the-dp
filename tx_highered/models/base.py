@@ -60,10 +60,12 @@ class Institution(ContactFieldsMixin):
 
     # Integrated Postsecondary Education Data System ID
     ipeds_id = models.IntegerField(null=True, blank=True)
+    # Federal Interagency Committee on Education ID, used on the State Level
+    fice_id = models.IntegerField(null=True, blank=True)
     # Office of Postsecondary Education ID
     # only Title IV schools have this. This is a 6 digit zero padded number with
     # a two digit suffix for each location/branch
-    ope_id = models.CharField(max_length=8, null=True, blank=True)
+    ope_id = models.IntegerField(null=True, blank=True)
 
     def __unicode__(self):
         if self.system:
