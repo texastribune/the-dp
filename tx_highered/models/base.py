@@ -10,14 +10,12 @@ APP_LABEL = 'tx_highered'
 
 
 INSTITUTION_CHOICES = (
-        ("pub_u", "Public University"),
+        ("uni", "University"),
+        ("med", "Health-Related Institutions"),
         ("pub_cc", "Community College"),
-        ("pub_med", "Public Health-Related Institutions"),
         ("pub_tech", "Technical College System"),
         ("pub_state", "State Colleges"),
-        ("pri_u", "Private University"),
         ("pri_jr", "Junior College"),
-        ("pri_med", "Private Health-Related Institutions"),
         ("pri_chi", "Chiropractic"),
     )
 
@@ -52,6 +50,7 @@ class System(ContactFieldsMixin):
 class Institution(ContactFieldsMixin):
     name = models.CharField(max_length=60)
     slug = models.SlugField(max_length=60, unique=True)
+    is_private = models.BooleanField(default=False)
     institution_type = models.CharField(max_length=30,
             choices=INSTITUTION_CHOICES, null=True, blank=True)
     # administrator officer
