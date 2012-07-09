@@ -17,4 +17,14 @@ class VariableAdmin(admin.ModelAdmin):
     list_display = ('code', 'short_name', 'category', 'long_name')
     list_filter = ('code', 'short_name')
 
+    def make_MVL(self, request, queryset):
+        from django.http import HttpResponse
+        from datetime import datetime
+        response = HttpResponse("".join(queryset.values_list('raw', flat=True)),
+            mimetype="text/plain")
+        filename = datetime.now().isoformat().split('.')[0].replace(':', '-')
+        response['Content-Disposition'] = 'attachment; filename=ipeds-%s.mvl' % filename
+        return response
+    actions = ['make_MVL']
+
 admin.site.register(Variable, VariableAdmin)
