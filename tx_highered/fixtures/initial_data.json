@@ -2989,27 +2989,6 @@
     }
   }, 
   {
-    "pk": 189, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "University of North Texas System", 
-      "url": "www.unt.edu", 
-      "description": null, 
-      "system": 6, 
-      "ipeds_id": null, 
-      "phone": "(940) 565-2000", 
-      "fice_id": null, 
-      "coords": null, 
-      "institution_type": "uni", 
-      "address": "1901 Main Street", 
-      "ope_id": null, 
-      "slug": "university-of-north-texas-system", 
-      "is_private": false, 
-      "zip_code": "75201"
-    }
-  }, 
-  {
     "pk": 190, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3889,6 +3868,27 @@
       "slug": "university-of-dallas", 
       "is_private": true, 
       "zip_code": "75062-4799"
+    }
+  }, 
+  {
+    "pk": 189, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "University of North Texas System", 
+      "url": "http://untsystem.unt.edu/", 
+      "description": "Administrative. Has no students.", 
+      "system": 6, 
+      "ipeds_id": 443711, 
+      "phone": "(940) 565-2000", 
+      "fice_id": null, 
+      "coords": null, 
+      "institution_type": "uni", 
+      "address": "1901 Main Street", 
+      "ope_id": null, 
+      "slug": "university-of-north-texas-system", 
+      "is_private": false, 
+      "zip_code": "75201"
     }
   }, 
   {
