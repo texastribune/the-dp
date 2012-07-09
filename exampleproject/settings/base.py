@@ -137,6 +137,8 @@ INSTALLED_APPS = [
     'armstrong.core.arm_layout',
     'tx_highered',
 
+    'ipeds_importer',
+
 
     # pinax theme bootstrap
     'pinax_theme_bootstrap',
