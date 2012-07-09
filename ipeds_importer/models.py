@@ -24,6 +24,7 @@ class VariableAdmin(admin.ModelAdmin):
         response = HttpResponse("".join(queryset.values_list('raw', flat=True)),
             mimetype="text/plain")
         filename = datetime.now().isoformat().split('.')[0].replace(':', '-')
+        filename += "-q%s" % queryset.count()
         response['Content-Disposition'] = 'attachment; filename=ipeds-%s.mvl' % filename
         return response
     actions = ['make_MVL']
