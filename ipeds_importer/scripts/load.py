@@ -2,6 +2,7 @@
 
 # Usage: ./load.py /path/to/DC_MasterFile_79930.mvl
 
+import re
 import sys
 
 from ipeds_importer.models import Variable
@@ -15,6 +16,7 @@ with open(path, "r") as f:
     for row in f:
         bits = row.split('|')
         code, short_name, category, long_name = bits[0:4]
+        code = re.match(r'([a-zA-Z]+)', code).groups()[0]
         data = dict(code=code,
                     short_name=short_name,
                     category=category,
