@@ -39,7 +39,12 @@ __all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates',
 
 class YearBasedInstitutionStatModel(models.Model):
     """ base class """
+    YEAR_TYPE_CHOICES = (
+        ('academic', 'Academic'),  # 2003-2004
+        ('calendar', 'Calendar'),  # 2004
+        ('fall', 'Fall'))          # F04
     year = models.IntegerField(default=1970, verbose_name=u'Year')
+    year_type = models.CharField(max_length=10, choices=YEAR_TYPE_CHOICES, null=True)
     institution = models.ForeignKey('Institution')
 
     class Meta:
@@ -50,6 +55,19 @@ class YearBasedInstitutionStatModel(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.year
+
+    def get_display_year(self):
+        if not self.year_type or self.year_type == 'calendar':
+            return self.year
+        elif self.year_type == 'academic':
+            return "%d-%d" % (self.year - 1, self.year)
+        elif self.year_type == 'fall':
+            return "F%02d" % (self.year % 100)
+        return "%d %s" % (self.year, self.year_type)
+
+    @property
+    def display_year(self):
+        return self.get_display_year()
 
 
 # XXX
