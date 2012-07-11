@@ -15,24 +15,9 @@ from tx_highered.models import Institution, PriceTrends
 
 # configuration
 FIELD_MAPPING = (
-    ('SATNUM', 'sat_submitted_number'),
-    ('SATPCT', 'sat_submitted_percent'),
-    ('ACTNUM', 'act_submitted_number'),
-    ('ACTPCT', 'act_submitted_percent'),
-    ('SATVR25', 'sat_verbal_25th_percentile'),
-    ('SATVR75', 'sat_verbal_75th_percentile'),
-    ('SATMT25', 'sat_math_25th_percentile'),
-    ('SATMT75', 'sat_math_75th_percentile'),
-    ('SATWR25', 'sat_writing_25th_percentile'),
-    ('SATWR75', 'sat_writing_75th_percentile'),
-    ('ACTCM25', 'act_composite_25th_percentile'),
-    ('ACTCM75', 'act_composite_75th_percentile'),
-    ('ACTEN25', 'act_english_25th_percentile'),
-    ('ACTEN75', 'act_english_75th_percentile'),
-    ('ACTMT25', 'act_math_25th_percentile'),
-    ('ACTMT75', 'act_math_75th_percentile'),
-    ('ACTWR25', 'act_writing_25th_percentile'),
-    ('ACTWR75', 'act_writing_75th_percentile'))
+    ('chg2ay3', 'tuition_fees_in_state'),
+    ('chg3ay3', 'tuition_fees_outof_state'),
+    ('chg4ay3', 'books_and_supplies'))
 PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
 YEAR_TYPE = 'fall'
 
@@ -40,5 +25,5 @@ YEAR_TYPE = 'fall'
 path = sys.argv[1]
 reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,
                         primary_mapping=PRIMARY_MAPPING, year_type=YEAR_TYPE)
-reader.explain_header()
-# reader.parse_rows(institution_model=Institution, report_model=PriceTrends)
+# reader.explain_header()
+reader.parse_rows(institution_model=Institution, report_model=PriceTrends)

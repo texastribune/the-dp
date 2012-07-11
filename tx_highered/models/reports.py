@@ -98,15 +98,17 @@ class YearBasedInstitutionStatModel(models.Model):
 
 
 class PriceTrends(YearBasedInstitutionStatModel, SimpleChartable):
-    """ PriceTrend.html """
-    on_campus_in_statetotal = models.IntegerField(null=True, blank=True)
-    in_state_tuition_and_fees = models.IntegerField(null=True, blank=True)
-    out_of_state_tuition_and_fees = models.IntegerField(null=True, blank=True)
+    tuition_fees_in_state = models.IntegerField(null=True,
+        verbose_name=u"In-State Tuition & Fees")
+    tuition_fees_outof_state = models.IntegerField(null=True,
+        verbose_name=u"Out-Of-State Tuition & Fees")
+    books_and_supplies = models.IntegerField(null=True,
+        verbose_name=u"Books & Supplies")
 
     chart_series = (('year', "%d"),
-                    ('on_campus_in_statetotal', "$%d"),
-                    ('in_state_tuition_and_fees', "$%d"),
-                    ('out_of_state_tuition_and_fees', "$%d"))
+                    ('tuition_fees_in_state', "$%d"),
+                    ('tuition_fees_outof_state', "$%d"),
+                    ('books_and_supplies', "$%d"))
 
 
 #############################################################################
