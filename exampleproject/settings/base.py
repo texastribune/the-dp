@@ -135,6 +135,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
 
     'armstrong.core.arm_layout',
+    'chartable',
     'tx_highered',
 
     'ipeds_importer',

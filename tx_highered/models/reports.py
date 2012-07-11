@@ -1,5 +1,7 @@
 from django.db import models
 
+from chartable.models import SimpleChartable
+
 from .base import APP_LABEL
 
 """
@@ -68,27 +70,6 @@ class YearBasedInstitutionStatModel(models.Model):
     @property
     def display_year(self):
         return self.get_display_year()
-
-
-# XXX
-class SimpleChartable(models.Model):
-    chart_series = []
-
-    class Meta:
-        abstract = True
-        app_label = 'chart'
-
-    def get_chart_series(self):
-        if self.chart_series:
-            return self.chart_series
-        return [(x, "%s") for x in self._meta.get_all_field_names()]
-
-    def chart_header(self):
-        return [self._meta.get_field(field).verbose_name for field, format in self.get_chart_series()]
-
-    def chart_set(self):
-        # TODO pep-0378, needs python 2.7
-        return [format % getattr(self, field) for field, format in self.get_chart_series()]
 
 
 # class GenderFieldsMixin(models.Model):
