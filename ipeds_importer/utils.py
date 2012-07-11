@@ -33,6 +33,7 @@ class IpedsCsvReader(object):
                 continue
             if name in fields:
                 years[year].append((idx, fields[name]))
+        self.header = header
         self.primary_idx = primary_idx
         self.years_data = years
 
@@ -48,3 +49,16 @@ class IpedsCsvReader(object):
                         setattr(instance, name, row[idx])
                 instance.save()
                 print instance
+
+    def explain_header(self):
+        from .models import Variable
+        name_set = set()
+        for cell in self.header:
+            try:
+                name, code = re.match(r'(\w+)\((\w+)\)', cell).groups()
+                var = Variable.objects.filter(raw__startswith="%s|%s|" % (code, name))[0]
+            except AttributeError:
+                continue
+            name_set.add(name)
+            print name, code, var.long_name
+        print "%d Unique Variables: %s" % (len(name_set), sorted(name_set))
