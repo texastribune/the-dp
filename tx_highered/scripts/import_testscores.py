@@ -5,18 +5,14 @@ UnitID,Institution Name,ENRLT(IC2011),APPLCN(IC2011),ADMSSN(IC2011),SATNUM(IC201
 222178,Abilene Christian University,864,3470,2234,343,40,519,60,490,620,505,,,610,22,28,21,29,21,27,,,980,4106,2157,533,54,445,45,500,610,510,,,520,22,28,21,29,21,27,,,983,3712,1823,533,55,447,45,480,600,490,,,620,21,27,20,28,20,26,,,971,3897,1820,531,55,433,45,485,610,490,,,615,21,27,21,28,20,27,,,892,3900,1840,456,51,431,48,480,610,490,,,620,20,26,20,27,19,26,963,3661,1914,497,52,462,48,480,620,490,,,630,20,27,20,28,19,26,1031,3825,2097,596,58,430,42,490,623,490,630,20,26,20,27,19,25,1020,3694,1988,530,52,463,45,490,630,490,620,20,27,20,28,19,26,950,4011,2117,513,54,432,45,490,600,490,610,21,26,21,27,19,26,941,3029,1855,729,77,678,72,480,610,470,610,20,26,19,27,18,26,1031,3056,2004,488,47,520,50,490,610,490,610,21,27,21,28,19,26,
 """
 
-import csv
-import re
 import sys
-from collections import defaultdict
+
+from ipeds_importer.utils import IpedsCsvReader
 
 from tx_highered.models import Institution, TestScores
 
-path = sys.argv[1]
 
-reader = csv.reader(open(path, "rb"))
-
-
+# configuration
 FIELD_MAPPING = (
     ('SATNUM', 'sat_submitted_number'),
     ('SATPCT', 'sat_submitted_percent'),
@@ -39,30 +35,8 @@ FIELD_MAPPING = (
 PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
 YEAR_TYPE = 'fall'
 
-# process header
-header = reader.next()
-years = defaultdict(list)
-fields = dict(FIELD_MAPPING)
-primary_idx = None
-for idx, cell in enumerate(header):
-    if cell == PRIMARY_MAPPING[0]:
-        primary_idx = idx
-        continue
-    try:
-        name, year = re.match(r'(\w+)\([a-zA-Z]+(\d+)', cell).groups()
-    except AttributeError:
-        continue
-    if name in fields:
-        years[year].append((idx, fields[name]))
 
-for row in reader:
-    inst = Institution.objects.get(ipeds_id=row[primary_idx])
-    for year in years:
-        instance, _ = TestScores.objects.get_or_create(institution=inst, year=year,
-            defaults=dict(year_type=YEAR_TYPE))
-        for idx, name in years[year]:
-            if row[idx]:
-                setattr(instance, name, row[idx])
-        instance.save()
-        print instance
-
+path = sys.argv[1]
+reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,
+                        primary_mapping=PRIMARY_MAPPING, year_type=YEAR_TYPE)
+reader.parse_rows(institution_model=Institution, report_model=TestScores)
