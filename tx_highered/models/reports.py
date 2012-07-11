@@ -8,8 +8,8 @@ in the IPEDS source
 
 """
 
-__all__ = ['PriceTrend', 'SATTestScores', 'Admissions', 'Degreescertificates',
-'ACTtestscores', 'Enrollmentbystudentlevel']
+__all__ = ['PriceTrend', 'TestScores', 'Admissions', 'Degreescertificates',
+'Enrollmentbystudentlevel']
 
 # GENDER_CHOICES = (
 #     ('Men', 'Men'),
@@ -128,32 +128,30 @@ class PriceTrend(YearBasedInstitutionStatModel, SimpleChartable):
                     ('out_of_state_tuition_and_fees', "$%d"))
 
 
-class SATTestScores(YearBasedInstitutionStatModel, SimpleChartable):
-    sat_i_verbal_25th_percentile = models.IntegerField(null=True, blank=True)
-    sat_i_verbal_75th_percentile = models.IntegerField(null=True, blank=True)
-    sat_i_math_25th_percentile = models.IntegerField(null=True, blank=True)
-    sat_i_math_75th_percentile = models.IntegerField(null=True, blank=True)
-    students_submitting_sat_scores_number = models.IntegerField(null=True, blank=True)
-    students_submitting_sat_scores_percent = models.IntegerField(null=True, blank=True)
+#############################################################################
+#   Admissions
+#############################################################################
+class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
+    # possible data sources: IPEDS
+    sat_verbal_25th_percentile = models.IntegerField(null=True)
+    sat_verbal_75th_percentile = models.IntegerField(null=True)
+    sat_math_25th_percentile = models.IntegerField(null=True)
+    sat_math_75th_percentile = models.IntegerField(null=True)
+    sat_writing_25th_percentile = models.IntegerField(null=True)
+    sat_writing_75th_percentile = models.IntegerField(null=True)
+    sat_submitted_number = models.IntegerField(null=True)
+    sat_submitted_percent = models.IntegerField(null=True)
+    act_composite_25th_percentile = models.IntegerField(null=True)
+    act_composite_75th_percentile = models.IntegerField(null=True)
+    act_english_25th_percentile = models.IntegerField(null=True)
+    act_english_75th_percentile = models.IntegerField(null=True)
+    act_math_25th_percentile = models.IntegerField(null=True)
+    act_math_75th_percentile = models.IntegerField(null=True)
+    act_writing_25th_percentile = models.IntegerField(null=True)
+    act_writing_75th_percentile = models.IntegerField(null=True)
+    act_submitted_number = models.IntegerField(null=True)
+    act_submitted_percent = models.IntegerField(null=True)
 
-    chart_series = (('year', "%d"),
-                    ('sat_i_verbal_25th_percentile', "%d"),
-                    ('sat_i_verbal_75th_percentile', "%d"),
-                    ('sat_i_math_25th_percentile', "%d"),
-                    ('sat_i_math_75th_percentile', "%d"),
-                    ('students_submitting_sat_scores_number', "%d"),
-                    ('students_submitting_sat_scores_percent', "%d%%"))
-
-
-class ACTtestscores(YearBasedInstitutionStatModel):
-    act_composite_25th_percentile = models.IntegerField(null=True, blank=True)
-    act_composite_75th_percentile = models.IntegerField(null=True, blank=True)
-    act_english_25th_percentile = models.IntegerField(null=True, blank=True)
-    act_english_75th_percentile = models.IntegerField(null=True, blank=True)
-    act_math_25th_percentile = models.IntegerField(null=True, blank=True)
-    act_math_75th_percentile = models.IntegerField(null=True, blank=True)
-    students_submitting_act_scores_number = models.IntegerField(null=True, blank=True)
-    students_submitting_act_scores_percent = models.IntegerField(null=True, blank=True)
 
 # class GenderManager(models.Manager):
 #     def men(self):
