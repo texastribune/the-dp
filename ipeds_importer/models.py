@@ -14,7 +14,7 @@ from django.contrib import admin
 
 
 class VariableAdmin(admin.ModelAdmin):
-    list_display = ('code', 'short_name', 'category', 'long_name')
+    list_display = ('long_name', 'code', 'short_name', 'category')
     list_filter = ('code', 'short_name')
     list_per_page = 250  # limit of 250 variables per report
 
