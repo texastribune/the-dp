@@ -17,6 +17,7 @@ class VariableAdmin(admin.ModelAdmin):
     list_display = ('long_name', 'code', 'short_name', 'category')
     list_filter = ('code', 'short_name')
     list_per_page = 250  # limit of 250 variables per report
+    search_fields = ('category', 'long_name')
 
     def make_MVL(self, request, queryset):
         from django.http import HttpResponse
