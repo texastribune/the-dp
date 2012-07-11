@@ -37,6 +37,7 @@ FIELD_MAPPING = (
     ('ACTWR25', 'act_writing_25th_percentile'),
     ('ACTWR75', 'act_writing_75th_percentile'))
 PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
+YEAR_TYPE = 'fall'
 
 # process header
 header = reader.next()
@@ -57,7 +58,8 @@ for idx, cell in enumerate(header):
 for row in reader:
     inst = Institution.objects.get(ipeds_id=row[primary_idx])
     for year in years:
-        instance, _ = TestScores.objects.get_or_create(institution=inst, year=year)
+        instance, _ = TestScores.objects.get_or_create(institution=inst, year=year,
+            defaults=dict(year_type=YEAR_TYPE))
         for idx, name in years[year]:
             if row[idx]:
                 setattr(instance, name, row[idx])
