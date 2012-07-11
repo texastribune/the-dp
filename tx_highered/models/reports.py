@@ -10,7 +10,7 @@ in the IPEDS source
 
 """
 
-__all__ = ['PriceTrend', 'TestScores', 'Admissions', 'Degreescertificates',
+__all__ = ['PriceTrends', 'TestScores', 'Admissions', 'Degreescertificates',
 'Enrollmentbystudentlevel']
 
 # GENDER_CHOICES = (
@@ -97,7 +97,7 @@ class YearBasedInstitutionStatModel(models.Model):
 # EthnicFieldsMixin = make_int_fields('EthnicFieldsMixin', dict(RACE_CHOICES).keys(), prefix='total_')
 
 
-class PriceTrend(YearBasedInstitutionStatModel, SimpleChartable):
+class PriceTrends(YearBasedInstitutionStatModel, SimpleChartable):
     """ PriceTrend.html """
     on_campus_in_statetotal = models.IntegerField(null=True, blank=True)
     in_state_tuition_and_fees = models.IntegerField(null=True, blank=True)
