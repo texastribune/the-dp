@@ -18,10 +18,10 @@ reader = csv.reader(open(path, "rb"))
 
 
 FIELD_MAPPING = (
-    ('SATNUM', 'students_submitting_sat_scores_number'),
-    ('SATPCT', 'students_submitting_sat_scores_percent'),
-    ('ACTNUM', 'students_submitting_act_scores_number'),
-    ('ACTPCT', 'students_submitting_act_scores_percent'),
+    ('SATNUM', 'sat_submitted_number'),
+    ('SATPCT', 'sat_submitted_percent'),
+    ('ACTNUM', 'act_submitted_number'),
+    ('ACTPCT', 'act_submitted_percent'),
     ('SATVR25', 'sat_verbal_25th_percentile'),
     ('SATVR75', 'sat_verbal_75th_percentile'),
     ('SATMT25', 'sat_math_25th_percentile'),

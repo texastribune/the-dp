@@ -139,8 +139,8 @@ class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
     sat_math_75th_percentile = models.IntegerField(null=True)
     sat_writing_25th_percentile = models.IntegerField(null=True)
     sat_writing_75th_percentile = models.IntegerField(null=True)
-    students_submitting_sat_scores_number = models.IntegerField(null=True)
-    students_submitting_sat_scores_percent = models.IntegerField(null=True)
+    sat_submitted_number = models.IntegerField(null=True)
+    sat_submitted_percent = models.IntegerField(null=True)
     act_composite_25th_percentile = models.IntegerField(null=True)
     act_composite_75th_percentile = models.IntegerField(null=True)
     act_english_25th_percentile = models.IntegerField(null=True)
@@ -149,8 +149,8 @@ class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
     act_math_75th_percentile = models.IntegerField(null=True)
     act_writing_25th_percentile = models.IntegerField(null=True)
     act_writing_75th_percentile = models.IntegerField(null=True)
-    students_submitting_act_scores_number = models.IntegerField(null=True)
-    students_submitting_act_scores_percent = models.IntegerField(null=True)
+    act_submitted_number = models.IntegerField(null=True)
+    act_submitted_percent = models.IntegerField(null=True)
 
 
 # class GenderManager(models.Manager):
