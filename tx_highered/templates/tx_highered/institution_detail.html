@@ -20,16 +20,7 @@
   {% simple_chart object.testscores_set.all "simple_chart" %}
 
   <h3>Admissions</h3>
-  Year, % admitted, % of admitted who enrolled
-  <ul>
-    {% for year in object.admissions_set.all %}
-      <li>
-        {{ year }} &ndash;
-        {{ year.percent_of_applicants_admitted }}%
-        {{ year.percent_of_admitted_who_enrolled }}%
-      </li>
-    {% endfor %}
-  </ul>
+  {% simple_chart object.admissions_set.all "simple_chart" %}
 
   <h3>Enrollment</h3>
   {% simple_chart object.enrollment_set.all "simple_chart" %}

@@ -44,7 +44,7 @@ class ChartsRenderQuerysetBackend(object):
         dictionary = dictionary or {}
         object_list = qs
         dictionary["object_list"] = object_list.all()
-        template_name = self.get_layout_template_name(object_list.model, "simple_chart")
+        template_name = self.get_layout_template_name(object_list.model, name)
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
 

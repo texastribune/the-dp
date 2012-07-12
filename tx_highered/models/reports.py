@@ -147,7 +147,7 @@ class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
 #         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel):
+class Admissions(YearBasedInstitutionStatModel, SimpleChartable):
     # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
