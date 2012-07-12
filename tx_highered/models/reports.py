@@ -51,6 +51,9 @@ class YearBasedInstitutionStatModel(models.Model):
     year_type = models.CharField(max_length=10, choices=YEAR_TYPE_CHOICES, null=True)
     institution = models.ForeignKey('Institution')
 
+    # eehhhh, this doesn't really belong here but whatever
+    chart_excluded_fields = ('id', 'institution',)
+
     class Meta:
         abstract = True
         app_label = APP_LABEL
