@@ -57,6 +57,27 @@ def testscores(path):
     reader.parse_rows(institution_model=Institution, report_model=TestScores)
 
 
+def enrollment(path):
+    from tx_highered.models import Enrollment
+    # configuration
+    FIELD_MAPPING = (
+        ('PctEnrWh', 'total_percent_white'),
+        ('PctEnrBK', 'total_percent_black'),
+        ('PctEnrHS', 'total_percent_hispanic'),
+        ('PctEnrAP', 'total_percent_asian'),
+        ('PctEnrAN', 'total_percent_native'),
+        ('PctEnrUn', 'total_percent_unknown'),
+        ('ENRTOT', 'total'),
+        ('FTE', 'fulltime_equivalent'),
+        ('EnrFt', 'fulltime'),
+        ('EnrPt', 'parttime'))
+    PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
+    YEAR_TYPE = 'fall'
+    reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,
+                            primary_mapping=PRIMARY_MAPPING, year_type=YEAR_TYPE)
+    reader.parse_rows(institution_model=Institution, report_model=Enrollment)
+
+
 report = sys.argv[-2]
 path = sys.argv[-1]
 
@@ -64,6 +85,8 @@ if report == 'prices':
     prices(path)
 elif report == 'testscores':
     testscores(path)
+elif report == 'enrollment':
+    enrollment(path)
 else:
     reader = IpedsCsvReader(open(path, "rb"))
     reader.explain_header()

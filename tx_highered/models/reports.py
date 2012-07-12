@@ -11,7 +11,7 @@ in the IPEDS source
 """
 
 __all__ = ['PriceTrends', 'TestScores', 'Admissions', 'Degreescertificates',
-'Enrollmentbystudentlevel']
+'Enrollment', 'Enrollmentbystudentlevel']
 
 # GENDER_CHOICES = (
 #     ('Men', 'Men'),
@@ -159,6 +159,20 @@ class Admissions(YearBasedInstitutionStatModel):
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
+
+
+class Enrollment(YearBasedInstitutionStatModel, SimpleChartable):
+    total = models.IntegerField(null=True)
+    fulltime_equivalent = models.IntegerField(null=True)
+    fulltime = models.IntegerField(null=True)
+    parttime = models.IntegerField(null=True)
+    # TODO better list that works with IPEDS and THECB
+    total_percent_white = models.IntegerField(null=True)
+    total_percent_black = models.IntegerField(null=True)
+    total_percent_hispanic = models.IntegerField(null=True)
+    total_percent_native = models.IntegerField(null=True)
+    total_percent_asian = models.IntegerField(null=True)
+    total_percent_unknown = models.IntegerField(null=True)
 
 
 # TODO better name
