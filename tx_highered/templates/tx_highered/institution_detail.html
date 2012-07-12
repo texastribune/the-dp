@@ -1,5 +1,6 @@
 {% extends "tx_highered/app_base.html" %}
 {% load layout_helpers humanize simple_charts %}
+{% load staticfiles %}
 
 
 {% block head_title %}{{ object.name }}{% endblock %}
@@ -8,8 +9,12 @@
 {% block main %}
   {% render_model object "table" %}
 
-  <h3>Price Trends</h3>
-  {% simple_chart object "pricetrends_set" %}
+  <section id="pricetrends">
+    <header>
+      <h3>Price Trends</h3>
+    </header>
+    {% simple_chart object "pricetrends_set" %}
+  </section>
 
   <h3>Test Scores</h3>
   {% simple_chart object "testscores_set" %}
@@ -28,4 +33,21 @@
 
   <h3>Enrollment</h3>
   {% simple_chart object "enrollmentbystudentlevel_set" %}
+{% endblock %}
+
+
+{% block extra_style %}{{ block.super }}
+<style>
+  .ui-tablebar { color: #333; background: #DACD99; }
+</style>
+{% endblock %}
+
+
+{% block extra_script %}{{ block.super }}
+<script src="{% static 'js/jquery.tablebars.js' %}"></script>
+<script>
+  $('#pricetrends table > thead > tr > *').slice(1).attr('data-tablebars', '1')
+  $('#pricetrends table').tablebars();
+
+</script>
 {% endblock %}
