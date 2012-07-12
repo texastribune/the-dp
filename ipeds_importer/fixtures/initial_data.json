@@ -6928,5 +6928,1380 @@
       "short_name": "chg9ay3", 
       "raw": "IC2000_AY|chg9ay3|Price of attendance for full-time, first-time undergraduate students (academic year programs)|Off campus (with family), other expenses 2000-2001|||||||||||||00.12071|Xchg9ay3.IC2000_AY|Cont|TN|N||609|||||\r\n"
     }
+  }, 
+  {
+    "pk": 4181, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, all students", 
+      "code": "EF", 
+      "short_name": "DVEF01", 
+      "raw": "DRVEF2010|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||10.23401|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4182, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF02", 
+      "raw": "DRVEF2010|DVEF02|Fall enrollment/retention rates|Adult age (25-64) enrollment, undergraduate|||||||||||||10.23402|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4183, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, graduate", 
+      "code": "EF", 
+      "short_name": "DVEF03", 
+      "raw": "DRVEF2010|DVEF03|Fall enrollment/retention rates|Adult age (25-64) enrollment, graduate|||||||||||||10.23403|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4184, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time students", 
+      "code": "EF", 
+      "short_name": "DVEF05", 
+      "raw": "DRVEF2010|DVEF05|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time students|||||||||||||10.23405|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4185, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF06", 
+      "raw": "DRVEF2010|DVEF06|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time undergraduate|||||||||||||10.23406|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4186, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF07", 
+      "raw": "DRVEF2010|DVEF07|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time graduate|||||||||||||10.23407|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4187, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time students", 
+      "code": "EF", 
+      "short_name": "DVEF09", 
+      "raw": "DRVEF2010|DVEF09|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time students|||||||||||||10.23409|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4188, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF10", 
+      "raw": "DRVEF2010|DVEF10|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time undergraduate|||||||||||||10.23410|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4189, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF11", 
+      "raw": "DRVEF2010|DVEF11|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time graduate|||||||||||||10.23411|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4190, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment under 18", 
+      "code": "EF", 
+      "short_name": "DVEF13", 
+      "raw": "DRVEF2010|DVEF13|Fall enrollment/retention rates|Percent of undergraduate enrollment under 18|||||||||||||10.23413|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4191, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment 18-24", 
+      "code": "EF", 
+      "short_name": "DVEF14", 
+      "raw": "DRVEF2010|DVEF14|Fall enrollment/retention rates|Percent of undergraduate enrollment 18-24|||||||||||||10.23414|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4192, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment, 25-64", 
+      "code": "EF", 
+      "short_name": "DVEF15", 
+      "raw": "DRVEF2010|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||10.23415|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4193, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment over 65", 
+      "code": "EF", 
+      "short_name": "DVEF16", 
+      "raw": "DRVEF2010|DVEF16|Fall enrollment/retention rates|Percent of undergraduate enrollment over 65|||||||||||||10.23416|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4194, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White", 
+      "code": "EF", 
+      "short_name": "PctEnrWh", 
+      "raw": "DRVEF2010|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White|||||||||||||10.23315|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4195, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black or African American", 
+      "code": "EF", 
+      "short_name": "PctEnrBK", 
+      "raw": "DRVEF2010|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black or African American|||||||||||||10.23320|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4196, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic/Latino", 
+      "code": "EF", 
+      "short_name": "PctEnrHS", 
+      "raw": "DRVEF2010|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic/Latino|||||||||||||10.23325|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4197, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian/Native Hawaiian/Pacific Islander", 
+      "code": "EF", 
+      "short_name": "PctEnrAP", 
+      "raw": "DRVEF2010|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian/Native Hawaiian/Pacific Islander|||||||||||||10.23330|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4198, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are American Indian or Alaska Native", 
+      "code": "EF", 
+      "short_name": "PctEnrAN", 
+      "raw": "DRVEF2010|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment that are American Indian or Alaska Native|||||||||||||10.23335|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4199, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "EF", 
+      "short_name": "PctEnrUn", 
+      "raw": "DRVEF2010|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||10.23340|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4200, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Nonresident Alien", 
+      "code": "EF", 
+      "short_name": "PctEnrNr", 
+      "raw": "DRVEF2010|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Nonresident Alien|||||||||||||10.23345|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4201, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian", 
+      "code": "EF", 
+      "short_name": "PCTENRAS", 
+      "raw": "DRVEF2010|PCTENRAS|Fall enrollment/retention rates|Percent of total enrollment that are Asian|||||||||||||10.24781|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4202, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Native Hawaiian or Other Pacific Islander", 
+      "code": "EF", 
+      "short_name": "PCTENRNH", 
+      "raw": "DRVEF2010|PCTENRNH|Fall enrollment/retention rates|Percent of total enrollment that are Native Hawaiian or Other Pacific Islander|||||||||||||10.24786|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4203, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, all students", 
+      "code": "EF", 
+      "short_name": "DVEF01", 
+      "raw": "DRVEF2009_RV|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||09.23401|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4204, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF02", 
+      "raw": "DRVEF2009_RV|DVEF02|Fall enrollment/retention rates|Adult age (25-64) enrollment, undergraduate|||||||||||||09.23402|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4205, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, graduate", 
+      "code": "EF", 
+      "short_name": "DVEF03", 
+      "raw": "DRVEF2009_RV|DVEF03|Fall enrollment/retention rates|Adult age (25-64) enrollment, graduate|||||||||||||09.23403|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4206, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time students", 
+      "code": "EF", 
+      "short_name": "DVEF05", 
+      "raw": "DRVEF2009_RV|DVEF05|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time students|||||||||||||09.23405|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4207, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF06", 
+      "raw": "DRVEF2009_RV|DVEF06|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time undergraduate|||||||||||||09.23406|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4208, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF07", 
+      "raw": "DRVEF2009_RV|DVEF07|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time graduate|||||||||||||09.23407|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4209, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time students", 
+      "code": "EF", 
+      "short_name": "DVEF09", 
+      "raw": "DRVEF2009_RV|DVEF09|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time students|||||||||||||09.23409|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4210, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF10", 
+      "raw": "DRVEF2009_RV|DVEF10|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time undergraduate|||||||||||||09.23410|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4211, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF11", 
+      "raw": "DRVEF2009_RV|DVEF11|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time graduate|||||||||||||09.23411|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4212, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment under 18", 
+      "code": "EF", 
+      "short_name": "DVEF13", 
+      "raw": "DRVEF2009_RV|DVEF13|Fall enrollment/retention rates|Percent of undergraduate enrollment under 18|||||||||||||09.23413|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4213, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment 18-24", 
+      "code": "EF", 
+      "short_name": "DVEF14", 
+      "raw": "DRVEF2009_RV|DVEF14|Fall enrollment/retention rates|Percent of undergraduate enrollment 18-24|||||||||||||09.23414|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4214, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment, 25-64", 
+      "code": "EF", 
+      "short_name": "DVEF15", 
+      "raw": "DRVEF2009_RV|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||09.23415|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4215, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment over 65", 
+      "code": "EF", 
+      "short_name": "DVEF16", 
+      "raw": "DRVEF2009_RV|DVEF16|Fall enrollment/retention rates|Percent of undergraduate enrollment over 65|||||||||||||09.23416|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4216, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White", 
+      "code": "EF", 
+      "short_name": "PctEnrWh", 
+      "raw": "DRVEF2009_RV|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White|||||||||||||09.23315|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4217, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black or African American", 
+      "code": "EF", 
+      "short_name": "PctEnrBK", 
+      "raw": "DRVEF2009_RV|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black or African American|||||||||||||09.23320|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4218, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic/Latino", 
+      "code": "EF", 
+      "short_name": "PctEnrHS", 
+      "raw": "DRVEF2009_RV|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic/Latino|||||||||||||09.23325|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4219, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian/Native Hawaiian/Pacific Islander", 
+      "code": "EF", 
+      "short_name": "PctEnrAP", 
+      "raw": "DRVEF2009_RV|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian/Native Hawaiian/Pacific Islander|||||||||||||09.23330|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4220, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are American Indian or Alaska Native", 
+      "code": "EF", 
+      "short_name": "PctEnrAN", 
+      "raw": "DRVEF2009_RV|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment that are American Indian or Alaska Native|||||||||||||09.23335|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4221, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "EF", 
+      "short_name": "PctEnrUn", 
+      "raw": "DRVEF2009_RV|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||09.23340|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4222, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Nonresident Alien", 
+      "code": "EF", 
+      "short_name": "PctEnrNr", 
+      "raw": "DRVEF2009_RV|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Nonresident Alien|||||||||||||09.23345|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4223, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, all students", 
+      "code": "EF", 
+      "short_name": "DVEF01", 
+      "raw": "DRVEF2008|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||08.23401|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4224, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF02", 
+      "raw": "DRVEF2008|DVEF02|Fall enrollment/retention rates|Adult age (25-64) enrollment, undergraduate|||||||||||||08.23402|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4225, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, graduate", 
+      "code": "EF", 
+      "short_name": "DVEF03", 
+      "raw": "DRVEF2008|DVEF03|Fall enrollment/retention rates|Adult age (25-64) enrollment, graduate|||||||||||||08.23403|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4226, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF04", 
+      "raw": "DRVEF2008|DVEF04|Fall enrollment/retention rates|Adult age (25-64) enrollment, first-professional|||||||||||||08.23404|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4227, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time students", 
+      "code": "EF", 
+      "short_name": "DVEF05", 
+      "raw": "DRVEF2008|DVEF05|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time students|||||||||||||08.23405|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4228, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF06", 
+      "raw": "DRVEF2008|DVEF06|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time undergraduate|||||||||||||08.23406|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4229, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF07", 
+      "raw": "DRVEF2008|DVEF07|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time graduate|||||||||||||08.23407|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4259, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment 18-24", 
+      "code": "EF", 
+      "short_name": "DVEF14", 
+      "raw": "DRVEF2007|DVEF14|Fall enrollment/retention rates|Percent of undergraduate enrollment 18-24|||||||||||||07.23414|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4230, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF08", 
+      "raw": "DRVEF2008|DVEF08|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time first-professional|||||||||||||08.23408|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4231, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time students", 
+      "code": "EF", 
+      "short_name": "DVEF09", 
+      "raw": "DRVEF2008|DVEF09|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time students|||||||||||||08.23409|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4232, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF10", 
+      "raw": "DRVEF2008|DVEF10|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time undergraduate|||||||||||||08.23410|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4233, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF11", 
+      "raw": "DRVEF2008|DVEF11|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time graduate|||||||||||||08.23411|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4234, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF12", 
+      "raw": "DRVEF2008|DVEF12|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time first-professional|||||||||||||08.23412|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4235, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment under 18", 
+      "code": "EF", 
+      "short_name": "DVEF13", 
+      "raw": "DRVEF2008|DVEF13|Fall enrollment/retention rates|Percent of undergraduate enrollment under 18|||||||||||||08.23413|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4236, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment 18-24", 
+      "code": "EF", 
+      "short_name": "DVEF14", 
+      "raw": "DRVEF2008|DVEF14|Fall enrollment/retention rates|Percent of undergraduate enrollment 18-24|||||||||||||08.23414|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4237, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment, 25-64", 
+      "code": "EF", 
+      "short_name": "DVEF15", 
+      "raw": "DRVEF2008|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||08.23415|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4238, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment over 65", 
+      "code": "EF", 
+      "short_name": "DVEF16", 
+      "raw": "DRVEF2008|DVEF16|Fall enrollment/retention rates|Percent of undergraduate enrollment over 65|||||||||||||08.23416|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4239, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White, non-Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrWh", 
+      "raw": "DRVEF2008|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White, non-Hispanic|||||||||||||08.23315|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4240, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black, non-Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrBK", 
+      "raw": "DRVEF2008|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black, non-Hispanic|||||||||||||08.23320|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4241, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrHS", 
+      "raw": "DRVEF2008|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic|||||||||||||08.23325|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4242, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian or Pacific Islander", 
+      "code": "EF", 
+      "short_name": "PctEnrAP", 
+      "raw": "DRVEF2008|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian or Pacific Islander|||||||||||||08.23330|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4243, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment  that are American Indian or Alaska Native", 
+      "code": "EF", 
+      "short_name": "PctEnrAN", 
+      "raw": "DRVEF2008|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment  that are American Indian or Alaska Native|||||||||||||08.23335|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4244, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "EF", 
+      "short_name": "PctEnrUn", 
+      "raw": "DRVEF2008|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||08.23340|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4245, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Non-resident Alien", 
+      "code": "EF", 
+      "short_name": "PctEnrNr", 
+      "raw": "DRVEF2008|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Non-resident Alien|||||||||||||08.23345|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4246, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, all students", 
+      "code": "EF", 
+      "short_name": "DVEF01", 
+      "raw": "DRVEF2007|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||07.23401|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4247, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF02", 
+      "raw": "DRVEF2007|DVEF02|Fall enrollment/retention rates|Adult age (25-64) enrollment, undergraduate|||||||||||||07.23402|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4248, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, graduate", 
+      "code": "EF", 
+      "short_name": "DVEF03", 
+      "raw": "DRVEF2007|DVEF03|Fall enrollment/retention rates|Adult age (25-64) enrollment, graduate|||||||||||||07.23403|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4249, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF04", 
+      "raw": "DRVEF2007|DVEF04|Fall enrollment/retention rates|Adult age (25-64) enrollment, first-professional|||||||||||||07.23404|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4250, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time students", 
+      "code": "EF", 
+      "short_name": "DVEF05", 
+      "raw": "DRVEF2007|DVEF05|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time students|||||||||||||07.23405|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4251, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF06", 
+      "raw": "DRVEF2007|DVEF06|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time undergraduate|||||||||||||07.23406|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4252, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF07", 
+      "raw": "DRVEF2007|DVEF07|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time graduate|||||||||||||07.23407|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4253, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF08", 
+      "raw": "DRVEF2007|DVEF08|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time first-professional|||||||||||||07.23408|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4254, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time students", 
+      "code": "EF", 
+      "short_name": "DVEF09", 
+      "raw": "DRVEF2007|DVEF09|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time students|||||||||||||07.23409|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4255, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF10", 
+      "raw": "DRVEF2007|DVEF10|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time undergraduate|||||||||||||07.23410|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4256, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF11", 
+      "raw": "DRVEF2007|DVEF11|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time graduate|||||||||||||07.23411|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4257, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF12", 
+      "raw": "DRVEF2007|DVEF12|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time first-professional|||||||||||||07.23412|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4258, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment under 18", 
+      "code": "EF", 
+      "short_name": "DVEF13", 
+      "raw": "DRVEF2007|DVEF13|Fall enrollment/retention rates|Percent of undergraduate enrollment under 18|||||||||||||07.23413|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4260, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment, 25-64", 
+      "code": "EF", 
+      "short_name": "DVEF15", 
+      "raw": "DRVEF2007|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||07.23415|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4261, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment over 65", 
+      "code": "EF", 
+      "short_name": "DVEF16", 
+      "raw": "DRVEF2007|DVEF16|Fall enrollment/retention rates|Percent of undergraduate enrollment over 65|||||||||||||07.23416|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4262, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White, non-Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrWh", 
+      "raw": "DRVEF2007|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White, non-Hispanic|||||||||||||07.23315|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4263, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black, non-Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrBK", 
+      "raw": "DRVEF2007|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black, non-Hispanic|||||||||||||07.23320|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4264, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrHS", 
+      "raw": "DRVEF2007|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic|||||||||||||07.23325|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4265, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian or Pacific Islander", 
+      "code": "EF", 
+      "short_name": "PctEnrAP", 
+      "raw": "DRVEF2007|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian or Pacific Islander|||||||||||||07.23330|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4266, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment  that are American Indian or Alaska Native", 
+      "code": "EF", 
+      "short_name": "PctEnrAN", 
+      "raw": "DRVEF2007|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment  that are American Indian or Alaska Native|||||||||||||07.23335|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4267, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "EF", 
+      "short_name": "PctEnrUn", 
+      "raw": "DRVEF2007|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||07.23340|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4268, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Non-resident Alien", 
+      "code": "EF", 
+      "short_name": "PctEnrNr", 
+      "raw": "DRVEF2007|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Non-resident Alien|||||||||||||07.23345|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4269, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, all students", 
+      "code": "EF", 
+      "short_name": "DVEF01", 
+      "raw": "DRVEF2006|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||06.23401|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4270, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF02", 
+      "raw": "DRVEF2006|DVEF02|Fall enrollment/retention rates|Adult age (25-64) enrollment, undergraduate|||||||||||||06.23402|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4271, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, graduate", 
+      "code": "EF", 
+      "short_name": "DVEF03", 
+      "raw": "DRVEF2006|DVEF03|Fall enrollment/retention rates|Adult age (25-64) enrollment, graduate|||||||||||||06.23403|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4272, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF04", 
+      "raw": "DRVEF2006|DVEF04|Fall enrollment/retention rates|Adult age (25-64) enrollment, first-professional|||||||||||||06.23404|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4273, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time students", 
+      "code": "EF", 
+      "short_name": "DVEF05", 
+      "raw": "DRVEF2006|DVEF05|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time students|||||||||||||06.23405|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4274, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF06", 
+      "raw": "DRVEF2006|DVEF06|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time undergraduate|||||||||||||06.23406|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4275, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF07", 
+      "raw": "DRVEF2006|DVEF07|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time graduate|||||||||||||06.23407|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4276, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, full-time first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF08", 
+      "raw": "DRVEF2006|DVEF08|Fall enrollment/retention rates|Adult age (25-64) enrollment, full-time first-professional|||||||||||||06.23408|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4277, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time students", 
+      "code": "EF", 
+      "short_name": "DVEF09", 
+      "raw": "DRVEF2006|DVEF09|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time students|||||||||||||06.23409|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4278, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time undergraduate", 
+      "code": "EF", 
+      "short_name": "DVEF10", 
+      "raw": "DRVEF2006|DVEF10|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time undergraduate|||||||||||||06.23410|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4279, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time graduate", 
+      "code": "EF", 
+      "short_name": "DVEF11", 
+      "raw": "DRVEF2006|DVEF11|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time graduate|||||||||||||06.23411|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4280, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Adult age (25-64) enrollment, part-time first-professional", 
+      "code": "EF", 
+      "short_name": "DVEF12", 
+      "raw": "DRVEF2006|DVEF12|Fall enrollment/retention rates|Adult age (25-64) enrollment, part-time first-professional|||||||||||||06.23412|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4281, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment under 18", 
+      "code": "EF", 
+      "short_name": "DVEF13", 
+      "raw": "DRVEF2006|DVEF13|Fall enrollment/retention rates|Percent of undergraduate enrollment under 18|||||||||||||06.23413|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4282, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment 18-24", 
+      "code": "EF", 
+      "short_name": "DVEF14", 
+      "raw": "DRVEF2006|DVEF14|Fall enrollment/retention rates|Percent of undergraduate enrollment 18-24|||||||||||||06.23414|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4283, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment, 25-64", 
+      "code": "EF", 
+      "short_name": "DVEF15", 
+      "raw": "DRVEF2006|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||06.23415|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4284, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of undergraduate enrollment over 65", 
+      "code": "EF", 
+      "short_name": "DVEF16", 
+      "raw": "DRVEF2006|DVEF16|Fall enrollment/retention rates|Percent of undergraduate enrollment over 65|||||||||||||06.23416|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4285, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White, non-Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrWh", 
+      "raw": "DRVEF2006|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White, non-Hispanic|||||||||||||06.23315|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4286, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black, non-Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrBK", 
+      "raw": "DRVEF2006|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black, non-Hispanic|||||||||||||06.23320|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4287, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic", 
+      "code": "EF", 
+      "short_name": "PctEnrHS", 
+      "raw": "DRVEF2006|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic|||||||||||||06.23325|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4288, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian or Pacific Islander", 
+      "code": "EF", 
+      "short_name": "PctEnrAP", 
+      "raw": "DRVEF2006|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian or Pacific Islander|||||||||||||06.23330|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4289, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment  that are American Indian or Alaska Native", 
+      "code": "EF", 
+      "short_name": "PctEnrAN", 
+      "raw": "DRVEF2006|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment  that are American Indian or Alaska Native|||||||||||||06.23335|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4290, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "EF", 
+      "short_name": "PctEnrUn", 
+      "raw": "DRVEF2006|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||06.23340|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4291, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Non-resident Alien", 
+      "code": "EF", 
+      "short_name": "PctEnrNr", 
+      "raw": "DRVEF2006|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Non-resident Alien|||||||||||||06.23345|.|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4292, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White, non-Hispanic", 
+      "code": "DFR", 
+      "short_name": "PctEnrWh", 
+      "raw": "DFR2005|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White, non-Hispanic|||||||||||||05.23315|xPEnrWH.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4293, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black, non-Hispanic", 
+      "code": "DFR", 
+      "short_name": "PctEnrBK", 
+      "raw": "DFR2005|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black, non-Hispanic|||||||||||||05.23320|xPEnrBK.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4294, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic", 
+      "code": "DFR", 
+      "short_name": "PctEnrHS", 
+      "raw": "DFR2005|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic|||||||||||||05.23325|xPEnrHS.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4295, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian or Pacific Islander", 
+      "code": "DFR", 
+      "short_name": "PctEnrAP", 
+      "raw": "DFR2005|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian or Pacific Islander|||||||||||||05.23330|xPEnrAP.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4296, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment  that are American Indian or Alaska Native", 
+      "code": "DFR", 
+      "short_name": "PctEnrAN", 
+      "raw": "DFR2005|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment  that are American Indian or Alaska Native|||||||||||||05.23335|xPEnrAN.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4297, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "DFR", 
+      "short_name": "PctEnrUn", 
+      "raw": "DFR2005|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||05.23340|xPEnrUn.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4298, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Non-resident Alien", 
+      "code": "DFR", 
+      "short_name": "PctEnrNr", 
+      "raw": "DFR2005|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Non-resident Alien|||||||||||||05.23345|xPenrNR.DFR2005|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4299, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are White, non-Hispanic", 
+      "code": "DFR", 
+      "short_name": "PctEnrWh", 
+      "raw": "DFR2004|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White, non-Hispanic|||||||||||||04.23315|xPEnrWH.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4300, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Black, non-Hispanic", 
+      "code": "DFR", 
+      "short_name": "PctEnrBK", 
+      "raw": "DFR2004|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black, non-Hispanic|||||||||||||04.23320|xPEnrBK.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4301, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Hispanic", 
+      "code": "DFR", 
+      "short_name": "PctEnrHS", 
+      "raw": "DFR2004|PctEnrHS|Fall enrollment/retention rates|Percent of total enrollment that are Hispanic|||||||||||||04.23325|xPEnrHS.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4302, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Asian or Pacific Islander", 
+      "code": "DFR", 
+      "short_name": "PctEnrAP", 
+      "raw": "DFR2004|PctEnrAP|Fall enrollment/retention rates|Percent of total enrollment that are Asian or Pacific Islander|||||||||||||04.23330|xPEnrAP.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4303, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment  that are American Indian or Alaska Native", 
+      "code": "DFR", 
+      "short_name": "PctEnrAN", 
+      "raw": "DFR2004|PctEnrAN|Fall enrollment/retention rates|Percent of total enrollment  that are American Indian or Alaska Native|||||||||||||04.23335|xPEnrAN.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4304, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Race/ethnicity unknown", 
+      "code": "DFR", 
+      "short_name": "PctEnrUn", 
+      "raw": "DFR2004|PctEnrUn|Fall enrollment/retention rates|Percent of total enrollment that are Race/ethnicity unknown|||||||||||||04.23340|xPEnrUn.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
+  }, 
+  {
+    "pk": 4305, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "long_name": "Percent of total enrollment that are Non-resident Alien", 
+      "code": "DFR", 
+      "short_name": "PctEnrNr", 
+      "raw": "DFR2004|PctEnrNr|Fall enrollment/retention rates|Percent of total enrollment that are Non-resident Alien|||||||||||||04.23345|xPenrNR.DFR2004|Cont|TN|N||745|||||\r\n"
+    }
   }
 ]
