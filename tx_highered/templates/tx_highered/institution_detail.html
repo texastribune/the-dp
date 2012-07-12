@@ -13,11 +13,11 @@
     <header>
       <h3>Price Trends</h3>
     </header>
-    {% simple_chart object "pricetrends_set" %}
+    {% simple_chart object.pricetrends_set.all "simple_chart" %}
   </section>
 
   <h3>Test Scores</h3>
-  {% simple_chart object "testscores_set" %}
+  {% simple_chart object.testscores_set.all "simple_chart" %}
 
   <h3>Admissions</h3>
   Year, % admitted, % of admitted who enrolled
@@ -32,8 +32,8 @@
   </ul>
 
   <h3>Enrollment</h3>
-  {% simple_chart object "enrollment_set" %}
-  {% simple_chart object "enrollmentbystudentlevel_set" %}
+  {% simple_chart object.enrollment_set.all "simple_chart" %}
+  {% simple_chart object.enrollmentbystudentlevel_set.all "simple_chart" %}
 {% endblock %}
 
 

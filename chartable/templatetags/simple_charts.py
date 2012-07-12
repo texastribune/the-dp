@@ -9,40 +9,40 @@ register = template.Library()
 
 # top stuff is directly from armstrong layout_helpers with object renamed obj
 @register.tag(name="simple_chart")
-def do_render_model(parser, token):
+def do_render_qs(parser, token):
     tokens = token.split_contents()
     if len(tokens) is 3:
         _, obj, name = tokens
-        return RenderObjectNode(obj, name)
+        return RenderQuerysetNode(obj, name)
 
     message = "Too %s parameters" % ("many" if len(tokens) > 3 else "few")
     raise TemplateSyntaxError(message)
 
 
-class RenderObjectNode(template.Node):
-    def __init__(self, obj, name):
-        self.obj = template.Variable(obj)
+class RenderQuerysetNode(template.Node):
+    def __init__(self, qs, name):
+        self.qs = template.Variable(qs)
         self.name = template.Variable(name)
 
     def render(self, context):
-        obj = self.obj.resolve(context)
+        qs = self.qs.resolve(context)
         name = self.name.resolve(context)
-        return render_model(obj, name, dictionary={}, context_instance=context)
+        return render_queryset(qs, name, dictionary={}, context_instance=context)
 
 
-class ChartsRenderModelBackend(object):
-    def get_layout_template_name(self, model, name):
+class ChartsRenderQuerysetBackend(object):
+    def get_layout_template_name(self, obj, name):
         ret = []
-        for a in model.mro():
+        for a in obj.mro():
             if not hasattr(a, "_meta"):
                 continue
             ret.append("layout/%s/%s/%s.html" % (a._meta.app_label,
                 a._meta.object_name.lower(), name))
         return ret
 
-    def render(self, obj, name, dictionary=None, context_instance=None):
+    def render(self, qs, name, dictionary=None, context_instance=None):
         dictionary = dictionary or {}
-        object_list = getattr(obj, name)
+        object_list = qs
         dictionary["object_list"] = object_list.all()
         template_name = self.get_layout_template_name(object_list.model, "simple_chart")
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
@@ -51,4 +51,4 @@ class ChartsRenderModelBackend(object):
     def __call__(self, *args, **kwargs):
         return self.render(*args, **kwargs)
 
-render_model = ChartsRenderModelBackend()
+render_queryset = ChartsRenderQuerysetBackend()
