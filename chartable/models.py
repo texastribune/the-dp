@@ -11,7 +11,7 @@ class SimpleChartable(models.Model):
         abstract = True
 
     def get_chart_field_names(self):
-        return [x for x in self._meta.get_all_field_names() if x not in self.chart_excluded_fields]
+        return [x.name for x in self._meta.fields if x.name not in self.chart_excluded_fields]
 
     def get_chart_series(self):
         if self.chart_series:
