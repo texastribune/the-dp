@@ -57,10 +57,13 @@ def testscores(path):
     reader.parse_rows(institution_model=Institution, report_model=TestScores)
 
 
-report = sys.argv[1]
-path = sys.argv[2]
+report = sys.argv[-2]
+path = sys.argv[-1]
 
 if report == 'prices':
     prices(path)
 elif report == 'testscores':
     testscores(path)
+else:
+    reader = IpedsCsvReader(open(path, "rb"))
+    reader.explain_header()
