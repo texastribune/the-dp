@@ -119,7 +119,7 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
 #############################################################################
 #   Admissions
 #############################################################################
-class TestScores(YearBasedInstitutionStatModel, SimpleChart):
+class TestScores(YearBasedInstitutionStatModel):
     # possible data sources: IPEDS
     sat_verbal_25th_percentile = models.IntegerField(null=True)
     sat_verbal_75th_percentile = models.IntegerField(null=True)
@@ -191,7 +191,7 @@ class TestScores(YearBasedInstitutionStatModel, SimpleChart):
 #         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel, SimpleChart):
+class Admissions(YearBasedInstitutionStatModel):
     # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
@@ -205,7 +205,7 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
         unique_together = ('year', 'institution')
 
 
-class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
+class Enrollment(YearBasedInstitutionStatModel):
     total = models.IntegerField(null=True)
     fulltime_equivalent = models.IntegerField(null=True)
     fulltime = models.IntegerField(null=True)
@@ -220,7 +220,7 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
 
 
 # TODO better name
-class Enrollmentbystudentlevel(YearBasedInstitutionStatModel, SimpleChart):
+class Enrollmentbystudentlevel(YearBasedInstitutionStatModel):
     # these choices are how they are found in the CSV
     LEVEL_CHOICES = (
         ('undergrad', 'Undergraduate total'),
