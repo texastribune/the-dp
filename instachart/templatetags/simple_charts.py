@@ -43,8 +43,13 @@ class ChartsRenderQuerysetBackend(object):
     def render(self, qs, name, dictionary=None, context_instance=None):
         dictionary = dictionary or {}
         dictionary["object_list"] = qs
-        dictionary["chart_header"] = qs.model.get_chart_header()
-        template_name = self.get_layout_template_name(qs.model, name)
+        try:
+            dictionary["chart_header"] = qs.model.get_chart_header()
+            template_name = self.get_layout_template_name(qs.model, name)
+        except AttributeError:
+            fields = [x.name for x in qs.model._meta.fields]
+            dictionary["chart_header"] = [qs.model._meta.get_field(field).verbose_name for field in fields]
+            template_name = "layout/instachart/simplechart/%s.html" % name
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
 
@@ -57,4 +62,9 @@ render_queryset = ChartsRenderQuerysetBackend()
 @register.filter
 def chart_set(obj):
     # TODO pep-0378, needs python 2.7
-    return [format % getattr(obj, field) for field, format in obj.get_chart_series()]
+    try:
+        cells = [format % getattr(obj, field) for field, format in obj.get_chart_series()]
+    except AttributeError:
+        fields = [x.name for x in obj._meta.fields]
+        cells = [getattr(obj, field) for field in fields]
+    return cells
