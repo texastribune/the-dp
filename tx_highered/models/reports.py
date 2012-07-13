@@ -191,18 +191,25 @@ class TestScores(YearBasedInstitutionStatModel):
 #         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel):
+class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
     number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
-    percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
-    percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted")
+    percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
 
     # objects = GenderManager()
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
+
+    chart_series = (('year', "%s"),
+                    ('number_of_applicants', "%d", ('data-tablebars=1',)),
+                    ('number_admitted', "%d", ('data-tablebars=1',)),
+                    ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),
+                    ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1',)),
+                    ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1',)))
 
 
 class Enrollment(YearBasedInstitutionStatModel):

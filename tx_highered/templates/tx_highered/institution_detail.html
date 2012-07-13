@@ -20,7 +20,7 @@
   {% simple_chart object.testscores_set.all "testscores" %}
 
   <h3>Admissions</h3>
-  {% simple_chart object.admissions_set.all %}
+  {% simple_chart object.admissions_set.all "data_chart" %}
 
   <h3>Enrollment</h3>
   {% simple_chart object.enrollment_set.all %}
@@ -38,7 +38,7 @@
 {% block extra_script %}{{ block.super }}
 <script src="{% static 'js/jquery.tablebars.js' %}"></script>
 <script>
-  $('#pricetrends table').tablebars();
+  $('table').tablebars();
 
 </script>
 {% endblock %}
