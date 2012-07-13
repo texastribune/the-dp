@@ -38,8 +38,7 @@ class ChartsRenderQuerysetBackend(object):
         for a in obj.mro():
             if not hasattr(a, "_meta"):
                 continue
-            ret.append("layout/%s/%s/%s.html" % (a._meta.app_label,
-                a._meta.object_name.lower(), name))
+            ret.append("instachart/%s/%s.html" % (a._meta.object_name.lower(), name))
         return ret
 
     def render(self, qs, name, dictionary=None, context_instance=None):
@@ -51,7 +50,7 @@ class ChartsRenderQuerysetBackend(object):
         except AttributeError:
             fields = [x.name for x in qs.model._meta.fields]
             dictionary["chart_header"] = [th(qs.model._meta.get_field(field)) for field in fields]
-            template_name = "layout/instachart/simplechart/%s.html" % name
+            template_name = "instachart/simplechart/%s.html" % name
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
 
