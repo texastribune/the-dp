@@ -204,7 +204,7 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
 
-    chart_series = (('year', "%s"),
+    chart_series = (('display_year', "%s"),
                     ('number_of_applicants', "%d", ('data-tablebars=1',)),
                     ('number_admitted', "%d", ('data-tablebars=1',)),
                     ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),

@@ -6,9 +6,12 @@ class ChartCell(object):
     format = "%s"
     text = ""
 
-    def __init__(self, field, format=None, attrs=None):
-        self.field = field
-        self.text = self.field.verbose_name
+    def __init__(self, cls, fieldname, format=None, attrs=None):
+        try:
+            self.field = cls._meta.get_field(fieldname)
+            self.text = self.field.verbose_name
+        except models.FieldDoesNotExist:
+            self.text = fieldname
         if format is not None:
             self.format = format
         if attrs is not None:
@@ -63,7 +66,7 @@ class SimpleChart(models.Model):
 
     @classmethod
     def get_chart_header(cls):
-        return [ChartCell(cls._meta.get_field(x[0]), *x[1:]) for x in cls.get_chart_series()]
+        return [ChartCell(cls, *x) for x in cls.get_chart_series()]
 
     @staticmethod
     def chart_set(obj):

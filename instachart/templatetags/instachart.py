@@ -53,7 +53,7 @@ class ChartsRenderQuerysetBackend(object):
             template_name = self.get_layout_template_name(qs.model, name)
         except AttributeError:
             fields = [x.name for x in qs.model._meta.fields]
-            dictionary["chart_header"] = [ChartCell(qs.model._meta.get_field(field)) for field in fields]
+            dictionary["chart_header"] = [ChartCell(qs.model, field) for field in fields]
             template_name = "instachart/simplechart/%s.html" % name
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
