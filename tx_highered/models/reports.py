@@ -2,7 +2,7 @@ from collections import namedtuple
 
 from django.db import models
 
-from instachart.models import SimpleChartable
+from instachart.models import SimpleChart
 
 from .base import APP_LABEL
 
@@ -102,7 +102,7 @@ class YearBasedInstitutionStatModel(models.Model):
 # EthnicFieldsMixin = make_int_fields('EthnicFieldsMixin', dict(RACE_CHOICES).keys(), prefix='total_')
 
 
-class PriceTrends(YearBasedInstitutionStatModel, SimpleChartable):
+class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     tuition_fees_in_state = models.IntegerField(null=True,
         verbose_name=u"In-State Tuition & Fees")
     tuition_fees_outof_state = models.IntegerField(null=True,
@@ -119,7 +119,7 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChartable):
 #############################################################################
 #   Admissions
 #############################################################################
-class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
+class TestScores(YearBasedInstitutionStatModel, SimpleChart):
     # possible data sources: IPEDS
     sat_verbal_25th_percentile = models.IntegerField(null=True)
     sat_verbal_75th_percentile = models.IntegerField(null=True)
@@ -191,7 +191,7 @@ class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
 #         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel, SimpleChartable):
+class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
@@ -205,7 +205,7 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChartable):
         unique_together = ('year', 'institution')
 
 
-class Enrollment(YearBasedInstitutionStatModel, SimpleChartable):
+class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total = models.IntegerField(null=True)
     fulltime_equivalent = models.IntegerField(null=True)
     fulltime = models.IntegerField(null=True)
@@ -220,7 +220,7 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChartable):
 
 
 # TODO better name
-class Enrollmentbystudentlevel(YearBasedInstitutionStatModel, SimpleChartable):
+class Enrollmentbystudentlevel(YearBasedInstitutionStatModel, SimpleChart):
     # these choices are how they are found in the CSV
     LEVEL_CHOICES = (
         ('undergrad', 'Undergraduate total'),

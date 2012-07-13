@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class SimpleChartable(models.Model):
+class SimpleChart(models.Model):
     """ Model mixin that enables quick dumps via a template tag """
     chart_series = []
 
