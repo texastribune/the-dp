@@ -6,6 +6,8 @@ from django.utils.safestring import mark_safe
 from ..models import SimpleChart, th
 
 
+DEFAULT_CHART_NAME = "simple_chart"
+
 register = template.Library()
 
 
@@ -13,6 +15,8 @@ register = template.Library()
 @register.tag(name="simple_chart")
 def do_render_qs(parser, token):
     tokens = token.split_contents()
+    if len(tokens) is 2:
+        tokens.append(u'"%s"' % DEFAULT_CHART_NAME)
     if len(tokens) is 3:
         _, obj, name = tokens
         return RenderQuerysetNode(obj, name)
