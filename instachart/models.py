@@ -5,11 +5,14 @@ class th(object):
     attrs = []
     format = "%s"
 
-    def __init__(self, field, format, attrs=None):
+    def __init__(self, field, format=None, attrs=None):
         self.field = field
-        if format:
+        if format is not None:
             self.format = format
         self.attrs = attrs
+
+    def as_th(self):
+        return "<th>%s</th>" % self.field.verbose_name
 
     def __repr__(self):
         return self.field.verbose_name

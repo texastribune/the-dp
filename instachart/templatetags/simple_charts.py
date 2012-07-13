@@ -3,7 +3,7 @@ from django.template.base import TemplateSyntaxError
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
-from ..models import SimpleChart
+from ..models import SimpleChart, th
 
 
 register = template.Library()
@@ -50,7 +50,7 @@ class ChartsRenderQuerysetBackend(object):
             template_name = self.get_layout_template_name(qs.model, name)
         except AttributeError:
             fields = [x.name for x in qs.model._meta.fields]
-            dictionary["chart_header"] = [qs.model._meta.get_field(field).verbose_name for field in fields]
+            dictionary["chart_header"] = [th(qs.model._meta.get_field(field)) for field in fields]
             template_name = "layout/instachart/simplechart/%s.html" % name
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
