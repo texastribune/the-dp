@@ -1,12 +1,14 @@
 from django.db import models
 
 
-class th(object):
+class ChartCell(object):
     attrs = []
     format = "%s"
+    text = ""
 
     def __init__(self, field, format=None, attrs=None):
         self.field = field
+        self.text = self.field.verbose_name
         if format is not None:
             self.format = format
         if attrs is not None:
@@ -15,13 +17,13 @@ class th(object):
     def as_th(self):
         # TODO get mark_safe to work
         # from django.utils.safestring import mark_safe
-        return u"<th %s>%s</th>" % (u" ".join(self.attrs), self.field.verbose_name)
+        return u"<th %s>%s</th>" % (u" ".join(self.attrs), self.text)
 
     def as_td(self):
-        return u"<td>%s</td>" % self.field.verbose_name
+        return u"<td>%s</td>" % self.text
 
     def as_text(self):
-        return self.field.verbose_name
+        return self.text
 
     def __repr__(self):
         return self.as_th()
@@ -48,7 +50,7 @@ class SimpleChart(models.Model):
 
     @classmethod
     def get_chart_header(cls):
-        return [th(cls._meta.get_field(x[0]), *x[1:]) for x in cls.get_chart_series()]
+        return [ChartCell(cls._meta.get_field(x[0]), *x[1:]) for x in cls.get_chart_series()]
 
     @staticmethod
     def chart_set(obj):
