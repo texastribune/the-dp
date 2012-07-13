@@ -1,3 +1,4 @@
+{% load simple_charts %}
 <table class="table table-bordered table-striped table-condensed">
   {% block thead %}
   <thead>
@@ -12,7 +13,7 @@
   <tbody>
     {% for row in object_list %}
       <tr>
-        {% for data in row.chart_set %}
+        {% for data in row|chart_set %}
           <td>{{ data }}</td>
         {% endfor %}
       </tr>

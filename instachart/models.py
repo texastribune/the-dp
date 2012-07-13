@@ -23,7 +23,3 @@ class SimpleChart(models.Model):
     @classmethod
     def get_chart_header(cls):
         return [cls._meta.get_field(field).verbose_name for field, format in cls.get_chart_series()]
-
-    def chart_set(self):
-        # TODO pep-0378, needs python 2.7
-        return [format % getattr(self, field) for field, format in self.get_chart_series()]

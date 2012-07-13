@@ -52,3 +52,9 @@ class ChartsRenderQuerysetBackend(object):
         return self.render(*args, **kwargs)
 
 render_queryset = ChartsRenderQuerysetBackend()
+
+
+@register.filter
+def chart_set(obj):
+    # TODO pep-0378, needs python 2.7
+    return [format % getattr(obj, field) for field, format in obj.get_chart_series()]
