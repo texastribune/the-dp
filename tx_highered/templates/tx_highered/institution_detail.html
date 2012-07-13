@@ -38,7 +38,6 @@
 {% block extra_script %}{{ block.super }}
 <script src="{% static 'js/jquery.tablebars.js' %}"></script>
 <script>
-  $('#pricetrends table > thead > tr > *').slice(1).attr('data-tablebars', '1')
   $('#pricetrends table').tablebars();
 
 </script>

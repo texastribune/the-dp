@@ -111,9 +111,9 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
         verbose_name=u"Books & Supplies")
 
     chart_series = (('year', "%d"),
-                    ('tuition_fees_in_state', "$%d"),
-                    ('tuition_fees_outof_state', "$%d"),
-                    ('books_and_supplies', "$%d"))
+                    ('tuition_fees_in_state', "$%d", ('data-tablebars=1',)),
+                    ('tuition_fees_outof_state', "$%d", ('data-tablebars=1',)),
+                    ('books_and_supplies', "$%d", ('data-tablebars=1',)))
 
 
 #############################################################################
