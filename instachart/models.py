@@ -29,6 +29,19 @@ class ChartCell(object):
         return self.as_th()
 
 
+class ChartBodyCell(ChartCell):
+    def __init__(self, obj, fieldname, format=None, attrs=None):
+        if format is not None:
+            self.format = format
+        if attrs is not None:
+            self.attrs = attrs
+        self.value = getattr(obj, fieldname)
+        self.text = self.format % self.value
+
+    def as_td_data(self):
+        return u"<td data-value=\"%s\">%s</td>" % (self.value, self.text)
+
+
 class SimpleChart(models.Model):
     """ Model mixin that enables quick dumps via a template tag """
     chart_series = []
@@ -56,8 +69,8 @@ class SimpleChart(models.Model):
     def chart_set(obj):
         # TODO pep-0378, needs python 2.7
         try:
-            cells = [x[1] % getattr(obj, x[0]) for x in obj.get_chart_series()]
+            cells = [ChartBodyCell(obj, *x) for x in obj.get_chart_series()]
         except AttributeError:
             fields = [x.name for x in obj._meta.fields]
-            cells = [getattr(obj, field) for field in fields]
+            cells = [ChartBodyCell(obj, field) for field in fields]
         return cells
