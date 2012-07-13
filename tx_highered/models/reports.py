@@ -2,7 +2,7 @@ from collections import namedtuple
 
 from django.db import models
 
-from chartable.models import SimpleChartable
+from instachart.models import SimpleChartable
 
 from .base import APP_LABEL
 
