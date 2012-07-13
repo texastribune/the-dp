@@ -1,6 +1,20 @@
 from django.db import models
 
 
+class th(object):
+    attrs = []
+    format = "%s"
+
+    def __init__(self, field, format, attrs=None):
+        self.field = field
+        if format:
+            self.format = format
+        self.attrs = attrs
+
+    def __repr__(self):
+        return self.field.verbose_name
+
+
 class SimpleChart(models.Model):
     """ Model mixin that enables quick dumps via a template tag """
     chart_series = []
@@ -22,7 +36,7 @@ class SimpleChart(models.Model):
 
     @classmethod
     def get_chart_header(cls):
-        return [cls._meta.get_field(field).verbose_name for field, format in cls.get_chart_series()]
+        return [th(cls._meta.get_field(x[0]), *x[1:]) for x in cls.get_chart_series()]
 
     @staticmethod
     def chart_set(obj):
