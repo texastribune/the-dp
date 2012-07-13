@@ -9,12 +9,13 @@ class th(object):
         self.field = field
         if format is not None:
             self.format = format
-        self.attrs = attrs
+        if attrs is not None:
+            self.attrs = attrs
 
     def as_th(self):
         # TODO get mark_safe to work
         # from django.utils.safestring import mark_safe
-        return u"<th>%s</th>" % self.field.verbose_name
+        return u"<th %s>%s</th>" % (u" ".join(self.attrs), self.field.verbose_name)
 
     def as_td(self):
         return u"<td>%s</td>" % self.field.verbose_name
@@ -53,7 +54,7 @@ class SimpleChart(models.Model):
     def chart_set(obj):
         # TODO pep-0378, needs python 2.7
         try:
-            cells = [format % getattr(obj, field) for field, format in obj.get_chart_series()]
+            cells = [x[1] % getattr(obj, x[0]) for x in obj.get_chart_series()]
         except AttributeError:
             fields = [x.name for x in obj._meta.fields]
             cells = [getattr(obj, field) for field in fields]
