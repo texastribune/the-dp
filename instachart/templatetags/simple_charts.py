@@ -42,9 +42,9 @@ class ChartsRenderQuerysetBackend(object):
 
     def render(self, qs, name, dictionary=None, context_instance=None):
         dictionary = dictionary or {}
-        object_list = qs
-        dictionary["object_list"] = object_list.all()
-        template_name = self.get_layout_template_name(object_list.model, name)
+        dictionary["object_list"] = qs
+        dictionary["chart_header"] = qs.model.get_chart_header()
+        template_name = self.get_layout_template_name(qs.model, name)
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
 
