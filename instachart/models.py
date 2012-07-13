@@ -1,6 +1,9 @@
 from django.db import models
 
 
+NULL_DISPLAY = "&ndash;"
+
+
 class ChartCell(object):
     attrs = []
     format = "%s"
@@ -39,7 +42,10 @@ class ChartBodyCell(ChartCell):
         if attrs is not None:
             self.attrs = attrs
         self.value = getattr(obj, fieldname)
-        self.text = self.format % self.value
+        if self.value is None:
+            self.text = NULL_DISPLAY
+        else:
+            self.text = self.format % self.value
 
     def as_td_data(self):
         return u"<td data-value=\"%s\">%s</td>" % (self.value, self.text)
