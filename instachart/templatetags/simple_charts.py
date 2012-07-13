@@ -3,6 +3,8 @@ from django.template.base import TemplateSyntaxError
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+from ..models import SimpleChart
+
 
 register = template.Library()
 
@@ -59,12 +61,6 @@ class ChartsRenderQuerysetBackend(object):
 render_queryset = ChartsRenderQuerysetBackend()
 
 
-@register.filter
+@register.filter(name="chart_set")
 def chart_set(obj):
-    # TODO pep-0378, needs python 2.7
-    try:
-        cells = [format % getattr(obj, field) for field, format in obj.get_chart_series()]
-    except AttributeError:
-        fields = [x.name for x in obj._meta.fields]
-        cells = [getattr(obj, field) for field in fields]
-    return cells
+    return SimpleChart.chart_set(obj)

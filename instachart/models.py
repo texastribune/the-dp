@@ -23,3 +23,13 @@ class SimpleChart(models.Model):
     @classmethod
     def get_chart_header(cls):
         return [cls._meta.get_field(field).verbose_name for field, format in cls.get_chart_series()]
+
+    @staticmethod
+    def chart_set(obj):
+        # TODO pep-0378, needs python 2.7
+        try:
+            cells = [format % getattr(obj, field) for field, format in obj.get_chart_series()]
+        except AttributeError:
+            fields = [x.name for x in obj._meta.fields]
+            cells = [getattr(obj, field) for field in fields]
+        return cells
