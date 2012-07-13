@@ -12,10 +12,18 @@ class th(object):
         self.attrs = attrs
 
     def as_th(self):
-        return "<th>%s</th>" % self.field.verbose_name
+        # TODO get mark_safe to work
+        # from django.utils.safestring import mark_safe
+        return u"<th>%s</th>" % self.field.verbose_name
+
+    def as_td(self):
+        return u"<td>%s</td>" % self.field.verbose_name
+
+    def as_text(self):
+        return self.field.verbose_name
 
     def __repr__(self):
-        return self.field.verbose_name
+        return self.as_th()
 
 
 class SimpleChart(models.Model):
