@@ -119,6 +119,10 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
                         ('tuition_fees_outof_state', 'data-tablebars=1'),
                         ('books_and_supplies', 'data-tablebars=1'))
 
+    chart_body_attrs = (('tuition_fees_in_state', 'data-value="%d"'),
+                        ('tuition_fees_outof_state', 'data-value="%d"'),
+                        ('books_and_supplies', 'data-value="%d"'))
+
 
 #############################################################################
 #   Admissions

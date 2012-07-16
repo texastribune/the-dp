@@ -10,6 +10,7 @@ class ChartCell(object):
     label = ""
     format = "%s"
     text = ""
+    raw_text = ""
 
     def __init__(self, cls, fieldname, format=None):
         self.label = fieldname
@@ -18,6 +19,7 @@ class ChartCell(object):
             self.text = self.field.verbose_name
         except models.FieldDoesNotExist:
             self.text = fieldname
+        self.raw_text = self.text
         if format is not None:
             self.format = format
         if hasattr(cls, 'chart_head_attrs'):
@@ -30,7 +32,10 @@ class ChartCell(object):
             return ""
         attr = attrs[label]
         if isinstance(attr, basestring):
-            return attr
+            try:
+                return attr % self.raw_text
+            except TypeError:
+                return attr
         return u" ".join(attr)
 
     def as_th(self):
@@ -39,7 +44,7 @@ class ChartCell(object):
         return u"<th %s>%s</th>" % (self.build_attrs(self.head_attrs, self.label), self.text)
 
     def as_td(self):
-        if self.body_attrs and self.fieldname in self.body_attrs:
+        if self.body_attrs and self.label in self.body_attrs:
             return u"<td %s>%s</td>" % (self.build_attrs(self.body_attrs, self.label), self.text)
         return u"<td>%s</td>" % self.text
 
@@ -53,14 +58,14 @@ class ChartCell(object):
 class ChartBodyCell(ChartCell):
     def __init__(self, obj, fieldname, format=None):
         super(ChartBodyCell, self).__init__(obj, fieldname, format)
-        self.value = getattr(obj, fieldname)
-        if self.value is None:
+        self.raw_text = getattr(obj, fieldname)
+        if self.raw_text is None:
             self.text = NULL_DISPLAY
         else:
-            self.text = self.format % self.value
+            self.text = self.format % self.raw_text
 
     def as_td_data(self):
-        return u"<td data-value=\"%s\">%s</td>" % (self.value, self.text)
+        return u"<td data-value=\"%s\">%s</td>" % (self.raw_text, self.text)
 
 
 class SimpleChart(models.Model):
