@@ -115,7 +115,7 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
                     ('tuition_fees_outof_state', "$%d"),
                     ('books_and_supplies', "$%d"))
 
-    chart_head_attrs = (('tuition_fees_in_state', 'data-tablebars=1'),
+    chart_head_attrs = (('tuition_fees_in_state', ('data-tablebars=1',)),
                         ('tuition_fees_outof_state', 'data-tablebars=1'),
                         ('books_and_supplies', 'data-tablebars=1'))
 

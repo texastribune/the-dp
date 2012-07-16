@@ -27,21 +27,26 @@ class ChartCell(object):
         if hasattr(cls, 'chart_body_attrs'):
             self.body_attrs = dict(cls.chart_body_attrs)
 
+    def apply_format(self, template):
+        try:
+            return template % self.raw_text
+        except TypeError:
+            return template
+
     def build_attrs(self, attrs, label):
         if label not in attrs:
             return ""
         attr = attrs[label]
         if isinstance(attr, basestring):
-            try:
-                return attr % self.raw_text
-            except TypeError:
-                return attr
-        return u" ".join(attr)
+            return self.apply_format(attr)
+        return u" ".join(map(self.apply_format, attr))
 
     def as_th(self):
         # TODO get mark_safe to work
         # from django.utils.safestring import mark_safe
-        return u"<th %s>%s</th>" % (self.build_attrs(self.head_attrs, self.label), self.text)
+        if self.head_attrs and self.label in self.head_attrs:
+            return u"<th %s>%s</th>" % (self.build_attrs(self.head_attrs, self.label), self.text)
+        return u"<th>%s</th>" % self.text
 
     def as_td(self):
         if self.body_attrs and self.label in self.body_attrs:
