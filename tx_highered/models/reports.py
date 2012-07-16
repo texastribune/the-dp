@@ -208,8 +208,8 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
                     ('number_of_applicants', "%d", ('data-tablebars=1',)),
                     ('number_admitted', "%d", ('data-tablebars=1',)),
                     ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),
-                    ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1',)),
-                    ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1',)))
+                    ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1', 'class="span2"')),
+                    ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1', 'class="span2"')))
 
 
 class Enrollment(YearBasedInstitutionStatModel):
