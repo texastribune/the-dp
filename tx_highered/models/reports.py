@@ -220,7 +220,7 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     #                 ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1', 'class="span2"')))
 
 
-class Enrollment(YearBasedInstitutionStatModel):
+class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total = models.IntegerField(null=True)
     fulltime_equivalent = models.IntegerField(null=True)
     fulltime = models.IntegerField(null=True)
@@ -232,6 +232,24 @@ class Enrollment(YearBasedInstitutionStatModel):
     total_percent_native = models.IntegerField(null=True)
     total_percent_asian = models.IntegerField(null=True)
     total_percent_unknown = models.IntegerField(null=True)
+
+    def race_pie(self):
+        return ('<img src="http://chart.apis.google.com/chart?chs=400x225&cht=p'
+            '&chd=t:%d,%d,%d,%d,%d,%d'
+            '&chl=White|Black|Hispanic|Native American|Asian|Unknown" width="400" height="225" alt="" >') % (
+            self.total_percent_white or 0,
+            self.total_percent_black or 0,
+            self.total_percent_hispanic or 0,
+            self.total_percent_native or 0,
+            self.total_percent_asian or 0,
+            self.total_percent_unknown or 0)
+    race_pie.verbose_name = "Race Pie"
+
+    chart_series = ('year',
+                    'fulltime_equivalent',
+                    'fulltime',
+                    'parttime',
+                    'race_pie')
 
 
 # TODO better name
