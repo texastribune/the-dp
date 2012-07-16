@@ -111,9 +111,13 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
         verbose_name=u"Books & Supplies")
 
     chart_series = (('year', "%d"),
-                    ('tuition_fees_in_state', "$%d", ('data-tablebars=1',)),
-                    ('tuition_fees_outof_state', "$%d", ('data-tablebars=1',)),
-                    ('books_and_supplies', "$%d", ('data-tablebars=1',)))
+                    ('tuition_fees_in_state', "$%d"),
+                    ('tuition_fees_outof_state', "$%d"),
+                    ('books_and_supplies', "$%d"))
+
+    chart_head_attrs = (('tuition_fees_in_state', 'data-tablebars=1'),
+                        ('tuition_fees_outof_state', 'data-tablebars=1'),
+                        ('books_and_supplies', 'data-tablebars=1'))
 
 
 #############################################################################
@@ -204,12 +208,12 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
 
-    chart_series = (('display_year', "%s"),
-                    ('number_of_applicants', "%d", ('data-tablebars=1',)),
-                    ('number_admitted', "%d", ('data-tablebars=1',)),
-                    ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),
-                    ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1', 'class="span2"')),
-                    ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1', 'class="span2"')))
+    # chart_series = (('display_year', "%s"),
+    #                 ('number_of_applicants', "%d", ('data-tablebars=1',)),
+    #                 ('number_admitted', "%d", ('data-tablebars=1',)),
+    #                 ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),
+    #                 ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1', 'class="span2"')),
+    #                 ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1', 'class="span2"')))
 
 
 class Enrollment(YearBasedInstitutionStatModel):

@@ -5,11 +5,14 @@ NULL_DISPLAY = "&ndash;"
 
 
 class ChartCell(object):
-    attrs = []
+    head_attrs = {}
+    body_attrs = {}
+    label = ""
     format = "%s"
     text = ""
 
-    def __init__(self, cls, fieldname, format=None, attrs=None):
+    def __init__(self, cls, fieldname, format=None):
+        self.label = fieldname
         try:
             self.field = cls._meta.get_field(fieldname)
             self.text = self.field.verbose_name
@@ -17,15 +20,27 @@ class ChartCell(object):
             self.text = fieldname
         if format is not None:
             self.format = format
-        if attrs is not None:
-            self.attrs = attrs
+        if hasattr(cls, 'chart_head_attrs'):
+            self.head_attrs = dict(cls.chart_head_attrs)
+        if hasattr(cls, 'chart_body_attrs'):
+            self.body_attrs = dict(cls.chart_body_attrs)
+
+    def build_attrs(self, attrs, label):
+        if label not in attrs:
+            return ""
+        attr = attrs[label]
+        if isinstance(attr, basestring):
+            return attr
+        return u" ".join(attr)
 
     def as_th(self):
         # TODO get mark_safe to work
         # from django.utils.safestring import mark_safe
-        return u"<th %s>%s</th>" % (u" ".join(self.attrs), self.text)
+        return u"<th %s>%s</th>" % (self.build_attrs(self.head_attrs, self.label), self.text)
 
     def as_td(self):
+        if self.body_attrs and self.fieldname in self.body_attrs:
+            return u"<td %s>%s</td>" % (self.build_attrs(self.body_attrs, self.label), self.text)
         return u"<td>%s</td>" % self.text
 
     def as_text(self):
@@ -36,11 +51,8 @@ class ChartCell(object):
 
 
 class ChartBodyCell(ChartCell):
-    def __init__(self, obj, fieldname, format=None, attrs=None):
-        if format is not None:
-            self.format = format
-        if attrs is not None:
-            self.attrs = attrs
+    def __init__(self, obj, fieldname, format=None):
+        super(ChartBodyCell, self).__init__(obj, fieldname, format)
         self.value = getattr(obj, fieldname)
         if self.value is None:
             self.text = NULL_DISPLAY
