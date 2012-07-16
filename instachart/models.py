@@ -18,7 +18,10 @@ class ChartCell(object):
             self.field = cls._meta.get_field(fieldname)
             self.text = self.field.verbose_name
         except models.FieldDoesNotExist:
-            self.text = fieldname
+            try:
+                self.text = getattr(cls, fieldname).verbose_name
+            except AttributeError:
+                self.text = fieldname
         self.raw_text = self.text
         if format is not None:
             self.format = format
@@ -64,6 +67,8 @@ class ChartBodyCell(ChartCell):
     def __init__(self, obj, fieldname, format=None):
         super(ChartBodyCell, self).__init__(obj, fieldname, format)
         self.raw_text = getattr(obj, fieldname)
+        if hasattr(self.raw_text, '__call__'):
+            self.raw_text = self.raw_text()
         if self.raw_text is None:
             self.text = NULL_DISPLAY
         else:
