@@ -12,7 +12,7 @@ register = template.Library()
 
 
 # top stuff is directly from armstrong layout_helpers with object renamed obj
-@register.tag(name="simple_chart")
+@register.tag(name="instachart")
 def do_render_qs(parser, token):
     tokens = token.split_contents()
     if len(tokens) is 2:
