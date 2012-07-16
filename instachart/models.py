@@ -89,7 +89,8 @@ class SimpleChart(models.Model):
     @classmethod
     def get_chart_series(cls):
         if cls.chart_series:
-            return cls.chart_series
+            # normalize, wrap in tuple if a series was defined simple
+            return [(x,) if isinstance(x, basestring) else x for x in cls.chart_series]
         return [(x, "%s") for x in cls.get_chart_field_names()]
 
     @classmethod
