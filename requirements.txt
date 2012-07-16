@@ -1,22 +1,9 @@
-# example project
+#example project
 Django==1.4
 psycopg2
 armstrong.core.arm-layout==1.1.1
 django-extensions
-django-debug-toolbar
--e git://github.com/crccheck/pinax-theme-bootstrap.git@5db381d#egg=pinax_theme_bootstrap-dev
+-e git://github.com/crccheck/pinax-theme-bootstrap.git@167a4a9d94#egg=pinax_theme_bootstrap-dev
 
-# use last good ipython that worked with shell_plus, must go before ipdb
-ipython==0.10.2
-ipdb
-
-
-# app requirements
-lxml==2.3.4
-
-
-# for the initial population of institutions
-# requests==0.13.1
-# text processing
-# nltk
-# numpy
+# heroku
+dj-database-url==0.2.1

@@ -1,0 +1,16 @@
+django-debug-toolbar
+
+# use last good ipython that worked with shell_plus, must go before ipdb
+ipython==0.10.2
+ipdb
+
+
+# app requirements
+lxml==2.3.4
+
+
+# for the initial population of institutions
+# requests==0.13.1
+# text processing
+# nltk
+# numpy
