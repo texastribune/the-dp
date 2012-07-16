@@ -2,7 +2,7 @@ from collections import namedtuple
 
 from django.db import models
 
-from chartable.models import SimpleChartable
+from instachart.models import SimpleChart
 
 from .base import APP_LABEL
 
@@ -102,7 +102,7 @@ class YearBasedInstitutionStatModel(models.Model):
 # EthnicFieldsMixin = make_int_fields('EthnicFieldsMixin', dict(RACE_CHOICES).keys(), prefix='total_')
 
 
-class PriceTrends(YearBasedInstitutionStatModel, SimpleChartable):
+class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     tuition_fees_in_state = models.IntegerField(null=True,
         verbose_name=u"In-State Tuition & Fees")
     tuition_fees_outof_state = models.IntegerField(null=True,
@@ -115,11 +115,19 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChartable):
                     ('tuition_fees_outof_state', "$%d"),
                     ('books_and_supplies', "$%d"))
 
+    chart_head_attrs = (('tuition_fees_in_state', ('data-tablebars=1',)),
+                        ('tuition_fees_outof_state', 'data-tablebars=1'),
+                        ('books_and_supplies', 'data-tablebars=1'))
+
+    chart_body_attrs = (('tuition_fees_in_state', 'data-value="%d"'),
+                        ('tuition_fees_outof_state', 'data-value="%d"'),
+                        ('books_and_supplies', 'data-value="%d"'))
+
 
 #############################################################################
 #   Admissions
 #############################################################################
-class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
+class TestScores(YearBasedInstitutionStatModel):
     # possible data sources: IPEDS
     sat_verbal_25th_percentile = models.IntegerField(null=True)
     sat_verbal_75th_percentile = models.IntegerField(null=True)
@@ -191,21 +199,28 @@ class TestScores(YearBasedInstitutionStatModel, SimpleChartable):
 #         return self.get_query_set().filter(gender='Total')
 
 
-class Admissions(YearBasedInstitutionStatModel, SimpleChartable):
+class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
     number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
-    percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
-    percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True)
+    percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted")
+    percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
 
     # objects = GenderManager()
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
 
+    # chart_series = (('display_year', "%s"),
+    #                 ('number_of_applicants', "%d", ('data-tablebars=1',)),
+    #                 ('number_admitted', "%d", ('data-tablebars=1',)),
+    #                 ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),
+    #                 ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1', 'class="span2"')),
+    #                 ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1', 'class="span2"')))
 
-class Enrollment(YearBasedInstitutionStatModel, SimpleChartable):
+
+class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total = models.IntegerField(null=True)
     fulltime_equivalent = models.IntegerField(null=True)
     fulltime = models.IntegerField(null=True)
@@ -218,9 +233,27 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChartable):
     total_percent_asian = models.IntegerField(null=True)
     total_percent_unknown = models.IntegerField(null=True)
 
+    def race_pie(self):
+        return ('<img src="http://chart.apis.google.com/chart?chs=400x225&cht=p'
+            '&chd=t:%d,%d,%d,%d,%d,%d'
+            '&chl=White|Black|Hispanic|Native American|Asian|Unknown" width="400" height="225" alt="" >') % (
+            self.total_percent_white or 0,
+            self.total_percent_black or 0,
+            self.total_percent_hispanic or 0,
+            self.total_percent_native or 0,
+            self.total_percent_asian or 0,
+            self.total_percent_unknown or 0)
+    race_pie.verbose_name = "Race Pie"
+
+    chart_series = ('year',
+                    'fulltime_equivalent',
+                    'fulltime',
+                    'parttime',
+                    'race_pie')
+
 
 # TODO better name
-class Enrollmentbystudentlevel(YearBasedInstitutionStatModel, SimpleChartable):
+class Enrollmentbystudentlevel(YearBasedInstitutionStatModel):
     # these choices are how they are found in the CSV
     LEVEL_CHOICES = (
         ('undergrad', 'Undergraduate total'),

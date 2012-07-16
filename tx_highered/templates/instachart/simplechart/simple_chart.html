@@ -1,9 +1,10 @@
+{% load instachart %}
 <table class="table table-bordered table-striped table-condensed">
   {% block thead %}
   <thead>
     <tr>
-      {% for data in object_list.model.chart_header %}
-        <th>{{ data }}</th>
+      {% for cell in chart_header %}
+        {{ cell.as_th|safe }}
       {% endfor %}
     </tr>
   </thead>
@@ -12,8 +13,8 @@
   <tbody>
     {% for row in object_list %}
       <tr>
-        {% for data in row.chart_set %}
-          <td>{{ data }}</td>
+        {% for cell in row|chart_set %}
+          {{ cell.as_td|safe }}
         {% endfor %}
       </tr>
     {% endfor %}

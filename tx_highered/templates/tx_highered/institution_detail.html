@@ -1,5 +1,5 @@
 {% extends "tx_highered/app_base.html" %}
-{% load layout_helpers humanize simple_charts %}
+{% load layout_helpers humanize instachart %}
 {% load staticfiles %}
 
 
@@ -13,18 +13,18 @@
     <header>
       <h3>Price Trends</h3>
     </header>
-    {% simple_chart object.pricetrends_set.all "simple_chart" %}
+    {% instachart object.pricetrends_set.all %}
   </section>
 
   <h3>Test Scores</h3>
-  {% simple_chart object.testscores_set.all "testscores" %}
+  {% instachart object.testscores_set.all "testscores" %}
 
   <h3>Admissions</h3>
-  {% simple_chart object.admissions_set.all "simple_chart" %}
+  {% instachart object.admissions_set.all %}
 
   <h3>Enrollment</h3>
-  {% simple_chart object.enrollment_set.all "simple_chart" %}
-  {% simple_chart object.enrollmentbystudentlevel_set.all "simple_chart" %}
+  {% instachart object.enrollment_set.all %}
+  {% instachart object.enrollmentbystudentlevel_set.all %}
 {% endblock %}
 
 
@@ -38,8 +38,7 @@
 {% block extra_script %}{{ block.super }}
 <script src="{% static 'js/jquery.tablebars.js' %}"></script>
 <script>
-  $('#pricetrends table > thead > tr > *').slice(1).attr('data-tablebars', '1')
-  $('#pricetrends table').tablebars();
+  $('table').tablebars();
 
 </script>
 {% endblock %}

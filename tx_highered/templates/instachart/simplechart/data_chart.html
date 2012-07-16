@@ -1,0 +1,23 @@
+{% load instachart %}
+<table class="table table-bordered table-striped table-condensed">
+  {% block thead %}
+  <thead>
+    <tr>
+      {% for cell in chart_header %}
+        {{ cell.as_th|safe }}
+      {% endfor %}
+    </tr>
+  </thead>
+  {% endblock %}
+  {% block tbody %}
+  <tbody>
+    {% for row in object_list %}
+      <tr>
+        {% for cell in row|chart_set %}
+          {{ cell.as_td_data|safe }}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+  {% endblock %}
+</table>

@@ -3,14 +3,20 @@ from django.template.base import TemplateSyntaxError
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+from ..models import SimpleChart, ChartCell
+
+
+DEFAULT_CHART_NAME = "simple_chart"
 
 register = template.Library()
 
 
 # top stuff is directly from armstrong layout_helpers with object renamed obj
-@register.tag(name="simple_chart")
+@register.tag(name="instachart")
 def do_render_qs(parser, token):
     tokens = token.split_contents()
+    if len(tokens) is 2:
+        tokens.append(u'"%s"' % DEFAULT_CHART_NAME)
     if len(tokens) is 3:
         _, obj, name = tokens
         return RenderQuerysetNode(obj, name)
@@ -36,15 +42,19 @@ class ChartsRenderQuerysetBackend(object):
         for a in obj.mro():
             if not hasattr(a, "_meta"):
                 continue
-            ret.append("layout/%s/%s/%s.html" % (a._meta.app_label,
-                a._meta.object_name.lower(), name))
+            ret.append("instachart/%s/%s.html" % (a._meta.object_name.lower(), name))
         return ret
 
     def render(self, qs, name, dictionary=None, context_instance=None):
         dictionary = dictionary or {}
-        object_list = qs
-        dictionary["object_list"] = object_list.all()
-        template_name = self.get_layout_template_name(object_list.model, name)
+        dictionary["object_list"] = qs
+        try:
+            dictionary["chart_header"] = qs.model.get_chart_header()
+            template_name = self.get_layout_template_name(qs.model, name)
+        except AttributeError:
+            fields = [x.name for x in qs.model._meta.fields]
+            dictionary["chart_header"] = [ChartCell(qs.model, field) for field in fields]
+            template_name = "instachart/simplechart/%s.html" % name
         return mark_safe(render_to_string(template_name, dictionary=dictionary,
             context_instance=context_instance))
 
@@ -52,3 +62,8 @@ class ChartsRenderQuerysetBackend(object):
         return self.render(*args, **kwargs)
 
 render_queryset = ChartsRenderQuerysetBackend()
+
+
+@register.filter(name="chart_set")
+def chart_set(obj):
+    return SimpleChart.chart_set(obj)
