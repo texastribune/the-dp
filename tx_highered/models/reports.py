@@ -69,7 +69,7 @@ class YearBasedInstitutionStatModel(models.Model):
         elif self.year_type == 'academic':
             return "%d-%d" % (self.year - 1, self.year)
         elif self.year_type == 'fall':
-            return "F%02d" % (self.year % 100)
+            return "F%02d" % (int(self.year) % 100)
         return "%d %s" % (self.year, self.year_type)
 
     @property
