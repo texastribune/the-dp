@@ -43,15 +43,3 @@ class SATListView(ListView):
                 x.bar_a = dict(left=multiplier * (x.scores.act_composite_25th_percentile - ACTMIN),
                           width=multiplier * (x.scores.act_composite_75th_percentile - x.scores.act_composite_25th_percentile))
         return qs
-
-
-class DegreesListView(ListView):
-    queryset = Institution.objects.filter(ipeds_id__isnull=False).exclude(degreescertificates__isnull=True).order_by('name')
-
-    def get_queryset(self):
-        qs = self.queryset
-        for x in qs:
-            data = x.degreescertificates_set.filter(gender='Total', raceethnicity='Total').latest('year')
-            x.num_pricetrends = data.year
-            x.num_sattestscores = data.value
-        return qs
