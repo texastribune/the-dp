@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 
 
@@ -8,14 +9,12 @@ class Variable(models.Model):
     category = models.CharField(max_length=150)
     long_name = models.CharField(max_length=80)
     raw = models.CharField(max_length=800, unique=True)
-
-
-from django.contrib import admin
+    used = models.BooleanField(default=False)
 
 
 class VariableAdmin(admin.ModelAdmin):
     list_display = ('long_name', 'code', 'short_name', 'category')
-    list_filter = ('code', 'short_name')
+    list_filter = ('code', 'short_name', 'used')
     list_per_page = 250  # limit of 250 variables per report
     search_fields = ('category', 'long_name')
 
@@ -28,6 +27,12 @@ class VariableAdmin(admin.ModelAdmin):
         filename += "-q%s" % queryset.count()
         response['Content-Disposition'] = 'attachment; filename=ipeds-%s.mvl' % filename
         return response
-    actions = ['make_MVL']
+
+    def mark_used(self, request, queryset):
+        queryset.update(used=True)
+
+    def mark_unused(self, request, queryset):
+        queryset.update(used=False)
+    actions = ['make_MVL', 'mark_used', 'mark_unused']
 
 admin.site.register(Variable, VariableAdmin)
