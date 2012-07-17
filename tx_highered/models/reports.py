@@ -12,8 +12,8 @@ in the IPEDS source
 
 """
 
-__all__ = ['PriceTrends', 'TestScores', 'Admissions', 'Degreescertificates',
-'Enrollment', 'Enrollmentbystudentlevel']
+__all__ = ['PriceTrends', 'TestScores', 'Admissions',
+'Enrollment']
 
 # GENDER_CHOICES = (
 #     ('Men', 'Men'),
@@ -77,31 +77,6 @@ class YearBasedInstitutionStatModel(models.Model):
         return self.get_display_year()
 
 
-# class GenderFieldsMixin(models.Model):
-#     gender = models.TextField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
-
-#     class Meta:
-#         abstract = True
-
-
-# def make_int_fields(name, fields, prefix=''):
-#     """ Created a model mixin with a series of IntegerFields """
-#     attrs = dict()
-
-#     for field in fields:
-#         attrs['%s%s' % (prefix, field)] = models.IntegerField(null=True, blank=True)
-
-#     attrs['Meta'] = type('Meta', (), dict(
-#                         abstract=True,
-#                     ))
-#     # attrs['__module__'] = 'schools'
-
-#     return type(name, (models.Model,), attrs)
-
-
-# EthnicFieldsMixin = make_int_fields('EthnicFieldsMixin', dict(RACE_CHOICES).keys(), prefix='total_')
-
-
 class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     tuition_fees_in_state = models.IntegerField(null=True,
         verbose_name=u"In-State Tuition & Fees")
@@ -109,6 +84,9 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
         verbose_name=u"Out-Of-State Tuition & Fees")
     books_and_supplies = models.IntegerField(null=True,
         verbose_name=u"Books & Supplies")
+
+    def __unicode__(self):
+        return "Price Trends %s %s" % (self.display_year, self.institution)
 
     chart_series = (('year', "%d"),
                     ('tuition_fees_in_state', "$%d"),
@@ -147,6 +125,9 @@ class TestScores(YearBasedInstitutionStatModel):
     act_writing_75th_percentile = models.IntegerField(null=True)
     act_submitted_number = models.IntegerField(null=True)
     act_submitted_percent = models.IntegerField(null=True)
+
+    def __unicode__(self):
+        return "Test Scores %s %s" % (self.display_year, self.institution)
 
     @property
     def bar(self):
@@ -188,26 +169,16 @@ class TestScores(YearBasedInstitutionStatModel):
     def sat_verbal_width(self):
         return self.sat_verbal_75th_percentile - self.sat_verbal_25th_percentile
 
-# class GenderManager(models.Manager):
-#     def men(self):
-#         return self.get_query_set().filter(gender='Men')
-
-#     def women(self):
-#         return self.get_query_set().filter(gender='Women')
-
-#     def total(self):
-#         return self.get_query_set().filter(gender='Total')
-
 
 class Admissions(YearBasedInstitutionStatModel, SimpleChart):
-    # TODO make a gender/year based? what about ethnicity?
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
     number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
     percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted")
     percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
 
-    # objects = GenderManager()
+    def __unicode__(self):
+        return "Admissions Data %s %s" % (self.display_year, self.institution)
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
@@ -233,6 +204,9 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total_percent_asian = models.IntegerField(null=True)
     total_percent_unknown = models.IntegerField(null=True)
 
+    def __unicode__(self):
+        return "Enrollment Data %s %s" % (self.display_year, self.institution)
+
     def race_pie(self):
         return ('<img src="http://chart.apis.google.com/chart?chs=400x225&cht=p'
             '&chd=t:%d,%d,%d,%d,%d,%d'
@@ -250,32 +224,3 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
                     'fulltime',
                     'parttime',
                     'race_pie')
-
-
-# TODO better name
-class Enrollmentbystudentlevel(YearBasedInstitutionStatModel):
-    # these choices are how they are found in the CSV
-    LEVEL_CHOICES = (
-        ('undergrad', 'Undergraduate total'),
-        ('grad', 'Graduate'),
-        ('pro', 'First-professional'),
-        ('gradpro', 'Graduate and first-professional'),
-        ('total', 'All students total'))
-    student_level = models.CharField(max_length=40, choices=LEVEL_CHOICES, null=True, blank=True)
-    full_time_men = models.IntegerField(null=True, blank=True)
-    full_time_women = models.IntegerField(null=True, blank=True)
-    full_time_total = models.IntegerField(null=True, blank=True)
-    part_time_men = models.IntegerField(null=True, blank=True)
-    part_time_women = models.IntegerField(null=True, blank=True)
-    part_time_total = models.IntegerField(null=True, blank=True)
-    grand_total = models.IntegerField(null=True, blank=True)
-
-    class Meta(YearBasedInstitutionStatModel.Meta):
-        unique_together = ('year', 'institution', 'student_level')
-
-
-class Degreescertificates(YearBasedInstitutionStatModel):
-    value = models.IntegerField(null=True, blank=True)
-
-    class Meta(YearBasedInstitutionStatModel.Meta):
-        unique_together = ('year', 'institution')
