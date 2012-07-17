@@ -1,5 +1,6 @@
+cd $(cat $VIRTUAL_ENV/.project)/tx_highered/scripts
+
 DJANGO_SETTINGS_MODULE=exampleproject.settings
-cd ../tx_highered/scripts/
 
 # These locations are specific to my particular setup
 
