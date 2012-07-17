@@ -41,6 +41,9 @@ class IpedsCsvReader(object):
 
     def parse_rows(self, institution_model, report_model):
         for row in self._reader:
+            if len("".join(row[2:])) == 0:
+                # skip empty rows
+                continue
             inst = institution_model.objects.get(ipeds_id=row[self.primary_idx])
             for year in self.years_data:
                 instance, _ = report_model.objects.get_or_create(
