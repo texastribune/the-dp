@@ -229,10 +229,18 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
                     'race_pie')
 
 
-class GraduationRates(YearBasedInstitutionStatModel):
-    bachelor_4yr = models.IntegerField(null=True)
-    bachelor_5yr = models.IntegerField(null=True)
-    bachelor_6yr = models.IntegerField(null=True)
+class GraduationRates(YearBasedInstitutionStatModel, SimpleChart):
+    bachelor_4yr = models.IntegerField(null=True,
+        verbose_name=u"Bachelor degree within four years")
+    bachelor_5yr = models.IntegerField(null=True,
+        verbose_name=u"Bachelor degree within five years")
+    bachelor_6yr = models.IntegerField(null=True,
+        verbose_name=u"Bachelor degree within six years")
 
     def __unicode__(self):
         return "Graduation Rates %s %s" % (self.display_year, self.institution)
+
+    chart_series = ('display_year',
+                    ('bachelor_4yr', "%s%%"),
+                    ('bachelor_5yr', "%s%%"),
+                    ('bachelor_6yr', "%s%%"))
