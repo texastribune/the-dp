@@ -1,3 +1,4 @@
+from __future__ import division
 from collections import namedtuple
 
 from django.db import models
@@ -138,33 +139,34 @@ class TestScores(YearBasedInstitutionStatModel):
             return self._bar
         HorizontalBar = namedtuple('HorizontalBar', ['left', 'width'])
         context = dict()
-        # TODO return in % units
-        MIN = 300
-        ACTMIN = 10
-        multiplier = (800 - MIN) / (36 - ACTMIN)
+        min, max = 300, 800 * 1.05  # yeah yeah, i'm overriding max and min
+        w = (max - min) / 100
         if self.sat_verbal_25th_percentile:
-            context['sat_v'] = HorizontalBar(self.sat_verbal_25th_percentile - MIN,
-                      self.sat_verbal_75th_percentile - self.sat_verbal_25th_percentile)
+            context['sat_v'] = HorizontalBar((self.sat_verbal_25th_percentile - min) / w,
+                      (self.sat_verbal_75th_percentile - self.sat_verbal_25th_percentile) / w)
         if self.sat_math_25th_percentile:
-            context['sat_m'] = HorizontalBar(self.sat_math_25th_percentile - MIN,
-                      self.sat_math_75th_percentile - self.sat_math_25th_percentile)
+            context['sat_m'] = HorizontalBar((self.sat_math_25th_percentile - min) / w,
+                      (self.sat_math_75th_percentile - self.sat_math_25th_percentile) / w)
         if self.sat_writing_25th_percentile:
-            context['sat_w'] = HorizontalBar(self.sat_writing_25th_percentile - MIN,
-                      self.sat_writing_75th_percentile - self.sat_writing_25th_percentile)
+            context['sat_w'] = HorizontalBar((self.sat_writing_25th_percentile - min) / w,
+                      (self.sat_writing_75th_percentile - self.sat_writing_25th_percentile) / w)
 
+        min, max = 10, 36 * 1.05
+        w = (max - min) / 100
         if self.act_english_25th_percentile:
-            context['act_e'] = HorizontalBar(multiplier * (self.act_english_25th_percentile - ACTMIN),
-                      multiplier * (self.act_english_75th_percentile - self.act_english_25th_percentile))
+            context['act_e'] = HorizontalBar((self.act_english_25th_percentile - min) / w,
+                      (self.act_english_75th_percentile - self.act_english_25th_percentile) / w)
         if self.act_math_25th_percentile:
-            context['act_m'] = HorizontalBar(multiplier * (self.act_math_25th_percentile - ACTMIN),
-                      multiplier * (self.act_math_75th_percentile - self.act_math_25th_percentile))
-        # TODO writing is on a 2-12 scale
-        if self.act_writing_25th_percentile:
-            context['act_w'] = HorizontalBar(multiplier * (self.act_writing_25th_percentile + 10),
-                      3 * multiplier * (self.act_writing_75th_percentile - self.act_writing_25th_percentile))
+            context['act_m'] = HorizontalBar((self.act_math_25th_percentile - min) / w,
+                      (self.act_math_75th_percentile - self.act_math_25th_percentile) / w)
         if self.act_composite_25th_percentile:
-            context['act_c'] = HorizontalBar(multiplier * (self.act_composite_25th_percentile - ACTMIN),
-                      multiplier * (self.act_composite_75th_percentile - self.act_composite_25th_percentile))
+            context['act_c'] = HorizontalBar((self.act_composite_25th_percentile - min) / w,
+                      (self.act_composite_75th_percentile - self.act_composite_25th_percentile) / w)
+        min, max = 2, 12 * 1.05
+        w = (max - min) / 100
+        if self.act_writing_25th_percentile:
+            context['act_w'] = HorizontalBar((self.act_writing_25th_percentile - min) / w,
+                      (self.act_writing_75th_percentile - self.act_writing_25th_percentile) / w)
         self._bar = context
         return context
 

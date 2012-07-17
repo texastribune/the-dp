@@ -4,21 +4,25 @@
     <td>
       <div class=paper style="position: relative;">
         {% if object.sat_verbal_25th_percentile %}
-          <span class="label pull-left">{{ object.sat_verbal_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.sat_verbal_75th_percentile }}</span>
-          <div class="label bar label-success" style="left: {{ object.bar.sat_v.left }}px; width: {{ object.bar.sat_v.width }}px; position: absolute;">verbal</div>
+          <div class="clearfix" style="margin-bottom: 2px">
+            <span class="label pull-left">{{ object.sat_verbal_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.sat_verbal_75th_percentile }}</span>
+            <div class="label bar label-success" style="left: {{ object.bar.sat_v.left }}%; width: {{ object.bar.sat_v.width }}%; position: absolute;">verbal</div>
+          </div>
         {% endif %}
         {% if object.sat_math_25th_percentile %}
-          <br>
-          <span class="label pull-left">{{ object.sat_math_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.sat_math_75th_percentile }}</span>
-          <div class="label bar label-warning" style="left: {{ object.bar.sat_m.left }}px; width: {{ object.bar.sat_m.width }}px; position: absolute;">math</div>
+          <div class="clearfix" style="margin-bottom: 2px">
+            <span class="label pull-left">{{ object.sat_math_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.sat_math_75th_percentile }}</span>
+            <div class="label bar label-warning" style="left: {{ object.bar.sat_m.left }}%; width: {{ object.bar.sat_m.width }}%; position: absolute;">math</div>
+          </div>
         {% endif %}
         {% if object.sat_writing_25th_percentile %}
-          <br>
-          <span class="label pull-left">{{ object.sat_writing_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.sat_writing_75th_percentile }}</span>
-          <div class="label bar label-important" style="left: {{ object.bar.sat_w.left }}px; width: {{ object.bar.sat_w.width }}px; position: absolute;">writing</div>
+          <div class="clearfix" style="margin-bottom: 2px">
+            <span class="label pull-left">{{ object.sat_writing_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.sat_writing_75th_percentile }}</span>
+            <div class="label bar label-important" style="left: {{ object.bar.sat_w.left }}%; width: {{ object.bar.sat_w.width }}%; position: absolute;">writing</div>
+          </div>
         {% endif %}
       </div>
     </td>
@@ -27,27 +31,32 @@
     <td>
       <div class=paper style="position: relative;">
         {% if object.act_english_25th_percentile %}
-          <span class="label pull-left">{{ object.act_english_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.act_english_75th_percentile }}</span>
-          <div class="label bar label-success" style="left: {{ object.bar.act_e.left }}px; width: {{ object.bar.act_e.width }}px; position: absolute;">english</div>
+          <div class="clearfix" style="margin-bottom: 2px;">
+            <span class="label pull-left">{{ object.act_english_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.act_english_75th_percentile }}</span>
+            <div class="label bar label-success" style="left: {{ object.bar.act_e.left }}%; width: {{ object.bar.act_e.width }}%; position: absolute;">english</div>
+          </div>
         {% endif %}
         {% if object.act_math_25th_percentile %}
-          <br>
-          <span class="label pull-left">{{ object.act_math_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.act_math_75th_percentile }}</span>
-          <div class="label bar label-warning" style="left: {{ object.bar.act_m.left }}px; width: {{ object.bar.act_m.width }}px; position: absolute;">math</div>
+          <div class="clearfix" style="margin-bottom: 2px;">
+            <span class="label pull-left">{{ object.act_math_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.act_math_75th_percentile }}</span>
+            <div class="label bar label-warning" style="left: {{ object.bar.act_m.left }}%; width: {{ object.bar.act_m.width }}%; position: absolute;">math</div>
+          </div>
         {% endif %}
         {% if object.act_writing_25th_percentile %}
-          <br>
-          <span class="label pull-left">{{ object.act_writing_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.act_writing_75th_percentile }}</span>
-          <div class="label bar label-important" style="left: {{ object.bar.act_w.left }}px; width: {{ object.bar.act_w.width }}px; position: absolute;">writing</div>
+          <div class="clearfix" style="margin-bottom: 2px">
+            <span class="label pull-left">{{ object.act_writing_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.act_writing_75th_percentile }}</span>
+            <div class="label bar label-important" style="left: {{ object.bar.act_w.left }}%; width: {{ object.bar.act_w.width }}%; position: absolute;">writing</div>
+          </div>
         {% endif %}
         {% if object.act_composite_25th_percentile %}
-          <br>
-          <span class="label pull-left">{{ object.act_composite_25th_percentile }}</span>
-          <span class="label pull-right">{{ object.act_composite_75th_percentile }}</span>
-          <div class="label bar label-info" style="left: {{ object.bar.act_c.left }}px; width: {{ object.bar.act_c.width }}px; position: absolute;">composite</div>
+          <div class="clearfix" style="margin-bottom: 2px;">
+            <span class="label pull-left">{{ object.act_composite_25th_percentile }}</span>
+            <span class="label pull-right">{{ object.act_composite_75th_percentile }}</span>
+            <div class="label bar label-info" style="left: {{ object.bar.act_c.left }}%; width: {{ object.bar.act_c.width }}%; position: absolute;">composite</div>
+          </div>
         {% endif %}
       </div>
     </td>
