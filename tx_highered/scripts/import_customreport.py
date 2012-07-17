@@ -6,11 +6,15 @@ UnitID,Institution Name,CINSON(DRVIC2011),COTSON(DRVIC2011),CINSON(DRVIC2010_RV)
 
 """
 
+import os
 import sys
 
 from ipeds_importer.utils import IpedsCsvReader
 
 from tx_highered.models import Institution
+
+
+PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
 
 
 def prices(path):
@@ -78,8 +82,24 @@ def enrollment(path):
     reader.parse_rows(institution_model=Institution, report_model=Enrollment)
 
 
+def graduation_rates(path):
+    from tx_highered.models import GraduationRates as report_model
+    field_mapping = (
+        ('GBA4RTT', 'bachelor_4yr'),
+        ('GBA5RTT', 'bachelor_5yr'),
+        ('GBA6RTT', 'bachelor_6yr'))
+    year_type = 'aug'
+    reader = IpedsCsvReader(open(path, "rb"), field_mapping=field_mapping,
+                            primary_mapping=PRIMARY_MAPPING, year_type=year_type)
+    reader.parse_rows(institution_model=Institution, report_model=report_model)
+
+
 report = sys.argv[-2]
 path = sys.argv[-1]
+
+if len(sys.argv) == 2:
+    # no report given, guess it
+    report = os.path.splitext(os.path.basename(sys.argv[1]))[0]
 
 if report == 'prices':
     prices(path)
@@ -87,6 +107,8 @@ elif report == 'testscores':
     testscores(path)
 elif report == 'enrollment':
     enrollment(path)
+elif report == 'grad_rates':
+    graduation_rates(path)
 else:
     reader = IpedsCsvReader(open(path, "rb"))
     reader.explain_header()

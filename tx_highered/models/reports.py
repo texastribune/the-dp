@@ -13,7 +13,7 @@ in the IPEDS source
 """
 
 __all__ = ['PriceTrends', 'TestScores', 'Admissions',
-'Enrollment']
+'Enrollment', 'GraduationRates']
 
 # GENDER_CHOICES = (
 #     ('Men', 'Men'),
@@ -227,3 +227,12 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
                     'fulltime',
                     'parttime',
                     'race_pie')
+
+
+class GraduationRates(YearBasedInstitutionStatModel):
+    bachelor_4yr = models.IntegerField(null=True)
+    bachelor_5yr = models.IntegerField(null=True)
+    bachelor_6yr = models.IntegerField(null=True)
+
+    def __unicode__(self):
+        return "Graduation Rates %s %s" % (self.display_year, self.institution)
