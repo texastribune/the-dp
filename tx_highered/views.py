@@ -28,18 +28,6 @@ class SATListView(ListView):
 
     def get_queryset(self):
         qs = self.queryset
-        MIN = 300
-        ACTMIN = 10
-        multiplier = (800 - MIN) / (36 - ACTMIN)
         for x in qs:
             x.scores = x.testscores_set.latest('year')
-            if x.scores.sat_verbal_25th_percentile:
-                x.bar_v = dict(left=x.scores.sat_verbal_25th_percentile - MIN,
-                          width=x.scores.sat_verbal_75th_percentile - x.scores.sat_verbal_25th_percentile)
-            if x.scores.sat_math_25th_percentile:
-                x.bar_m = dict(left=x.scores.sat_math_25th_percentile - MIN,
-                          width=x.scores.sat_math_75th_percentile - x.scores.sat_math_25th_percentile)
-            if x.scores.act_composite_25th_percentile:
-                x.bar_a = dict(left=multiplier * (x.scores.act_composite_25th_percentile - ACTMIN),
-                          width=multiplier * (x.scores.act_composite_75th_percentile - x.scores.act_composite_25th_percentile))
         return qs

@@ -1,23 +1,15 @@
 {% extends "tx_highered/app_base.html" %}
+{% load layout_helpers %}
 
 
-{% block head_title %}SAT Scores{% endblock %}
+{% block head_title %}Test Scores{% endblock %}
 
 
 {% block extra_style %}{{ block.super }}
 <style type="text/css">
 .paper {
-  padding-top: 0;
-  position: relative;
-  min-width: 400px;
+  min-width: 600px;
 }
-.bar {
-  position: absolute;
-}
-.verbal {
-  background: blue;
-}
-.math { background: red; }
 </style>
 {% endblock %}
 
@@ -27,38 +19,13 @@
   <thead>
     <tr>
       <th>School</th>
-      <th>SAT Scores</th>
+      <th>Scores</th>
     </tr>
   </thead>
-  <tbody>
-    {% for object in object_list %}
-      <tr>
-        <td>
-          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
-        </td>
-        <td>
-          <section class=paper>
-            {% if object.scores.sat_verbal_25th_percentile %}
-              <span class="label pull-left">{{ object.scores.sat_verbal_25th_percentile }}</span>
-              <span class="label pull-right">{{ object.scores.sat_verbal_75th_percentile }}</span>
-              <div class="label bar verbal" style="left: {{ object.bar_v.left }}px; width: {{ object.bar_v.width }}px;">verbal</div>
-            {% endif %}
-            {% if object.scores.sat_math_25th_percentile %}
-              <br>
-              <span class="label pull-left">{{ object.scores.sat_math_25th_percentile }}</span>
-              <span class="label pull-right">{{ object.scores.sat_math_75th_percentile }}</span>
-              <div class="label bar math" style="left: {{ object.bar_m.left }}px; width: {{ object.bar_m.width }}px;">math</div>
-            {% endif %}
-            {% if object.scores.act_composite_25th_percentile %}
-              <br>
-              <span class="label pull-left">{{ object.scores.act_composite_25th_percentile }}</span>
-              <span class="label pull-right">{{ object.scores.act_composite_75th_percentile }}</span>
-              <div class="label bar label-warning" style="left: {{ object.bar_a.left }}px; width: {{ object.bar_a.width }}px;">act</div>
-            {% endif %}
-          </section>
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
+  {% for object in object_list %}
+    {% with tbody_label=object.name %}
+      {% render_model object.scores "testscores_tbody" %}
+    {% endwith %}
+  {% endfor %}
 </table>
 {% endblock %}

@@ -1,6 +1,6 @@
 <tbody data-pk="{{ object.pk }}">
   <tr>
-    <td rowspan=2>{{ object.display_year }}</td>
+    <td rowspan=2>{% if tbody_label %}{{ tbody_label }}{% else %}{{ object.display_year }}{% endif %}</td>
     <td>
       <div class=paper style="position: relative;">
         {% if object.sat_verbal_25th_percentile %}
