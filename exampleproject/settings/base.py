@@ -1,5 +1,6 @@
 import os
 
+import dj_database_url
 # From armstrong.cli. This function will eventually be in an armstrong
 # utils package, at which point we should stop duplicating it here.
 
@@ -19,7 +20,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tx_highered',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -27,6 +29,7 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost/tx_highered')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -132,7 +135,7 @@ INSTALLED_APPS = [
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'django.contrib.humanize',
-    'django.contrib.gis',
+    # 'django.contrib.gis',
 
     'tx_highered',
 

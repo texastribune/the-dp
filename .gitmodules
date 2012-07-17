@@ -1,3 +1,0 @@
-[submodule "vendor/jquery.tablebars"]
-	path = vendor/jquery.tablebars
-	url = git@github.com:texastribune/jquery.tablebars.js.git

@@ -6,6 +6,7 @@ cd ../tx_highered/scripts/
 # new style
 python import_customreport.py prices /Users/crc/Dropbox/Data/Education-Higher/IPEDS/custom_reports/price.csv
 python import_customreport.py testscores /Users/crc/Dropbox/Data/Education-Higher/IPEDS/custom_reports/testscores.csv
+python import_customreport.py enrollment /Users/crc/Dropbox/Data/Education-Higher/IPEDS/custom_reports/enrollment.csv
 
 # old style auto-discover
 python import_report.py /Users/crc/Dropbox/Data/Education-Higher/IPEDS/reports

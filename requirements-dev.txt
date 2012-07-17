@@ -1,0 +1,18 @@
+-r requirements.txt
+
+django-debug-toolbar
+
+# use last good ipython that worked with shell_plus, must go before ipdb
+ipython
+ipdb
+
+
+# app requirements
+lxml
+
+
+# for the initial population of institutions
+# requests
+# text processing
+# nltk
+# numpy
