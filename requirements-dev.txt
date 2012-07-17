@@ -1,16 +1,18 @@
+-r requirements.txt
+
 django-debug-toolbar
 
 # use last good ipython that worked with shell_plus, must go before ipdb
-ipython==0.10.2
+ipython
 ipdb
 
 
 # app requirements
-lxml==2.3.4
+lxml
 
 
 # for the initial population of institutions
-# requests==0.13.1
+# requests
 # text processing
 # nltk
 # numpy
