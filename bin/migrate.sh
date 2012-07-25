@@ -6,6 +6,5 @@ createdb -T template_postgis tx_highered
 
 python manage.py syncdb --noinput
 
-# import
-# python ../tx_highered/scripts/import_institutions.py
+# add the user: admin/admin
 python manage.py loaddata fixtures/auth.json
