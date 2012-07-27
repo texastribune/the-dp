@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, ObjectDoesNotExist
 from django.views.generic import DetailView, ListView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
@@ -23,6 +23,30 @@ class InstitutionListView(ListView):
 
 class InstitutionDetailView(DetailView):
     model = Institution
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(InstitutionDetailView, self).get_context_data(*args, **kwargs)
+        inst = self.object
+        enterdata = inst.admissions_set.all()
+        exitdata = inst.graduationrates_set.all()
+
+        # please excuse the horribleness of this
+        funnels = []
+        for year in enterdata:
+            funnel = {'year': year.year}
+            funnel[0] = 100
+            funnel[1] = float(year.percent_of_applicants_admitted)
+            funnel[2] = funnel[1] * float(year.percent_of_admitted_who_enrolled) / 100
+            try:
+                year = exitdata.get(year=year.year)
+            except ObjectDoesNotExist:
+                continue
+            funnel[3] = year.bachelor_4yr
+            funnel[4] = year.bachelor_5yr
+            funnel[5] = year.bachelor_6yr
+            funnels.append(funnel)
+        context['funnels'] = funnels
+        return context
 
 
 class SATListView(ListView):
