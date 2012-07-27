@@ -21,6 +21,10 @@ class InstitutionListView(ListView):
         num_admissions=Count('admissions', distinct=True)).order_by('name')
 
 
+class InstitutionDetailView(DetailView):
+    model = Institution
+
+
 class SATListView(ListView):
     queryset = Institution.objects.filter(ipeds_id__isnull=False).\
                exclude(testscores__isnull=True).order_by('name')
