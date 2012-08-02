@@ -57,30 +57,62 @@
 
 {% block extra_script %}{{ block.super }}
 <script>
-  function fold($el){
-    var data = $el.data('onion');
-    data.$items.each(function(idx){
-      var $this = $(this);
-      $this.animate({
-        left: data.targetLeft,
-        opacity: 1 / data.$items.length
-      }, "slow");
-    });
-  }
-
-  function unfold($el){
-    var data = $el.data('onion');
-    data.$items.each(function(idx){
-      var $this = $(this);
-      var left = data.lefts[idx];
-      $this.animate({
-        left: left,
-        opacity: 1
-      }, "slow");
-    });
-  }
-
   $.fn.onionize = function(options){
+    function fold($el, activateEvents){
+      if (activateEvents !== false && options.beforeFold){
+        options.beforeFold.call(this, "TODO", {elem: $el})
+      }
+      var data = $el.data('onion');
+      data.$items.each(function(idx){
+        var $this = $(this);
+        $this.animate({
+          left: data.targetLeft,
+          opacity: 1 / data.$items.length
+        }, "slow");
+      });
+      $el.addClass('ui-onion-active');
+      if (activateEvents !== false && options.afterFold){
+        options.afterFold.call(this, "TODO", {elem: $el})
+      }
+    }
+
+    function unfold($el, activateEvents){
+      if (activateEvents !== false && options.beforeUnfold){
+        options.beforeUnfold.call(this, "TODO", {elem: $el})
+      }
+      var data = $el.data('onion');
+      data.$items.each(function(idx){
+        var $this = $(this);
+        var left = data.lefts[idx];
+        $this.animate({
+          left: left,
+          opacity: 1
+        }, "slow");
+      });
+      $el.removeClass('ui-onion-active');
+      if (activateEvents !== false && options.afterUnfold){
+        options.afterUnfold.call(this, "TODO", {elem: $el})
+      }
+    }
+    // catch API calls, TODO this is hacked on
+    if (typeof options === "string") {
+      switch (options){
+        case 'fold':
+          this.each(function(){
+            fold($(this), false);
+          });
+        break;
+        case 'unfold':
+          this.each(function(){
+            unfold($(this), false);
+          });
+        break;
+      }
+
+      return this;
+    }
+    var options = options || {};
+
     this.each(function(){
       // setup
       var $el = $(this);
@@ -125,10 +157,8 @@
       $button.click(function(){
         if ($el.hasClass('ui-onion-active')) {
           unfold($el);
-          $el.removeClass('ui-onion-active');
         } else {
           fold($el);
-          $el.addClass('ui-onion-active');
         }
       });
 
