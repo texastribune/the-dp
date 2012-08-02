@@ -59,3 +59,35 @@ class SATListView(ListView):
         for x in qs:
             x.scores = x.testscores_set.latest('year')
         return qs
+
+
+class FunnelListView(InstitutionListView):
+    template_name = "tx_highered/reports/funnel.html"
+
+    def annotate_funnels(self, inst):
+        enterdata = inst.admissions_set.all()
+        exitdata = inst.graduationrates_set.all()
+
+        # please excuse the horribleness of this
+        funnels = []
+        for year in enterdata:
+            funnel = {'year': year.year}
+            funnel[0] = 100
+            funnel[1] = float(year.percent_of_applicants_admitted)
+            funnel[2] = funnel[1] * float(year.percent_of_admitted_who_enrolled) / 100
+            try:
+                year = exitdata.get(year=year.year)
+            except ObjectDoesNotExist:
+                continue
+            funnel[3] = year.bachelor_4yr
+            funnel[4] = year.bachelor_5yr
+            funnel[5] = year.bachelor_6yr
+            funnels.append(funnel)
+        inst.funnels = funnels
+
+    def get_context_data(self, *args, **kwargs):
+        # TODO this shouldn't be get_context_data
+        context = super(FunnelListView, self).get_context_data(*args, **kwargs)
+        for obj in self.object_list:
+            self.annotate_funnels(obj)
+        return context
