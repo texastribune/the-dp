@@ -1,13 +1,15 @@
-{% extends "tx_highered/app_base.html" %}
+{% extends "tx_highered/two_column_base.html" %}
 {% load layout_helpers humanize instachart %}
 {% load staticfiles %}
+{% load webdesign %}
 
 
 {% block head_title %}{{ object.name }}{% endblock %}
+{% block page_title %}{{ object.name }}{% endblock %}
 
 
 {% block main %}
-  {% render_model object "table" %}
+  {% lorem 4 p %}
 
   <section id="pricetrends">
     <header>
@@ -51,6 +53,10 @@
   </div>
 {% endblock %}
 
+
+{% block rail %}
+  {% render_model object "table" %}
+{% endblock %}
 
 {% block extra_style %}{{ block.super }}
 <style>
