@@ -177,6 +177,16 @@
     });
   };
 
-  $(".onion").onionize();
+
+  $(".onion").onionize({
+    afterFold: function(e, ui){
+      console.log(e, ui);
+      ui.elem.siblings(".onion").not(".ui-onion-active").onionize("fold");
+    },
+    afterUnfold: function(e, ui){
+      console.log(e, ui);
+      ui.elem.siblings(".onion.ui-onion-active").onionize("unfold");
+    }
+  });
 </script>
 {% endblock %}
