@@ -1,178 +1,54 @@
 {% extends "tx_highered/app_base.html" %}
+{% load webdesign %}
 
 
 {% block head_title %}Home{% endblock %}
 
 
 {% block main %}
-<h1>Importing Data</h1>
-<p>
-	Starting from <a href="http://nces.ed.gov/ipeds/datacenter/Default.aspx">IPEDS Datacenter</a>,
-	click on <em>Generate Pre-defined Reports</em>, which takes you to the
-	<a href="http://nces.ed.gov/ipeds/datacenter/Institutionbyname.aspx">reports homepage</a>.
-</p>
-<p>
-	Enter:
-	<code>
-	222831,
- 226091,
- 226833,
- 227526,
- 227881,
- 228431,
- 228501,
- 228529,
- 226152,
- 228723,
- 228714,
- 224554,
- 224147,
- 228705,
- 22870501,
- 224545,
- 229063,
- 228459,
- 229115,
- 229179,
- 228769,
- 228778,
- 227377,
- 228787,
- 228796,
- 229027,
- 228802,
- 229018,
- 227368,
- 225511,
- 225414,
- 225432,
- 225502,
- 227216,
- 229814,
- 420398,
- 246354,
- 227924,
- 227854,
- 222567,
- 222576,
- 222822,
- 222992,
- 223427,
- 223506,
- 223524,
- 223773,
- 223816,
- 223898,
- 223922,
- 223320,
- 226408,
- 247834,
- 224350,
- 224572,
- 224615,
- 224642,
- 224891,
- 224961,
- 225070,
- 225371,
- 225423,
- 225520,
- 226019,
- 226134,
- 226204,
- 227182,
- 226578,
- 226806,
- 226930,
- 227146,
- 224110,
- 227191,
- 227225,
- 227304,
- 227386,
- 227401,
- 227687,
- 227766,
- 227979,
- 22797901,
- 22797902,
- 228158,
- 409315,
- 382911,
- 228316,
- 228547,
- 228608,
- 228699,
- 225308,
- 229355,
- 229504,
- 229540,
- 229799,
- 229832,
- 229841,
- 223214,
- 229337,
- 229300,
- 228644,
- 416801,
- 228653,
- 228635,
- 228909,
- 229319,
- 408394,
- 228680,
- 229328,
- 441760,
- 226107,
- 226116,
- 222178,
- 222628,
- 222983,
- 223232,
- 420352,
- 224004,
- 224226,
- 224527,
- 225247,
- 225399,
- 225548,
- 225575,
- 225885,
- 226231,
- 226383,
- 226587,
- 227331,
- 227429,
- 227757,
- 228042,
- 228194,
- 228246,
- 228468,
- 228325,
- 228486,
- 228343,
- 227845,
- 228149,
- 228875,
- 228884,
- 228981,
- 229160,
- 229267,
- 224323,
- 226471,
- 227863,
- 225627,
- 229780,
- 229887,
- 225876,
- 226329,
- 223223,
- 243823,
- 228866
-</code> as the Institution Name, <em>Check All</em>, <em>Continue</em>,
-and then <em>Continue</em> again.
-</p>
-<p>
-	Now you can select reports and download them.
-</p>
+{% lorem 2 p %}
+
+<section>
+  <div class="row">
+    <div class="span2">
+      <ul class="unstyled">
+        {% for i in "123456789012" %}
+          <li><a href="#">{% lorem 3 w random %}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="span8">
+        <img src="http://placekitten.com/620/400">
+        <h2>{% lorem 4 w random %}</h2>
+      <section>
+        <form class="well form-search">
+          <input type="text" class="span6 search-query">
+          <button class="btn" type="submit">Search</button>
+        </form>
+      </section>
+    </div>
+    <div class="span2">
+      <ul class="unstyled">
+        {% for i in "123456789012" %}
+          <li><a href="#">{% lorem 3 w random %}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% for i in "12" %}
+  <section>
+    <div class="row">
+      {% for j in "123" %}
+        <div class="span4">
+          <img src="http://placekitten.com/320/240" style="margin: 0 auto;">
+          <h3>
+            {% lorem 4 w random %}
+          </h3>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endfor %}
 {% endblock %}
