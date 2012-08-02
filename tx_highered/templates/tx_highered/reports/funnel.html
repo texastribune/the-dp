@@ -65,10 +65,16 @@
       var data = $el.data('onion');
       data.$items.each(function(idx){
         var $this = $(this);
-        $this.animate({
-          left: data.targetLeft,
-          opacity: 1 / data.$items.length
-        }, "slow");
+        if (options.animate){
+          $this.animate({
+            left: data.targetLeft,
+            opacity: 1 / data.$items.length
+          }, "slow");
+        } else {
+          $this.css({
+            left: data.targetLeft,
+            opacity: 1 / data.$items.length});
+        }
       });
       $el.addClass('ui-onion-active');
       if (activateEvents !== false && options.afterFold){
@@ -84,10 +90,16 @@
       data.$items.each(function(idx){
         var $this = $(this);
         var left = data.lefts[idx];
-        $this.animate({
-          left: left,
-          opacity: 1
-        }, "slow");
+        if (options.animate){
+          $this.animate({
+            left: left,
+            opacity: 1
+          }, "slow");
+        } else {
+          $this.css({
+            left: left,
+            opacity: 1});
+        }
       });
       $el.removeClass('ui-onion-active');
       if (activateEvents !== false && options.afterUnfold){
@@ -111,7 +123,7 @@
 
       return this;
     }
-    var options = options || {};
+    var options = options || {animate: true};
 
     this.each(function(){
       // setup
@@ -179,6 +191,7 @@
 
 
   $(".onion").onionize({
+    animate: false,
     afterFold: function(e, ui){
       console.log(e, ui);
       ui.elem.siblings(".onion").not(".ui-onion-active").onionize("fold");
