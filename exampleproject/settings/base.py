@@ -29,7 +29,7 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost/tx_highered')}
+DATABASES = {'default': dj_database_url.config(default='postgres:///tx_highered')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
