@@ -12,15 +12,24 @@
 <section>
   <div class="row">
     <div class="span2">
+      {% comment %}
       <ul class="unstyled">
         {% for i in "123456789012" %}
           <li><a href="#">{% lorem 3 w random %}</a></li>
         {% endfor %}
       </ul>
+      {% endcomment %}
+      {% lorem 1 %}
     </div>
     <div class="span8">
+      <h2>Featured Page</h2>
+      <a class="thumbnail" href="funnel/">
         <img src="http://placekitten.com/620/400">
-        <h2>{% lorem 4 w random %}</h2>
+        <div class="caption">
+          <h3>{% lorem 4 w random %}</h3>
+          <p>{% lorem 20 w %}</p>
+        </div>
+      </a>
       <section>
         <form class="well form-search">
           <input type="text" class="span6 search-query">
@@ -29,9 +38,10 @@
       </section>
     </div>
     <div class="span2">
+      <h4>Directory</h4>
       <ul class="unstyled">
         {% for i in "123456789012" %}
-          <li><a href="#">{% lorem 3 w random %}</a></li>
+          <li><a href="{% url "institution_list" %}">{% lorem 3 w random %}</a></li>
         {% endfor %}
       </ul>
     </div>
