@@ -16,3 +16,4 @@ lxml
 # text processing
 # nltk
 # numpy
+requests

@@ -65,6 +65,7 @@ class Institution(ContactFieldsMixin):
     # only Title IV schools have this. This is a 6 digit zero padded number with
     # a two digit suffix for each location/branch
     ope_id = models.IntegerField(null=True, blank=True)
+    wikipedia = models.URLField(null=True)
 
     def __unicode__(self):
         if self.system:
