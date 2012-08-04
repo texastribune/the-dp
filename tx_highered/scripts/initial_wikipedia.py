@@ -47,13 +47,12 @@ def main():
             inst.save()
             print inst.name + " -> " + title
 
-    return
-    qs = queryset.filter(wikipedia_title__isnull=False)
+    qs = queryset.filter(wikipedia_title__isnull=False, wikipedia_scraped=None)
     for inst in qs:
-        text = get_wiki_abstract(inst.wikipedia)
+        text = get_wiki_abstract(inst.wikipedia_url)
         if text:
             inst.wikipedia_abstract = text
-            inst.wikipedia_scaped = datetime.datetime.now()
+            inst.wikipedia_scraped = datetime.datetime.now()
             inst.save()
             print inst
 

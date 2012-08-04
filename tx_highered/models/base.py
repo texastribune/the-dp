@@ -71,6 +71,13 @@ class Institution(ContactFieldsMixin):
     wikipedia_abstract = models.TextField(null=True)
     wikipedia_scraped = models.DateTimeField(null=True)
 
+    @property
+    def wikipedia_url(self):
+        if not self.wikipedia_title:
+            return None
+        return "http://en.wikipedia.org/w/index.php?title=%s" % (
+            self.wikipedia_title.replace(" ", "_"))
+
     def __unicode__(self):
         if self.system:
             return u"%s - %s" % (self.system, self.name)
