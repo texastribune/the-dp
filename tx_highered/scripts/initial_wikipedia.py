@@ -1,8 +1,11 @@
 #! /usr/bin/env python
-import datetime
+try:
+    from django.utils.timezone import now
+except ImportError:
+    from datetime.datetime import now
 
 import requests
-from lxml.html import parse, tostring
+from lxml.html import document_fromstring, tostring
 
 from tx_highered.models import Institution
 
@@ -24,15 +27,19 @@ def get_wiki_title(name):
 
 
 def get_wiki_abstract(url):
-    doc = parse(url)  # won't handle https
-    root = doc.getroot()
-    toc = root.get_element_by_id('toc')
+    r = requests.get(url, headers={'User-Agent': 'thedp-scraper/0.1alpha'})
+    doc = document_fromstring(r.text)
+    root = doc
+    try:
+        toc = root.get_element_by_id('toc')
+    except KeyError:
+        return None
     abstract = []
     for elem in toc.getparent().iterchildren():
         if elem == toc:
             break
         if elem.tag == 'p':
-            elem.make_links_absolute()
+            elem.make_links_absolute(url)
             abstract.append(tostring(elem))
     return "\n".join(abstract).strip()
 
@@ -52,7 +59,7 @@ def main():
         text = get_wiki_abstract(inst.wikipedia_url)
         if text:
             inst.wikipedia_abstract = text
-            inst.wikipedia_scraped = datetime.datetime.now()
+            inst.wikipedia_scraped = now()
             inst.save()
             print inst
 
