@@ -182,23 +182,108 @@
     }
   }, 
   {
-    "pk": 140, 
+    "pk": 64, 
     "model": "tx_highered.institution", 
     "fields": {
-      "city": "Abilene", 
-      "name": "Abilene Christian University", 
-      "url": "www.acu.edu", 
+      "city": "Texas City", 
+      "name": "College of the Mainland Community College District", 
+      "url": "www.com.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": null, 
-      "ipeds_id": 222178, 
-      "phone": "(325) 674-2412", 
-      "fice_id": 3537, 
+      "ipeds_id": 226408, 
+      "phone": "(409) 938-1211", 
+      "fice_id": 7096, 
+      "ope_id": 709600, 
+      "institution_type": "pub_cc", 
+      "address": "1200 Amburn Road", 
+      "slug": "college-of-the-mainland-community-college-district", 
+      "is_private": false, 
+      "zip_code": "77591"
+    }
+  }, 
+  {
+    "pk": 81, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Houston", 
+      "name": "Lone Star College - Cy-Fair", 
+      "url": "www.cyfair.lonestar.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": 11, 
+      "ipeds_id": null, 
+      "phone": "(281) 290-3200", 
+      "fice_id": null, 
       "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "ACU Box 29100", 
-      "slug": "abilene-christian-university", 
-      "is_private": true, 
-      "zip_code": "79699"
+      "institution_type": "pub_cc", 
+      "address": "9191 Barker Cypress Road", 
+      "slug": "lone-star-college-cy-fair", 
+      "is_private": false, 
+      "zip_code": "77433"
+    }
+  }, 
+  {
+    "pk": 86, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "The Woodlands", 
+      "name": "Lone Star College System District", 
+      "url": "www.lonestar.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": 11, 
+      "ipeds_id": 227182, 
+      "phone": "(832) 813-6500", 
+      "fice_id": null, 
+      "ope_id": 1114500, 
+      "institution_type": "pub_cc", 
+      "address": "5000 Research Forest Drive", 
+      "slug": "lone-star-college-system-district", 
+      "is_private": false, 
+      "zip_code": "77381-4399"
+    }
+  }, 
+  {
+    "pk": 99, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Pasadena", 
+      "name": "San Jacinto College Central Campus", 
+      "url": "www.sjcd.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": 12, 
+      "ipeds_id": 227979, 
+      "phone": "(281) 476-1501", 
+      "fice_id": null, 
+      "ope_id": 360902, 
+      "institution_type": "pub_cc", 
+      "address": "8060 Spencer Highway", 
+      "slug": "san-jacinto-college-central-campus", 
+      "is_private": false, 
+      "zip_code": "77505"
+    }
+  }, 
+  {
+    "pk": 70, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "El Paso", 
+      "name": "El Paso Community College District", 
+      "url": "www.epcc.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": null, 
+      "ipeds_id": 224642, 
+      "phone": "(915) 831-2000", 
+      "fice_id": 10387, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "P.O. Box 20500", 
+      "slug": "el-paso-community-college-district", 
+      "is_private": false, 
+      "zip_code": "79998"
     }
   }, 
   {
@@ -209,6 +294,7 @@
       "name": "Alvin Community College", 
       "url": "www.alvincollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Alvin_Community_College", 
       "system": null, 
       "ipeds_id": 222567, 
       "phone": "(281) 756-3500", 
@@ -229,6 +315,7 @@
       "name": "Amarillo College", 
       "url": "www.actx.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Amarillo_College", 
       "system": null, 
       "ipeds_id": 222576, 
       "phone": "(806) 371-5000", 
@@ -242,46 +329,6 @@
     }
   }, 
   {
-    "pk": 64, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Texas City", 
-      "name": "College of the Mainland Community College District", 
-      "url": "www.com.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 226408, 
-      "phone": "(409) 938-1211", 
-      "fice_id": 7096, 
-      "ope_id": 709600, 
-      "institution_type": "pub_cc", 
-      "address": "1200 Amburn Road", 
-      "slug": "college-of-the-mainland-community-college-district", 
-      "is_private": false, 
-      "zip_code": "77591"
-    }
-  }, 
-  {
-    "pk": 166, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Austin", 
-      "name": "St. Edward's University", 
-      "url": "www.stedwards.edu/", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 227845, 
-      "phone": "(512) 448-8411", 
-      "fice_id": 3621, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "3001 South Congress Ave. CM 1045", 
-      "slug": "st-edwards-university", 
-      "is_private": true, 
-      "zip_code": "78704"
-    }
-  }, 
-  {
     "pk": 63, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -289,6 +336,7 @@
       "name": "Coastal Bend College", 
       "url": "vct.coastalbend.edu/content/index.cfm/fa/viewpage/category_id/41.htm", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Coastal_Bend_College", 
       "system": null, 
       "ipeds_id": 223320, 
       "phone": "(361) 358-2838", 
@@ -302,26 +350,6 @@
     }
   }, 
   {
-    "pk": 66, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "Dallas County Community College District", 
-      "url": "http://www.dcccd.edu/", 
-      "description": "System for Brookhave, Cedar Valley, Eastfield, El Centro, Mountain View, North Lake, Richland, Dallas TeleCollege Online", 
-      "system": 8, 
-      "ipeds_id": null, 
-      "phone": "(214) 378-1824", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "1601 South Lamar St.", 
-      "slug": "dallas-county-community-college-district", 
-      "is_private": false, 
-      "zip_code": "75215-1816"
-    }
-  }, 
-  {
     "pk": 79, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -329,6 +357,7 @@
       "name": "Laredo Community College", 
       "url": "www.laredo.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Laredo_Community_College", 
       "system": null, 
       "ipeds_id": 226134, 
       "phone": "(956) 722-0521", 
@@ -349,6 +378,7 @@
       "name": "Lee College", 
       "url": "www.lee.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lee_College", 
       "system": null, 
       "ipeds_id": 226204, 
       "phone": "(281) 427-5611", 
@@ -362,26 +392,6 @@
     }
   }, 
   {
-    "pk": 81, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Houston", 
-      "name": "Lone Star College - Cy-Fair", 
-      "url": "www.cyfair.lonestar.edu", 
-      "description": null, 
-      "system": 11, 
-      "ipeds_id": null, 
-      "phone": "(281) 290-3200", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "9191 Barker Cypress Road", 
-      "slug": "lone-star-college-cy-fair", 
-      "is_private": false, 
-      "zip_code": "77433"
-    }
-  }, 
-  {
     "pk": 82, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -389,6 +399,7 @@
       "name": "Lone Star College - Kingwood", 
       "url": "www.kingwoodcollege.com", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lone_Star_College-Kingwood", 
       "system": 11, 
       "ipeds_id": null, 
       "phone": "(281) 312-0440", 
@@ -409,6 +420,7 @@
       "name": "Lone Star College - Montgomery", 
       "url": "www.montgomery-college.com", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lone_Star_College-Montgomery", 
       "system": 11, 
       "ipeds_id": null, 
       "phone": "(936) 273-7000", 
@@ -429,6 +441,7 @@
       "name": "Lone Star College - North Harris", 
       "url": "www.northharriscollege.com", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lone_Star_College-North_Harris", 
       "system": 11, 
       "ipeds_id": null, 
       "phone": "(281) 312-1660", 
@@ -449,6 +462,7 @@
       "name": "Lone Star College - Tomball", 
       "url": "www.tomballcollege.com", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lone_Star_College-Tomball", 
       "system": 11, 
       "ipeds_id": null, 
       "phone": "(281) 351-3300", 
@@ -462,26 +476,6 @@
     }
   }, 
   {
-    "pk": 86, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "The Woodlands", 
-      "name": "Lone Star College System District", 
-      "url": "www.lonestar.edu", 
-      "description": null, 
-      "system": 11, 
-      "ipeds_id": 227182, 
-      "phone": "(832) 813-6500", 
-      "fice_id": null, 
-      "ope_id": 1114500, 
-      "institution_type": "pub_cc", 
-      "address": "5000 Research Forest Drive", 
-      "slug": "lone-star-college-system-district", 
-      "is_private": false, 
-      "zip_code": "77381-4399"
-    }
-  }, 
-  {
     "pk": 87, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -489,6 +483,7 @@
       "name": "McLennan Community College", 
       "url": "www.mclennan.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/McLennan_Community_College", 
       "system": null, 
       "ipeds_id": 226578, 
       "phone": "(254) 299-8000", 
@@ -502,26 +497,6 @@
     }
   }, 
   {
-    "pk": 88, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Midland", 
-      "name": "Midland College", 
-      "url": "www.midland.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 226806, 
-      "phone": "(432) 685-4500", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "3600 North Garfield", 
-      "slug": "midland-college", 
-      "is_private": false, 
-      "zip_code": "79705"
-    }
-  }, 
-  {
     "pk": 89, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -529,6 +504,7 @@
       "name": "Mountain View College", 
       "url": "www.mvc.dcccd.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Mountain_View_College", 
       "system": 8, 
       "ipeds_id": 226930, 
       "phone": "(972) 860-8700", 
@@ -549,6 +525,7 @@
       "name": "Navarro College", 
       "url": "www.navarrocollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Navarro_College", 
       "system": null, 
       "ipeds_id": 227146, 
       "phone": "(903) 874-6501", 
@@ -562,26 +539,6 @@
     }
   }, 
   {
-    "pk": 91, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Gainesville", 
-      "name": "North Central Texas College", 
-      "url": "www.nctc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 224110, 
-      "phone": "(940) 668-7731", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "1525 West California", 
-      "slug": "north-central-texas-college", 
-      "is_private": false, 
-      "zip_code": "76240"
-    }
-  }, 
-  {
     "pk": 92, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -589,6 +546,7 @@
       "name": "North Lake College", 
       "url": "www.northlakecollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/North_Lake_College", 
       "system": 8, 
       "ipeds_id": 227191, 
       "phone": "(972) 273-3010", 
@@ -609,6 +567,7 @@
       "name": "Northeast Texas Community College", 
       "url": "www.ntcc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Northeast_Texas_Community_College", 
       "system": null, 
       "ipeds_id": 227225, 
       "phone": "(903) 572-1911", 
@@ -629,6 +588,7 @@
       "name": "Odessa College", 
       "url": "www.odessa.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Odessa_College", 
       "system": null, 
       "ipeds_id": 227304, 
       "phone": "(432) 335-6400", 
@@ -642,26 +602,6 @@
     }
   }, 
   {
-    "pk": 99, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Pasadena", 
-      "name": "San Jacinto College Central Campus", 
-      "url": "www.sjcd.edu", 
-      "description": null, 
-      "system": 12, 
-      "ipeds_id": 227979, 
-      "phone": "(281) 476-1501", 
-      "fice_id": null, 
-      "ope_id": 360902, 
-      "institution_type": "pub_cc", 
-      "address": "8060 Spencer Highway", 
-      "slug": "san-jacinto-college-central-campus", 
-      "is_private": false, 
-      "zip_code": "77505"
-    }
-  }, 
-  {
     "pk": 54, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -669,6 +609,7 @@
       "name": "Angelina College", 
       "url": "www.angelina.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Angelina_College", 
       "system": null, 
       "ipeds_id": 222822, 
       "phone": "(936) 639-1301", 
@@ -682,26 +623,6 @@
     }
   }, 
   {
-    "pk": 55, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Austin", 
-      "name": "Austin Community College", 
-      "url": "www.austincc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 222992, 
-      "phone": "(512) 223-7000", 
-      "fice_id": 12015, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "5930 Middle Fiskville Road", 
-      "slug": "austin-community-college", 
-      "is_private": false, 
-      "zip_code": "78752"
-    }
-  }, 
-  {
     "pk": 56, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -709,6 +630,7 @@
       "name": "Blinn College", 
       "url": "www.blinn.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Blinn_College", 
       "system": null, 
       "ipeds_id": 223427, 
       "phone": "(979) 830-4000", 
@@ -729,6 +651,7 @@
       "name": "Brazosport College", 
       "url": "www.brazosport.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Brazosport_College", 
       "system": null, 
       "ipeds_id": 223506, 
       "phone": "(979) 230-3000", 
@@ -749,6 +672,7 @@
       "name": "Brookhaven College", 
       "url": "www.brookhavencollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Brookhaven_College", 
       "system": 8, 
       "ipeds_id": 223524, 
       "phone": "(972) 860-4700", 
@@ -762,26 +686,6 @@
     }
   }, 
   {
-    "pk": 59, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Lancaster", 
-      "name": "Cedar Valley College", 
-      "url": "www.dcccd.edu/cvc/cvc.htm", 
-      "description": null, 
-      "system": 8, 
-      "ipeds_id": 223773, 
-      "phone": "(972) 860-8200", 
-      "fice_id": 3561, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "3030 North Dallas Avenue", 
-      "slug": "cedar-valley-college", 
-      "is_private": false, 
-      "zip_code": "75134"
-    }
-  }, 
-  {
     "pk": 60, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -789,6 +693,7 @@
       "name": "Central Texas College", 
       "url": "www.ctcd.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Central_Texas_College", 
       "system": null, 
       "ipeds_id": 223816, 
       "phone": "(254) 526-7161", 
@@ -809,6 +714,7 @@
       "name": "Cisco College", 
       "url": "www.cisco.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Cisco_College", 
       "system": null, 
       "ipeds_id": 223898, 
       "phone": "(254) 442-5000", 
@@ -829,6 +735,7 @@
       "name": "Clarendon College", 
       "url": "www.clarendoncollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Clarendon_College", 
       "system": null, 
       "ipeds_id": 223922, 
       "phone": "(806) 874-3571", 
@@ -842,26 +749,6 @@
     }
   }, 
   {
-    "pk": 65, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Plano", 
-      "name": "Collin County Community College District", 
-      "url": "www.collin.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 247834, 
-      "phone": "(972) 548-6790", 
-      "fice_id": 23614, 
-      "ope_id": 2361400, 
-      "institution_type": "pub_cc", 
-      "address": "2800 East Spring Creek Parkway", 
-      "slug": "collin-county-community-college-district", 
-      "is_private": false, 
-      "zip_code": "75074"
-    }
-  }, 
-  {
     "pk": 67, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -869,6 +756,7 @@
       "name": "Del Mar College", 
       "url": "www.delmar.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Del_Mar_College", 
       "system": null, 
       "ipeds_id": 224350, 
       "phone": "(361) 698-1200", 
@@ -889,6 +777,7 @@
       "name": "Eastfield College", 
       "url": "www.eastfieldcollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Eastfield_College", 
       "system": 8, 
       "ipeds_id": 224572, 
       "phone": "(972) 860-7001", 
@@ -909,6 +798,7 @@
       "name": "El Centro College", 
       "url": "www.ecc.dcccd.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/El_Centro_College", 
       "system": 8, 
       "ipeds_id": 224615, 
       "phone": "(972) 860-2010", 
@@ -922,26 +812,6 @@
     }
   }, 
   {
-    "pk": 70, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "El Paso", 
-      "name": "El Paso Community College District", 
-      "url": "www.epcc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 224642, 
-      "phone": "(915) 831-2000", 
-      "fice_id": 10387, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "P.O. Box 20500", 
-      "slug": "el-paso-community-college-district", 
-      "is_private": false, 
-      "zip_code": "79998"
-    }
-  }, 
-  {
     "pk": 71, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -949,6 +819,7 @@
       "name": "Frank Phillips College", 
       "url": "www.fpctx.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Frank_Phillips_College", 
       "system": null, 
       "ipeds_id": 224891, 
       "phone": "(806) 457-4200", 
@@ -962,26 +833,6 @@
     }
   }, 
   {
-    "pk": 72, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Galveston", 
-      "name": "Galveston College", 
-      "url": "www.gc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 224961, 
-      "phone": "(409) 944-4242", 
-      "fice_id": 6662, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "4015 Avenue Q", 
-      "slug": "galveston-college", 
-      "is_private": false, 
-      "zip_code": "77550"
-    }
-  }, 
-  {
     "pk": 47, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -989,6 +840,7 @@
       "name": "Northwest Vista College", 
       "url": "http://www.alamo.edu/nvc", 
       "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Northwest_Vista_College", 
       "system": 7, 
       "ipeds_id": 420398, 
       "phone": "(210) 348-2020", 
@@ -1009,6 +861,7 @@
       "name": "Palo Alto College", 
       "url": "http://www.alamo.edu/pac/htm/", 
       "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Palo_Alto_College", 
       "system": 7, 
       "ipeds_id": 246354, 
       "phone": "(210) 921-5260", 
@@ -1022,26 +875,6 @@
     }
   }, 
   {
-    "pk": 49, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "San Antonio College", 
-      "url": "http://www.alamo.edu/sac/sacmain/sac.htm", 
-      "description": "", 
-      "system": 7, 
-      "ipeds_id": 227924, 
-      "phone": "(210) 733-2000", 
-      "fice_id": null, 
-      "ope_id": 916300, 
-      "institution_type": "pub_cc", 
-      "address": "1300 San Pedro Avenue", 
-      "slug": "san-antonio-college", 
-      "is_private": false, 
-      "zip_code": "78212"
-    }
-  }, 
-  {
     "pk": 50, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1049,6 +882,7 @@
       "name": "St. Philip's College", 
       "url": "http://www.alamo.edu/spc/", 
       "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/St._Philip's_College", 
       "system": 7, 
       "ipeds_id": 227854, 
       "phone": "(210) 531-3591", 
@@ -1069,6 +903,7 @@
       "name": "Grayson College", 
       "url": "www.grayson.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Grayson_College", 
       "system": null, 
       "ipeds_id": 225070, 
       "phone": "(903) 465-6030", 
@@ -1089,6 +924,7 @@
       "name": "Hill College", 
       "url": "www.hillcollege.edu/", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Hill_College", 
       "system": null, 
       "ipeds_id": 225371, 
       "phone": "(254) 582-2555", 
@@ -1102,146 +938,6 @@
     }
   }, 
   {
-    "pk": 75, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Houston", 
-      "name": "Houston Community College", 
-      "url": "www.hccs.edu", 
-      "description": null, 
-      "system": 9, 
-      "ipeds_id": 225423, 
-      "phone": "(713) 718-2000", 
-      "fice_id": 10633, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "P.O. Box 667517", 
-      "slug": "houston-community-college", 
-      "is_private": false, 
-      "zip_code": "77266-7517"
-    }
-  }, 
-  {
-    "pk": 76, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Big Spring", 
-      "name": "Howard College", 
-      "url": "www.howardcollege.edu", 
-      "description": null, 
-      "system": 10, 
-      "ipeds_id": 225520, 
-      "phone": "(915) 264-5000", 
-      "fice_id": 3574, 
-      "ope_id": 357400, 
-      "institution_type": "pub_cc", 
-      "address": "1001 Birdwell Lane", 
-      "slug": "howard-college", 
-      "is_private": false, 
-      "zip_code": "79720"
-    }
-  }, 
-  {
-    "pk": 78, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Kilgore", 
-      "name": "Kilgore College", 
-      "url": "www.kilgore.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 226019, 
-      "phone": "(903) 984-8531", 
-      "fice_id": 3580, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "1100 Broadway", 
-      "slug": "kilgore-college", 
-      "is_private": false, 
-      "zip_code": "75662"
-    }
-  }, 
-  {
-    "pk": 95, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Carthage", 
-      "name": "Panola College", 
-      "url": "www.panola.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 227386, 
-      "phone": "(903) 693-2000", 
-      "fice_id": 3600, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "1109 West Panola Street", 
-      "slug": "panola-college", 
-      "is_private": false, 
-      "zip_code": "75633"
-    }
-  }, 
-  {
-    "pk": 96, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Paris", 
-      "name": "Paris Junior College", 
-      "url": "www.parisjc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 227401, 
-      "phone": "(903) 785-7661", 
-      "fice_id": 3601, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "2400 Clarksville Street", 
-      "slug": "paris-junior-college", 
-      "is_private": false, 
-      "zip_code": "75460"
-    }
-  }, 
-  {
-    "pk": 97, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Ranger", 
-      "name": "Ranger College", 
-      "url": "www.ranger.cc.tx.us", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 227687, 
-      "phone": "(254) 647-3234", 
-      "fice_id": 3603, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "College Circle", 
-      "slug": "ranger-college", 
-      "is_private": false, 
-      "zip_code": "76470"
-    }
-  }, 
-  {
-    "pk": 98, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "Richland College", 
-      "url": "www.rlc.dcccd.edu", 
-      "description": null, 
-      "system": 8, 
-      "ipeds_id": 227766, 
-      "phone": "(972) 238-6106", 
-      "fice_id": 8504, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "12800 Abrams Road", 
-      "slug": "richland-college", 
-      "is_private": false, 
-      "zip_code": "75243-2199"
-    }
-  }, 
-  {
     "pk": 100, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1249,6 +945,7 @@
       "name": "San Jacinto College North Campus", 
       "url": "www.sjcd.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": 12, 
       "ipeds_id": 22797901, 
       "phone": "(281) 458-4050", 
@@ -1269,6 +966,7 @@
       "name": "San Jacinto College South Campus", 
       "url": "www.sjcd.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": 12, 
       "ipeds_id": 22797902, 
       "phone": "(713) 484-1900", 
@@ -1289,6 +987,7 @@
       "name": "San Jacinto Community College", 
       "url": "http://www.sjcd.edu/", 
       "description": "entry for the System", 
+      "wikipedia": null, 
       "system": 12, 
       "ipeds_id": null, 
       "phone": "(281) 998-6100", 
@@ -1302,46 +1001,6 @@
     }
   }, 
   {
-    "pk": 103, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Levelland", 
-      "name": "South Plains College", 
-      "url": "www.southplainscollege.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228158, 
-      "phone": "(806) 894-9611", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "1401 College Avenue", 
-      "slug": "south-plains-college", 
-      "is_private": false, 
-      "zip_code": "79336"
-    }
-  }, 
-  {
-    "pk": 104, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "McAllen", 
-      "name": "South Texas College", 
-      "url": "www.southtexascollege.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 409315, 
-      "phone": "(956) 872-8311", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "P.O. Box 9701", 
-      "slug": "south-texas-college", 
-      "is_private": false, 
-      "zip_code": "78502-9701"
-    }
-  }, 
-  {
     "pk": 105, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1349,6 +1008,7 @@
       "name": "Southwest Collegiate Institute for the Deaf", 
       "url": "www.howardcollege.edu/swcid/", 
       "description": null, 
+      "wikipedia": null, 
       "system": 10, 
       "ipeds_id": 382911, 
       "phone": "(915) 264-3700", 
@@ -1362,46 +1022,6 @@
     }
   }, 
   {
-    "pk": 106, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Uvalde", 
-      "name": "Southwest Texas Junior College", 
-      "url": "www.swtjc.net", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228316, 
-      "phone": "(830) 278-4401", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "Garner Field Road", 
-      "slug": "southwest-texas-junior-college", 
-      "is_private": false, 
-      "zip_code": "78801"
-    }
-  }, 
-  {
-    "pk": 107, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Fort Worth", 
-      "name": "Tarrant County College District", 
-      "url": "www.tccd.edu", 
-      "description": null, 
-      "system": 13, 
-      "ipeds_id": 228547, 
-      "phone": "(817) 515-5201", 
-      "fice_id": null, 
-      "ope_id": 362600, 
-      "institution_type": "pub_cc", 
-      "address": "1500 Houston Street", 
-      "slug": "tarrant-county-college-district", 
-      "is_private": false, 
-      "zip_code": "76102"
-    }
-  }, 
-  {
     "pk": 108, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1409,6 +1029,7 @@
       "name": "Tarrant County College District Northeast Campus", 
       "url": "www.tccd.edu/campus/default.asp?menu=1", 
       "description": null, 
+      "wikipedia": null, 
       "system": 13, 
       "ipeds_id": null, 
       "phone": "(817) 515-6200", 
@@ -1429,6 +1050,7 @@
       "name": "Tarrant County College District Northwest Campus", 
       "url": "www.tccd.edu/campus/default.asp?menu=2", 
       "description": null, 
+      "wikipedia": null, 
       "system": 13, 
       "ipeds_id": null, 
       "phone": "(817) 515-7750", 
@@ -1449,6 +1071,7 @@
       "name": "Tarrant County College District South Campus", 
       "url": "www.tccd.edu/campus/default.asp?menu=3", 
       "description": null, 
+      "wikipedia": null, 
       "system": 13, 
       "ipeds_id": null, 
       "phone": "(817) 515-4861", 
@@ -1469,6 +1092,7 @@
       "name": "Tarrant County College District Southeast Campus", 
       "url": "www.tccd.edu/campus/default.asp?menu=4", 
       "description": null, 
+      "wikipedia": null, 
       "system": 13, 
       "ipeds_id": null, 
       "phone": "(817) 515-3100", 
@@ -1489,6 +1113,7 @@
       "name": "Tarrant County College District Trinity River Campus", 
       "url": "", 
       "description": null, 
+      "wikipedia": null, 
       "system": 13, 
       "ipeds_id": null, 
       "phone": "", 
@@ -1502,86 +1127,6 @@
     }
   }, 
   {
-    "pk": 113, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Temple", 
-      "name": "Temple College", 
-      "url": "www.templejc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228608, 
-      "phone": "(254) 298-8282", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "2600 South First Street", 
-      "slug": "temple-college", 
-      "is_private": false, 
-      "zip_code": "76504-7435"
-    }
-  }, 
-  {
-    "pk": 114, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Texarkana", 
-      "name": "Texarkana College", 
-      "url": "www.texarkanacollege.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228699, 
-      "phone": "(903) 838-4541", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "2500 North Robison Road", 
-      "slug": "texarkana-college", 
-      "is_private": false, 
-      "zip_code": "75501"
-    }
-  }, 
-  {
-    "pk": 115, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Brownsville", 
-      "name": "Texas Southmost College", 
-      "url": "www.utb.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": null, 
-      "phone": "(956) 544-8200", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "80 Fort Brown", 
-      "slug": "texas-southmost-college", 
-      "is_private": false, 
-      "zip_code": "78520"
-    }
-  }, 
-  {
-    "pk": 118, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Vernon", 
-      "name": "Vernon College", 
-      "url": "www.vernoncollege.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 229504, 
-      "phone": "(940) 552-6291", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "4400 College Drive", 
-      "slug": "vernon-college", 
-      "is_private": false, 
-      "zip_code": "76384"
-    }
-  }, 
-  {
     "pk": 119, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1589,6 +1134,7 @@
       "name": "Victoria College, The", 
       "url": "www.victoriacollege.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": null, 
       "ipeds_id": 229540, 
       "phone": "(361) 573-3291", 
@@ -1602,106 +1148,6 @@
     }
   }, 
   {
-    "pk": 120, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Weatherford", 
-      "name": "Weatherford College", 
-      "url": "www.wc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 229799, 
-      "phone": "(817) 594-5471", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "225 College Park Drive", 
-      "slug": "weatherford-college", 
-      "is_private": false, 
-      "zip_code": "76086"
-    }
-  }, 
-  {
-    "pk": 121, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Snyder", 
-      "name": "Western Texas College", 
-      "url": "www.wtc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 229832, 
-      "phone": "(325) 573-8511", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "6200 College Avenue", 
-      "slug": "western-texas-college", 
-      "is_private": false, 
-      "zip_code": "79549"
-    }
-  }, 
-  {
-    "pk": 122, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Wharton", 
-      "name": "Wharton County Junior College", 
-      "url": "www.wcjc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 229841, 
-      "phone": "(979) 532-4560", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "911 Boling Highway", 
-      "slug": "wharton-county-junior-college", 
-      "is_private": false, 
-      "zip_code": "77488"
-    }
-  }, 
-  {
-    "pk": 116, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Athens", 
-      "name": "Trinity Valley Community College", 
-      "url": "www.tvcc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 225308, 
-      "phone": "(903) 677-8822", 
-      "fice_id": 3572, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "100 Cardinal Drive", 
-      "slug": "trinity-valley-community-college", 
-      "is_private": false, 
-      "zip_code": "75751"
-    }
-  }, 
-  {
-    "pk": 117, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Tyler", 
-      "name": "Tyler Junior College", 
-      "url": "www.tjc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 229355, 
-      "phone": "(903) 510-2200", 
-      "fice_id": 3648, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "P.O. Box 9020", 
-      "slug": "tyler-junior-college", 
-      "is_private": false, 
-      "zip_code": "75711"
-    }
-  }, 
-  {
     "pk": 133, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1709,6 +1155,7 @@
       "name": "Texas State Technical College-Harlingen", 
       "url": "www.harlingen.tstc.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": 14, 
       "ipeds_id": 229319, 
       "phone": "(956) 364-4000", 
@@ -1729,6 +1176,7 @@
       "name": "Texas State Technical College-Marshall", 
       "url": "www.marshall.tstc.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": 14, 
       "ipeds_id": 408394, 
       "phone": "(903) 935-1010", 
@@ -1742,26 +1190,6 @@
     }
   }, 
   {
-    "pk": 135, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Waco", 
-      "name": "Texas State Technical College-Waco", 
-      "url": "www.waco.tstc.edu", 
-      "description": null, 
-      "system": 14, 
-      "ipeds_id": 228680, 
-      "phone": "(254) 799-3611", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_tech", 
-      "address": "3801 Campus Drive", 
-      "slug": "texas-state-technical-college-waco", 
-      "is_private": false, 
-      "zip_code": "76705"
-    }
-  }, 
-  {
     "pk": 136, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1769,6 +1197,7 @@
       "name": "Texas State Technical College-West Texas", 
       "url": "www.westtexas.tstc.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": 14, 
       "ipeds_id": 229328, 
       "phone": "(325) 235-7300", 
@@ -1782,166 +1211,6 @@
     }
   }, 
   {
-    "pk": 137, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Beaumont", 
-      "name": "Lamar Institute of Technology", 
-      "url": "www.lit.edu", 
-      "description": null, 
-      "system": 2, 
-      "ipeds_id": 441760, 
-      "phone": "(409) 880-8185", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_state", 
-      "address": "P.O. Box 10043", 
-      "slug": "lamar-institute-of-technology", 
-      "is_private": false, 
-      "zip_code": "77710"
-    }
-  }, 
-  {
-    "pk": 138, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Orange", 
-      "name": "Lamar State College-Orange", 
-      "url": "www.lsco.edu", 
-      "description": null, 
-      "system": 2, 
-      "ipeds_id": 226107, 
-      "phone": "(409) 883-7750", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_state", 
-      "address": "410 Front Street", 
-      "slug": "lamar-state-college-orange", 
-      "is_private": false, 
-      "zip_code": "77630"
-    }
-  }, 
-  {
-    "pk": 139, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Port Arthur", 
-      "name": "Lamar State College-Port Arthur", 
-      "url": "www.lamarpa.edu", 
-      "description": null, 
-      "system": 2, 
-      "ipeds_id": 226116, 
-      "phone": "(409) 983-4921", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_state", 
-      "address": "P.O. Box 310", 
-      "slug": "lamar-state-college-port-arthur", 
-      "is_private": false, 
-      "zip_code": "77641-0310"
-    }
-  }, 
-  {
-    "pk": 143, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Waco", 
-      "name": "Baylor University", 
-      "url": "www.baylor.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 223232, 
-      "phone": "(254) 710-3555", 
-      "fice_id": 6967, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "One Bear Place, #97056", 
-      "slug": "baylor-university", 
-      "is_private": true, 
-      "zip_code": "76798-7056"
-    }
-  }, 
-  {
-    "pk": 184, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "College Station", 
-      "name": "Texas A&M University System", 
-      "url": "www.tamus.edu", 
-      "description": null, 
-      "system": 3, 
-      "ipeds_id": null, 
-      "phone": "(979) 458-6000", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "A&M System Building, Suite 2043 200 Technology Way", 
-      "slug": "texas-am-university-system", 
-      "is_private": false, 
-      "zip_code": "77845-3424"
-    }
-  }, 
-  {
-    "pk": 185, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Austin", 
-      "name": "Texas State University System", 
-      "url": "www.tsus.edu", 
-      "description": null, 
-      "system": 2, 
-      "ipeds_id": null, 
-      "phone": "(512) 245-2111", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "200 East 10th Street Suite 600", 
-      "slug": "texas-state-university-system", 
-      "is_private": false, 
-      "zip_code": "78701"
-    }
-  }, 
-  {
-    "pk": 186, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Lubbock", 
-      "name": "Texas Tech University System", 
-      "url": "www.texastech.edu", 
-      "description": null, 
-      "system": 1, 
-      "ipeds_id": null, 
-      "phone": "(806) 742-2011", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "P.O. Box 42013", 
-      "slug": "texas-tech-university-system", 
-      "is_private": false, 
-      "zip_code": "79409"
-    }
-  }, 
-  {
-    "pk": 191, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "Alamo Community College District", 
-      "url": "www.alamo.edu", 
-      "description": null, 
-      "system": 7, 
-      "ipeds_id": null, 
-      "phone": "(210) 485-0020", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "201 West Sheridan", 
-      "slug": "alamo-community-college-district", 
-      "is_private": false, 
-      "zip_code": "78204-1429"
-    }
-  }, 
-  {
     "pk": 192, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -1949,6 +1218,7 @@
       "name": "Howard County Junior College District", 
       "url": "http://www.howardcollege.edu/", 
       "description": "see Howard County College District", 
+      "wikipedia": null, 
       "system": 10, 
       "ipeds_id": null, 
       "phone": "(915) 267-6311", 
@@ -1969,6 +1239,7 @@
       "name": "Texas State Technical College Central Office", 
       "url": "www.tstc.edu", 
       "description": null, 
+      "wikipedia": null, 
       "system": 14, 
       "ipeds_id": null, 
       "phone": "(254) 867-4891", 
@@ -1982,23 +1253,486 @@
     }
   }, 
   {
-    "pk": 179, 
+    "pk": 76, 
     "model": "tx_highered.institution", 
     "fields": {
-      "city": "Jacksonville", 
-      "name": "Jacksonville College", 
-      "url": "www.jacksonville-college.edu", 
+      "city": "Big Spring", 
+      "name": "Howard College", 
+      "url": "www.howardcollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Howard_College", 
+      "system": 10, 
+      "ipeds_id": 225520, 
+      "phone": "(915) 264-5000", 
+      "fice_id": 3574, 
+      "ope_id": 357400, 
+      "institution_type": "pub_cc", 
+      "address": "1001 Birdwell Lane", 
+      "slug": "howard-college", 
+      "is_private": false, 
+      "zip_code": "79720"
+    }
+  }, 
+  {
+    "pk": 78, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Kilgore", 
+      "name": "Kilgore College", 
+      "url": "www.kilgore.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Kilgore_College", 
       "system": null, 
-      "ipeds_id": 225876, 
-      "phone": "(903) 589-7106", 
-      "fice_id": 3579, 
-      "ope_id": 357900, 
-      "institution_type": "pri_jr", 
-      "address": "105 B.J. Albritton Drive", 
-      "slug": "jacksonville-college", 
+      "ipeds_id": 226019, 
+      "phone": "(903) 984-8531", 
+      "fice_id": 3580, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "1100 Broadway", 
+      "slug": "kilgore-college", 
+      "is_private": false, 
+      "zip_code": "75662"
+    }
+  }, 
+  {
+    "pk": 96, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Paris", 
+      "name": "Paris Junior College", 
+      "url": "www.parisjc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Paris_Junior_College", 
+      "system": null, 
+      "ipeds_id": 227401, 
+      "phone": "(903) 785-7661", 
+      "fice_id": 3601, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "2400 Clarksville Street", 
+      "slug": "paris-junior-college", 
+      "is_private": false, 
+      "zip_code": "75460"
+    }
+  }, 
+  {
+    "pk": 97, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Ranger", 
+      "name": "Ranger College", 
+      "url": "www.ranger.cc.tx.us", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Ranger_College", 
+      "system": null, 
+      "ipeds_id": 227687, 
+      "phone": "(254) 647-3234", 
+      "fice_id": 3603, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "College Circle", 
+      "slug": "ranger-college", 
+      "is_private": false, 
+      "zip_code": "76470"
+    }
+  }, 
+  {
+    "pk": 98, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "Richland College", 
+      "url": "www.rlc.dcccd.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Richland_College", 
+      "system": 8, 
+      "ipeds_id": 227766, 
+      "phone": "(972) 238-6106", 
+      "fice_id": 8504, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "12800 Abrams Road", 
+      "slug": "richland-college", 
+      "is_private": false, 
+      "zip_code": "75243-2199"
+    }
+  }, 
+  {
+    "pk": 104, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "McAllen", 
+      "name": "South Texas College", 
+      "url": "www.southtexascollege.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/South_Texas_College", 
+      "system": null, 
+      "ipeds_id": 409315, 
+      "phone": "(956) 872-8311", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "P.O. Box 9701", 
+      "slug": "south-texas-college", 
+      "is_private": false, 
+      "zip_code": "78502-9701"
+    }
+  }, 
+  {
+    "pk": 106, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Uvalde", 
+      "name": "Southwest Texas Junior College", 
+      "url": "www.swtjc.net", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Southwest_Texas_Junior_College", 
+      "system": null, 
+      "ipeds_id": 228316, 
+      "phone": "(830) 278-4401", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "Garner Field Road", 
+      "slug": "southwest-texas-junior-college", 
+      "is_private": false, 
+      "zip_code": "78801"
+    }
+  }, 
+  {
+    "pk": 113, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Temple", 
+      "name": "Temple College", 
+      "url": "www.templejc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Temple_College", 
+      "system": null, 
+      "ipeds_id": 228608, 
+      "phone": "(254) 298-8282", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "2600 South First Street", 
+      "slug": "temple-college", 
+      "is_private": false, 
+      "zip_code": "76504-7435"
+    }
+  }, 
+  {
+    "pk": 114, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Texarkana", 
+      "name": "Texarkana College", 
+      "url": "www.texarkanacollege.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texarkana_College", 
+      "system": null, 
+      "ipeds_id": 228699, 
+      "phone": "(903) 838-4541", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "2500 North Robison Road", 
+      "slug": "texarkana-college", 
+      "is_private": false, 
+      "zip_code": "75501"
+    }
+  }, 
+  {
+    "pk": 115, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Brownsville", 
+      "name": "Texas Southmost College", 
+      "url": "www.utb.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Southmost_College", 
+      "system": null, 
+      "ipeds_id": null, 
+      "phone": "(956) 544-8200", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "80 Fort Brown", 
+      "slug": "texas-southmost-college", 
+      "is_private": false, 
+      "zip_code": "78520"
+    }
+  }, 
+  {
+    "pk": 118, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Vernon", 
+      "name": "Vernon College", 
+      "url": "www.vernoncollege.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Vernon_College", 
+      "system": null, 
+      "ipeds_id": 229504, 
+      "phone": "(940) 552-6291", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "4400 College Drive", 
+      "slug": "vernon-college", 
+      "is_private": false, 
+      "zip_code": "76384"
+    }
+  }, 
+  {
+    "pk": 121, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Snyder", 
+      "name": "Western Texas College", 
+      "url": "www.wtc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Western_Texas_College", 
+      "system": null, 
+      "ipeds_id": 229832, 
+      "phone": "(325) 573-8511", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "6200 College Avenue", 
+      "slug": "western-texas-college", 
+      "is_private": false, 
+      "zip_code": "79549"
+    }
+  }, 
+  {
+    "pk": 122, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Wharton", 
+      "name": "Wharton County Junior College", 
+      "url": "www.wcjc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Wharton_County_Junior_College", 
+      "system": null, 
+      "ipeds_id": 229841, 
+      "phone": "(979) 532-4560", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "911 Boling Highway", 
+      "slug": "wharton-county-junior-college", 
+      "is_private": false, 
+      "zip_code": "77488"
+    }
+  }, 
+  {
+    "pk": 117, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Tyler", 
+      "name": "Tyler Junior College", 
+      "url": "www.tjc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Tyler_Junior_College", 
+      "system": null, 
+      "ipeds_id": 229355, 
+      "phone": "(903) 510-2200", 
+      "fice_id": 3648, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "P.O. Box 9020", 
+      "slug": "tyler-junior-college", 
+      "is_private": false, 
+      "zip_code": "75711"
+    }
+  }, 
+  {
+    "pk": 135, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Waco", 
+      "name": "Texas State Technical College-Waco", 
+      "url": "www.waco.tstc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_State_Technical_College-Waco", 
+      "system": 14, 
+      "ipeds_id": 228680, 
+      "phone": "(254) 799-3611", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_tech", 
+      "address": "3801 Campus Drive", 
+      "slug": "texas-state-technical-college-waco", 
+      "is_private": false, 
+      "zip_code": "76705"
+    }
+  }, 
+  {
+    "pk": 137, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Beaumont", 
+      "name": "Lamar Institute of Technology", 
+      "url": "www.lit.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lamar_Institute_of_Technology", 
+      "system": 2, 
+      "ipeds_id": 441760, 
+      "phone": "(409) 880-8185", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_state", 
+      "address": "P.O. Box 10043", 
+      "slug": "lamar-institute-of-technology", 
+      "is_private": false, 
+      "zip_code": "77710"
+    }
+  }, 
+  {
+    "pk": 139, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Port Arthur", 
+      "name": "Lamar State College-Port Arthur", 
+      "url": "www.lamarpa.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lamar_State_College_-_Port_Arthur", 
+      "system": 2, 
+      "ipeds_id": 226116, 
+      "phone": "(409) 983-4921", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_state", 
+      "address": "P.O. Box 310", 
+      "slug": "lamar-state-college-port-arthur", 
+      "is_private": false, 
+      "zip_code": "77641-0310"
+    }
+  }, 
+  {
+    "pk": 143, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Waco", 
+      "name": "Baylor University", 
+      "url": "www.baylor.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Baylor_University", 
+      "system": null, 
+      "ipeds_id": 223232, 
+      "phone": "(254) 710-3555", 
+      "fice_id": 6967, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "One Bear Place, #97056", 
+      "slug": "baylor-university", 
       "is_private": true, 
-      "zip_code": "75766"
+      "zip_code": "76798-7056"
+    }
+  }, 
+  {
+    "pk": 185, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Austin", 
+      "name": "Texas State University System", 
+      "url": "www.tsus.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_State_University_System", 
+      "system": 2, 
+      "ipeds_id": null, 
+      "phone": "(512) 245-2111", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "200 East 10th Street Suite 600", 
+      "slug": "texas-state-university-system", 
+      "is_private": false, 
+      "zip_code": "78701"
+    }
+  }, 
+  {
+    "pk": 186, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Lubbock", 
+      "name": "Texas Tech University System", 
+      "url": "www.texastech.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Tech_University_System", 
+      "system": 1, 
+      "ipeds_id": null, 
+      "phone": "(806) 742-2011", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "P.O. Box 42013", 
+      "slug": "texas-tech-university-system", 
+      "is_private": false, 
+      "zip_code": "79409"
+    }
+  }, 
+  {
+    "pk": 191, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "Alamo Community College District", 
+      "url": "www.alamo.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Alamo_Community_College_District", 
+      "system": 7, 
+      "ipeds_id": null, 
+      "phone": "(210) 485-0020", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "201 West Sheridan", 
+      "slug": "alamo-community-college-district", 
+      "is_private": false, 
+      "zip_code": "78204-1429"
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Edinburg", 
+      "name": "The University of Texas-Pan American", 
+      "url": "www.panam.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": 4, 
+      "ipeds_id": 227368, 
+      "phone": "(956) 381-2011", 
+      "fice_id": 3599, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "1201 West University Drive", 
+      "slug": "the-university-of-texas-pan-american", 
+      "is_private": false, 
+      "zip_code": "78541"
+    }
+  }, 
+  {
+    "pk": 190, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "", 
+      "name": "UT Brownsville/TSC", 
+      "url": "", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": null, 
+      "ipeds_id": null, 
+      "phone": "", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "", 
+      "slug": "ut-brownsvilletsc", 
+      "is_private": false, 
+      "zip_code": ""
     }
   }, 
   {
@@ -2009,6 +1743,7 @@
       "name": "Lon Morris College", 
       "url": "www.lonmorris.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lon_Morris_College", 
       "system": null, 
       "ipeds_id": 226329, 
       "phone": "(903) 589-4012", 
@@ -2022,26 +1757,6 @@
     }
   }, 
   {
-    "pk": 182, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "Parker University", 
-      "url": "", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 243823, 
-      "phone": "(214) 902-3470", 
-      "fice_id": null, 
-      "ope_id": 2305300, 
-      "institution_type": "pri_chi", 
-      "address": "2500 Walnut Hill Lane", 
-      "slug": "parker-university", 
-      "is_private": true, 
-      "zip_code": "75229"
-    }
-  }, 
-  {
     "pk": 183, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2049,6 +1764,7 @@
       "name": "Texas Chiropractic College", 
       "url": "", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Chiropractic_College", 
       "system": null, 
       "ipeds_id": 228866, 
       "phone": "(281) 487-1170", 
@@ -2069,6 +1785,7 @@
       "name": "Lamar University", 
       "url": "www.lamar.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lamar_University", 
       "system": 2, 
       "ipeds_id": 226091, 
       "phone": "(409) 880-7011", 
@@ -2082,26 +1799,6 @@
     }
   }, 
   {
-    "pk": 3, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Wichita Falls", 
-      "name": "Midwestern State University", 
-      "url": "www.mwsu.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 226833, 
-      "phone": "(940) 397-4000", 
-      "fice_id": 3592, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "3410 Taft Boulevard", 
-      "slug": "midwestern-state-university", 
-      "is_private": false, 
-      "zip_code": "76308-2099"
-    }
-  }, 
-  {
     "pk": 4, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2109,6 +1806,7 @@
       "name": "Prairie View A&M University", 
       "url": "www.pvamu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Prairie_View_A&M_University", 
       "system": 3, 
       "ipeds_id": 227526, 
       "phone": "(936) 857-3311", 
@@ -2129,6 +1827,7 @@
       "name": "Sam Houston State University", 
       "url": "www.shsu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Sam_Houston_State_University", 
       "system": 2, 
       "ipeds_id": 227881, 
       "phone": "(866) 294-1111", 
@@ -2142,26 +1841,6 @@
     }
   }, 
   {
-    "pk": 6, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Nacogdoches", 
-      "name": "Stephen F. Austin State University", 
-      "url": "www.sfasu.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228431, 
-      "phone": "(936) 468-2011", 
-      "fice_id": 3624, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "P.O. Box 13052 SFA Station", 
-      "slug": "stephen-f-austin-state-university", 
-      "is_private": false, 
-      "zip_code": "75962"
-    }
-  }, 
-  {
     "pk": 7, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2169,6 +1848,7 @@
       "name": "Sul Ross State University", 
       "url": "www.sulross.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Sul_Ross_State_University", 
       "system": 2, 
       "ipeds_id": null, 
       "phone": "(432) 837-8011", 
@@ -2189,6 +1869,7 @@
       "name": "Tarleton State University", 
       "url": "www.tarleton.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Tarleton_State_University", 
       "system": 3, 
       "ipeds_id": 228529, 
       "phone": "(254) 968-9000", 
@@ -2209,6 +1890,7 @@
       "name": "Texas A&M International University", 
       "url": "www.tamiu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_International_University", 
       "system": 3, 
       "ipeds_id": 226152, 
       "phone": "(956) 326-2001", 
@@ -2229,6 +1911,7 @@
       "name": "Texas A&M University", 
       "url": "www.tamu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University", 
       "system": 3, 
       "ipeds_id": 228723, 
       "phone": "(979) 845-3211", 
@@ -2242,26 +1925,6 @@
     }
   }, 
   {
-    "pk": 12, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Galveston", 
-      "name": "Texas A&M University at Galveston", 
-      "url": "www.tamug.edu", 
-      "description": null, 
-      "system": 3, 
-      "ipeds_id": 228714, 
-      "phone": "(877) 322-4443", 
-      "fice_id": 10298, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "P.O. Box 1675", 
-      "slug": "texas-am-university-at-galveston", 
-      "is_private": false, 
-      "zip_code": "77553"
-    }
-  }, 
-  {
     "pk": 14, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2269,6 +1932,7 @@
       "name": "Texas A&M University-Central Texas", 
       "url": "http://www.tarleton.edu/CENTRALTEXAS/", 
       "description": "can't find, but this place is next to Central Texas College", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University-Central_Texas", 
       "system": 3, 
       "ipeds_id": null, 
       "phone": "(254) 519-5447", 
@@ -2289,6 +1953,7 @@
       "name": "Texas A&M University-Commerce", 
       "url": "www.tamuc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University-Commerce", 
       "system": 3, 
       "ipeds_id": 224554, 
       "phone": "(903) 886-5081", 
@@ -2302,26 +1967,6 @@
     }
   }, 
   {
-    "pk": 16, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Corpus Christi", 
-      "name": "Texas A&M University-Corpus Christi", 
-      "url": "www.tamucc.edu", 
-      "description": null, 
-      "system": 3, 
-      "ipeds_id": 224147, 
-      "phone": "(361) 825-5700", 
-      "fice_id": 11161, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "6300 Ocean Drive", 
-      "slug": "texas-am-university-corpus-christi", 
-      "is_private": false, 
-      "zip_code": "78412"
-    }
-  }, 
-  {
     "pk": 17, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2329,6 +1974,7 @@
       "name": "Texas A&M University-Kingsville", 
       "url": "www.tamuk.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University-Kingsville", 
       "system": 3, 
       "ipeds_id": 228705, 
       "phone": "(361) 593-3207", 
@@ -2349,6 +1995,7 @@
       "name": "Texas A&M University-San Antonio", 
       "url": "http://www.tamuk.edu/sanantonio/", 
       "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University-San_Antonio", 
       "system": 3, 
       "ipeds_id": 22870501, 
       "phone": "(210) 932-6299", 
@@ -2369,6 +2016,7 @@
       "name": "Texas A&M University-Texarkana", 
       "url": "www.tamut.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University-Texarkana", 
       "system": 3, 
       "ipeds_id": 224545, 
       "phone": "(903) 223-3000", 
@@ -2389,6 +2037,7 @@
       "name": "Texas Southern University", 
       "url": "www.tsu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Southern_University", 
       "system": null, 
       "ipeds_id": 229063, 
       "phone": "(713) 313-7011", 
@@ -2402,26 +2051,6 @@
     }
   }, 
   {
-    "pk": 22, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Marcos", 
-      "name": "Texas State University-San Marcos", 
-      "url": "www.txstate.edu", 
-      "description": null, 
-      "system": 2, 
-      "ipeds_id": 228459, 
-      "phone": "(512) 245-2111", 
-      "fice_id": 3615, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "601 University Drive", 
-      "slug": "texas-state-university-san-marcos", 
-      "is_private": false, 
-      "zip_code": "78666"
-    }
-  }, 
-  {
     "pk": 23, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2429,6 +2058,7 @@
       "name": "Texas Tech University", 
       "url": "www.ttu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Tech_University", 
       "system": 1, 
       "ipeds_id": 229115, 
       "phone": "(806) 742-2011", 
@@ -2449,6 +2079,7 @@
       "name": "Texas Woman's University", 
       "url": "www.twu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Woman's_University", 
       "system": null, 
       "ipeds_id": 229179, 
       "phone": "(940) 898-3201", 
@@ -2462,26 +2093,6 @@
     }
   }, 
   {
-    "pk": 26, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Arlington", 
-      "name": "The University of Texas at Arlington", 
-      "url": "www.uta.edu", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": 228769, 
-      "phone": "(817) 272-2011", 
-      "fice_id": 3656, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "P.O. Box 19125", 
-      "slug": "the-university-of-texas-at-arlington", 
-      "is_private": false, 
-      "zip_code": "76019"
-    }
-  }, 
-  {
     "pk": 27, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2489,6 +2100,7 @@
       "name": "The University of Texas at Austin", 
       "url": "www.utexas.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_Austin", 
       "system": 4, 
       "ipeds_id": 228778, 
       "phone": "(512) 471-3434", 
@@ -2509,6 +2121,7 @@
       "name": "The University of Texas at Brownsville", 
       "url": "www.utb.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_Brownsville_and_Texas_Southmost_College", 
       "system": 4, 
       "ipeds_id": 227377, 
       "phone": "(956) 882-8200", 
@@ -2529,6 +2142,7 @@
       "name": "The University of Texas at Dallas", 
       "url": "www.utdallas.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_Dallas", 
       "system": 4, 
       "ipeds_id": 228787, 
       "phone": "(972) 883-2111", 
@@ -2542,26 +2156,6 @@
     }
   }, 
   {
-    "pk": 30, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "El Paso", 
-      "name": "The University of Texas at El Paso", 
-      "url": "www.utep.edu", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": 228796, 
-      "phone": "(915) 747-5000", 
-      "fice_id": 3661, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "500 West University Avenue", 
-      "slug": "the-university-of-texas-at-el-paso", 
-      "is_private": false, 
-      "zip_code": "79968"
-    }
-  }, 
-  {
     "pk": 31, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2569,6 +2163,7 @@
       "name": "The University of Texas at San Antonio", 
       "url": "www.utsa.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_San_Antonio", 
       "system": 4, 
       "ipeds_id": 229027, 
       "phone": "(210) 458-4011", 
@@ -2589,6 +2184,7 @@
       "name": "The University of Texas at Tyler", 
       "url": "www.uttyler.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_Tyler", 
       "system": 4, 
       "ipeds_id": 228802, 
       "phone": "(903) 566-7000", 
@@ -2602,46 +2198,6 @@
     }
   }, 
   {
-    "pk": 33, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Odessa", 
-      "name": "The University of Texas of the Permian Basin", 
-      "url": "www.utpb.edu", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": 229018, 
-      "phone": "(432) 552-2020", 
-      "fice_id": 9930, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "4901 East University", 
-      "slug": "the-university-of-texas-of-the-permian-basin", 
-      "is_private": false, 
-      "zip_code": "79762"
-    }
-  }, 
-  {
-    "pk": 35, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Edinburg", 
-      "name": "The University of Texas-Pan American", 
-      "url": "www.panam.edu", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": 227368, 
-      "phone": "(956) 381-2011", 
-      "fice_id": 3599, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "1201 West University Drive", 
-      "slug": "the-university-of-texas-pan-american", 
-      "is_private": false, 
-      "zip_code": "78541"
-    }
-  }, 
-  {
     "pk": 36, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2649,6 +2205,7 @@
       "name": "University of Houston", 
       "url": "www.uh.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Houston", 
       "system": 5, 
       "ipeds_id": 225511, 
       "phone": "(713) 743-8820", 
@@ -2669,6 +2226,7 @@
       "name": "University of Houston-Downtown", 
       "url": "www.uhd.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Houston-Downtown_Station", 
       "system": 5, 
       "ipeds_id": 225432, 
       "phone": "(713) 221-8000", 
@@ -2689,6 +2247,7 @@
       "name": "University of Houston-Victoria", 
       "url": "www.uhv.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Houston_Victoria", 
       "system": 5, 
       "ipeds_id": 225502, 
       "phone": "(361) 570-4848", 
@@ -2709,6 +2268,7 @@
       "name": "University of North Texas", 
       "url": "www.unt.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_North_Texas", 
       "system": 6, 
       "ipeds_id": 227216, 
       "phone": "(940) 565-2000", 
@@ -2722,26 +2282,6 @@
     }
   }, 
   {
-    "pk": 42, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "University of North Texas at Dallas", 
-      "url": "http://www.unt.edu/unt-dallas/", 
-      "description": "Can't Find IPEDS", 
-      "system": 6, 
-      "ipeds_id": null, 
-      "phone": "(972) 780-3602", 
-      "fice_id": 113594, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "7300 Houston School Road", 
-      "slug": "university-of-north-texas-at-dallas", 
-      "is_private": false, 
-      "zip_code": "75241"
-    }
-  }, 
-  {
     "pk": 45, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2749,6 +2289,7 @@
       "name": "West Texas A&M University", 
       "url": "www.wtamu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/West_Texas_A&M_University", 
       "system": 3, 
       "ipeds_id": 229814, 
       "phone": "(806) 651-2000", 
@@ -2769,6 +2310,7 @@
       "name": "The University of Texas System", 
       "url": "www.utsystem.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_System", 
       "system": 4, 
       "ipeds_id": null, 
       "phone": "(512) 499-4201", 
@@ -2789,6 +2331,7 @@
       "name": "Baylor College of Medicine", 
       "url": "www.bcm.tmc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Baylor_College_of_Medicine", 
       "system": null, 
       "ipeds_id": 223223, 
       "phone": "(713) 798-4433", 
@@ -2802,46 +2345,6 @@
     }
   }, 
   {
-    "pk": 188, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Houston", 
-      "name": "University of Houston System", 
-      "url": "www.uhsa.uh.edu", 
-      "description": null, 
-      "system": 5, 
-      "ipeds_id": null, 
-      "phone": "(713) 743-1000", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "3100 Cullen Boulevard Suite 205", 
-      "slug": "university-of-houston-system", 
-      "is_private": false, 
-      "zip_code": "77204-6001"
-    }
-  }, 
-  {
-    "pk": 190, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "", 
-      "name": "UT Brownsville/TSC", 
-      "url": "", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": null, 
-      "phone": "", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "", 
-      "slug": "ut-brownsvilletsc", 
-      "is_private": false, 
-      "zip_code": ""
-    }
-  }, 
-  {
     "pk": 1, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -2849,6 +2352,7 @@
       "name": "Angelo State University", 
       "url": "www.angelo.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Angelo_State_University", 
       "system": 1, 
       "ipeds_id": 222831, 
       "phone": "(325) 942-2073", 
@@ -2869,6 +2373,7 @@
       "name": "Sul Ross State University Rio Grande College", 
       "url": "www.sulross.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Sul_Ross_State_University_-_Rio_Grande_College", 
       "system": 2, 
       "ipeds_id": 228501, 
       "phone": "(830) 278-3339", 
@@ -2882,43 +2387,66 @@
     }
   }, 
   {
-    "pk": 38, 
+    "pk": 156, 
     "model": "tx_highered.institution", 
     "fields": {
-      "city": "Houston", 
-      "name": "University of Houston-Clear Lake", 
-      "url": "http://www.uhcl.edu/", 
-      "description": "", 
-      "system": 5, 
-      "ipeds_id": 225414, 
-      "phone": "(281) 283-7600", 
-      "fice_id": 11711, 
-      "ope_id": 1171100, 
+      "city": "San Antonio", 
+      "name": "Our Lady of the Lake University of San Antonio", 
+      "url": "www.ollusa.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": null, 
+      "ipeds_id": 227331, 
+      "phone": "(210) 431-3950", 
+      "fice_id": null, 
+      "ope_id": null, 
       "institution_type": "uni", 
-      "address": "2700 Bay Area Boulevard", 
-      "slug": "university-of-houston-clear-lake", 
-      "is_private": false, 
-      "zip_code": "77058-1098"
+      "address": "411 S.W. 24th Street", 
+      "slug": "our-lady-of-the-lake-university-of-san-antonio", 
+      "is_private": true, 
+      "zip_code": "78207"
     }
   }, 
   {
-    "pk": 144, 
+    "pk": 127, 
     "model": "tx_highered.institution", 
     "fields": {
-      "city": "Fort Worth", 
-      "name": "College of Saints John Fisher & Thomas More", 
-      "url": "www.cstm.edu", 
+      "city": "Tyler", 
+      "name": "The University of Texas Health Science Center at Tyler", 
+      "url": "www.uthct.edu", 
       "description": null, 
-      "system": null, 
-      "ipeds_id": 420352, 
-      "phone": "(817) 923-8459", 
+      "wikipedia": null, 
+      "system": 4, 
+      "ipeds_id": null, 
+      "phone": "(903) 877-3451", 
       "fice_id": null, 
-      "ope_id": 3189400, 
-      "institution_type": "uni", 
-      "address": "3020 Lubbock Avenue", 
-      "slug": "college-of-saints-john-fisher-thomas-more", 
-      "is_private": true, 
-      "zip_code": "76109"
+      "ope_id": null, 
+      "institution_type": "med", 
+      "address": "11937 U.S. Highway 271 North", 
+      "slug": "the-university-of-texas-health-science-center-at-tyler", 
+      "is_private": false, 
+      "zip_code": "75708-3154"
+    }
+  }, 
+  {
+    "pk": 129, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Galveston", 
+      "name": "The University of Texas Medical Branch at Galveston", 
+      "url": "www.utmb.edu", 
+      "description": null, 
+      "wikipedia": null, 
+      "system": 4, 
+      "ipeds_id": 228653, 
+      "phone": "(409) 772-1902", 
+      "fice_id": null, 
+      "ope_id": 495200, 
+      "institution_type": "med", 
+      "address": "301 University Boulevard", 
+      "slug": "the-university-of-texas-medical-branch-at-galveston", 
+      "is_private": false, 
+      "zip_code": "77555-1305"
     }
   }, 
   {
@@ -2929,6 +2457,7 @@
       "name": "LeTourneau University", 
       "url": "www.letu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/LeTourneau_University", 
       "system": null, 
       "ipeds_id": 226231, 
       "phone": "(903) 233-3100", 
@@ -2949,6 +2478,7 @@
       "name": "Lubbock Christian University", 
       "url": "www.lcu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lubbock_Christian_University", 
       "system": null, 
       "ipeds_id": 226383, 
       "phone": "(806) 720-7127", 
@@ -2969,6 +2499,7 @@
       "name": "McMurry University", 
       "url": "www.mcm.edu/index.htm", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/McMurry_University", 
       "system": null, 
       "ipeds_id": 226587, 
       "phone": "(325) 793-3801", 
@@ -2982,26 +2513,6 @@
     }
   }, 
   {
-    "pk": 156, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "Our Lady of the Lake University of San Antonio", 
-      "url": "www.ollusa.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 227331, 
-      "phone": "(210) 431-3950", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "411 S.W. 24th Street", 
-      "slug": "our-lady-of-the-lake-university-of-san-antonio", 
-      "is_private": true, 
-      "zip_code": "78207"
-    }
-  }, 
-  {
     "pk": 159, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3009,6 +2520,7 @@
       "name": "Schreiner University", 
       "url": "www.schreiner.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Schreiner_University", 
       "system": null, 
       "ipeds_id": 228042, 
       "phone": "(830) 792-7346", 
@@ -3029,6 +2541,7 @@
       "name": "South Texas College of Law", 
       "url": "www.stcl.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/South_Texas_College_of_Law", 
       "system": null, 
       "ipeds_id": 228194, 
       "phone": "(713) 659-8040", 
@@ -3042,26 +2555,6 @@
     }
   }, 
   {
-    "pk": 161, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "Southern Methodist University", 
-      "url": "www.smu.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228246, 
-      "phone": "(214) 768-3300", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "P.O. Box 750100", 
-      "slug": "southern-methodist-university", 
-      "is_private": true, 
-      "zip_code": "75275"
-    }
-  }, 
-  {
     "pk": 162, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3069,6 +2562,7 @@
       "name": "Southwestern Adventist University", 
       "url": "www.swau.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Southwestern_Adventist_University", 
       "system": null, 
       "ipeds_id": 228468, 
       "phone": "(817) 202-6202", 
@@ -3089,6 +2583,7 @@
       "name": "Southwestern Assemblies of God University", 
       "url": "www.sagu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Southwestern_Assemblies_of_God_University", 
       "system": null, 
       "ipeds_id": 228325, 
       "phone": "(972) 825-4652", 
@@ -3102,26 +2597,6 @@
     }
   }, 
   {
-    "pk": 164, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Terrell", 
-      "name": "Southwestern Christian College", 
-      "url": "www.swcc.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228486, 
-      "phone": "(972) 524-3341", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "P.O. Box 10", 
-      "slug": "southwestern-christian-college", 
-      "is_private": true, 
-      "zip_code": "75160-9002"
-    }
-  }, 
-  {
     "pk": 165, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3129,6 +2604,7 @@
       "name": "Southwestern University", 
       "url": "www.southwestern.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Southwestern_University", 
       "system": null, 
       "ipeds_id": 228343, 
       "phone": "(512) 863-1454", 
@@ -3149,6 +2625,7 @@
       "name": "Texas Christian University", 
       "url": "www.tcu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Christian_University", 
       "system": null, 
       "ipeds_id": 228875, 
       "phone": "(817) 257-7783", 
@@ -3169,6 +2646,7 @@
       "name": "Texas College", 
       "url": "www.texascollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_College", 
       "system": null, 
       "ipeds_id": 228884, 
       "phone": "(903) 593-8311", 
@@ -3182,26 +2660,6 @@
     }
   }, 
   {
-    "pk": 170, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Seguin", 
-      "name": "Texas Lutheran University", 
-      "url": "www.tlu.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228981, 
-      "phone": "(830) 372-8001", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "1000 West Court Street", 
-      "slug": "texas-lutheran-university", 
-      "is_private": true, 
-      "zip_code": "78155"
-    }
-  }, 
-  {
     "pk": 171, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3209,6 +2667,7 @@
       "name": "Texas Wesleyan University", 
       "url": "www.txwes.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Wesleyan_University", 
       "system": null, 
       "ipeds_id": 229160, 
       "phone": "(817) 531-4401", 
@@ -3229,6 +2688,7 @@
       "name": "University of Mary Hardin-Baylor", 
       "url": "www.umhb.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Mary_Hardin_Baylor", 
       "system": null, 
       "ipeds_id": 226471, 
       "phone": "(254) 295-4501", 
@@ -3249,6 +2709,7 @@
       "name": "University of St. Thomas", 
       "url": "www.stthom.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_St._Thomas", 
       "system": null, 
       "ipeds_id": 227863, 
       "phone": "(713) 525-2160", 
@@ -3262,26 +2723,6 @@
     }
   }, 
   {
-    "pk": 176, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "University of the Incarnate Word", 
-      "url": "www.uiw.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 225627, 
-      "phone": "(210) 829-3900", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "4301 Broadway, CPO # 303", 
-      "slug": "university-of-the-incarnate-word", 
-      "is_private": true, 
-      "zip_code": "78209"
-    }
-  }, 
-  {
     "pk": 177, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3289,6 +2730,7 @@
       "name": "Wayland Baptist University", 
       "url": "www.wbu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Wayland_Baptist_University", 
       "system": null, 
       "ipeds_id": 229780, 
       "phone": "(806) 291-3400", 
@@ -3309,6 +2751,7 @@
       "name": "Wiley College", 
       "url": "www.wileyc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Wiley_College", 
       "system": null, 
       "ipeds_id": 229887, 
       "phone": "(903) 927-3200", 
@@ -3322,26 +2765,6 @@
     }
   }, 
   {
-    "pk": 123, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "College Station", 
-      "name": "Texas A&M University System Health Science Center", 
-      "url": "tamhsc.edu", 
-      "description": null, 
-      "system": 3, 
-      "ipeds_id": 223214, 
-      "phone": "(979) 458-6475", 
-      "fice_id": null, 
-      "ope_id": 494800, 
-      "institution_type": "med", 
-      "address": "John B. Connolly Building 301 Tarrow, 7th Floor, Mail Stop 13", 
-      "slug": "texas-am-university-system-health-science-center", 
-      "is_private": false, 
-      "zip_code": "77840-7896"
-    }
-  }, 
-  {
     "pk": 124, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3349,6 +2772,7 @@
       "name": "Texas Tech University Health Sciences Center", 
       "url": "www.ttuhsc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Tech_University_Health_Sciences_Center", 
       "system": 1, 
       "ipeds_id": 229337, 
       "phone": "(806) 743-1000", 
@@ -3369,6 +2793,7 @@
       "name": "Amberton University", 
       "url": "www.amberton.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Amberton_University", 
       "system": null, 
       "ipeds_id": 222628, 
       "phone": "(972) 279-6511", 
@@ -3389,6 +2814,7 @@
       "name": "Austin College", 
       "url": "www.austincollege.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Austin_College", 
       "system": null, 
       "ipeds_id": 222983, 
       "phone": "(903) 813-3001", 
@@ -3409,6 +2835,7 @@
       "name": "Concordia University Texas", 
       "url": "www.concordia.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Concordia_University_Texas", 
       "system": null, 
       "ipeds_id": 224004, 
       "phone": "(512) 313-3000", 
@@ -3429,6 +2856,7 @@
       "name": "Dallas Baptist University", 
       "url": "www.dbu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Dallas_Baptist_University", 
       "system": null, 
       "ipeds_id": 224226, 
       "phone": "(214) 333-5130", 
@@ -3442,26 +2870,6 @@
     }
   }, 
   {
-    "pk": 147, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Marshall", 
-      "name": "East Texas Baptist University", 
-      "url": "www.etbu.edu/default.htm", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 224527, 
-      "phone": "(903) 923-2222", 
-      "fice_id": 3564, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "1209 North Grove Street", 
-      "slug": "east-texas-baptist-university", 
-      "is_private": true, 
-      "zip_code": "75670"
-    }
-  }, 
-  {
     "pk": 148, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3469,6 +2877,7 @@
       "name": "Hardin-Simmons University", 
       "url": "www.hsutx.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Hardin_Simmons_University", 
       "system": null, 
       "ipeds_id": 225247, 
       "phone": "(325) 670-1226", 
@@ -3489,6 +2898,7 @@
       "name": "Houston Baptist University", 
       "url": "www.hbu.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Houston_Baptist_University", 
       "system": null, 
       "ipeds_id": 225399, 
       "phone": "(281) 649-3450", 
@@ -3509,6 +2919,7 @@
       "name": "Howard Payne University", 
       "url": "www.hputx.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Howard_Payne_University", 
       "system": null, 
       "ipeds_id": 225548, 
       "phone": "(325) 649-8000", 
@@ -3522,26 +2933,6 @@
     }
   }, 
   {
-    "pk": 151, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Austin", 
-      "name": "Huston-Tillotson University", 
-      "url": "www.htu.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 225575, 
-      "phone": "(512) 505-3001", 
-      "fice_id": 3577, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "900 Chicon Street", 
-      "slug": "huston-tillotson-university", 
-      "is_private": true, 
-      "zip_code": "78702-2795"
-    }
-  }, 
-  {
     "pk": 152, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3549,6 +2940,7 @@
       "name": "Jarvis Christian College", 
       "url": "www.jarvis.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Jarvis_Christian_College", 
       "system": null, 
       "ipeds_id": 225885, 
       "phone": "(903) 730-4890", 
@@ -3569,6 +2961,7 @@
       "name": "Paul Quinn College", 
       "url": "www.pqc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Paul_Quinn_College", 
       "system": null, 
       "ipeds_id": 227429, 
       "phone": "(214) 379-5515", 
@@ -3589,6 +2982,7 @@
       "name": "Rice University", 
       "url": "www.rice.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Rice_University", 
       "system": null, 
       "ipeds_id": 227757, 
       "phone": "(713) 348-5050", 
@@ -3602,26 +2996,6 @@
     }
   }, 
   {
-    "pk": 167, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "St. Mary's University", 
-      "url": "www.stmarytx.edu", 
-      "description": null, 
-      "system": null, 
-      "ipeds_id": 228149, 
-      "phone": "(210) 436-3722", 
-      "fice_id": 3623, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "One Camino Santa Maria", 
-      "slug": "st-marys-university", 
-      "is_private": true, 
-      "zip_code": "78228"
-    }
-  }, 
-  {
     "pk": 172, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3629,6 +3003,7 @@
       "name": "Trinity University", 
       "url": "www.trinity.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Trinity_University", 
       "system": null, 
       "ipeds_id": 229267, 
       "phone": "(210) 999-8401", 
@@ -3649,6 +3024,7 @@
       "name": "University of Dallas", 
       "url": "www.udallas.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Dallas", 
       "system": null, 
       "ipeds_id": 224323, 
       "phone": "(972) 721-5203", 
@@ -3662,26 +3038,6 @@
     }
   }, 
   {
-    "pk": 189, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Dallas", 
-      "name": "University of North Texas System", 
-      "url": "http://untsystem.unt.edu/", 
-      "description": "Administrative. Has no students.", 
-      "system": 6, 
-      "ipeds_id": 443711, 
-      "phone": "(940) 565-2000", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "uni", 
-      "address": "1901 Main Street", 
-      "slug": "university-of-north-texas-system", 
-      "is_private": false, 
-      "zip_code": "75201"
-    }
-  }, 
-  {
     "pk": 125, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -3689,6 +3045,7 @@
       "name": "The University of Texas Health Science Center at Houston", 
       "url": "www.uth.tmc.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_Health_Science_Center_at_Houston", 
       "system": 4, 
       "ipeds_id": 229300, 
       "phone": "(713) 500-4472", 
@@ -3709,6 +3066,7 @@
       "name": "The University of Texas Health Science Center at San Antonio", 
       "url": "www.uthscsa.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_Health_Science_Center_at_San_Antonio", 
       "system": 4, 
       "ipeds_id": 228644, 
       "phone": "(210) 567-7000", 
@@ -3722,83 +3080,633 @@
     }
   }, 
   {
-    "pk": 127, 
+    "pk": 140, 
     "model": "tx_highered.institution", 
     "fields": {
-      "city": "Tyler", 
-      "name": "The University of Texas Health Science Center at Tyler", 
-      "url": "www.uthct.edu", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": null, 
-      "phone": "(903) 877-3451", 
-      "fice_id": null, 
+      "city": "Abilene", 
+      "name": "Abilene Christian University", 
+      "url": "http://www.acu.edu/", 
+      "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Abilene_Christian_University", 
+      "system": null, 
+      "ipeds_id": 222178, 
+      "phone": "(325) 674-2412", 
+      "fice_id": 3537, 
       "ope_id": null, 
-      "institution_type": "med", 
-      "address": "11937 U.S. Highway 271 North", 
-      "slug": "the-university-of-texas-health-science-center-at-tyler", 
-      "is_private": false, 
-      "zip_code": "75708-3154"
+      "institution_type": "uni", 
+      "address": "ACU Box 29100", 
+      "slug": "abilene-christian-university", 
+      "is_private": true, 
+      "zip_code": "79699"
     }
   }, 
   {
-    "pk": 128, 
+    "pk": 166, 
     "model": "tx_highered.institution", 
     "fields": {
-      "city": "Houston", 
-      "name": "The University of Texas M.D. Anderson Cancer Center", 
-      "url": "www.mdanderson.org/healthsciences", 
+      "city": "Austin", 
+      "name": "St. Edward's University", 
+      "url": "www.stedwards.edu/", 
       "description": null, 
-      "system": 4, 
-      "ipeds_id": 416801, 
-      "phone": "(713) 745-1205", 
-      "fice_id": null, 
-      "ope_id": 2555400, 
-      "institution_type": "med", 
-      "address": "1515 Holcombe Boulevard", 
-      "slug": "the-university-of-texas-md-anderson-cancer-center", 
-      "is_private": false, 
-      "zip_code": "77030-4009"
+      "wikipedia": "http://en.wikipedia.org/wiki/St._Edward's_University", 
+      "system": null, 
+      "ipeds_id": 227845, 
+      "phone": "(512) 448-8411", 
+      "fice_id": 3621, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "3001 South Congress Ave. CM 1045", 
+      "slug": "st-edwards-university", 
+      "is_private": true, 
+      "zip_code": "78704"
     }
   }, 
   {
-    "pk": 129, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Galveston", 
-      "name": "The University of Texas Medical Branch at Galveston", 
-      "url": "www.utmb.edu", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": 228653, 
-      "phone": "(409) 772-1902", 
-      "fice_id": null, 
-      "ope_id": 495200, 
-      "institution_type": "med", 
-      "address": "301 University Boulevard", 
-      "slug": "the-university-of-texas-medical-branch-at-galveston", 
-      "is_private": false, 
-      "zip_code": "77555-1305"
-    }
-  }, 
-  {
-    "pk": 130, 
+    "pk": 66, 
     "model": "tx_highered.institution", 
     "fields": {
       "city": "Dallas", 
-      "name": "The University of Texas Southwestern Medical Center", 
-      "url": "www.utsouthwestern.edu/student", 
-      "description": null, 
-      "system": 4, 
-      "ipeds_id": 228635, 
-      "phone": "(214) 648-3111", 
+      "name": "Dallas County Community College District", 
+      "url": "http://www.dcccd.edu/", 
+      "description": "System for Brookhave, Cedar Valley, Eastfield, El Centro, Mountain View, North Lake, Richland, Dallas TeleCollege Online", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Dallas_County_Community_College_District", 
+      "system": 8, 
+      "ipeds_id": null, 
+      "phone": "(214) 378-1824", 
       "fice_id": null, 
-      "ope_id": 1001900, 
-      "institution_type": "med", 
-      "address": "5323 Harry Hines Boulevard", 
-      "slug": "the-university-of-texas-southwestern-medical-center", 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "1601 South Lamar St.", 
+      "slug": "dallas-county-community-college-district", 
       "is_private": false, 
-      "zip_code": "75390-9096"
+      "zip_code": "75215-1816"
+    }
+  }, 
+  {
+    "pk": 88, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Midland", 
+      "name": "Midland College", 
+      "url": "www.midland.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Midland_College", 
+      "system": null, 
+      "ipeds_id": 226806, 
+      "phone": "(432) 685-4500", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "3600 North Garfield", 
+      "slug": "midland-college", 
+      "is_private": false, 
+      "zip_code": "79705"
+    }
+  }, 
+  {
+    "pk": 91, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Gainesville", 
+      "name": "North Central Texas College", 
+      "url": "www.nctc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/North_Central_Texas_College", 
+      "system": null, 
+      "ipeds_id": 224110, 
+      "phone": "(940) 668-7731", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "1525 West California", 
+      "slug": "north-central-texas-college", 
+      "is_private": false, 
+      "zip_code": "76240"
+    }
+  }, 
+  {
+    "pk": 55, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Austin", 
+      "name": "Austin Community College", 
+      "url": "www.austincc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Austin_Community_College_District", 
+      "system": null, 
+      "ipeds_id": 222992, 
+      "phone": "(512) 223-7000", 
+      "fice_id": 12015, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "5930 Middle Fiskville Road", 
+      "slug": "austin-community-college", 
+      "is_private": false, 
+      "zip_code": "78752"
+    }
+  }, 
+  {
+    "pk": 59, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Lancaster", 
+      "name": "Cedar Valley College", 
+      "url": "www.dcccd.edu/cvc/cvc.htm", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Cedar_Valley_College", 
+      "system": 8, 
+      "ipeds_id": 223773, 
+      "phone": "(972) 860-8200", 
+      "fice_id": 3561, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "3030 North Dallas Avenue", 
+      "slug": "cedar-valley-college", 
+      "is_private": false, 
+      "zip_code": "75134"
+    }
+  }, 
+  {
+    "pk": 65, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Plano", 
+      "name": "Collin County Community College District", 
+      "url": "www.collin.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Collin_County_Community_College_District", 
+      "system": null, 
+      "ipeds_id": 247834, 
+      "phone": "(972) 548-6790", 
+      "fice_id": 23614, 
+      "ope_id": 2361400, 
+      "institution_type": "pub_cc", 
+      "address": "2800 East Spring Creek Parkway", 
+      "slug": "collin-county-community-college-district", 
+      "is_private": false, 
+      "zip_code": "75074"
+    }
+  }, 
+  {
+    "pk": 72, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Galveston", 
+      "name": "Galveston College", 
+      "url": "www.gc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Galveston_College", 
+      "system": null, 
+      "ipeds_id": 224961, 
+      "phone": "(409) 944-4242", 
+      "fice_id": 6662, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "4015 Avenue Q", 
+      "slug": "galveston-college", 
+      "is_private": false, 
+      "zip_code": "77550"
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "San Antonio College", 
+      "url": "http://www.alamo.edu/sac/sacmain/sac.htm", 
+      "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/San_Antonio_College", 
+      "system": 7, 
+      "ipeds_id": 227924, 
+      "phone": "(210) 733-2000", 
+      "fice_id": null, 
+      "ope_id": 916300, 
+      "institution_type": "pub_cc", 
+      "address": "1300 San Pedro Avenue", 
+      "slug": "san-antonio-college", 
+      "is_private": false, 
+      "zip_code": "78212"
+    }
+  }, 
+  {
+    "pk": 75, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Houston", 
+      "name": "Houston Community College", 
+      "url": "www.hccs.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Houston_Community_College_System", 
+      "system": 9, 
+      "ipeds_id": 225423, 
+      "phone": "(713) 718-2000", 
+      "fice_id": 10633, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "P.O. Box 667517", 
+      "slug": "houston-community-college", 
+      "is_private": false, 
+      "zip_code": "77266-7517"
+    }
+  }, 
+  {
+    "pk": 95, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Carthage", 
+      "name": "Panola College", 
+      "url": "www.panola.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Panola_College", 
+      "system": null, 
+      "ipeds_id": 227386, 
+      "phone": "(903) 693-2000", 
+      "fice_id": 3600, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "1109 West Panola Street", 
+      "slug": "panola-college", 
+      "is_private": false, 
+      "zip_code": "75633"
+    }
+  }, 
+  {
+    "pk": 103, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Levelland", 
+      "name": "South Plains College", 
+      "url": "www.southplainscollege.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/South_Plains_College", 
+      "system": null, 
+      "ipeds_id": 228158, 
+      "phone": "(806) 894-9611", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "1401 College Avenue", 
+      "slug": "south-plains-college", 
+      "is_private": false, 
+      "zip_code": "79336"
+    }
+  }, 
+  {
+    "pk": 107, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Fort Worth", 
+      "name": "Tarrant County College District", 
+      "url": "www.tccd.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Tarrant_County_College_District", 
+      "system": 13, 
+      "ipeds_id": 228547, 
+      "phone": "(817) 515-5201", 
+      "fice_id": null, 
+      "ope_id": 362600, 
+      "institution_type": "pub_cc", 
+      "address": "1500 Houston Street", 
+      "slug": "tarrant-county-college-district", 
+      "is_private": false, 
+      "zip_code": "76102"
+    }
+  }, 
+  {
+    "pk": 120, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Weatherford", 
+      "name": "Weatherford College", 
+      "url": "www.wc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Weatherford_College", 
+      "system": null, 
+      "ipeds_id": 229799, 
+      "phone": "(817) 594-5471", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "225 College Park Drive", 
+      "slug": "weatherford-college", 
+      "is_private": false, 
+      "zip_code": "76086"
+    }
+  }, 
+  {
+    "pk": 116, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Athens", 
+      "name": "Trinity Valley Community College", 
+      "url": "www.tvcc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Trinity_Valley_Community_College", 
+      "system": null, 
+      "ipeds_id": 225308, 
+      "phone": "(903) 677-8822", 
+      "fice_id": 3572, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "100 Cardinal Drive", 
+      "slug": "trinity-valley-community-college", 
+      "is_private": false, 
+      "zip_code": "75751"
+    }
+  }, 
+  {
+    "pk": 138, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Orange", 
+      "name": "Lamar State College-Orange", 
+      "url": "www.lsco.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Lamar_State_College_Orange", 
+      "system": 2, 
+      "ipeds_id": 226107, 
+      "phone": "(409) 883-7750", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_state", 
+      "address": "410 Front Street", 
+      "slug": "lamar-state-college-orange", 
+      "is_private": false, 
+      "zip_code": "77630"
+    }
+  }, 
+  {
+    "pk": 184, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "College Station", 
+      "name": "Texas A&M University System", 
+      "url": "www.tamus.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University_System", 
+      "system": 3, 
+      "ipeds_id": null, 
+      "phone": "(979) 458-6000", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "A&M System Building, Suite 2043 200 Technology Way", 
+      "slug": "texas-am-university-system", 
+      "is_private": false, 
+      "zip_code": "77845-3424"
+    }
+  }, 
+  {
+    "pk": 179, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Jacksonville", 
+      "name": "Jacksonville College", 
+      "url": "www.jacksonville-college.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Jacksonville_College", 
+      "system": null, 
+      "ipeds_id": 225876, 
+      "phone": "(903) 589-7106", 
+      "fice_id": 3579, 
+      "ope_id": 357900, 
+      "institution_type": "pri_jr", 
+      "address": "105 B.J. Albritton Drive", 
+      "slug": "jacksonville-college", 
+      "is_private": true, 
+      "zip_code": "75766"
+    }
+  }, 
+  {
+    "pk": 182, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "Parker University", 
+      "url": "", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Parker_University", 
+      "system": null, 
+      "ipeds_id": 243823, 
+      "phone": "(214) 902-3470", 
+      "fice_id": null, 
+      "ope_id": 2305300, 
+      "institution_type": "pri_chi", 
+      "address": "2500 Walnut Hill Lane", 
+      "slug": "parker-university", 
+      "is_private": true, 
+      "zip_code": "75229"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Wichita Falls", 
+      "name": "Midwestern State University", 
+      "url": "www.mwsu.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Midwestern_State_University", 
+      "system": null, 
+      "ipeds_id": 226833, 
+      "phone": "(940) 397-4000", 
+      "fice_id": 3592, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "3410 Taft Boulevard", 
+      "slug": "midwestern-state-university", 
+      "is_private": false, 
+      "zip_code": "76308-2099"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Nacogdoches", 
+      "name": "Stephen F. Austin State University", 
+      "url": "www.sfasu.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Stephen_F._Austin_State_University", 
+      "system": null, 
+      "ipeds_id": 228431, 
+      "phone": "(936) 468-2011", 
+      "fice_id": 3624, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "P.O. Box 13052 SFA Station", 
+      "slug": "stephen-f-austin-state-university", 
+      "is_private": false, 
+      "zip_code": "75962"
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Galveston", 
+      "name": "Texas A&M University at Galveston", 
+      "url": "www.tamug.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University_at_Galveston", 
+      "system": 3, 
+      "ipeds_id": 228714, 
+      "phone": "(877) 322-4443", 
+      "fice_id": 10298, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "P.O. Box 1675", 
+      "slug": "texas-am-university-at-galveston", 
+      "is_private": false, 
+      "zip_code": "77553"
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Corpus Christi", 
+      "name": "Texas A&M University-Corpus Christi", 
+      "url": "www.tamucc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University-Corpus_Christi", 
+      "system": 3, 
+      "ipeds_id": 224147, 
+      "phone": "(361) 825-5700", 
+      "fice_id": 11161, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "6300 Ocean Drive", 
+      "slug": "texas-am-university-corpus-christi", 
+      "is_private": false, 
+      "zip_code": "78412"
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Marcos", 
+      "name": "Texas State University-San Marcos", 
+      "url": "www.txstate.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_State_University_San_Marcos", 
+      "system": 2, 
+      "ipeds_id": 228459, 
+      "phone": "(512) 245-2111", 
+      "fice_id": 3615, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "601 University Drive", 
+      "slug": "texas-state-university-san-marcos", 
+      "is_private": false, 
+      "zip_code": "78666"
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Arlington", 
+      "name": "The University of Texas at Arlington", 
+      "url": "www.uta.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_Arlington", 
+      "system": 4, 
+      "ipeds_id": 228769, 
+      "phone": "(817) 272-2011", 
+      "fice_id": 3656, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "P.O. Box 19125", 
+      "slug": "the-university-of-texas-at-arlington", 
+      "is_private": false, 
+      "zip_code": "76019"
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "El Paso", 
+      "name": "The University of Texas at El Paso", 
+      "url": "www.utep.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_at_El_Paso", 
+      "system": 4, 
+      "ipeds_id": 228796, 
+      "phone": "(915) 747-5000", 
+      "fice_id": 3661, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "500 West University Avenue", 
+      "slug": "the-university-of-texas-at-el-paso", 
+      "is_private": false, 
+      "zip_code": "79968"
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Odessa", 
+      "name": "The University of Texas of the Permian Basin", 
+      "url": "www.utpb.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_of_the_Permian_Basin", 
+      "system": 4, 
+      "ipeds_id": 229018, 
+      "phone": "(432) 552-2020", 
+      "fice_id": 9930, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "4901 East University", 
+      "slug": "the-university-of-texas-of-the-permian-basin", 
+      "is_private": false, 
+      "zip_code": "79762"
+    }
+  }, 
+  {
+    "pk": 42, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "University of North Texas at Dallas", 
+      "url": "http://www.unt.edu/unt-dallas/", 
+      "description": "Can't Find IPEDS", 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_North_Texas_at_Dallas", 
+      "system": 6, 
+      "ipeds_id": null, 
+      "phone": "(972) 780-3602", 
+      "fice_id": 113594, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "7300 Houston School Road", 
+      "slug": "university-of-north-texas-at-dallas", 
+      "is_private": false, 
+      "zip_code": "75241"
+    }
+  }, 
+  {
+    "pk": 188, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Houston", 
+      "name": "University of Houston System", 
+      "url": "www.uhsa.uh.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Houston_System", 
+      "system": 5, 
+      "ipeds_id": null, 
+      "phone": "(713) 743-1000", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "3100 Cullen Boulevard Suite 205", 
+      "slug": "university-of-houston-system", 
+      "is_private": false, 
+      "zip_code": "77204-6001"
     }
   }, 
   {
@@ -3809,6 +3717,7 @@
       "name": "University of North Texas Health Science Center", 
       "url": "www.hsc.unt.edu", 
       "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_North_Texas_Health_Science_Center", 
       "system": 6, 
       "ipeds_id": 228909, 
       "phone": "(817) 735-2000", 
@@ -3829,6 +3738,7 @@
       "name": "Northeast Lakeview College", 
       "url": "http://www.alamo.edu/nlc", 
       "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/Northeast_Lakeview_College", 
       "system": 7, 
       "ipeds_id": null, 
       "phone": "(210) 486-5401", 
@@ -3839,6 +3749,279 @@
       "slug": "northeast-lakeview-college", 
       "is_private": false, 
       "zip_code": "78148"
+    }
+  }, 
+  {
+    "pk": 38, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Houston", 
+      "name": "University of Houston-Clear Lake", 
+      "url": "http://www.uhcl.edu/", 
+      "description": "", 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_Houston-Clear_Lake", 
+      "system": 5, 
+      "ipeds_id": 225414, 
+      "phone": "(281) 283-7600", 
+      "fice_id": 11711, 
+      "ope_id": 1171100, 
+      "institution_type": "uni", 
+      "address": "2700 Bay Area Boulevard", 
+      "slug": "university-of-houston-clear-lake", 
+      "is_private": false, 
+      "zip_code": "77058-1098"
+    }
+  }, 
+  {
+    "pk": 144, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Fort Worth", 
+      "name": "College of Saints John Fisher & Thomas More", 
+      "url": "www.cstm.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/College_of_Saints_John_Fisher_&_Thomas_More", 
+      "system": null, 
+      "ipeds_id": 420352, 
+      "phone": "(817) 923-8459", 
+      "fice_id": null, 
+      "ope_id": 3189400, 
+      "institution_type": "uni", 
+      "address": "3020 Lubbock Avenue", 
+      "slug": "college-of-saints-john-fisher-thomas-more", 
+      "is_private": true, 
+      "zip_code": "76109"
+    }
+  }, 
+  {
+    "pk": 161, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "Southern Methodist University", 
+      "url": "www.smu.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Southern_Methodist_University", 
+      "system": null, 
+      "ipeds_id": 228246, 
+      "phone": "(214) 768-3300", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "P.O. Box 750100", 
+      "slug": "southern-methodist-university", 
+      "is_private": true, 
+      "zip_code": "75275"
+    }
+  }, 
+  {
+    "pk": 164, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Terrell", 
+      "name": "Southwestern Christian College", 
+      "url": "www.swcc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Southwestern_Christian_College", 
+      "system": null, 
+      "ipeds_id": 228486, 
+      "phone": "(972) 524-3341", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "P.O. Box 10", 
+      "slug": "southwestern-christian-college", 
+      "is_private": true, 
+      "zip_code": "75160-9002"
+    }
+  }, 
+  {
+    "pk": 170, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Seguin", 
+      "name": "Texas Lutheran University", 
+      "url": "www.tlu.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_Lutheran_University", 
+      "system": null, 
+      "ipeds_id": 228981, 
+      "phone": "(830) 372-8001", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "1000 West Court Street", 
+      "slug": "texas-lutheran-university", 
+      "is_private": true, 
+      "zip_code": "78155"
+    }
+  }, 
+  {
+    "pk": 176, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "University of the Incarnate Word", 
+      "url": "www.uiw.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_the_Incarnate_Word", 
+      "system": null, 
+      "ipeds_id": 225627, 
+      "phone": "(210) 829-3900", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "4301 Broadway, CPO # 303", 
+      "slug": "university-of-the-incarnate-word", 
+      "is_private": true, 
+      "zip_code": "78209"
+    }
+  }, 
+  {
+    "pk": 123, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "College Station", 
+      "name": "Texas A&M University System Health Science Center", 
+      "url": "tamhsc.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Texas_A&M_University_System_Health_Science_Center", 
+      "system": 3, 
+      "ipeds_id": 223214, 
+      "phone": "(979) 458-6475", 
+      "fice_id": null, 
+      "ope_id": 494800, 
+      "institution_type": "med", 
+      "address": "John B. Connolly Building 301 Tarrow, 7th Floor, Mail Stop 13", 
+      "slug": "texas-am-university-system-health-science-center", 
+      "is_private": false, 
+      "zip_code": "77840-7896"
+    }
+  }, 
+  {
+    "pk": 147, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Marshall", 
+      "name": "East Texas Baptist University", 
+      "url": "www.etbu.edu/default.htm", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/East_Texas_Baptist_University", 
+      "system": null, 
+      "ipeds_id": 224527, 
+      "phone": "(903) 923-2222", 
+      "fice_id": 3564, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "1209 North Grove Street", 
+      "slug": "east-texas-baptist-university", 
+      "is_private": true, 
+      "zip_code": "75670"
+    }
+  }, 
+  {
+    "pk": 151, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Austin", 
+      "name": "Huston-Tillotson University", 
+      "url": "www.htu.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/Huston-Tillotson_University", 
+      "system": null, 
+      "ipeds_id": 225575, 
+      "phone": "(512) 505-3001", 
+      "fice_id": 3577, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "900 Chicon Street", 
+      "slug": "huston-tillotson-university", 
+      "is_private": true, 
+      "zip_code": "78702-2795"
+    }
+  }, 
+  {
+    "pk": 167, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "St. Mary's University", 
+      "url": "www.stmarytx.edu", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/St._Mary's_University", 
+      "system": null, 
+      "ipeds_id": 228149, 
+      "phone": "(210) 436-3722", 
+      "fice_id": 3623, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "One Camino Santa Maria", 
+      "slug": "st-marys-university", 
+      "is_private": true, 
+      "zip_code": "78228"
+    }
+  }, 
+  {
+    "pk": 189, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "University of North Texas System", 
+      "url": "http://untsystem.unt.edu/", 
+      "description": "Administrative. Has no students.", 
+      "wikipedia": "http://en.wikipedia.org/wiki/University_of_North_Texas_System", 
+      "system": 6, 
+      "ipeds_id": 443711, 
+      "phone": "(940) 565-2000", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "uni", 
+      "address": "1901 Main Street", 
+      "slug": "university-of-north-texas-system", 
+      "is_private": false, 
+      "zip_code": "75201"
+    }
+  }, 
+  {
+    "pk": 128, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Houston", 
+      "name": "The University of Texas M.D. Anderson Cancer Center", 
+      "url": "www.mdanderson.org/healthsciences", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_M._D._Anderson_Cancer_Center", 
+      "system": 4, 
+      "ipeds_id": 416801, 
+      "phone": "(713) 745-1205", 
+      "fice_id": null, 
+      "ope_id": 2555400, 
+      "institution_type": "med", 
+      "address": "1515 Holcombe Boulevard", 
+      "slug": "the-university-of-texas-md-anderson-cancer-center", 
+      "is_private": false, 
+      "zip_code": "77030-4009"
+    }
+  }, 
+  {
+    "pk": 130, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Dallas", 
+      "name": "The University of Texas Southwestern Medical Center", 
+      "url": "www.utsouthwestern.edu/student", 
+      "description": null, 
+      "wikipedia": "http://en.wikipedia.org/wiki/The_University_of_Texas_Southwestern_Medical_Center_at_Dallas", 
+      "system": 4, 
+      "ipeds_id": 228635, 
+      "phone": "(214) 648-3111", 
+      "fice_id": null, 
+      "ope_id": 1001900, 
+      "institution_type": "med", 
+      "address": "5323 Harry Hines Boulevard", 
+      "slug": "the-university-of-texas-southwestern-medical-center", 
+      "is_private": false, 
+      "zip_code": "75390-9096"
     }
   }
 ]
