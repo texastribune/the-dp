@@ -182,86 +182,6 @@
     }
   }, 
   {
-    "pk": 46, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "Universal City", 
-      "name": "Alamo Community College - Northeast Lakeview College", 
-      "url": "www.alamo.edu/nlc", 
-      "description": null, 
-      "system": 7, 
-      "ipeds_id": null, 
-      "phone": "(210) 486-5401", 
-      "fice_id": null, 
-      "ope_id": null, 
-      "institution_type": "pub_cc", 
-      "address": "1201 Kitty Hawk Rd", 
-      "slug": "alamo-community-college-northeast-lakeview-college", 
-      "is_private": false, 
-      "zip_code": "78148"
-    }
-  }, 
-  {
-    "pk": 47, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "Alamo Community College - Northwest Vista College", 
-      "url": "www.alamo.edu/nvc", 
-      "description": null, 
-      "system": 7, 
-      "ipeds_id": 420398, 
-      "phone": "(210) 348-2020", 
-      "fice_id": null, 
-      "ope_id": 3372300, 
-      "institution_type": "pub_cc", 
-      "address": "3535 North Ellison Drive", 
-      "slug": "alamo-community-college-northwest-vista-college", 
-      "is_private": false, 
-      "zip_code": "78251"
-    }
-  }, 
-  {
-    "pk": 48, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "Alamo Community College - Palo Alto College", 
-      "url": "www.alamo.edu/pac/htm/", 
-      "description": null, 
-      "system": 7, 
-      "ipeds_id": 246354, 
-      "phone": "(210) 921-5260", 
-      "fice_id": null, 
-      "ope_id": 2341300, 
-      "institution_type": "pub_cc", 
-      "address": "1400 West Villaret Boulevard", 
-      "slug": "alamo-community-college-palo-alto-college", 
-      "is_private": false, 
-      "zip_code": "78224"
-    }
-  }, 
-  {
-    "pk": 49, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "Alamo Community College - San Antonio College", 
-      "url": "www.alamo.edu/sac/sacmain/sac.htm", 
-      "description": null, 
-      "system": 7, 
-      "ipeds_id": 227924, 
-      "phone": "(210) 733-2000", 
-      "fice_id": null, 
-      "ope_id": 916300, 
-      "institution_type": "pub_cc", 
-      "address": "1300 San Pedro Avenue", 
-      "slug": "alamo-community-college-san-antonio-college", 
-      "is_private": false, 
-      "zip_code": "78212"
-    }
-  }, 
-  {
     "pk": 140, 
     "model": "tx_highered.institution", 
     "fields": {
@@ -359,26 +279,6 @@
       "slug": "st-edwards-university", 
       "is_private": true, 
       "zip_code": "78704"
-    }
-  }, 
-  {
-    "pk": 50, 
-    "model": "tx_highered.institution", 
-    "fields": {
-      "city": "San Antonio", 
-      "name": "Alamo Community College - St. Philip's College", 
-      "url": "www.alamo.edu/spc/", 
-      "description": null, 
-      "system": 7, 
-      "ipeds_id": 227854, 
-      "phone": "(210) 531-3591", 
-      "fice_id": null, 
-      "ope_id": 360800, 
-      "institution_type": "pub_cc", 
-      "address": "1801 Martin Luther King Boulevard", 
-      "slug": "alamo-community-college-st-philips-college", 
-      "is_private": false, 
-      "zip_code": "78203"
     }
   }, 
   {
@@ -1079,6 +979,86 @@
       "slug": "galveston-college", 
       "is_private": false, 
       "zip_code": "77550"
+    }
+  }, 
+  {
+    "pk": 47, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "Northwest Vista College", 
+      "url": "http://www.alamo.edu/nvc", 
+      "description": "", 
+      "system": 7, 
+      "ipeds_id": 420398, 
+      "phone": "(210) 348-2020", 
+      "fice_id": null, 
+      "ope_id": 3372300, 
+      "institution_type": "pub_cc", 
+      "address": "3535 North Ellison Drive", 
+      "slug": "northwest-vista-college", 
+      "is_private": false, 
+      "zip_code": "78251"
+    }
+  }, 
+  {
+    "pk": 48, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "Palo Alto College", 
+      "url": "http://www.alamo.edu/pac/htm/", 
+      "description": "", 
+      "system": 7, 
+      "ipeds_id": 246354, 
+      "phone": "(210) 921-5260", 
+      "fice_id": null, 
+      "ope_id": 2341300, 
+      "institution_type": "pub_cc", 
+      "address": "1400 West Villaret Boulevard", 
+      "slug": "palo-alto-college", 
+      "is_private": false, 
+      "zip_code": "78224"
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "San Antonio College", 
+      "url": "http://www.alamo.edu/sac/sacmain/sac.htm", 
+      "description": "", 
+      "system": 7, 
+      "ipeds_id": 227924, 
+      "phone": "(210) 733-2000", 
+      "fice_id": null, 
+      "ope_id": 916300, 
+      "institution_type": "pub_cc", 
+      "address": "1300 San Pedro Avenue", 
+      "slug": "san-antonio-college", 
+      "is_private": false, 
+      "zip_code": "78212"
+    }
+  }, 
+  {
+    "pk": 50, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "San Antonio", 
+      "name": "St. Philip's College", 
+      "url": "http://www.alamo.edu/spc/", 
+      "description": "", 
+      "system": 7, 
+      "ipeds_id": 227854, 
+      "phone": "(210) 531-3591", 
+      "fice_id": null, 
+      "ope_id": 360800, 
+      "institution_type": "pub_cc", 
+      "address": "1801 Martin Luther King Boulevard", 
+      "slug": "st-philips-college", 
+      "is_private": false, 
+      "zip_code": "78203"
     }
   }, 
   {
@@ -3839,6 +3819,26 @@
       "slug": "university-of-north-texas-health-science-center", 
       "is_private": false, 
       "zip_code": "76107-2690"
+    }
+  }, 
+  {
+    "pk": 46, 
+    "model": "tx_highered.institution", 
+    "fields": {
+      "city": "Universal City", 
+      "name": "Northeast Lakeview College", 
+      "url": "http://www.alamo.edu/nlc", 
+      "description": "", 
+      "system": 7, 
+      "ipeds_id": null, 
+      "phone": "(210) 486-5401", 
+      "fice_id": null, 
+      "ope_id": null, 
+      "institution_type": "pub_cc", 
+      "address": "1201 Kitty Hawk Rd", 
+      "slug": "northeast-lakeview-college", 
+      "is_private": false, 
+      "zip_code": "78148"
     }
   }
 ]
