@@ -1,13 +1,15 @@
-{% extends "tx_highered/app_base.html" %}
+{% extends "tx_highered/two_column_base.html" %}
 {% load layout_helpers humanize instachart %}
 {% load staticfiles %}
+{% load webdesign %}
 
 
 {% block head_title %}{{ object.name }}{% endblock %}
+{% block page_title %}{{ object.name }}{% endblock %}
 
 
 {% block main %}
-  {% render_model object "table" %}
+  {% lorem 4 p %}
 
   <section id="pricetrends">
     <header>
@@ -27,12 +29,44 @@
 
   <h3>Graduation Rates</h3>
   {% instachart object.graduationrates_set.all "graduationrates" %}
+
+  <div class="onion">
+    <div class="onion-toggle btn">Fold</div>
+    <div class="onion-basket">
+      {% for funnel in funnels %}
+        <div class="onion-item">
+          <table class="funnel">
+            <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
+            <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
+            <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
+          </table>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="nav nav-pills onion-legend">
+      {% for funnel in funnels %}
+        <li class="onion-legend-item">
+          <a href="#">{{ funnel.year }}</a>
+        </li>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}
 
+
+{% block rail %}
+  {% render_model object "table" %}
+{% endblock %}
 
 {% block extra_style %}{{ block.super }}
 <style>
   .ui-tablebar { color: #333; background: #DACD99; }
+  .onion { }
+  .onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }
+  .nav-pills .onion-legend-item { float: none; }
+  .funnel { width: 100%; }
+  .funnel .bar { background: #0074CC; margin: 0 auto; overflow: hidden; text-indent: 110%; }
+  .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 </style>
 {% endblock %}
 
@@ -42,5 +76,97 @@
 <script>
   $('table').tablebars();
 
+  function fold($el){
+    var data = $el.data('onion');
+    data.$items.each(function(idx){
+      var $this = $(this);
+      $this.animate({
+        left: data.targetLeft,
+        opacity: 1 / data.$items.length
+      }, "slow");
+    });
+  }
+
+  function unfold($el){
+    var data = $el.data('onion');
+    data.$items.each(function(idx){
+      var $this = $(this);
+      var left = data.lefts[idx];
+      $this.animate({
+        left: left,
+        opacity: 1
+      }, "slow");
+    });
+  }
+
+  $.fn.onionize = function(options){
+    // TODO this.each();
+
+    // setup
+    var $el = this;
+    var $button = $el.find(".onion-toggle");
+    var $items = $el.find('.onion-item');
+    var $onionBasket = $el.find('.onion-basket');
+    var $centerItem = $items.eq($items.length>>1);
+    var $legend = $el.find(".onion-legend");
+    var $legendItems = $legend.find('.onion-legend-item');
+
+    // calculate positions
+    $onionBasket.css('position', 'relative');  // force basket to be offset parent
+    var lefts = [];
+    var targetLeft;
+    $items.each(function(idx){
+      var $this = $(this);
+      var left = $this.position().left;
+      lefts[idx] = left;
+    });
+    targetLeft = lefts[$items.length>>1];
+
+    // save data
+    var data = {};
+    data.$items = $items;
+    data.lefts = lefts;
+    data.targetLeft = targetLeft;
+    $el.data('onion', data);
+
+    // convert to absolute positioning
+    $onionBasket.css({
+      height: $onionBasket.height(),
+      width: "100%"
+    });
+    $items.each(function(idx){
+      var $this = $(this);
+      $this.css({
+        'position': 'absolute',
+        'left': data.lefts[idx]
+      });
+    });
+
+    $button.click(function(){
+      if ($el.hasClass('ui-onion-active')) {
+        unfold($el);
+        $el.removeClass('ui-onion-active');
+      } else {
+        fold($el);
+        $el.addClass('ui-onion-active');
+      }
+    });
+
+    var featured;
+    $legendItems.each(function(idx){
+      var $this = $(this);
+      $this.hover(function(){
+        $this.addClass('active');
+        featured = $items.eq(idx).clone(true);
+        featured.addClass('ui-onion-item-active').css('opacity', 1).appendTo($onionBasket);
+      }, function(){
+        $this.removeClass('active');
+        featured.remove();
+      });
+
+    });
+  };
+
+  $(".onion").onionize();
 </script>
 {% endblock %}
