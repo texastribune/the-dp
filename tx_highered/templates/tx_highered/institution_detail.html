@@ -8,7 +8,13 @@
 
 
 {% block main %}
-  {% lorem 4 p %}
+  {% if object.wikipedia_abstract %}
+    <div class="wikipedia-abstract">
+      <small>From <a class="external" href="{{ object.wikipedia_url }}" target="_blank">Wikipedia</a>:</small>
+      {{ object.wikipedia_abstract|safe }}
+    </div>
+  {% endif %}
+  {% lorem 3 p %}
 
   <section id="pricetrends">
     <header>
