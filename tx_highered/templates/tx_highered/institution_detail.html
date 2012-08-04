@@ -1,6 +1,5 @@
 {% extends "tx_highered/two_column_base.html" %}
 {% load layout_helpers humanize instachart %}
-{% load staticfiles %}
 {% load webdesign %}
 
 
@@ -72,101 +71,8 @@
 
 
 {% block extra_script %}{{ block.super }}
-<script src="{% static 'js/jquery.tablebars.js' %}"></script>
 <script>
   $('table').tablebars();
-
-  function fold($el){
-    var data = $el.data('onion');
-    data.$items.each(function(idx){
-      var $this = $(this);
-      $this.animate({
-        left: data.targetLeft,
-        opacity: 1 / data.$items.length
-      }, "slow");
-    });
-  }
-
-  function unfold($el){
-    var data = $el.data('onion');
-    data.$items.each(function(idx){
-      var $this = $(this);
-      var left = data.lefts[idx];
-      $this.animate({
-        left: left,
-        opacity: 1
-      }, "slow");
-    });
-  }
-
-  $.fn.onionize = function(options){
-    // TODO this.each();
-
-    // setup
-    var $el = this;
-    var $button = $el.find(".onion-toggle");
-    var $items = $el.find('.onion-item');
-    var $onionBasket = $el.find('.onion-basket');
-    var $centerItem = $items.eq($items.length>>1);
-    var $legend = $el.find(".onion-legend");
-    var $legendItems = $legend.find('.onion-legend-item');
-
-    // calculate positions
-    $onionBasket.css('position', 'relative');  // force basket to be offset parent
-    var lefts = [];
-    var targetLeft;
-    $items.each(function(idx){
-      var $this = $(this);
-      var left = $this.position().left;
-      lefts[idx] = left;
-    });
-    targetLeft = lefts[$items.length>>1];
-
-    // save data
-    var data = {};
-    data.$items = $items;
-    data.lefts = lefts;
-    data.targetLeft = targetLeft;
-    $el.data('onion', data);
-
-    // convert to absolute positioning
-    $onionBasket.css({
-      height: $onionBasket.height(),
-      width: "100%"
-    });
-    $items.each(function(idx){
-      var $this = $(this);
-      $this.css({
-        'position': 'absolute',
-        'left': data.lefts[idx]
-      });
-    });
-
-    $button.click(function(){
-      if ($el.hasClass('ui-onion-active')) {
-        unfold($el);
-        $el.removeClass('ui-onion-active');
-      } else {
-        fold($el);
-        $el.addClass('ui-onion-active');
-      }
-    });
-
-    var featured;
-    $legendItems.each(function(idx){
-      var $this = $(this);
-      $this.hover(function(){
-        $this.addClass('active');
-        featured = $items.eq(idx).clone(true);
-        featured.addClass('ui-onion-item-active').css('opacity', 1).appendTo($onionBasket);
-      }, function(){
-        $this.removeClass('active');
-        featured.remove();
-      });
-
-    });
-  };
-
   $(".onion").onionize();
 </script>
 {% endblock %}

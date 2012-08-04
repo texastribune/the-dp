@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load staticfiles %}
 
 
 {% block nav %}
@@ -12,4 +13,10 @@
 {% block body %}
   {% block main %}
   {% endblock %}
+{% endblock %}
+
+
+{% block extra_script %}{{ block.super }}
+  <script src="{% static 'js/jquery.tablebars.js' %}"></script>
+  <script src="{% static 'js/jquery.onionskin.js' %}"></script>
 {% endblock %}
