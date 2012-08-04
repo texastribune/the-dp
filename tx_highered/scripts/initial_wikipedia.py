@@ -7,7 +7,7 @@ from lxml.html import parse, tostring
 from tx_highered.models import Institution
 
 
-def get_wiki_url(name):
+def get_wiki_title(name):
     endpoint = "http://en.wikipedia.org/w/api.php"
     params = dict(action="opensearch",
         search=name,
@@ -17,10 +17,10 @@ def get_wiki_url(name):
     r = requests.get(endpoint, params=params)
     try:
         _, results = r.json
-        article = results[0].replace(' ', '_')
+        title = results[0]
     except IndexError:
         return None
-    return "http://en.wikipedia.org/wiki/%s" % article
+    return title
 
 
 def get_wiki_abstract(url):
@@ -39,15 +39,16 @@ def get_wiki_abstract(url):
 
 def main():
     queryset = Institution.objects.filter(institution_type='uni')
-    qs = queryset.filter(wikipedia__isnull=True)
+    qs = queryset.filter(wikipedia_title__isnull=True)
     for inst in qs:
-        url = get_wiki_url(inst.name)
-        if url:
-            inst.wikipedia = url
+        title = get_wiki_title(inst.name)
+        if title:
+            inst.wikipedia_title = title
             inst.save()
-            print inst, url
+            print inst.name + " -> " + title
 
-    qs = queryset.filter(wikipedia__isnull=False)
+    return
+    qs = queryset.filter(wikipedia_title__isnull=False)
     for inst in qs:
         text = get_wiki_abstract(inst.wikipedia)
         if text:

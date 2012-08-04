@@ -1,5 +1,53 @@
 [
   {
+    "pk": 3728, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ENRLT", 
+      "raw": "IC2011|ENRLT|Admissions and test scores|Enrolled total|||||||||||||11.11011|XENRLT.IC2011|Cont|TN|N||600|||||\r\n", 
+      "long_name": "Enrolled total", 
+      "used": true
+    }
+  }, 
+  {
+    "pk": 3974, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ENRLT", 
+      "raw": "IC2006|ENRLT|Admissions and test scores|Enrolled total|||||||||||||06.11011|XENRLT.IC2006|Cont|TN|N||600|||||\r\n", 
+      "long_name": "Enrolled total", 
+      "used": true
+    }
+  }, 
+  {
+    "pk": 3827, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ADMSSN", 
+      "raw": "IC2009_RV|ADMSSN|Admissions and test scores|Admissions total|||||||||||||09.11021|XADMSSN.IC2009_RV|Cont|TN|N||600|||||\r\n", 
+      "long_name": "Admissions total", 
+      "used": true
+    }
+  }, 
+  {
+    "pk": 3828, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ENRLT", 
+      "raw": "IC2009_RV|ENRLT|Admissions and test scores|Enrolled total|||||||||||||09.11011|XENRLT.IC2009_RV|Cont|TN|N||600|||||\r\n", 
+      "long_name": "Enrolled total", 
+      "used": true
+    }
+  }, 
+  {
     "pk": 3554, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -81,6 +129,18 @@
       "raw": "DRVIC2007|COTSON|Price of attendance for full-time, first-time undergraduate students (academic year programs)|Total price for out-of-state students living on campus 2007-08|||||||||||||07.11581|.|Cont|TN|N||609|||||\r\n", 
       "long_name": "Total price for out-of-state students living on campus 2007-08", 
       "used": false
+    }
+  }, 
+  {
+    "pk": 3726, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "APPLCN", 
+      "raw": "IC2011|APPLCN|Admissions and test scores|Applicants total|||||||||||||11.11016|XAPPLCN.IC2011|Cont|TN|N||600|||||\r\n", 
+      "long_name": "Applicants total", 
+      "used": true
     }
   }, 
   {
@@ -357,6 +417,18 @@
       "raw": "DRVEF2009_1_RV|EFGRAD|Fall enrollment/retention rates|Graduate enrollment|||||||||||||09.24626|.|Cont|TN|N||745|||||\r\n", 
       "long_name": "Graduate enrollment", 
       "used": false
+    }
+  }, 
+  {
+    "pk": 3727, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ADMSSN", 
+      "raw": "IC2011|ADMSSN|Admissions and test scores|Admissions total|||||||||||||11.11021|XADMSSN.IC2011|Cont|TN|N||600|||||\r\n", 
+      "long_name": "Admissions total", 
+      "used": true
     }
   }, 
   {
@@ -2124,54 +2196,6 @@
     }
   }, 
   {
-    "pk": 3726, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "APPLCN", 
-      "raw": "IC2011|APPLCN|Admissions and test scores|Applicants total|||||||||||||11.11016|XAPPLCN.IC2011|Cont|TN|N||600|||||\r\n", 
-      "long_name": "Applicants total", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3727, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ADMSSN", 
-      "raw": "IC2011|ADMSSN|Admissions and test scores|Admissions total|||||||||||||11.11021|XADMSSN.IC2011|Cont|TN|N||600|||||\r\n", 
-      "long_name": "Admissions total", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3728, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ENRLT", 
-      "raw": "IC2011|ENRLT|Admissions and test scores|Enrolled total|||||||||||||11.11011|XENRLT.IC2011|Cont|TN|N||600|||||\r\n", 
-      "long_name": "Enrolled total", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3974, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ENRLT", 
-      "raw": "IC2006|ENRLT|Admissions and test scores|Enrolled total|||||||||||||06.11011|XENRLT.IC2006|Cont|TN|N||600|||||\r\n", 
-      "long_name": "Enrolled total", 
-      "used": true
-    }
-  }, 
-  {
     "pk": 3751, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -2772,6 +2796,18 @@
     }
   }, 
   {
+    "pk": 4007, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "code": "HD", 
+      "short_name": "FTE", 
+      "raw": "HD2005|FTE|Fall enrollment/retention rates|Full-time equivalent enrollment: Fall 2005|||||||||||||05.20061|.|Cont|TN|N||745|||||\r\n", 
+      "long_name": "Full-time equivalent enrollment: Fall 2005", 
+      "used": false
+    }
+  }, 
+  {
     "pk": 3812, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -3068,30 +3104,6 @@
       "short_name": "APPLCN", 
       "raw": "IC2009_RV|APPLCN|Admissions and test scores|Applicants total|||||||||||||09.11016|XAPPLCN.IC2009_RV|Cont|TN|N||600|||||\r\n", 
       "long_name": "Applicants total", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3827, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ADMSSN", 
-      "raw": "IC2009_RV|ADMSSN|Admissions and test scores|Admissions total|||||||||||||09.11021|XADMSSN.IC2009_RV|Cont|TN|N||600|||||\r\n", 
-      "long_name": "Admissions total", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3828, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ENRLT", 
-      "raw": "IC2009_RV|ENRLT|Admissions and test scores|Enrolled total|||||||||||||09.11011|XENRLT.IC2009_RV|Cont|TN|N||600|||||\r\n", 
-      "long_name": "Enrolled total", 
       "used": true
     }
   }, 
@@ -3996,6 +4008,18 @@
     }
   }, 
   {
+    "pk": 4008, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "code": "DFR", 
+      "short_name": "EnrFt", 
+      "raw": "DFR2005|EnrFt|Fall enrollment/retention rates|Full-time enrollment|||||||||||||05.23805|xEnrFT.DFR2005|Cont|TN|N||745|||||\r\n", 
+      "long_name": "Full-time enrollment", 
+      "used": false
+    }
+  }, 
+  {
     "pk": 3945, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -4596,30 +4620,6 @@
     }
   }, 
   {
-    "pk": 4007, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Fall enrollment/retention rates", 
-      "code": "HD", 
-      "short_name": "FTE", 
-      "raw": "HD2005|FTE|Fall enrollment/retention rates|Full-time equivalent enrollment: Fall 2005|||||||||||||05.20061|.|Cont|TN|N||745|||||\r\n", 
-      "long_name": "Full-time equivalent enrollment: Fall 2005", 
-      "used": false
-    }
-  }, 
-  {
-    "pk": 4008, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Fall enrollment/retention rates", 
-      "code": "DFR", 
-      "short_name": "EnrFt", 
-      "raw": "DFR2005|EnrFt|Fall enrollment/retention rates|Full-time enrollment|||||||||||||05.23805|xEnrFT.DFR2005|Cont|TN|N||745|||||\r\n", 
-      "long_name": "Full-time enrollment", 
-      "used": false
-    }
-  }, 
-  {
     "pk": 4009, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -4908,6 +4908,18 @@
     }
   }, 
   {
+    "pk": 3895, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ACTWR25", 
+      "raw": "IC2008|ACTWR25|Admissions and test scores|ACT Writing 25th percentile score|||||||||||||08.10678|XACTWR25.IC2008|Cont|TN|N||600|||||\r\n", 
+      "long_name": "ACT Writing 25th percentile score", 
+      "used": true
+    }
+  }, 
+  {
     "pk": 4048, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -5157,6 +5169,18 @@
       "raw": "IC2004_AY|chg2ay3|Price of attendance for full-time, first-time undergraduate students (academic year programs)|Published in-state  tuition and fees 2004-05|||||||||||||04.11966|Xchg2ay3.IC2004_AY|Cont|TN|N||609|||||\r\n", 
       "long_name": "Published in-state  tuition and fees 2004-05", 
       "used": true
+    }
+  }, 
+  {
+    "pk": 4203, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "code": "EF", 
+      "short_name": "DVEF01", 
+      "raw": "DRVEF2009_RV|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||09.23401|.|Cont|TN|N||745|||||\r\n", 
+      "long_name": "Adult age (25-64) enrollment, all students", 
+      "used": false
     }
   }, 
   {
@@ -5988,6 +6012,18 @@
     }
   }, 
   {
+    "pk": 4195, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "code": "EF", 
+      "short_name": "PctEnrBK", 
+      "raw": "DRVEF2010|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black or African American|||||||||||||10.23320|.|Cont|TN|N||745|||||\r\n", 
+      "long_name": "Percent of total enrollment that are Black or African American", 
+      "used": true
+    }
+  }, 
+  {
     "pk": 4167, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -6285,30 +6321,6 @@
       "raw": "DRVEF2010|PctEnrWh|Fall enrollment/retention rates|Percent of total enrollment that are White|||||||||||||10.23315|.|Cont|TN|N||745|||||\r\n", 
       "long_name": "Percent of total enrollment that are White", 
       "used": true
-    }
-  }, 
-  {
-    "pk": 4195, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Fall enrollment/retention rates", 
-      "code": "EF", 
-      "short_name": "PctEnrBK", 
-      "raw": "DRVEF2010|PctEnrBK|Fall enrollment/retention rates|Percent of total enrollment that are Black or African American|||||||||||||10.23320|.|Cont|TN|N||745|||||\r\n", 
-      "long_name": "Percent of total enrollment that are Black or African American", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 4203, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Fall enrollment/retention rates", 
-      "code": "EF", 
-      "short_name": "DVEF01", 
-      "raw": "DRVEF2009_RV|DVEF01|Fall enrollment/retention rates|Adult age (25-64) enrollment, all students|||||||||||||09.23401|.|Cont|TN|N||745|||||\r\n", 
-      "long_name": "Adult age (25-64) enrollment, all students", 
-      "used": false
     }
   }, 
   {
@@ -7356,6 +7368,18 @@
     }
   }, 
   {
+    "pk": 3846, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ACTWR75", 
+      "raw": "IC2009_RV|ACTWR75|Admissions and test scores|ACT Writing 75th percentile score|||||||||||||09.10679|XACTWR75.IC2009_RV|Cont|TN|N||600|||||\r\n", 
+      "long_name": "ACT Writing 75th percentile score", 
+      "used": true
+    }
+  }, 
+  {
     "pk": 3879, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -8071,30 +8095,6 @@
       "code": "IC", 
       "short_name": "ACTWR25", 
       "raw": "IC2009_RV|ACTWR25|Admissions and test scores|ACT Writing 25th percentile score|||||||||||||09.10678|XACTWR25.IC2009_RV|Cont|TN|N||600|||||\r\n", 
-      "long_name": "ACT Writing 25th percentile score", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3846, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ACTWR75", 
-      "raw": "IC2009_RV|ACTWR75|Admissions and test scores|ACT Writing 75th percentile score|||||||||||||09.10679|XACTWR75.IC2009_RV|Cont|TN|N||600|||||\r\n", 
-      "long_name": "ACT Writing 75th percentile score", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3895, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ACTWR25", 
-      "raw": "IC2008|ACTWR25|Admissions and test scores|ACT Writing 25th percentile score|||||||||||||08.10678|XACTWR25.IC2008|Cont|TN|N||600|||||\r\n", 
       "long_name": "ACT Writing 25th percentile score", 
       "used": true
     }

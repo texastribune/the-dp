@@ -67,7 +67,7 @@ class Institution(ContactFieldsMixin):
     ope_id = models.IntegerField(null=True, blank=True)
 
     # wikipedia
-    wikipedia = models.URLField(null=True)
+    wikipedia_title = models.CharField(max_length=100, null=True)
     wikipedia_abstract = models.TextField(null=True)
     wikipedia_scraped = models.DateTimeField(null=True)
 
