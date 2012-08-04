@@ -12,6 +12,12 @@
     <div class="wikipedia-abstract">
       <small>From <a class="external" href="{{ object.wikipedia_url }}" target="_blank">Wikipedia</a>:</small>
       {{ object.wikipedia_abstract|safe }}
+      <p>
+        <small class="attribution cc">
+          Text is available under the <a href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" rel="license">Creative Commons Attribution-ShareAlike License</a><a style="display:none;" href="//creativecommons.org/licenses/by-sa/3.0/" rel="license"></a>;
+          {{ object.wikipedia_scraped }}
+        </small>
+    </p>
     </div>
   {% endif %}
   {% lorem 3 p %}
