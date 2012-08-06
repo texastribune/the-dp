@@ -43,7 +43,11 @@
     </div>
     <div class="span3">
       <div class="thumbnail">
-        <img src="http://placekitten.com/300/168">
+        {% if object.wikipedia_seal %}
+          <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
+        {% else %}
+          <img src="http://placekitten.com/300/168">
+        {% endif %}
       </div>
     </div>
   </div>

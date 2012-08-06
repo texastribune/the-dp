@@ -49,9 +49,10 @@ class System(ContactFieldsMixin):
 
 class WikipediaFields(models.Model):
     # wikipedia
-    wikipedia_title = models.CharField(max_length=100, null=True)
-    wikipedia_abstract = models.TextField(null=True)
-    wikipedia_scraped = models.DateTimeField(null=True)
+    wikipedia_title = models.CharField(max_length=100, null=True, blank=True)
+    wikipedia_abstract = models.TextField(null=True, blank=True)
+    wikipedia_seal = models.ImageField(upload_to="seals", null=True, blank=True)
+    wikipedia_scraped = models.DateTimeField(null=True, blank=True)
 
     @property
     def wikipedia_url(self):

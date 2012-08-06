@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+from django.conf import settings
 try:
     from django.utils.timezone import now
 except ImportError:
@@ -8,6 +9,9 @@ import requests
 from lxml.html import document_fromstring, tostring
 
 from tx_highered.models import Institution
+
+
+USER_AGENT = 'thedp-scraper/0.1alpha'
 
 
 def get_wiki_title(name):
@@ -27,7 +31,7 @@ def get_wiki_title(name):
 
 
 def get_wiki_abstract(url):
-    r = requests.get(url, headers={'User-Agent': 'thedp-scraper/0.1alpha'})
+    r = requests.get(url, headers={'User-Agent': USER_AGENT})
     doc = document_fromstring(r.text)
     root = doc
     try:
@@ -44,7 +48,30 @@ def get_wiki_abstract(url):
     return "\n".join(abstract).strip()
 
 
-def main():
+def get_wiki_seal(inst):
+    # TODO move into the model? has unfulfilled requirements: lxml and requests
+    url = inst.wikipedia_url
+    r = requests.get(url, headers={'User-Agent': USER_AGENT})
+    doc = document_fromstring(r.text)
+    seals = doc.xpath('//a[@class="image"]/img/@src')
+    # lxml doesn't support xpath 2.0, so look for the seal in python
+    seals = [x for x in seals if x.lower().find('seal') != -1]
+    try:
+        seal = seals[0]
+    except IndexError:
+        return None
+    src = "http:" + seal
+    dst = "%sseals/%s.png" % (settings.MEDIA_ROOT, inst.slug)
+    r = requests.get(src, headers={'User-Agent': USER_AGENT})
+    # download to settings.MEDIA_ROOT/seals
+    with open(dst, "wb") as f:
+        f.write(r.content)
+    inst.wikipedia_seal = "seals/%s.png" % inst.slug
+    inst.save()
+    return inst
+
+
+def get_titles():
     queryset = Institution.objects.filter(institution_type='uni')
     qs = queryset.filter(wikipedia_title__isnull=True)
     for inst in qs:
@@ -54,6 +81,8 @@ def main():
             inst.save()
             print inst.name + " -> " + title
 
+
+def get_abstracts():
     qs = queryset.filter(wikipedia_title__isnull=False, wikipedia_scraped=None)
     for inst in qs:
         text = get_wiki_abstract(inst.wikipedia_url)
@@ -64,5 +93,11 @@ def main():
             print inst
 
 
+def get_seals():
+    qs = queryset.filter(wikipedia_title__isnull=False, wikipedia_seal="")
+    for inst in qs:
+        print get_wiki_seal(inst)
+
+
 if __name__ == "__main__":
-    main()
+    queryset = Institution.objects.filter(institution_type='uni')
