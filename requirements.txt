@@ -4,6 +4,7 @@ psycopg2
 armstrong.core.arm-layout==1.1.1
 django-extensions
 -e git://github.com/crccheck/pinax-theme-bootstrap.git@167a4a9d94#egg=pinax_theme_bootstrap-dev
+PIL==1.1.7
 
 # heroku
 dj-database-url==0.2.1

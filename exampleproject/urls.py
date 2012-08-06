@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.http import HttpResponse
@@ -23,4 +24,13 @@ urlpatterns = patterns('',
     url(r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /",
         mimetype="text/plain")),
     url(r'^500/$', Http500View.as_view()),
+)
+
+# serve media
+# https://docs.djangoproject.com/en/dev/howto/static-files/#serving-other-directories
+# doesn't respect settings.MEDIA_URL
+urlpatterns += patterns('',
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT,
+    }),
 )
