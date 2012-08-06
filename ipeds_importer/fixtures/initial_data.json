@@ -252,6 +252,18 @@
     }
   }, 
   {
+    "pk": 3716, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Average salaries and full-time equivalent staff", 
+      "code": "HR", 
+      "short_name": "ADMNSTF", 
+      "raw": "DRVHR2011|ADMNSTF|Average salaries and full-time equivalent staff|Executive/administrative and managerial FTE  staff|||||||||||||11.90315|.|Cont|TN|N||775|||||\r\n", 
+      "long_name": "Executive/administrative and managerial FTE  staff", 
+      "used": false
+    }
+  }, 
+  {
     "pk": 3570, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -644,18 +656,6 @@
       "short_name": "BASDEG", 
       "raw": "DFR2004|BASDEG|Degrees/awards|Bachelor's degree|||||||||||||04.31362|xBASDEG.DFR2004|Cont|TN|N||755|||||\r\n", 
       "long_name": "Bachelor's degree", 
-      "used": false
-    }
-  }, 
-  {
-    "pk": 3716, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Average salaries and full-time equivalent staff", 
-      "code": "HR", 
-      "short_name": "ADMNSTF", 
-      "raw": "DRVHR2011|ADMNSTF|Average salaries and full-time equivalent staff|Executive/administrative and managerial FTE  staff|||||||||||||11.90315|.|Cont|TN|N||775|||||\r\n", 
-      "long_name": "Executive/administrative and managerial FTE  staff", 
       "used": false
     }
   }, 
@@ -3240,6 +3240,18 @@
     }
   }, 
   {
+    "pk": 3735, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "SATMT25", 
+      "raw": "IC2011|SATMT25|Admissions and test scores|SAT Math 25th percentile score|||||||||||||11.10641|XSATMT25.IC2011|Cont|TN|N||600|||||\r\n", 
+      "long_name": "SAT Math 25th percentile score", 
+      "used": true
+    }
+  }, 
+  {
     "pk": 3862, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -3840,6 +3852,18 @@
     }
   }, 
   {
+    "pk": 4000, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Graduation rates", 
+      "code": "DFR", 
+      "short_name": "GBA6RTT", 
+      "raw": "DFR2005|GBA6RTT|Graduation rates|Graduation rate - Bachelor degree within 6 years, total|||||||||||||05.81031|xGBA6RTT.DFR2005|Cont|TN|N||760|||||\r\n", 
+      "long_name": "Graduation rate - Bachelor degree within 6 years, total", 
+      "used": false
+    }
+  }, 
+  {
     "pk": 3922, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -4140,6 +4164,18 @@
     }
   }, 
   {
+    "pk": 4132, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Admissions and test scores", 
+      "code": "IC", 
+      "short_name": "ACTEN25", 
+      "raw": "IC2002|ACTEN25|Admissions and test scores|ACT English 25th percentile score|||||||||||||02.10661|XACTEN25.IC2002|Cont|TN|N||600|||||\r\n", 
+      "long_name": "ACT English 25th percentile score", 
+      "used": true
+    }
+  }, 
+  {
     "pk": 3954, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -4424,18 +4460,6 @@
       "short_name": "GBA4RTT", 
       "raw": "DFR2005|GBA4RTT|Graduation rates|Graduation rate - Bachelor degree within 4 years, total|||||||||||||05.81027|xGBA4RTT.DFR2005|Cont|TN|N||760|||||\r\n", 
       "long_name": "Graduation rate - Bachelor degree within 4 years, total", 
-      "used": false
-    }
-  }, 
-  {
-    "pk": 4000, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Graduation rates", 
-      "code": "DFR", 
-      "short_name": "GBA6RTT", 
-      "raw": "DFR2005|GBA6RTT|Graduation rates|Graduation rate - Bachelor degree within 6 years, total|||||||||||||05.81031|xGBA6RTT.DFR2005|Cont|TN|N||760|||||\r\n", 
-      "long_name": "Graduation rate - Bachelor degree within 6 years, total", 
       "used": false
     }
   }, 
@@ -5556,6 +5580,18 @@
     }
   }, 
   {
+    "pk": 4214, 
+    "model": "ipeds_importer.variable", 
+    "fields": {
+      "category": "Fall enrollment/retention rates", 
+      "code": "EF", 
+      "short_name": "DVEF15", 
+      "raw": "DRVEF2009_RV|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||09.23415|.|Cont|TN|N||745|||||\r\n", 
+      "long_name": "Percent of undergraduate enrollment, 25-64", 
+      "used": false
+    }
+  }, 
+  {
     "pk": 4117, 
     "model": "ipeds_importer.variable", 
     "fields": {
@@ -5816,18 +5852,6 @@
       "short_name": "ACTCM75", 
       "raw": "IC2002|ACTCM75|Admissions and test scores|ACT Composite 75th percentile score|||||||||||||02.10656|XACTCM75.IC2002|Cont|TN|N||600|||||\r\n", 
       "long_name": "ACT Composite 75th percentile score", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 4132, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "ACTEN25", 
-      "raw": "IC2002|ACTEN25|Admissions and test scores|ACT English 25th percentile score|||||||||||||02.10661|XACTEN25.IC2002|Cont|TN|N||600|||||\r\n", 
-      "long_name": "ACT English 25th percentile score", 
       "used": true
     }
   }, 
@@ -6440,18 +6464,6 @@
       "short_name": "DVEF14", 
       "raw": "DRVEF2009_RV|DVEF14|Fall enrollment/retention rates|Percent of undergraduate enrollment 18-24|||||||||||||09.23414|.|Cont|TN|N||745|||||\r\n", 
       "long_name": "Percent of undergraduate enrollment 18-24", 
-      "used": false
-    }
-  }, 
-  {
-    "pk": 4214, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Fall enrollment/retention rates", 
-      "code": "EF", 
-      "short_name": "DVEF15", 
-      "raw": "DRVEF2009_RV|DVEF15|Fall enrollment/retention rates|Percent of undergraduate enrollment, 25-64|||||||||||||09.23415|.|Cont|TN|N||745|||||\r\n", 
-      "long_name": "Percent of undergraduate enrollment, 25-64", 
       "used": false
     }
   }, 
@@ -7124,18 +7136,6 @@
       "short_name": "SATVR25", 
       "raw": "IC2011|SATVR25|Admissions and test scores|SAT Critical Reading 25th percentile score|||||||||||||11.10631|XSATVR25.IC2011|Cont|TN|N||600|||||\r\n", 
       "long_name": "SAT Critical Reading 25th percentile score", 
-      "used": true
-    }
-  }, 
-  {
-    "pk": 3735, 
-    "model": "ipeds_importer.variable", 
-    "fields": {
-      "category": "Admissions and test scores", 
-      "code": "IC", 
-      "short_name": "SATMT25", 
-      "raw": "IC2011|SATMT25|Admissions and test scores|SAT Math 25th percentile score|||||||||||||11.10641|XSATMT25.IC2011|Cont|TN|N||600|||||\r\n", 
-      "long_name": "SAT Math 25th percentile score", 
       "used": true
     }
   }, 
