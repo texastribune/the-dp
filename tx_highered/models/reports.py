@@ -181,7 +181,8 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
     percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted")
     percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
-    percent_of_applicants_top10rule = models.DecimalField(max_digits=4, decimal_places=1, null=True)
+    percent_top10rule = models.DecimalField(max_digits=4, decimal_places=1,
+        null=True, verbose_name="First-Time Students in Top 10%")
 
     def __unicode__(self):
         return "Admissions Data %s %s" % (self.display_year, self.institution)

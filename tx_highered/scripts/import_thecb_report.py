@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """
 Import from the Accountability report system
 
@@ -31,7 +32,7 @@ def top_10_percent(path):
         if not fice_id:
             continue
         inst = Institution.objects.get(fice_id=fice_id)
-        print inst
+        print "top 10 percent: %s" % inst.name
         for i, col in enumerate(row[2:], 2):
             value = col.text.strip().lower()
             if value == "":
@@ -43,7 +44,7 @@ def top_10_percent(path):
             year = get_year(header[i])
             report, _ = Model.objects.get_or_create(institution=inst, year=year,
                 defaults=dict(year_type=year_type))
-            report.percent_of_applicants_top10rule = value
+            report.percent_top10rule = value
             report.save()
 
 
