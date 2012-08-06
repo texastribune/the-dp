@@ -27,29 +27,30 @@
       </ul>
     </li>
   </ul>
-{% for object in object_list %}
-  <div class="row">
-    <div class="span9">
-      <h2>
-        <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
-        {% if object.system %}
-          <small>
-            {{ object.system }}
-          </small>
-        {% endif %}
-      </h2>
-      {{ object.type }}
-      {% lorem 1 p %}
-    </div>
-    <div class="span3">
-      <div class="thumbnail">
-        {% if object.wikipedia_seal %}
-          <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
-        {% else %}
-          <img src="http://placekitten.com/300/168">
-        {% endif %}
+
+  {% for object in object_list %}
+    <div id="{{ object.slug }}" class="row">
+      <div class="span9">
+        <h2>
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+          {% if object.system %}
+            <small>
+              {{ object.system }}
+            </small>
+          {% endif %}
+        </h2>
+        {{ object.type }}
+        {% lorem 1 p %}
+      </div>
+      <div class="span3">
+        <div class="thumbnail">
+          {% if object.wikipedia_seal %}
+            <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
+          {% else %}
+            <img src="http://placekitten.com/300/168">
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
-{% endfor %}
+  {% endfor %}
 {% endblock %}
