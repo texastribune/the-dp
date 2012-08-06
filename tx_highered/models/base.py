@@ -47,7 +47,24 @@ class System(ContactFieldsMixin):
         return ('system_detail', (), {'slug': self.slug})
 
 
-class Institution(ContactFieldsMixin):
+class WikipediaFields(models.Model):
+    # wikipedia
+    wikipedia_title = models.CharField(max_length=100, null=True)
+    wikipedia_abstract = models.TextField(null=True)
+    wikipedia_scraped = models.DateTimeField(null=True)
+
+    @property
+    def wikipedia_url(self):
+        if not self.wikipedia_title:
+            return None
+        return "http://en.wikipedia.org/w/index.php?title=%s" % (
+            self.wikipedia_title.replace(" ", "_"))
+
+    class Meta:
+        abstract = True
+
+
+class Institution(ContactFieldsMixin, WikipediaFields):
     name = models.CharField(max_length=60)
     slug = models.SlugField(max_length=60, unique=True)
     is_private = models.BooleanField(default=False)
@@ -65,18 +82,6 @@ class Institution(ContactFieldsMixin):
     # only Title IV schools have this. This is a 6 digit zero padded number with
     # a two digit suffix for each location/branch
     ope_id = models.IntegerField(null=True, blank=True)
-
-    # wikipedia
-    wikipedia_title = models.CharField(max_length=100, null=True)
-    wikipedia_abstract = models.TextField(null=True)
-    wikipedia_scraped = models.DateTimeField(null=True)
-
-    @property
-    def wikipedia_url(self):
-        if not self.wikipedia_title:
-            return None
-        return "http://en.wikipedia.org/w/index.php?title=%s" % (
-            self.wikipedia_title.replace(" ", "_"))
 
     def __unicode__(self):
         if self.system:
