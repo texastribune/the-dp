@@ -1,4 +1,4 @@
-from django.db.models import Count, ObjectDoesNotExist
+from django.db.models import ObjectDoesNotExist
 from django.views.generic import DetailView, ListView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
@@ -15,10 +15,8 @@ class RenderModelDetailView(DetailView):
 
 
 class InstitutionListView(ListView):
-    queryset = Institution.objects.filter(ipeds_id__isnull=False).annotate(
-        num_pricetrends=Count('pricetrends', distinct=True),
-        num_sattestscores=Count('testscores', distinct=True),
-        num_admissions=Count('admissions', distinct=True)).order_by('name')
+    queryset = Institution.objects.filter(ipeds_id__isnull=False).\
+        order_by('name')
 
 
 class InstitutionDetailView(DetailView):
