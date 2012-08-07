@@ -11,30 +11,30 @@
   {% lorem 4 p %}
 
   {% for object in object_list %}{% if object.funnels %}
-  <h3>{{ object.name }}</h3>
-  {% with funnels=object.funnels %}
-  <div class="onion">
-    <div class="onion-toggle btn">Fold</div>
-    <div class="onion-basket">
-      {% for funnel in funnels %}
-        <div class="onion-item">
-          <table class="funnel">
-            <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
-            <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
-            <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
-          </table>
+    <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
+    {% with funnels=object.funnels %}
+      <div class="onion">
+        <div class="onion-toggle btn">Fold</div>
+        <div class="onion-basket">
+          {% for funnel in funnels %}
+            <div class="onion-item">
+              <table class="funnel">
+                <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
+                <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
+                <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
+              </table>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
-    </div>
-    <div class="nav nav-pills onion-legend">
-      {% for funnel in funnels %}
-        <li class="onion-legend-item">
-          <a href="#">{{ funnel.year }}</a>
-        </li>
-      {% endfor %}
-    </div>
-  </div>
-  {% endwith %}
+        <div class="nav nav-pills onion-legend">
+          {% for funnel in funnels %}
+            <li class="onion-legend-item">
+              <a href="#">{{ funnel.year }}</a>
+            </li>
+          {% endfor %}
+        </div>
+      </div>
+    {% endwith %}
   {% endif %}{% endfor %}
 {% endblock %}
 
