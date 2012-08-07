@@ -141,6 +141,9 @@ INSTALLED_APPS = [
     'tx_highered',
 
     'armstrong.core.arm_layout',
+    'reversion',  # required for arm_wells
+    'armstrong.hatband',  # required for arm_wells
+    'armstrong.core.arm_wells',
     'instachart',
     'ipeds_importer',
 
