@@ -44,7 +44,7 @@
   <div class="onion">
     <div class="onion-toggle btn">Fold</div>
     <div class="onion-basket">
-      {% for funnel in funnels %}
+      {% for funnel in object.funnels %}
         <div class="onion-item">
           <table class="funnel">
             <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>

@@ -14,17 +14,8 @@ class RenderModelDetailView(DetailView):
         return get_layout_template_name(self.object, self.layout)
 
 
-class InstitutionListView(ListView):
-    queryset = Institution.objects.filter(ipeds_id__isnull=False).\
-        order_by('name')
-
-
-class InstitutionDetailView(DetailView):
-    model = Institution
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(InstitutionDetailView, self).get_context_data(*args, **kwargs)
-        inst = self.object
+class FunnelMixin(object):
+    def annotate_funnels(self, inst):
         enterdata = inst.admissions_set.all()
         exitdata = inst.graduationrates_set.all()
 
@@ -43,10 +34,23 @@ class InstitutionDetailView(DetailView):
                 funnel[3] = year.bachelor_4yr
                 funnel[4] = year.bachelor_5yr
                 funnel[5] = year.bachelor_6yr
+                funnels.append(funnel)
             except TypeError:
                 continue
-            funnels.append(funnel)
-        context['funnels'] = funnels
+        inst.funnels = funnels
+
+
+class InstitutionListView(ListView):
+    queryset = Institution.objects.filter(ipeds_id__isnull=False).\
+        order_by('name')
+
+
+class InstitutionDetailView(DetailView, FunnelMixin):
+    model = Institution
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(InstitutionDetailView, self).get_context_data(*args, **kwargs)
+        self.annotate_funnels(self.object)
         return context
 
 
@@ -62,29 +66,8 @@ class SATListView(ListView):
         return qs
 
 
-class FunnelListView(InstitutionListView):
+class FunnelListView(InstitutionListView, FunnelMixin):
     template_name = "tx_highered/reports/funnel.html"
-
-    def annotate_funnels(self, inst):
-        enterdata = inst.admissions_set.all()
-        exitdata = inst.graduationrates_set.all()
-
-        # please excuse the horribleness of this
-        funnels = []
-        for year in enterdata:
-            funnel = {'year': year.year}
-            funnel[0] = 100
-            funnel[1] = float(year.percent_of_applicants_admitted)
-            funnel[2] = funnel[1] * float(year.percent_of_admitted_who_enrolled) / 100
-            try:
-                year = exitdata.get(year=year.year)
-            except ObjectDoesNotExist:
-                continue
-            funnel[3] = year.bachelor_4yr
-            funnel[4] = year.bachelor_5yr
-            funnel[5] = year.bachelor_6yr
-            funnels.append(funnel)
-        inst.funnels = funnels
 
     def get_context_data(self, *args, **kwargs):
         # TODO this shouldn't be get_context_data
