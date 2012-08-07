@@ -9,3 +9,5 @@ python manage.py syncdb --noinput
 
 # add the user: admin/admin
 python manage.py loaddata fixtures/auth.json
+# for some reason syncdb doesn't pick this up
+python manage.py loaddata fixtures/initial_data.json
