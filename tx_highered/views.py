@@ -42,7 +42,7 @@ class FunnelMixin(object):
 
 
 class HomeView(TemplateView):
-    template_name = "tx_highered/index.html"
+    template_name = "tx_highered/home.html"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
