@@ -11,16 +11,6 @@
 
 <section>
   <div class="row">
-    <div class="span2">
-      {% comment %}
-      <ul class="unstyled">
-        {% for i in "123456789012" %}
-          <li><a href="#">{% lorem 3 w random %}</a></li>
-        {% endfor %}
-      </ul>
-      {% endcomment %}
-      {% lorem 1 %}
-    </div>
     <div class="span8">
       <h2>Featured Page</h2>
       <a class="thumbnail" href="funnel/">
@@ -37,11 +27,11 @@
         </form>
       </section>
     </div>
-    <div class="span2">
-      <h4>Directory</h4>
+    <div class="span4">
+      <h2><a href="{% url "institution_list" %}">Directory</a></h2>
       <ul class="unstyled">
-        {% for i in "123456789012" %}
-          <li><a href="{% url "institution_list" %}">{% lorem 3 w random %}</a></li>
+        {% for object in featured_institutions %}
+          <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
         {% endfor %}
       </ul>
     </div>

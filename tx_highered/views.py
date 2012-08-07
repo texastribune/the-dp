@@ -2,6 +2,7 @@ from django.db.models import ObjectDoesNotExist
 from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
+from armstrong.core.arm_wells.models import Well
 
 from .models import Institution
 
@@ -42,6 +43,15 @@ class FunnelMixin(object):
 
 class HomeView(TemplateView):
     template_name = "tx_highered/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        # Featured Institutions, TODO, template tag? mixin?
+        well = Well.objects.get_current(
+            'Featured Institutions')
+        well.queryset = Institution.objects.exclude(wikipedia_seal='')
+        context['featured_institutions'] = well.items[:12]
+        return context
 
 
 class InstitutionListView(ListView):
