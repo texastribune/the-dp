@@ -1,5 +1,5 @@
 from django.db.models import ObjectDoesNotExist
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
 
@@ -38,6 +38,10 @@ class FunnelMixin(object):
             except TypeError:
                 continue
         inst.funnels = funnels
+
+
+class HomeView(TemplateView):
+    template_name = "tx_highered/index.html"
 
 
 class InstitutionListView(ListView):
