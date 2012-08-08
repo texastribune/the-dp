@@ -1,13 +1,14 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 
 from .models import System
-from .views import (InstitutionDetailView, InstitutionListView,
+from .views import (HomeView,
+                    InstitutionDetailView, InstitutionListView,
                     RenderModelDetailView, SATListView, FunnelListView)
 
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name="tx_highered/index.html"), name="home"),
+    url(r'^$', HomeView.as_view(), name="home"),
     url(r'^institution/$', InstitutionListView.as_view(), name="institution_list"),
     url(r'^institution/(?P<slug>[-\w]+)/$', InstitutionDetailView.as_view(),
         name="institution_detail"),
