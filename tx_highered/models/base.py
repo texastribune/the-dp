@@ -52,6 +52,7 @@ class WikipediaFields(models.Model):
     wikipedia_title = models.CharField(max_length=100, null=True, blank=True)
     wikipedia_abstract = models.TextField(null=True, blank=True)
     wikipedia_seal = models.ImageField(upload_to="seals", null=True, blank=True)
+    wikipedia_logo = models.ImageField(upload_to="logos", null=True, blank=True)
     wikipedia_scraped = models.DateTimeField(null=True, blank=True)
 
     @property

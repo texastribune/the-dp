@@ -49,32 +49,51 @@ def get_wiki_abstract(url):
     return "\n".join(abstract).strip()
 
 
-def get_wiki_seal(inst):
+def get_wiki_images(inst):
     # TODO move into the model? has unfulfilled requirements: lxml and requests
     url = inst.wikipedia_url
     r = requests.get(url, headers={'User-Agent': USER_AGENT})
     doc = document_fromstring(r.text)
-    images = doc.xpath('//a[@class="image"]/img/@src')
-    # lxml doesn't support xpath 2.0, so look for the seal in python
+    images = doc.xpath('//table[@class="infobox vcard"]//a[@class="image"]/img/@src')
+
+    # look for a seal
     seals = [x for x in images if x.lower().find('seal') != -1]
     try:
         seal = seals[0]
     except IndexError:
-        return None
-    src = "http:" + seal
-    # download to settings.MEDIA_ROOT/seals, upload_to="seals"
-    dst_path = "seals/%s-seal.png" % inst.slug
-    dst_abspath = os.path.join(settings.MEDIA_ROOT, dst_path)
-    r = requests.get(src, headers={'User-Agent': USER_AGENT})
-    with open(dst_abspath, "wb") as f:
-        f.write(r.content)
-    inst.wikipedia_seal = dst_path
-    inst.save()
+        seal = None
+    if seal and not inst.wikipedia_seal:
+        src = "http:" + seal
+        # download to settings.MEDIA_ROOT/seals, upload_to="seals"
+        dst_path = "seals/%s-seal.png" % inst.slug
+        dst_abspath = os.path.join(settings.MEDIA_ROOT, dst_path)
+        r = requests.get(src, headers={'User-Agent': USER_AGENT})
+        with open(dst_abspath, "wb") as f:
+            f.write(r.content)
+        inst.wikipedia_seal = dst_path
+        inst.save()
+
+    # now look for a logo using the exact same code as above for some reason
+    logos = [x for x in images if x not in seals]
+    try:
+        logo = logos[0]
+    except IndexError:
+        logo = None
+    if logo and not inst.wikipedia_logo:
+        src = "http:" + logo
+        # download to settings.MEDIA_ROOT/logos, upload_to="logos"
+        dst_path = "logos/%s-logo.png" % inst.slug
+        dst_abspath = os.path.join(settings.MEDIA_ROOT, dst_path)
+        r = requests.get(src, headers={'User-Agent': USER_AGENT})
+        with open(dst_abspath, "wb") as f:
+            f.write(r.content)
+        inst.wikipedia_logo = dst_path
+        inst.save()
+
     return inst
 
 
 def get_titles():
-    queryset = Institution.objects.filter(institution_type='uni')
     qs = queryset.filter(wikipedia_title__isnull=True)
     for inst in qs:
         title = get_wiki_title(inst.name)
@@ -95,10 +114,10 @@ def get_abstracts():
             print inst
 
 
-def get_seals():
-    qs = queryset.filter(wikipedia_title__isnull=False, wikipedia_seal="")
+def get_images():
+    qs = queryset.filter(wikipedia_title__isnull=False)
     for inst in qs:
-        print get_wiki_seal(inst)
+        print get_wiki_images(inst)
 
 
 if __name__ == "__main__":
