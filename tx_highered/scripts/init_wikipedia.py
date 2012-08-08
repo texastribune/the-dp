@@ -5,6 +5,7 @@ try:
 except ImportError:
     from datetime.datetime import now
 
+import os
 import requests
 from lxml.html import document_fromstring, tostring
 
@@ -53,20 +54,21 @@ def get_wiki_seal(inst):
     url = inst.wikipedia_url
     r = requests.get(url, headers={'User-Agent': USER_AGENT})
     doc = document_fromstring(r.text)
-    seals = doc.xpath('//a[@class="image"]/img/@src')
+    images = doc.xpath('//a[@class="image"]/img/@src')
     # lxml doesn't support xpath 2.0, so look for the seal in python
-    seals = [x for x in seals if x.lower().find('seal') != -1]
+    seals = [x for x in images if x.lower().find('seal') != -1]
     try:
         seal = seals[0]
     except IndexError:
         return None
     src = "http:" + seal
-    dst = "%sseals/%s.png" % (settings.MEDIA_ROOT, inst.slug)
+    # download to settings.MEDIA_ROOT/seals, upload_to="seals"
+    dst_path = "seals/%s-seal.png" % inst.slug
+    dst_abspath = os.path.join(settings.MEDIA_ROOT, dst_path)
     r = requests.get(src, headers={'User-Agent': USER_AGENT})
-    # download to settings.MEDIA_ROOT/seals
-    with open(dst, "wb") as f:
+    with open(dst_abspath, "wb") as f:
         f.write(r.content)
-    inst.wikipedia_seal = "seals/%s.png" % inst.slug
+    inst.wikipedia_seal = dst_path
     inst.save()
     return inst
 
