@@ -1,0 +1,28 @@
+{% extends "tx_highered/app_base.html" %}
+{% load layout_helpers humanize instachart %}
+{% load webdesign %}
+
+
+{% block head_title %}The Top 10 Percent Rule{% endblock %}
+{% block page_title %}Top 10% Rule{% endblock %}
+
+
+{% block main %}
+  {% lorem 4 p %}
+
+  {% for object in object_list %}
+    <div>
+      <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+      <table class="table">
+        {% for year in object.admissions_set.all %}
+          {% if year.percent_top10rule %}
+            <tr>
+              <td>{{ year.year }}</td>
+              <td>{{ year.percent_top10rule }}%</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+    </div>
+  {% endfor %}
+{% endblock %}

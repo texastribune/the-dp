@@ -89,3 +89,13 @@ class FunnelReport(InstitutionListView, FunnelMixin):
         for obj in self.object_list:
             self.annotate_funnels(obj)
         return context
+
+
+class Top10RuleReport(InstitutionListView, FunnelMixin):
+    template_name = "tx_highered/reports/top10.html"
+
+    def get_queryset(self):
+        qs = super(Top10RuleReport, self).get_queryset()
+        qs = qs.filter(institution_type='uni', is_private=False)
+        # TODO prefetch admissions_set
+        return qs

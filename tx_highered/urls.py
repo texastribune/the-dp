@@ -5,7 +5,7 @@ from .models import System
 from .views import (HomeView,
                     InstitutionDetailView, InstitutionListView,
                     RenderModelDetailView,
-                    TestScoresReport, FunnelReport)
+                    TestScoresReport, FunnelReport, Top10RuleReport)
 
 
 urlpatterns = patterns('',
@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     # reports
     url(r'^testing/$', TestScoresReport.as_view(), name="sat_search"),
     url(r'^funnel/$', FunnelReport.as_view()),
+    url(r'^top10/$', Top10RuleReport.as_view()),
 )
