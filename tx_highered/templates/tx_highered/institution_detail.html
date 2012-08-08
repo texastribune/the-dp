@@ -69,9 +69,11 @@
   {% if object.wikipedia_seal %}
     <div class="thumbnail">
       <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
-      <div class="caption">
-        <h5>Seal</h5>
-      </div>
+    </div>
+  {% endif %}
+  {% if object.wikipedia_logo %}
+    <div class="thumbnail">
+      <img src="{{ MEDIA_URL }}{{ object.wikipedia_logo }}">
     </div>
   {% endif %}
   {% render_model object "table" %}
