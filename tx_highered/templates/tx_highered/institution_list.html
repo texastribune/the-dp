@@ -46,6 +46,8 @@
         <div class="thumbnail">
           {% if object.wikipedia_seal %}
             <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
+          {% elif object.wikipedia_logo %}
+            <img src="{{ MEDIA_URL }}{{ object.wikipedia_logo }}">
           {% else %}
             <img src="http://placekitten.com/300/168">
           {% endif %}
