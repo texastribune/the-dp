@@ -4,7 +4,8 @@ from django.views.generic import ListView
 from .models import System
 from .views import (HomeView,
                     InstitutionDetailView, InstitutionListView,
-                    RenderModelDetailView, SATListView, FunnelListView)
+                    RenderModelDetailView,
+                    TestScoresReport, FunnelReport)
 
 
 urlpatterns = patterns('',
@@ -17,6 +18,6 @@ urlpatterns = patterns('',
     url(r'^system/(?P<slug>[-\w]+)/$', RenderModelDetailView.as_view(
         model=System, layout="table"), name="system_detail"),
     # reports
-    url(r'^testing/$', SATListView.as_view(), name="sat_search"),
-    url(r'^funnel/$', FunnelListView.as_view()),
+    url(r'^testing/$', TestScoresReport.as_view(), name="sat_search"),
+    url(r'^funnel/$', FunnelReport.as_view()),
 )

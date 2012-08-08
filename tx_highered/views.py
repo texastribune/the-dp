@@ -68,24 +68,24 @@ class InstitutionDetailView(DetailView, FunnelMixin):
         return context
 
 
-class SATListView(ListView):
-    queryset = Institution.objects.filter(ipeds_id__isnull=False).\
-               exclude(testscores__isnull=True).order_by('name')
-    template_name_suffix = "_sats"
+######################### REPORTS ##########################
+class TestScoresReport(InstitutionListView):
+    template_name = "tx_highered/reports/testscores.html"
 
     def get_queryset(self):
-        qs = self.queryset
+        qs = super(TestScoresReport, self).get_queryset()
+        qs = qs.exclude(testscores__isnull=True).order_by('name')
         for x in qs:
             x.scores = x.testscores_set.latest('year')
         return qs
 
 
-class FunnelListView(InstitutionListView, FunnelMixin):
+class FunnelReport(InstitutionListView, FunnelMixin):
     template_name = "tx_highered/reports/funnel.html"
 
     def get_context_data(self, *args, **kwargs):
         # TODO this shouldn't be get_context_data
-        context = super(FunnelListView, self).get_context_data(*args, **kwargs)
+        context = super(FunnelReport, self).get_context_data(*args, **kwargs)
         for obj in self.object_list:
             self.annotate_funnels(obj)
         return context
