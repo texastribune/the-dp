@@ -66,6 +66,14 @@
 
 
 {% block rail %}
+  {% if object.wikipedia_seal %}
+    <div class="thumbnail">
+      <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
+      <div class="caption">
+        <h5>Seal</h5>
+      </div>
+    </div>
+  {% endif %}
   {% render_model object "table" %}
 {% endblock %}
 
