@@ -25,10 +25,18 @@ jQuery.fn.tablebars = function(){
           rawdata = [],
           max = 0,
           width = set.eq(0).width();
+      var isPercent = false;
       set.each(function(i, cell){
-        var rawvalue = rawdata[i] = $(cell).html();
+        var rawvalue = rawdata[i] = $.trim($(cell).html());
         var value = data[i] = Math.max(0, parseFloat(rawvalue.replace(/[^0-9.\-]+/g, '')));
-        max = Math.max(max, value);
+        // FIXME port these changes to real jquery tablebars plugin
+        if (rawvalue[rawvalue.length - 1] == "%") {
+          max = 100;
+          return;
+        }
+        if (!isNaN(value) && value > max){
+          max = value;
+        }
       });
       if (!max) max = 1;
       set.each(function(i, cell){
