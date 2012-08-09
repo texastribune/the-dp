@@ -93,9 +93,23 @@ class FunnelReport(InstitutionListView, FunnelMixin):
 
 class Top10RuleReport(InstitutionListView, FunnelMixin):
     template_name = "tx_highered/reports/top10.html"
+    year_range = range(2000, 2012)
+
+    def build_table(self, obj):
+        raw_data = obj.admissions_set.filter(percent_top10rule__isnull=False).\
+            values('year', 'percent_top10rule')
+        data = dict([(x['year'], x['percent_top10rule']) for x in raw_data])
+        return data
 
     def get_queryset(self):
         qs = super(Top10RuleReport, self).get_queryset()
         qs = qs.filter(institution_type='uni', is_private=False)
         # TODO prefetch admissions_set
+        for x in qs:
+            x.data = self.build_table(x)
         return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(Top10RuleReport, self).get_context_data(**kwargs)
+        context['year_range'] = self.year_range
+        return context

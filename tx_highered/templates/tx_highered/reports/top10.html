@@ -1,5 +1,5 @@
 {% extends "tx_highered/app_base.html" %}
-{% load layout_helpers humanize instachart %}
+{% load layout_helpers humanize instachart cheat %}
 {% load webdesign %}
 
 
@@ -10,19 +10,40 @@
 {% block main %}
   {% lorem 4 p %}
 
-  {% for object in object_list %}
-    <div>
-      <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
-      <table class="table">
-        {% for year in object.admissions_set.all %}
-          {% if year.percent_top10rule %}
-            <tr>
-              <td>{{ year.year }}</td>
-              <td>{{ year.percent_top10rule }}%</td>
-            </tr>
-          {% endif %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        {% for object in object_list %}
+          <th data-tablebars=1><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></th>
         {% endfor %}
-      </table>
-    </div>
-  {% endfor %}
+      </td>
+    </thead>
+    <tbody>
+      {% for year in year_range %}
+        <tr>
+          <td>{{ year }}</td>
+          {% for object in object_list %}
+            <td>{{ object.data|keyvalue:year }}%</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+
+{% block extra_style %}{{ block.super }}
+<style>
+  .ui-tablebar { color: #333; background: #DACD99; }
+</style>
+{% endblock %}
+
+
+{% block extra_script %}{{ block.super }}
+<script>
+$(window).load(function(){
+  $('table').tablebars();
+});
+</script>
 {% endblock %}
