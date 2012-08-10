@@ -1,14 +1,16 @@
+from __future__ import absolute_import
 import csv
 import logging
 import json
 import re
 from collections import defaultdict
 
+from utils.handlers import ColorizingStreamHandler, JSONFileHandler
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler())
-print __name__
+logger.addHandler(ColorizingStreamHandler())
+logger.addHandler(JSONFileHandler('input.jslog'))
 
 
 class IpedsCsvReader(object):
@@ -58,7 +60,7 @@ class IpedsCsvReader(object):
                 new_data = dict()
                 for idx, name in self.years_data[year]:
                     if row[idx]:
-                        new_data[row[idx]] = name
+                        new_data[name] = row[idx]
                 if new_data:
                     instance, created = report_model.objects.get_or_create(
                         institution=inst, year=year,
@@ -72,8 +74,7 @@ class IpedsCsvReader(object):
                                 instPk=inst.pk, instName=inst.name, year=year,
                                 report=report_name, newData=new_data,
                                 source="ipeds")
-                logger.info(json.dumps(log_data), extra=log_data)
-                # print instance
+                logger.info("%s" % (instance), extra=dict(json=log_data))
 
     def explain_header(self):
         from .models import Variable
