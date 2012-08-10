@@ -68,7 +68,10 @@ class IpedsCsvReader(object):
                     instance.__dict__.update(new_data)
                     instance.save()
                 else:
+                    # skip empty data
                     continue
+                # TODO only log changed data
+                # TODO make ints ints, decimals strings, floats float
                 # camelCase for better JSON compatibility
                 log_data = dict(firstImport=created,  # `created` is reserved
                                 instPk=inst.pk, instName=inst.name, year=year,
