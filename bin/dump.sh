@@ -5,4 +5,4 @@ python manage.py dumpdata tx_highered.system tx_highered.institution --indent 2 
 # export saved IPEDS variables
 python manage.py dumpdata ipeds_importer --indent 2 > ../ipeds_importer/fixtures/initial_data.json
 # export support data for example project
-python manage.py dumpdata contenttypes arm_wells --indent 2 > fixtures/initial_data.json
+python manage.py dumpdata arm_wells --indent 2 --natural > fixtures/initial_data.json

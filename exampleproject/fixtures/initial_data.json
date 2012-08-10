@@ -1,185 +1,5 @@
 [
   {
-    "pk": 12, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "admissions", 
-      "name": "admissions", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 4, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "contenttype", 
-      "name": "content type", 
-      "app_label": "contenttypes"
-    }
-  }, 
-  {
-    "pk": 13, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "enrollment", 
-      "name": "enrollment", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 14, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "graduationrates", 
-      "name": "graduation rates", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 2, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "group", 
-      "name": "group", 
-      "app_label": "auth"
-    }
-  }, 
-  {
-    "pk": 9, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "institution", 
-      "name": "institution", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 7, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "logentry", 
-      "name": "log entry", 
-      "app_label": "admin"
-    }
-  }, 
-  {
-    "pk": 19, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "node", 
-      "name": "node", 
-      "app_label": "arm_wells"
-    }
-  }, 
-  {
-    "pk": 1, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "permission", 
-      "name": "permission", 
-      "app_label": "auth"
-    }
-  }, 
-  {
-    "pk": 10, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "pricetrends", 
-      "name": "price trends", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 15, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "revision", 
-      "name": "revision", 
-      "app_label": "reversion"
-    }
-  }, 
-  {
-    "pk": 5, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "session", 
-      "name": "session", 
-      "app_label": "sessions"
-    }
-  }, 
-  {
-    "pk": 6, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "site", 
-      "name": "site", 
-      "app_label": "sites"
-    }
-  }, 
-  {
-    "pk": 8, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "system", 
-      "name": "system", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 11, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "testscores", 
-      "name": "test scores", 
-      "app_label": "tx_highered"
-    }
-  }, 
-  {
-    "pk": 3, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "user", 
-      "name": "user", 
-      "app_label": "auth"
-    }
-  }, 
-  {
-    "pk": 20, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "variable", 
-      "name": "variable", 
-      "app_label": "ipeds_importer"
-    }
-  }, 
-  {
-    "pk": 16, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "version", 
-      "name": "version", 
-      "app_label": "reversion"
-    }
-  }, 
-  {
-    "pk": 18, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "well", 
-      "name": "well", 
-      "app_label": "arm_wells"
-    }
-  }, 
-  {
-    "pk": 17, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-      "model": "welltype", 
-      "name": "well type", 
-      "app_label": "arm_wells"
-    }
-  }, 
-  {
     "pk": 1, 
     "model": "arm_wells.welltype", 
     "fields": {
@@ -203,7 +23,10 @@
     "fields": {
       "well": 1, 
       "order": 0, 
-      "content_type": 9, 
+      "content_type": [
+        "tx_highered", 
+        "institution"
+      ], 
       "object_id": 27
     }
   }, 
@@ -213,7 +36,10 @@
     "fields": {
       "well": 1, 
       "order": 1, 
-      "content_type": 9, 
+      "content_type": [
+        "tx_highered", 
+        "institution"
+      ], 
       "object_id": 11
     }
   }, 
@@ -223,7 +49,10 @@
     "fields": {
       "well": 1, 
       "order": 2, 
-      "content_type": 9, 
+      "content_type": [
+        "tx_highered", 
+        "institution"
+      ], 
       "object_id": 158
     }
   }, 
@@ -233,7 +62,10 @@
     "fields": {
       "well": 1, 
       "order": 3, 
-      "content_type": 9, 
+      "content_type": [
+        "tx_highered", 
+        "institution"
+      ], 
       "object_id": 140
     }
   }
