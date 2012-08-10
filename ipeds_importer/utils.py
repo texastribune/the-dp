@@ -1,6 +1,14 @@
 import csv
+import logging
+import json
 import re
 from collections import defaultdict
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler())
+print __name__
 
 
 class IpedsCsvReader(object):
@@ -40,20 +48,29 @@ class IpedsCsvReader(object):
         self.years_data = years
 
     def parse_rows(self, institution_model, report_model):
+        report_name = report_model.__name__
         for row in self._reader:
             if len("".join(row[2:])) == 0:
                 # skip empty rows
                 continue
             inst = institution_model.objects.get(ipeds_id=row[self.primary_idx])
             for year in self.years_data:
-                instance, _ = report_model.objects.get_or_create(
+                instance, created = report_model.objects.get_or_create(
                     institution=inst, year=year,
                     defaults=dict(year_type=self.year_type))
+                new_data = dict()
                 for idx, name in self.years_data[year]:
                     if row[idx]:
+                        new_data[row[idx]] = name
                         setattr(instance, name, row[idx])
                 instance.save()
-                print instance
+                # camelCase for better JSON compatibility
+                log_data = dict(firstImport=created,  # `created` is reserved
+                                instPk=inst.pk, instName=inst.name, year=year,
+                                report=report_name, newData=new_data,
+                                source="ipeds")
+                logger.info(json.dumps(log_data), extra=log_data)
+                # print instance
 
     def explain_header(self):
         from .models import Variable
