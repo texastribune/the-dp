@@ -55,15 +55,18 @@ class IpedsCsvReader(object):
                 continue
             inst = institution_model.objects.get(ipeds_id=row[self.primary_idx])
             for year in self.years_data:
-                instance, created = report_model.objects.get_or_create(
-                    institution=inst, year=year,
-                    defaults=dict(year_type=self.year_type))
                 new_data = dict()
                 for idx, name in self.years_data[year]:
                     if row[idx]:
                         new_data[row[idx]] = name
-                        setattr(instance, name, row[idx])
-                instance.save()
+                if new_data:
+                    instance, created = report_model.objects.get_or_create(
+                        institution=inst, year=year,
+                        defaults=dict(year_type=self.year_type))
+                    instance.__dict__.update(new_data)
+                    instance.save()
+                else:
+                    continue
                 # camelCase for better JSON compatibility
                 log_data = dict(firstImport=created,  # `created` is reserved
                                 instPk=inst.pk, instName=inst.name, year=year,
