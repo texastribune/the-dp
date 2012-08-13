@@ -32,8 +32,10 @@
   <h3>Test Scores</h3>
   {% instachart object.testscores_set.all "testscores" %}
 
-  <h3>Admissions</h3>
-  {% instachart object.admissions_set.all %}
+  <section id="admissions">
+    <h3>Admissions <small><a href="#admissions"><i class="icon-share"></i></a></small></h3>
+    {% instachart object.admissions_set.all %}
+  </section>
 
   <h3>Enrollment</h3>
   {% instachart object.enrollment_set.all %}
