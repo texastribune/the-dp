@@ -38,7 +38,7 @@
 
     <div class="onion">
       <div class="onion-toggle btn">Fold</div>
-      <div class="onion-basket">
+      <div class="onion-basket" style="white-space: nowrap;">
         {% for funnel in object.funnels %}
           <div class="onion-item">
             <table class="funnel">
@@ -49,7 +49,7 @@
           </div>
         {% endfor %}
       </div>
-      <div class="nav nav-pills onion-legend">
+      <div class="nav nav-pills onion-legend" style="white-space: nowrap;">
         {% for funnel in object.funnels %}
           <li class="onion-legend-item">
             <a href="#">{{ funnel.year }}</a>
