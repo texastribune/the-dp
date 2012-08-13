@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import csv
 import logging
-import json
+import os
 import re
 from collections import defaultdict
 
@@ -10,7 +10,9 @@ from utils.handlers import ColorizingStreamHandler, JSONFileHandler
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(ColorizingStreamHandler())
-logger.addHandler(JSONFileHandler('input.jslog'))
+logfile = os.environ.get('THEDP_IMPORT_LOGFILE')
+if logfile:
+    logger.addHandler(JSONFileHandler(logfile))
 
 
 class IpedsCsvReader(object):

@@ -3,4 +3,6 @@
 .DS_Store
 db.sqlite
 
+logs
+
 exampleproject/settings/local.py
