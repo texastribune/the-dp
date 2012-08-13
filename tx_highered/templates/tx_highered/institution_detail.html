@@ -35,6 +35,28 @@
   <section id="admissions">
     <h3>Admissions <small><a href="#admissions"><i class="icon-share"></i></a></small></h3>
     {% instachart object.admissions_set.all "admissions" %}
+
+    <div class="onion">
+      <div class="onion-toggle btn">Fold</div>
+      <div class="onion-basket">
+        {% for funnel in object.funnels %}
+          <div class="onion-item">
+            <table class="funnel">
+              <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
+              <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
+              <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
+            </table>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="nav nav-pills onion-legend">
+        {% for funnel in object.funnels %}
+          <li class="onion-legend-item">
+            <a href="#">{{ funnel.year }}</a>
+          </li>
+        {% endfor %}
+      </div>
+    </div>
   </section>
 
   <h3>Enrollment</h3>
@@ -42,28 +64,6 @@
 
   <h3>Graduation Rates</h3>
   {% instachart object.graduationrates_set.all "graduationrates" %}
-
-  <div class="onion">
-    <div class="onion-toggle btn">Fold</div>
-    <div class="onion-basket">
-      {% for funnel in object.funnels %}
-        <div class="onion-item">
-          <table class="funnel">
-            <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
-            <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
-            <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
-          </table>
-        </div>
-      {% endfor %}
-    </div>
-    <div class="nav nav-pills onion-legend">
-      {% for funnel in funnels %}
-        <li class="onion-legend-item">
-          <a href="#">{{ funnel.year }}</a>
-        </li>
-      {% endfor %}
-    </div>
-  </div>
 {% endblock %}
 
 
