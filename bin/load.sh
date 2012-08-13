@@ -3,6 +3,10 @@ cd $(cat $VIRTUAL_ENV/.project)/tx_highered/scripts
 # I also have this in my virtualenv's postactivate
 DJANGO_SETTINGS_MODULE=exampleproject.settings
 
+# TODO don't setup examples here
+export THEDP_IMPORT_LOGFILE="../../logs/logger.jslog"
+mkdir -p ../../logs
+
 # new style reports
 # ipeds
 python import_customreport.py $HOME/Dropbox/Data/Education-Higher/IPEDS/custom_reports/prices.csv
