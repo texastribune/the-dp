@@ -2,6 +2,7 @@
 .codeintel
 .DS_Store
 db.sqlite
+.sass-cache
 
 logs
 
