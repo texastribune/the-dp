@@ -4,7 +4,23 @@
 */
 
 
+// variables
+$blue: #0074CC;
+$tan: #DACD99;
+
+
 // mimic h1 > small
 td small {
   color: #999;
 }
+
+
+// UI
+.ui-tablebar { color: #333; background: $tan; }
+
+.onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }
+.nav-pills .onion-legend-item { float: none; }
+.funnel { width: 100%; }
+.funnel .bar { background: $blue; margin: 0 auto; overflow: hidden; text-indent: 110%; }
+
+.ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
