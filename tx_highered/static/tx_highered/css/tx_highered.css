@@ -1,5 +1,9 @@
 /* Texas Higher Ed App CSS assumes bootstrap
 */
+h3 > .page-anchor { visibility: hidden; }
+
+h3:hover > .page-anchor { visibility: visible; }
+
 td small { color: #999; }
 
 .ui-tablebar { color: #333; background: #dacd99; }
