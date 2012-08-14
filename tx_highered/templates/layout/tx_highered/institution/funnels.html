@@ -1,0 +1,21 @@
+<div class="onion">
+  <div class="onion-toggle btn">Fold</div>
+  <div class="onion-basket" style="white-space: nowrap;">
+    {% for funnel in object.funnels %}
+      <div class="onion-item">
+        <table class="funnel">
+          <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
+          <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
+          <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
+        </table>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="nav nav-pills onion-legend" style="white-space: nowrap;">
+    {% for funnel in object.funnels %}
+      <li class="onion-legend-item">
+        <a href="#">{{ funnel.year }}</a>
+      </li>
+    {% endfor %}
+  </div>
+</div>

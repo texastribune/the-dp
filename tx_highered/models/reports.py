@@ -71,7 +71,8 @@ class YearBasedInstitutionStatModel(models.Model):
         elif self.year_type == 'academic':
             return "%d-%d" % (self.year - 1, self.year)
         elif self.year_type == 'fall':
-            return "F%02d" % (int(self.year) % 100)
+            # return "F%02d" % (int(self.year) % 100)
+            return "Fall %s" % self.year
         elif self.year_type == 'aug':
             return "August 31st, %s" % self.year
         return "%d %s" % (self.year, self.year_type)
@@ -189,13 +190,6 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
 
     class Meta(YearBasedInstitutionStatModel.Meta):
         unique_together = ('year', 'institution')
-
-    # chart_series = (('display_year', "%s"),
-    #                 ('number_of_applicants', "%d", ('data-tablebars=1',)),
-    #                 ('number_admitted', "%d", ('data-tablebars=1',)),
-    #                 ('number_admitted_who_enrolled', "%d", ('data-tablebars=1',)),
-    #                 ('percent_of_applicants_admitted', "%.1f%%", ('data-tablebars=1', 'class="span2"')),
-    #                 ('percent_of_admitted_who_enrolled', "%.1f%%", ('data-tablebars=1', 'class="span2"')))
 
 
 class Enrollment(YearBasedInstitutionStatModel, SimpleChart):

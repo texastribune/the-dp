@@ -32,36 +32,21 @@
   <h3>Test Scores</h3>
   {% instachart object.testscores_set.all "testscores" %}
 
-  <h3>Admissions</h3>
-  {% instachart object.admissions_set.all %}
+  <section id="admissions">
+    <h3>Admissions <small><a href="#admissions"><i class="icon-share"></i></a></small></h3>
+    {% instachart object.admissions_set.all "admissions" %}
+    <p>
+      <strong>How many applicants end up going to {{ institution.name }}?</strong>
+      With the data we have, we can see how selective the school was by seeing how many were admitted, and looking at the number enrolled we can see how selective the applicants were. We can also look at this information over time. How fast the bars below get thinner indicate how hard it is to get into a school. Hitting the <code>Fold</code> button shows how it looks averaged out over the all the years we have available.
+    </p>
+    {% render_model object "funnels" %}
+  </section>
 
   <h3>Enrollment</h3>
   {% instachart object.enrollment_set.all %}
 
   <h3>Graduation Rates</h3>
   {% instachart object.graduationrates_set.all "graduationrates" %}
-
-  <div class="onion">
-    <div class="onion-toggle btn">Fold</div>
-    <div class="onion-basket">
-      {% for funnel in object.funnels %}
-        <div class="onion-item">
-          <table class="funnel">
-            <tr><td><div class="bar" style="width: {{ funnel.0 }}%"> {{ funnel.0 }} </td></tr>
-            <tr><td><div class="bar" style="width: {{ funnel.1 }}%"> {{ funnel.1 }} </td></tr>
-            <tr><td><div class="bar" style="width: {{ funnel.2 }}%"> {{ funnel.2|floatformat }} </td></tr>
-          </table>
-        </div>
-      {% endfor %}
-    </div>
-    <div class="nav nav-pills onion-legend">
-      {% for funnel in funnels %}
-        <li class="onion-legend-item">
-          <a href="#">{{ funnel.year }}</a>
-        </li>
-      {% endfor %}
-    </div>
-  </div>
 {% endblock %}
 
 
