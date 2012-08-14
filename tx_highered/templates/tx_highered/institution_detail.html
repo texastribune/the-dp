@@ -64,18 +64,6 @@
   {% render_model object "table" %}
 {% endblock %}
 
-{% block extra_style %}{{ block.super }}
-<style>
-  .ui-tablebar { color: #333; background: #DACD99; }
-  .onion { }
-  .onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }
-  .nav-pills .onion-legend-item { float: none; }
-  .funnel { width: 100%; }
-  .funnel .bar { background: #0074CC; margin: 0 auto; overflow: hidden; text-indent: 110%; }
-  .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
-</style>
-{% endblock %}
-
 
 {% block extra_script %}{{ block.super }}
 <script>
