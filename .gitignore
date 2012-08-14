@@ -1,6 +1,7 @@
 *.pyc
 .codeintel
 .DS_Store
+*.sublime-*
 db.sqlite
 
 logs
