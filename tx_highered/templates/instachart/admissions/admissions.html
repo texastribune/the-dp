@@ -1,0 +1,39 @@
+{% load humanize %}
+<table class="table table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+      <th class="span1">Year</th>
+      <th class="span3" data-tablebars=1>Number of Applicants</th>
+      <th class="span3" data-tablebars=1>Number Admitted</th>
+      <th class="span3" data-tablebars=1>Number Enrolled (of admitted)</th>
+      <th class="span2" data-tablebars=1>First-Time Students in the Top 10%</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+      {% if object.number_of_applicants %}
+        <tr>
+          <td>{{ object.year }}</td>
+          <td data-value="{{ object.number_of_applicants }}">
+            {{ object.number_of_applicants|intcomma }}
+          </td>
+          <td data-value="{{ object.number_admitted }}">
+            {{ object.number_admitted|intcomma }}
+            <small>/ {{ object.percent_of_applicants_admitted }}%</small>
+          </td>
+          <td data-value="{{ object.number_admitted_who_enrolled }}">
+            {{ object.number_admitted_who_enrolled|intcomma }}
+            <small>/ {{ object.percent_of_admitted_who_enrolled }}%</small>
+          </td>
+          <td>
+            {% if object.percent_top10rule %}
+              {{ object.percent_top10rule }}%
+            {% else %}
+              &ndash;
+            {% endif %}
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>

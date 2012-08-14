@@ -1,4 +1,3 @@
-from django.db.models import ObjectDoesNotExist
 from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
@@ -18,7 +17,6 @@ class RenderModelDetailView(DetailView):
 class FunnelMixin(object):
     def annotate_funnels(self, inst):
         enterdata = inst.admissions_set.all()
-        exitdata = inst.graduationrates_set.all()
 
         # please excuse the horribleness of this
         funnels = []
@@ -28,13 +26,6 @@ class FunnelMixin(object):
                 funnel[0] = 100
                 funnel[1] = float(year.percent_of_applicants_admitted)
                 funnel[2] = funnel[1] * float(year.percent_of_admitted_who_enrolled) / 100
-                try:
-                    year = exitdata.get(year=year.year)
-                except ObjectDoesNotExist:
-                    continue
-                funnel[3] = year.bachelor_4yr
-                funnel[4] = year.bachelor_5yr
-                funnel[5] = year.bachelor_6yr
                 funnels.append(funnel)
             except TypeError:
                 continue
