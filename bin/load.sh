@@ -9,12 +9,12 @@ mkdir -p ../../logs
 
 # new style reports
 # ipeds
-python import_customreport.py $HOME/Dropbox/Data/Education-Higher/IPEDS/custom_reports/prices.csv
-python import_customreport.py $HOME/Dropbox/Data/Education-Higher/IPEDS/custom_reports/testscores.csv
-python import_customreport.py $HOME/Dropbox/Data/Education-Higher/IPEDS/custom_reports/enrollment.csv
-python import_customreport.py $HOME/Dropbox/Data/Education-Higher/IPEDS/custom_reports/grad_rates.csv
+python import_customreport.py $HIGHER_ED_DATA/IPEDS/custom_reports/prices.csv
+python import_customreport.py $HIGHER_ED_DATA/IPEDS/custom_reports/testscores.csv
+python import_customreport.py $HIGHER_ED_DATA/IPEDS/custom_reports/enrollment.csv
+python import_customreport.py $HIGHER_ED_DATA/IPEDS/custom_reports/grad_rates.csv
 # thecb
-./import_thecb_report.py $HOME/Dropbox/Data/Education-Higher/THECB/custom_reports/top_10_percent.html
+./import_thecb_report.py $HIGHER_ED_DATA/THECB/custom_reports/top_10_percent.html
 
 # old style auto-discover
-python import_report.py $HOME/Dropbox/Data/Education-Higher/IPEDS/reports
+python import_report.py $HIGHER_ED_DATA/IPEDS/reports
