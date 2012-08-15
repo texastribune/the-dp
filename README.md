@@ -9,6 +9,7 @@ mkvirtualenv $ENVNAME
 setvirtualenvproject
 pip install -r requirements-dev.txt
 export DJANGO_SETTINGS_MODULE=exampleproject.settings
+export HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
 add2virtualenv .
 
 # syncdb and load fixtures
