@@ -9,7 +9,7 @@ from django.db.models import FieldDoesNotExist
 from django.template.defaultfilters import slugify
 
 from tx_highered.models import Institution
-from . import utils
+from tx_highered.scripts import utils
 
 
 class NotImplementedReport(Exception):
