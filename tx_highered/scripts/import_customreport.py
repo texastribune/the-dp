@@ -9,10 +9,8 @@ UnitID,Institution Name,CINSON(DRVIC2011),COTSON(DRVIC2011),CINSON(DRVIC2010_RV)
 import os
 import sys
 
-from ipeds_importer.utils import IpedsCsvReader
-
-from tx_highered.models import Institution
-
+from .ipeds_importer.utils import IpedsCsvReader
+from .models import Institution
 
 PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
 

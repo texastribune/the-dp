@@ -139,13 +139,13 @@ INSTALLED_APPS = [
     # 'django.contrib.gis',
 
     'tx_highered',
+    'tx_highered.ipeds_importer',
 
     'armstrong.core.arm_layout',
     'reversion',  # required for arm_wells
     'armstrong.hatband',  # required for arm_wells
     'armstrong.core.arm_wells',
     'instachart',
-    'ipeds_importer',
 
 
     # pinax theme bootstrap

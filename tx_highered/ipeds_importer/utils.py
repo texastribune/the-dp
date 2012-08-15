@@ -5,7 +5,7 @@ import os
 import re
 from collections import defaultdict
 
-from utils.handlers import ColorizingStreamHandler, JSONFileHandler
+from ..utils.handlers import ColorizingStreamHandler, JSONFileHandler
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

@@ -5,7 +5,7 @@
 import re
 import sys
 
-from ipeds_importer.models import Variable
+from tx_highered.ipeds_importer.models import Variable
 
 path = sys.argv[1]
 
