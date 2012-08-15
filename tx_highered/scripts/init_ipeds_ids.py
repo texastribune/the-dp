@@ -6,14 +6,14 @@ Requires downloading a list of institutions from http://nces.ed.gov/ipeds
 """
 import sys
 
-from htmltableDictReader import DictReader
 from nltk.metrics import edit_distance as distance
 
 from tx_highered.models import Institution
+from . import utils
 
 filename = sys.argv[1]
 
-reader = DictReader(open(filename, 'r'))
+reader = utils.DictReader(open(filename, 'r'))
 
 qs = Institution.objects.filter(ipeds_id__isnull=True)
 total = qs.count()

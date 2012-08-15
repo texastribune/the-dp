@@ -1,3 +1,4 @@
+import csv
 import logging  # TODO
 import re
 import sys
@@ -8,6 +9,7 @@ from django.db.models import FieldDoesNotExist
 from django.template.defaultfilters import slugify
 
 from tx_highered.models import Institution
+from . import utils
 
 
 class NotImplementedReport(Exception):
@@ -31,11 +33,9 @@ def get_report(report_model):
 
 
 def process_html(path):
-    from htmltableDictReader import DictReader
-
     report_name = os.path.splitext(os.path.basename(path))[0]
     model_model = report_name.replace(" ", "")
-    reader = DictReader(open(path, 'r'))
+    reader = utils.DictReader(open(path, 'r'))
     reader.fieldnames[0] = 'UnitId'
     reader.fieldnames[2] = 'label'
     process_year_based(reader, model_model)
@@ -44,8 +44,6 @@ NAME_EXTRACTOR = r"^(.+?)\s(?:Fall\s)?([\-\d]+),$"
 
 
 def process_csv(path):
-    from csv import DictReader
-
     f = open(path, 'r')
     f.readline()  # skip first line
     info_string = f.readline()
@@ -53,12 +51,12 @@ def process_csv(path):
         report_name, year_range = re.match(NAME_EXTRACTOR, info_string).groups()
         year = year_range[:2] + year_range[-2:]
         model_model = report_name.replace(" ", "")
-        reader = DictReader(f)
+        reader = csv.DictReader(f)
         process_single_year(year, reader, model_model)
     except AttributeError:
         report_name = re.match(r"(.*) for selected years", info_string).groups()[0]
         model_model = re.sub(r"\W", "", report_name)
-        reader = DictReader(f)
+        reader = csv.DictReader(f)
         process_year_based(reader, model_model)
 
 

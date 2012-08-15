@@ -6,9 +6,9 @@ source: http://www.txhighereddata.org/Interactive/Institutions.cfm
 import urllib2
 
 from django.template.defaultfilters import slugify
-from htmltableDictReader import DictReader
 
 from tx_highered.models import Institution, System
+from . import utils
 
 # CONFIGURATION
 SOURCE = "http://www.txhighereddata.org/Interactive/Institutionsshow_Excel.cfm?All=1"
@@ -39,7 +39,7 @@ I_MAP = {'Institution Name': 'name',
 
 def pull(institution_type, source):
     r = urllib2.urlopen(source)
-    reader = DictReader(r, mapping=I_MAP)
+    reader = utils.DictReader(r, mapping=I_MAP)
 
     for data in reader:
         if not data['name']:
