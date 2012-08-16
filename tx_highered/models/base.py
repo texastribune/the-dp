@@ -108,3 +108,17 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     @property
     def unique_name(self):
         return Institution.get_unique_name(self.name)
+
+    @property
+    def introductory_sentence(self):
+        from django.template import Context
+        from django.template.loader import get_template
+        t = get_template('tx_highered/sentences/introductory.txt')
+        c = Context({'institution': self})
+        return t.render(c).strip()
+
+    def get_number_of_full_time_students(self):
+        return self.enrollment_set.latest('year').fulltime
+
+    # TODO: Cache property
+    number_of_full_time_students = property(get_number_of_full_time_students)
