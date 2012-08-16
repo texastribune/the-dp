@@ -1,5 +1,4 @@
-# from django.utils import unittest
-import unittest
+from django.utils import unittest
 
 
 class ImportReport(unittest.TestCase):
