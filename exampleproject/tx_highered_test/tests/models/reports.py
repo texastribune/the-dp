@@ -4,6 +4,7 @@ from tx_highered import models
 
 class PriceTrendsTestCase(TestCase):
     def setUp(self):
+        # TODO Replace with Factory Boy
         self.ut = models.Institution.objects.get(name__endswith='at Austin')
         self.price_trends = self.ut.latest_tuition
 
