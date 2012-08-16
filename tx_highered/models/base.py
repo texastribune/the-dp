@@ -1,6 +1,29 @@
 # from django.contrib.gis.db import models
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.template import Context, TemplateDoesNotExist
+from django.template.loader import get_template
+
+
+class SummarySentences(object):
+    def __init__(self, obj):
+        self.obj = obj
+        self.path = '%s/sentences/%s/%%s.txt' % (obj._meta.app_label,
+                obj._meta.module_name)
+        self.cache = {}
+
+    def __getattr__(self, key):
+        if not key in self.cache:
+            self.cache[key] = self.generate_sentence(key)
+        return self.cache[key]
+
+    def generate_sentence(self, name):
+        try:
+            t = get_template(self.path % name)
+            c = Context({'obj': self.obj})
+            return t.render(c).strip()
+        except TemplateDoesNotExist:
+            return None
 
 
 __all__ = ['System', 'Institution']
@@ -99,6 +122,12 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     def type(self):
         return dict(INSTITUTION_CHOICES).get(self.institution_type)
 
+    @property
+    def sentences(self):
+        if not hasattr(self, '_sentences'):
+            self._sentences = SummarySentences(self)
+        return self._sentences
+
     @staticmethod
     def get_unique_name(name):
         ignored = ('st', 'saint', 'college', 'university', 'county', 'district', 'the', 'of', 'at')
@@ -110,15 +139,9 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         return Institution.get_unique_name(self.name)
 
     @property
-    def introductory_sentence(self):
-        from django.template import Context
-        from django.template.loader import get_template
-        t = get_template('tx_highered/sentences/introductory.txt')
-        c = Context({'institution': self})
-        return t.render(c).strip()
-
-    def get_number_of_full_time_students(self):
+    def number_of_full_time_students(self):
         return self.enrollment_set.latest('year').fulltime
 
-    # TODO: Cache property
-    number_of_full_time_students = property(get_number_of_full_time_students)
+    @property
+    def latest_tuition(self):
+        return self.pricetrends_set.latest('year')

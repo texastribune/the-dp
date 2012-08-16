@@ -1,0 +1,2 @@
+{% load humanize %}
+The {{ obj.name }}, located in {{ obj.city }}, Texas, has {{ obj.number_of_full_time_students|intcomma }} full-time students enrolled.

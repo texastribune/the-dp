@@ -1,2 +1,0 @@
-{% load humanize %}
-The {{ institution.name }} in {{ institution.city }}, Texas has {{ institution.number_of_full_time_students|intcomma }} full-time students enrolled.

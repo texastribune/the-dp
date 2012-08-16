@@ -90,6 +90,14 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     books_and_supplies = models.IntegerField(null=True,
         verbose_name=u"Books & Supplies")
 
+    @property
+    def in_state(self):
+        return self.tuition_fees_in_state
+
+    @property
+    def out_of_state(self):
+        return self.tuition_fees_outof_state
+
     def __unicode__(self):
         return "Price Trends %s %s" % (self.display_year, self.institution)
 
