@@ -16,7 +16,11 @@ $rows.each(function(_, row){
   var $cells = $(row).children();
   var xVal = +$cells.eq(0).text();
   $cells.slice(1).each(function(idx, cell){
-    data[idx].push({x: xVal, y: $(cell).data('value')});
+    data[idx].push({
+      x: xVal,
+      y: $(cell).data('value'),
+      title: "" + $headings[idx + 1] + " " + xVal + " <strong>" + $.trim($(cell).text()) + "</strong>"
+    });
   });
 });
 
@@ -91,3 +95,6 @@ bars.append("rect")
     .attr("y", y_stack)
     .attr("height", function(d) { return y0_stack(d) - y_stack(d); });
 
+$canvas.find('g.bar > rect').tooltip({title: function(){
+  return this.__data__.title;
+}});

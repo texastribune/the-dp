@@ -73,6 +73,7 @@
 
 
 {% block extra_script %}{{ block.super }}
+<script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/barchart-stacked.js"></script>
 <script>
   $('table').tablebars();
