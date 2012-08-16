@@ -1,6 +1,8 @@
 from django.utils import unittest
 
 
+from .models import *
+
 class ImportReport(unittest.TestCase):
     def test_name_extractor_regexp(self):
         import re
@@ -15,7 +17,6 @@ class ImportReport(unittest.TestCase):
         )
 
         for info_string, (rn, yr) in info_strings:
-            print info_string, NAME_EXTRACTOR
             report_name, year_range = re.match(NAME_EXTRACTOR, info_string).groups()
             self.assertEqual(report_name, rn)
             self.assertEqual(year_range, yr)

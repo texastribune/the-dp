@@ -98,6 +98,22 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     def out_of_state(self):
         return self.tuition_fees_outof_state
 
+    @property
+    def in_state_has_risen(self):
+        old = self.a_decade_ago
+        return old.in_state < self.in_state
+
+    @property
+    def a_decade_ago(self):
+        if not hasattr(self, '_a_decade_ago'):
+            try:
+                self._a_decade_ago = (self.institution.pricetrends_set
+                        .filter(year__lte=self.year - 10)
+                        .latest('year'))
+            except PriceTrends.DoesNotExist:
+                self._a_decade_ago = None
+        return self._a_decade_ago
+
     def __unicode__(self):
         return "Price Trends %s %s" % (self.display_year, self.institution)
 

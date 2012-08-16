@@ -147,6 +147,9 @@ INSTALLED_APPS = [
     'armstrong.core.arm_wells',
     'instachart',
 
+    # Here for loading the test data
+    'tx_highered_test',
+
 
     # pinax theme bootstrap
     'pinax_theme_bootstrap',
