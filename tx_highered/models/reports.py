@@ -104,6 +104,11 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
         return old.in_state < self.in_state
 
     @property
+    def out_of_state_has_risen(self):
+        old = self.a_decade_ago
+        return old.out_of_state < self.out_of_state
+
+    @property
     def a_decade_ago(self):
         if not hasattr(self, '_a_decade_ago'):
             try:
