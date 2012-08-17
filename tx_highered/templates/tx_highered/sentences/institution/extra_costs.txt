@@ -1,0 +1,2 @@
+{% load humanize %}
+In addition to tuition, students pay an average of ${{ obj.latest_tuition.books_and_supplies|intcomma }} for books and supplies and ${{ obj.latest_tuition.room_and_board_on_campus|intcomma }} for on-campuse room and board annually.
