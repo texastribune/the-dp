@@ -62,10 +62,16 @@ var stackedBarChart = function(el, data){
                   .domain([min_x, max_x + 1])
                   .range([0, width]);
       x = function(d) { return x_scale(d.x); },
+      y_scale_stack = d3.scale.linear()
+                        .domain([0, max_totaly])
+                        .range([0, height]);
+      y_scale_stack2 = d3.scale.linear()
+                        .domain([0, max_totaly])
+                        .range([height, 0]);
       // map bottom y value
-      y0_stack = function(d) { return height * (1 - d.y0 / max_totaly); },
+      // y0_stack = function(d) { return height * (1 - d.y0 / max_totaly); },
       // map top y value
-      y_stack = function(d) { return height * (1 - (d.y + d.y0) / max_totaly); },
+      y_stack = function(d) { return y_scale_stack(d.y + d.y0); },
       // map y value
       // y = function(d) { return height * d.y / max_totaly; };
       bar_width = width / len_x * 0.9;
@@ -91,8 +97,9 @@ var stackedBarChart = function(el, data){
     .attr("height", 0)
     .transition()
       .delay(function(d, i) { return i * 10; })
-      .attr("y", y_stack)
-      .attr("height", function(d) { return y0_stack(d) - y_stack(d); });
+      // .attr("y", function(d) { return y_scale_stack(d.y0); })  // inverse
+      .attr("y", function(d) { return y_scale_stack2(d.y + d.y0); })
+      .attr("height", function(d) { return y_scale_stack(d.y); });
 
   $canvas.find('g.bar > rect').tooltip({title: function(){
     return this.__data__.title;
