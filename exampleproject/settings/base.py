@@ -125,6 +125,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = [
+    'django_nose',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -165,6 +166,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "pinax_theme_bootstrap.context_processors.theme_context")
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
