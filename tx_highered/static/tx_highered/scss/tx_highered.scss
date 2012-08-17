@@ -16,6 +16,10 @@ td small {
   color: #999;
 }
 
+td.align-right {
+  text-align: right;
+  .ui-tablebar { right: 0 ; }
+}
 
 // UI
 .ui-tablebar { color: #333; background: $tan; }

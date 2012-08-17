@@ -25,6 +25,13 @@ jQuery.fn.tablebars = function(){
           rawdata = [],
           max = 0,
           width = set.eq(0).width();
+
+      // wrap cells in set with a container div
+      if (set.children('div.ui-tablebar-outer').length === 0) {
+        set.wrapInner('<div class="ui-tablebar-outer" style="position: relative;"/>');
+      }
+      set = set.children();
+
       set.each(function(i, cell){
         var rawvalue = rawdata[i] = $(cell).html();
         var value = data[i] = Math.max(0, parseFloat(rawvalue.replace(/[^0-9.\-]+/g, '')));
@@ -43,7 +50,7 @@ jQuery.fn.tablebars = function(){
             $bar = $cell.find('span.ui-tablebar');
         if (!$bar.length) {
           $bar = $('<span class="ui-tablebar" style="overflow:hidden; position:absolute; width:0;"></span>');
-          $cell.css('position', 'relative').prepend($bar);
+          $cell.prepend($bar);
         }
         $bar.width(width * data[i] / max).html(rawdata[i]);
       });

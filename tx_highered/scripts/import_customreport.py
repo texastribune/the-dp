@@ -21,7 +21,10 @@ def prices(path):
     FIELD_MAPPING = (
         ('chg2ay3', 'tuition_fees_in_state'),
         ('chg3ay3', 'tuition_fees_outof_state'),
-        ('chg4ay3', 'books_and_supplies'))
+        ('chg4ay3', 'books_and_supplies'),
+        ('chg5ay3', 'room_and_board_on_campus'),
+        ('chg7ay3', 'room_and_board_off_campus'),
+        ('chg9ay3', 'room_and_board_off_campus_w_family'))
     PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
     YEAR_TYPE = 'fall'
     reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,

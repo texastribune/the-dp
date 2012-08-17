@@ -6,6 +6,9 @@ h3:hover > .page-anchor { visibility: visible; }
 
 td small { color: #999; }
 
+td.align-right { text-align: right; }
+td.align-right .ui-tablebar { right: 0; }
+
 .ui-tablebar { color: #333; background: #dacd99; }
 
 .onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }

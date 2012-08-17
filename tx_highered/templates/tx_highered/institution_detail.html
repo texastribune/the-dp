@@ -8,7 +8,7 @@
 
 
 {% block main %}
-  {% if object.wikipedia_abstract %}
+  {% if 0 and object.wikipedia_abstract %}
     <div class="wikipedia-abstract">
       <div class="row">
         <div class="span8">
@@ -29,14 +29,15 @@
   {% lorem 3 p %}
 
   <section id="pricetrends">
-    <header>
-      <h3>Price Trends</h3>
-    </header>
-    {% instachart object.pricetrends_set.all %}
+    <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
+    <p>{% lorem 20 w %}</p>
+    {% instachart object.pricetrends_set.all "pricetrends" %}
   </section>
 
-  <h3>Test Scores</h3>
-  {% instachart object.testscores_set.all "testscores" %}
+  <section id="testing">
+    <h3>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h3>
+    {% instachart object.testscores_set.all "testscores" %}
+  </section>
 
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>

@@ -1,0 +1,31 @@
+{% load humanize %}
+<table class="table table-bordered table-striped table-condensed">
+  <thead>
+    <tr>
+      <th class="">Year</th>
+      <th class="" data-tablebars=1>In-State Tuition &amp; Fees</th>
+      <th class="" data-tablebars=1>Out-Of-State Tuition &amp; Fees</th>
+      <th class="" data-tablebars=1>Books &amp; Supplies</th>
+      <th class="span2" data-tablebars=1>Room &amp; Board</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for object in object_list %}
+      <tr>
+        <td>{{ object.year }}</td>
+        <td class="align-right" data-value="{{ object.tuition_fees_in_state }}">
+          ${{ object.tuition_fees_in_state|intcomma }}
+        </td>
+        <td data-value="{{ object.tuition_fees_outof_state }}">
+          ${{ object.tuition_fees_outof_state|intcomma }}
+        </td>
+        <td data-value="{{ object.books_and_supplies }}">
+          ${{ object.books_and_supplies|intcomma }}
+        </td>
+        <td data-value="{{ object.room_and_board_on_campus }}">
+          ${{ object.room_and_board_on_campus|intcomma }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
