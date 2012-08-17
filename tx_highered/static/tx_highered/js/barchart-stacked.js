@@ -23,7 +23,7 @@ function buildTableData($table){
 }
 
 var stackedBarChart = function(el, data){
-  var color = d3.interpolateRgb("#aad", "#556");
+  var color = d3.scale.category10();
   var width = 940;
   var height = 300;
   var margin = [10, 50, 10, 50];
