@@ -45,11 +45,8 @@ var stackedBarChart = function(el, data){
   // continue d3 configuration
   var len_series = data.length;
   var len_x = data[0].length,
-      min_x = d3.min(data, function(d) {
-        return d3.min(d, function(d) {
-          return d.x;
-        });
-      }),
+      min_x = data[0][0].x,
+      max_x = data[0][len_x - 1].x,
       max_totaly = d3.max(data, function(d) {
         return d3.max(d, function(d) {
           return d.y0 + d.y;
@@ -61,16 +58,16 @@ var stackedBarChart = function(el, data){
       //   });
       // }),
       // map x value
-      x = function(d) { return (d.x - min_x) * width / len_x; },
+      x_scale = d3.scale.linear()
+                  .domain([min_x, max_x + 1])
+                  .range([0, width]);
+      x = function(d) { return x_scale(d.x); },
       // map bottom y value
       y0_stack = function(d) { return height * (1 - d.y0 / max_totaly); },
       // map top y value
       y_stack = function(d) { return height * (1 - (d.y + d.y0) / max_totaly); },
       // map y value
       // y = function(d) { return height * d.y / max_totaly; };
-      get_transform = function(d) {
-        return "translate(" + x(d) + ", 0)";
-      },
       bar_width = width / len_x * 0.9;
 
   // set up a layer for each series
@@ -84,13 +81,12 @@ var stackedBarChart = function(el, data){
   var bars = layers.selectAll("g.bar")
     .data(function(d) { return d; })
     .enter().append("g")
-      .attr("class", "bar")
-      .attr("transform", get_transform);  // position the bar horizontally
+      .attr("class", "bar");
 
   // set the bar width and height
   bars.append("rect")
     .attr("width", bar_width)
-    .attr("x", 0)
+    .attr("x", x)
     .attr("y", height)
     .attr("height", 0)
     .transition()
@@ -103,7 +99,6 @@ var stackedBarChart = function(el, data){
   }});
 
   return {
-
   };
 };
 
