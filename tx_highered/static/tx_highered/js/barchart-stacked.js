@@ -27,8 +27,10 @@ var stackedBarChart = function(el, data){
   var width = 940;
   var height = 300;
   var margin = [10, 50, 10, 50];
-  var x_axis_height = 30;
-  var left_width = 30;
+  var enable_axis_x = true;
+  var enable_axis_y = true;
+  var x_axis_height = enable_axis_x ? 30 : 0;
+  var left_width = enable_axis_y ? 30 : 0;
 
   // transform data, pre-calculate y0 bar stack offset
   data = d3.layout.stack()(data);
@@ -120,23 +122,26 @@ var stackedBarChart = function(el, data){
     return this.__data__.title;
   }});
 
-  // FIXME formatter is wrong, assumes this is a number instead of a year
-  x_axis = d3.svg.axis()
-           .scale(x_scale)
-           .tickSize(6, 1, 1)
-           .tickFormat(function(a){ return a; });
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(" + (margin[3] + left_width) + "," + (height - margin[2] - x_axis_height) + ")")
-      .call(x_axis);
+  if (enable_axis_x) {
+    x_axis = d3.svg.axis()
+             .scale(x_scale)
+             .tickSize(6, 1, 1)
+             .tickFormat(function(a){ return a; });
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(" + (margin[3] + left_width) + "," + (height - margin[2] - x_axis_height) + ")")
+        .call(x_axis);
+  }
 
-  y_axis = d3.svg.axis()
-           .scale(y_scale_stack)
-           .orient("left");
-  svg.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + margin[3] + "," + (margin[0]) + ")")
-      .call(y_axis);
+  if (enable_axis_y) {
+    y_axis = d3.svg.axis()
+             .scale(y_scale_stack)
+             .orient("left");
+    svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + margin[3] + "," + (margin[0]) + ")")
+        .call(y_axis);
+  }
 
   function set_data(new_data){
     // process add stack offsets
