@@ -96,37 +96,79 @@ var stackedBarChart = function(el, data){
       .style("fill", function(d, i) { return color(i / (len_series - 1)); });
 
   // setup a bar for each point in a series
-  var bars = layers.selectAll("g.bar")
+  var bars = layers.selectAll("rect.bar")
     .data(function(d) { return d; })
-    .enter().append("g")
-      .attr("class", "bar");
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("width", bar_width)
+      .attr("x", x)
+      .attr("y", h)
+      .attr("height", 0)
+      .transition()
+        .delay(function(d, i) { return i * 10; })
+        // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
+        .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
+        .attr("height", function(d) { return height_scale_stack(d.y); });
 
-  // set the bar width and height
-  bars.append("rect")
-    .attr("width", bar_width)
-    .attr("x", x)
-    .attr("y", h)
-    .attr("height", 0)
-    .transition()
-      .delay(function(d, i) { return i * 10; })
-      // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
-      .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
-      .attr("height", function(d) { return height_scale_stack(d.y); });
-
-  $canvas.find('g.bar > rect').tooltip({title: function(){
+  $canvas.find('rect.bar').tooltip({title: function(){
     return this.__data__.title;
   }});
 
+  // FIXME formatter is wrong, assumes this is a number instead of a year
   x_axis = d3.svg.axis().scale(x_scale).tickSize(6, 1, 1);
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(" + (margin[3]) + "," + (height - margin[2] - x_axis_height) + ")")
       .call(x_axis);
 
+  // sets global height and scales
+  function rescale(new_height){
+    max_totaly = new_height;
+    height_scale_stack = d3.scale.linear()
+                      .domain([0, max_totaly])
+                      .range([0, h]);
+    y_scale_stack = d3.scale.linear()
+                      .domain([0, max_totaly])
+                      .range([h, 0]);
+  }
+
+  function set_data(new_data){
+    // process add stack offsets
+    data = d3.layout.stack()(new_data);
+
+    // reset height ceiling
+    ceiling = d3.max(data, function(d) {
+      return d3.max(d, function(d) {
+        return d.y0 + d.y;
+      });
+    });
+    // if (ceiling > max_totaly) {
+    //   rescale(ceiling);
+    // }
+    rescale(ceiling);
+
+    // update layers data
+    layers.data(data);
+    // update bars data :(
+    layers.selectAll("rect.bar")
+      .data(function(d) { return d; })
+      .transition()
+        .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
+        .attr("height", function(d) { return height_scale_stack(d.y); });
+    return layers;
+  }
+
   return {
+    setData: set_data
   };
 };
 
 var $source = $('#pricetrends table');
 var data = buildTableData($source);
-var chart = stackedBarChart($source[0], data);
+var chart = stackedBarChart($source[0], [data[0], data[2], data[3]]);
+$source.find('th:eq(1)').click(function(){
+  chart.setData([data[0], data[2], data[3]]);
+});
+$source.find('th:eq(2)').click(function(){
+  chart.setData([data[1], data[2], data[3]]);
+});
