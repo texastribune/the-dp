@@ -24,8 +24,9 @@ function buildTableData($table){
 
 var stackedBarChart = function(el, data){
   var color = d3.interpolateRgb("#aad", "#556");
-  console.log(el, color);
   var height = 300;
+  var margin = [10, 50, 10, 50];
+  var x_axis_height = 30;
 
   // transform data, pre-calculate y0 bar stack offset
   data = d3.layout.stack()(data);
@@ -37,10 +38,19 @@ var stackedBarChart = function(el, data){
   var width = $canvas.width();
 
   // setup d3
-  var vis = d3.select($canvas[0])
-            .append("svg")
+  var svg = d3.select($canvas[0])
+            .append("svg:svg")
             .attr("width", width)
             .attr("height", height);
+
+  w = width - margin[1] - margin[3];
+  h = height - margin[0] - margin[2] - x_axis_height;
+  var vis = svg
+            .append("g")
+            .attr("class", "vis")
+            .attr("width", w)
+            .attr("height", h)
+            .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
 
   // continue d3 configuration
   var len_series = data.length;
@@ -59,15 +69,15 @@ var stackedBarChart = function(el, data){
       // }),
       // map x value
       x_scale = d3.scale.linear()
-                  .domain([min_x, max_x + 1])
-                  .range([0, width]);
+                  .domain([min_x, max_x])
+                  .range([0, w]);
       x = function(d) { return x_scale(d.x); },
       height_scale_stack = d3.scale.linear()
                         .domain([0, max_totaly])
-                        .range([0, height]);
+                        .range([0, h]);
       y_scale_stack = d3.scale.linear()
                         .domain([0, max_totaly])
-                        .range([height, 0]);
+                        .range([h, 0]);
       // map bottom y value
       // y0_stack = function(d) { return height * (1 - d.y0 / max_totaly); },
       // map top y value
@@ -75,6 +85,8 @@ var stackedBarChart = function(el, data){
       // map y value
       // y = function(d) { return height * d.y / max_totaly; };
       bar_width = width / len_x * 0.9;
+
+  vis.attr("transform", "translate(" + (margin[3] - bar_width / 2) + "," + margin[0] + ")");
 
   // set up a layer for each series
   var layers = vis.selectAll("g.layer")
@@ -93,7 +105,7 @@ var stackedBarChart = function(el, data){
   bars.append("rect")
     .attr("width", bar_width)
     .attr("x", x)
-    .attr("y", height)
+    .attr("y", h)
     .attr("height", 0)
     .transition()
       .delay(function(d, i) { return i * 10; })
@@ -106,9 +118,9 @@ var stackedBarChart = function(el, data){
   }});
 
   x_axis = d3.svg.axis().scale(x_scale).tickSize(6, 1, 1);
-  vis.append("svg:g")
+  svg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + (height - 40) + ")")
+      .attr("transform", "translate(" + (margin[3]) + "," + (height - margin[2] - x_axis_height) + ")")
       .call(x_axis);
 
   return {
