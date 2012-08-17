@@ -142,3 +142,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     @property
     def latest_tuition(self):
         return self.pricetrends_set.latest('year')
+
+    @property
+    def latest_enrollment(self):
+        return self.enrollment_set.latest('year')

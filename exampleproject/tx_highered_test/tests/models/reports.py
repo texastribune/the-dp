@@ -57,3 +57,7 @@ class PriceTrendsTestCase(TestCase):
 
         old.tuition_fees_outof_state = self.price_trends.out_of_state * 1.1
         self.assertEqual(10, self.price_trends.out_of_state_change)
+
+    def test_latest_enrollment(self):
+        enrollment = self.ut.latest_enrollment
+        self.assertEqual(enrollment, self.ut.enrollment_set.latest('year'))
