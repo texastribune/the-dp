@@ -24,6 +24,7 @@ function buildTableData($table){
 
 var stackedBarChart = function(el, data){
   var color = d3.interpolateRgb("#aad", "#556");
+  var width = 940;
   var height = 300;
   var margin = [10, 50, 10, 50];
   var x_axis_height = 30;
@@ -34,14 +35,14 @@ var stackedBarChart = function(el, data){
   // insert DOM
   var $canvas = $('<div class="chart" />').insertAfter(el);
 
-  // derived configuration
-  var width = $canvas.width();
 
   // setup d3
   var svg = d3.select($canvas[0])
             .append("svg:svg")
-            .attr("width", width)
-            .attr("height", height);
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", [0, 0, width, height].join(" "))
+            .attr("preserveAspectRatio", "xMinYMin meet");
 
   w = width - margin[1] - margin[3];
   h = height - margin[0] - margin[2] - x_axis_height;
@@ -115,7 +116,7 @@ var stackedBarChart = function(el, data){
         .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
         .attr("height", function(d) { return height_scale_stack(d.y); });
 
-  $canvas.find('rect.bar').tooltip({title: function(){
+  $('rect.bar', svg.$elem).tooltip({title: function(){
     return this.__data__.title;
   }});
 
