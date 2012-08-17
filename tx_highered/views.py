@@ -16,7 +16,7 @@ class RenderModelDetailView(DetailView):
 
 class FunnelMixin(object):
     def annotate_funnels(self, inst):
-        enterdata = inst.admissions_set.all()
+        enterdata = inst.admissions.all()
 
         # please excuse the horribleness of this
         funnels = []
@@ -67,7 +67,7 @@ class TestScoresReport(InstitutionListView):
         qs = super(TestScoresReport, self).get_queryset()
         qs = qs.exclude(testscores__isnull=True).order_by('name')
         for x in qs:
-            x.scores = x.testscores_set.latest('year')
+            x.scores = x.testscores.latest('year')
         return qs
 
 
@@ -87,7 +87,7 @@ class Top10RuleReport(InstitutionListView, FunnelMixin):
     year_range = range(2000, 2012)
 
     def build_table(self, obj):
-        raw_data = obj.admissions_set.filter(percent_top10rule__isnull=False).\
+        raw_data = obj.admissions.filter(percent_top10rule__isnull=False).\
             values('year', 'percent_top10rule')
         data = dict([(x['year'], x['percent_top10rule']) for x in raw_data])
         return data
@@ -95,7 +95,7 @@ class Top10RuleReport(InstitutionListView, FunnelMixin):
     def get_queryset(self):
         qs = super(Top10RuleReport, self).get_queryset()
         qs = qs.filter(institution_type='uni', is_private=False)
-        # TODO prefetch admissions_set
+        # TODO prefetch admissions
         for x in qs:
             x.data = self.build_table(x)
         return qs

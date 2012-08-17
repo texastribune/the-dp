@@ -137,16 +137,16 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def number_of_full_time_students(self):
-        return self.enrollment_set.latest('year').fulltime
+        return self.enrollment.latest('year').fulltime
 
     @property
     def latest_tuition(self):
-        return self.pricetrends_set.latest('year')
+        return self.pricetrends.latest('year')
 
     @property
     def latest_enrollment(self):
-        return self.enrollment_set.latest('year')
+        return self.enrollment.latest('year')
 
     @property
     def latest_admissions(self):
-        return self.admissions_set.latest('year')
+        return self.admissions.latest()

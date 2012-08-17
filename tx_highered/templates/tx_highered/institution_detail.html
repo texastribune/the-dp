@@ -31,17 +31,17 @@
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
     <p>{% lorem 20 w %}</p>
-    {% instachart object.pricetrends_set.all "pricetrends" %}
+    {% instachart object.pricetrends.all "pricetrends" %}
   </section>
 
   <section id="testing">
     <h3>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h3>
-    {% instachart object.testscores_set.all "testscores" %}
+    {% instachart object.testscores.all "testscores" %}
   </section>
 
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
-    {% instachart object.admissions_set.all "admissions" %}
+    {% instachart object.admissions.all "admissions" %}
     <p>
       <strong>How many applicants end up going to {{ institution.name }}?</strong>
       With the data we have, we can see how selective the school was by seeing how many were admitted, and looking at the number enrolled we can see how selective the applicants were. We can also look at this information over time. How fast the bars below get thinner indicate how hard it is to get into a school. Hitting the <code>Fold</code> button shows how it looks averaged out over the all the years we have available.
@@ -50,10 +50,10 @@
   </section>
 
   <h3>Enrollment</h3>
-  {% instachart object.enrollment_set.all %}
+  {% instachart object.enrollment.all %}
 
   <h3>Graduation Rates</h3>
-  {% instachart object.graduationrates_set.all "graduationrates" %}
+  {% instachart object.graduationrates.all "graduationrates" %}
 {% endblock %}
 
 

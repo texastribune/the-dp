@@ -52,7 +52,7 @@ class YearBasedInstitutionStatModel(models.Model):
         ('aug', 'August 31st'))    # August
     year = models.IntegerField(default=1970, verbose_name=u'Year')
     year_type = models.CharField(max_length=10, choices=YEAR_TYPE_CHOICES, null=True)
-    institution = models.ForeignKey('Institution')
+    institution = models.ForeignKey('Institution', related_name='%(class)s')
 
     # eehhhh, this doesn't really belong here but whatever
     chart_excluded_fields = ('id', 'institution',)
@@ -116,7 +116,7 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     def a_decade_ago(self):
         if not hasattr(self, '_a_decade_ago'):
             try:
-                self._a_decade_ago = (self.institution.pricetrends_set
+                self._a_decade_ago = (self.institution.pricetrends
                         .filter(year__lte=self.year - 10)
                         .latest('year'))
             except PriceTrends.DoesNotExist:

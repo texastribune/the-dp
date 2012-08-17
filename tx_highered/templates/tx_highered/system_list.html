@@ -9,9 +9,9 @@
   {% for object in object_list %}
     <li>
       <a href="{{ object.get_absolute_url }}">{{ object }}</a>
-      {% if object.institution_set.exists %}
+      {% if object.institution.exists %}
         <ul>
-          {% for inst in object.institution_set.all %}
+          {% for inst in object.institution.all %}
             <li><a href="{{ inst.get_absolute_url }}">{{ inst.name }}</a></li>
           {% endfor %}
         </ul>
