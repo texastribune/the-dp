@@ -15,7 +15,7 @@
     {% for object in object_list %}
       {% if object.number_of_applicants %}
         <tr>
-          <td>{{ object.year }}</td>
+          <td data-value="{{ object.year }}">{{ object.year }}</td>
           <td data-value="{{ object.number_of_applicants }}">
             {{ object.number_of_applicants|intcomma }}
           </td>
