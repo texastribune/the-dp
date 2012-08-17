@@ -30,7 +30,7 @@ var stackedBarChart = function(el, data){
   var enable_axis_x = true;
   var enable_axis_y = true;
   var x_axis_height = enable_axis_x ? 30 : 0;
-  var left_width = enable_axis_y ? 30 : 0;
+  var left_width = enable_axis_y ? 40 : 0;
 
   // transform data, pre-calculate y0 bar stack offset
   data = d3.layout.stack()(data);
@@ -94,7 +94,7 @@ var stackedBarChart = function(el, data){
 
   rescale(max_totaly);
 
-  vis.attr("transform", "translate(" + (margin[3] + left_width - bar_width / 2) + "," + margin[0] + ")");
+  vis.attr("transform", "translate(" + (margin[3] + left_width) + "," + margin[0] + ")");
 
   // set up a layer for each series
   var layers = vis.selectAll("g.layer")
@@ -112,6 +112,7 @@ var stackedBarChart = function(el, data){
       .attr("x", x)
       .attr("y", h)
       .attr("height", 0)
+      .attr("transform", "translate(" + (-bar_width/2) + ",0)")
       .transition()
         .delay(function(d, i) { return i * 10; })
         // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
