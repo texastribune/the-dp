@@ -121,7 +121,10 @@ var stackedBarChart = function(el, data){
   }});
 
   // FIXME formatter is wrong, assumes this is a number instead of a year
-  x_axis = d3.svg.axis().scale(x_scale).tickSize(6, 1, 1);
+  x_axis = d3.svg.axis()
+           .scale(x_scale)
+           .tickSize(6, 1, 1)
+           .tickFormat(function(a){ return a; });
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(" + (margin[3]) + "," + (height - margin[2] - x_axis_height) + ")")
