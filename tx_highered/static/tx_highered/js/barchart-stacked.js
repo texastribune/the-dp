@@ -156,13 +156,3 @@ var stackedBarChart = function(el, data){
     setData: set_data
   };
 };
-
-var $source = $('#pricetrends table');
-var data = buildTableData($source);
-var chart = stackedBarChart($source[0], [data[0], data[2], data[3]]);
-$source.find('th:eq(1)').click(function(){
-  chart.setData([data[0], data[2], data[3]]);
-});
-$source.find('th:eq(2)').click(function(){
-  chart.setData([data[1], data[2], data[3]]);
-});
