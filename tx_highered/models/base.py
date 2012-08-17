@@ -26,9 +26,6 @@ class SummarySentences(object):
             return None
 
 
-__all__ = ['System', 'Institution']
-
-
 APP_LABEL = 'tx_highered'
 
 
