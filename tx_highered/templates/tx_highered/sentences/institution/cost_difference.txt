@@ -1,0 +1,1 @@
+These costs have {% if obj.latest_tuition.in_state_has_risen %}risen{% else %}fallen{% endif %} {{ obj.latest_tuition.in_state_change }}% for in-state studens and {% if obj.latest_tuition.out_of_state_has_risen %}risen{% else %}fallen{% endif %} {{ obj.latest_tuition.out_of_state_change }}% for out-of-state students since {{ obj.a_decade_ago.year }}.
