@@ -46,3 +46,14 @@ class PriceTrendsTestCase(TestCase):
 
         old.tuition_fees_in_state = self.price_trends.in_state * 1.1
         self.assertEqual(10.0, self.price_trends.in_state_change)
+
+    def test_out_of_state_change(self):
+        old = self.price_trends.a_decade_ago
+        old.tuition_fees_outof_state = self.price_trends.out_of_state * 0.5
+        self.assertEqual(100.0, self.price_trends.out_of_state_change)
+
+        old.tuition_fees_outof_state = self.price_trends.out_of_state * 0.25
+        self.assertEqual(300.0, self.price_trends.out_of_state_change)
+
+        old.tuition_fees_outof_state = self.price_trends.out_of_state * 1.1
+        self.assertEqual(10.0, self.price_trends.out_of_state_change)

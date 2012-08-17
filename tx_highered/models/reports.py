@@ -129,6 +129,12 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
         change = (self.in_state - old.in_state) / old.in_state
         return math.ceil(abs(change * 100))
 
+    @property
+    def out_of_state_change(self):
+        old = self.a_decade_ago
+        change = (self.out_of_state - old.out_of_state) / old.out_of_state
+        return math.ceil(abs(change * 100))
+
     def __unicode__(self):
         return "Price Trends %s %s" % (self.display_year, self.institution)
 
