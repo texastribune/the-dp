@@ -105,6 +105,12 @@ var stackedBarChart = function(el, data){
     return this.__data__.title;
   }});
 
+  x_axis = d3.svg.axis().scale(x_scale).tickSize(6, 1, 1);
+  vis.append("svg:g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + (height - 40) + ")")
+      .call(x_axis);
+
   return {
   };
 };

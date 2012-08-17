@@ -6,6 +6,8 @@
 
 @import "variables";
 
+@import "svg";
+
 
 // use visiblity because display:none affects box size calculations
 h3 > .page-anchor { visibility: hidden; }
