@@ -22,6 +22,5 @@ class InstitutionTestCase(TestCase):
         enrollment = self.obj.latest_enrollment
         self.assertEqual(enrollment, self.obj.enrollment.latest('year'))
 
-    def test_latest_admissions(self):
-        admissions = self.obj.latest_admissions
-        self.assertEqual(admissions, self.obj.admissions_set.latest('year'))
+    def test_admissions_latest(self):
+        self.obj.admissions.latest

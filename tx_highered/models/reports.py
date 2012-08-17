@@ -221,6 +221,14 @@ class TestScores(YearBasedInstitutionStatModel):
         return self.sat_verbal_75th_percentile - self.sat_verbal_25th_percentile
 
 
+class AdmissionsManager(models.Manager):
+    def latest(self):
+        return super(AdmissionsManager, self).latest('year')
+
+    def oldest(self):
+        return self.order_by('year')[0]
+
+
 class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     number_of_applicants = models.IntegerField(null=True, blank=True)
     number_admitted = models.IntegerField(null=True, blank=True)
@@ -229,6 +237,8 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
     percent_top10rule = models.DecimalField(max_digits=4, decimal_places=1,
         null=True, verbose_name="First-Time Students in Top 10%")
+
+    objects = AdmissionsManager()
 
     def __unicode__(self):
         return "Admissions Data %s %s" % (self.display_year, self.institution)
