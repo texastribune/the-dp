@@ -1,5 +1,6 @@
 from __future__ import division
 from collections import namedtuple
+import math
 
 from django.db import models
 
@@ -121,6 +122,12 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
             except PriceTrends.DoesNotExist:
                 self._a_decade_ago = None
         return self._a_decade_ago
+
+    @property
+    def in_state_change(self):
+        old = self.a_decade_ago
+        change = (self.in_state - old.in_state) / old.in_state
+        return math.ceil(abs(change * 100))
 
     def __unicode__(self):
         return "Price Trends %s %s" % (self.display_year, self.institution)
