@@ -49,6 +49,8 @@
       With the data we have, we can see how selective the school was by seeing how many were admitted, and looking at the number enrolled we can see how selective the applicants were. We can also look at this information over time. How fast the bars below get thinner indicate how hard it is to get into a school. Hitting the <code>Fold</code> button shows how it looks averaged out over the all the years we have available.
     </p>
     {% render_model object "funnels" %}
+
+    <div class="d3-viz"></div>
   </section>
 
   <h3>Enrollment</h3>
@@ -76,7 +78,9 @@
 
 {% block extra_script %}{{ block.super }}
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/barchart-stacked.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script>
   var $source = $('#pricetrends table');
   var data = buildTableData($source);
