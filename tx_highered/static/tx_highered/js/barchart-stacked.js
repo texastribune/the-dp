@@ -57,6 +57,7 @@ var stackedBarChart = function(el, data){
   var len_x = data[0].length,
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x,
+      bar_width = w / len_x * 0.9,
       max_totaly = d3.max(data, function(d) {
         return d3.max(d, function(d) {
           return d.y0 + d.y;
@@ -70,21 +71,25 @@ var stackedBarChart = function(el, data){
       // map x value
       x_scale = d3.scale.linear()
                   .domain([min_x, max_x])
-                  .range([0, w]);
+                  .range([0, w]),
       x = function(d) { return x_scale(d.x); },
-      height_scale_stack = d3.scale.linear()
-                        .domain([0, max_totaly])
-                        .range([0, h]);
-      y_scale_stack = d3.scale.linear()
-                        .domain([0, max_totaly])
-                        .range([h, 0]);
-      // map bottom y value
-      // y0_stack = function(d) { return height * (1 - d.y0 / max_totaly); },
-      // map top y value
-      y_stack = function(d) { return y_scale_stack(d.y + d.y0); },
-      // map y value
-      // y = function(d) { return height * d.y / max_totaly; };
-      bar_width = width / len_x * 0.9;
+      height_scale_stack,  // scaler for mapping height
+      y_scale_stack,  // scaler for mapping y position
+      y_stack;  // scaler for mapping y position considering stacked offset
+
+  // sets global height and scales
+  function rescale(new_height){
+    max_totaly = new_height;
+    height_scale_stack = d3.scale.linear()
+                      .domain([0, max_totaly])
+                      .range([0, h]);
+    y_scale_stack = d3.scale.linear()
+                      .domain([0, max_totaly])
+                      .range([h, 0]);
+    y_stack = function(d) { return y_scale_stack(d.y + d.y0); };
+  }
+
+  rescale(max_totaly);
 
   vis.attr("transform", "translate(" + (margin[3] - bar_width / 2) + "," + margin[0] + ")");
 
@@ -120,17 +125,6 @@ var stackedBarChart = function(el, data){
       .attr("class", "x axis")
       .attr("transform", "translate(" + (margin[3]) + "," + (height - margin[2] - x_axis_height) + ")")
       .call(x_axis);
-
-  // sets global height and scales
-  function rescale(new_height){
-    max_totaly = new_height;
-    height_scale_stack = d3.scale.linear()
-                      .domain([0, max_totaly])
-                      .range([0, h]);
-    y_scale_stack = d3.scale.linear()
-                      .domain([0, max_totaly])
-                      .range([h, 0]);
-  }
 
   function set_data(new_data){
     // process add stack offsets
