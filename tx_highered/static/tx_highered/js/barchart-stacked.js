@@ -28,6 +28,7 @@ var stackedBarChart = function(el, data){
   var height = 300;
   var margin = [10, 50, 10, 50];
   var x_axis_height = 30;
+  var left_width = 30;
 
   // transform data, pre-calculate y0 bar stack offset
   data = d3.layout.stack()(data);
@@ -44,14 +45,13 @@ var stackedBarChart = function(el, data){
             .attr("viewBox", [0, 0, width, height].join(" "))
             .attr("preserveAspectRatio", "xMinYMin meet");
 
-  w = width - margin[1] - margin[3];
+  w = width - margin[1] - margin[3] - left_width;
   h = height - margin[0] - margin[2] - x_axis_height;
   var vis = svg
             .append("g")
             .attr("class", "vis")
             .attr("width", w)
-            .attr("height", h)
-            .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
+            .attr("height", h);
 
   // continue d3 configuration
   var len_series = data.length;
@@ -92,7 +92,7 @@ var stackedBarChart = function(el, data){
 
   rescale(max_totaly);
 
-  vis.attr("transform", "translate(" + (margin[3] - bar_width / 2) + "," + margin[0] + ")");
+  vis.attr("transform", "translate(" + (margin[3] + left_width - bar_width / 2) + "," + margin[0] + ")");
 
   // set up a layer for each series
   var layers = vis.selectAll("g.layer")
@@ -127,8 +127,16 @@ var stackedBarChart = function(el, data){
            .tickFormat(function(a){ return a; });
   svg.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(" + (margin[3]) + "," + (height - margin[2] - x_axis_height) + ")")
+      .attr("transform", "translate(" + (margin[3] + left_width) + "," + (height - margin[2] - x_axis_height) + ")")
       .call(x_axis);
+
+  y_axis = d3.svg.axis()
+           .scale(y_scale_stack)
+           .orient("left");
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + margin[3] + "," + (margin[0]) + ")")
+      .call(y_axis);
 
   function set_data(new_data){
     // process add stack offsets
