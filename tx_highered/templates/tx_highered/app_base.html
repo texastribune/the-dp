@@ -24,4 +24,9 @@
 {% block extra_script %}{{ block.super }}
   <script src="{% static 'js/jquery.tablebars.js' %}"></script>
   <script src="{% static 'js/jquery.onionskin.js' %}"></script>
+  {% if DEBUG %}
+    <script src="{% static 'js/d3.v2.js' %}"></script>
+  {% else %}
+    <script src="{% static 'js/d3.v2.min.js' %}"></script>
+  {% endif %}
 {% endblock %}

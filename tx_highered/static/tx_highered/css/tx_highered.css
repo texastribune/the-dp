@@ -1,5 +1,9 @@
 /* Texas Higher Ed App CSS assumes bootstrap
 */
+svg .axis { shape-rendering: crispEdges; }
+svg .x.axis line { stroke: #333; }
+svg .y.axis line, svg .y.axis path { fill: none; stroke: #000; }
+
 h3 > .page-anchor { visibility: hidden; }
 
 h3:hover > .page-anchor { visibility: visible; }

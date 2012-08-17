@@ -73,7 +73,19 @@
 
 
 {% block extra_script %}{{ block.super }}
+<script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/barchart-stacked.js"></script>
 <script>
+  var $source = $('#pricetrends table');
+  var data = buildTableData($source);
+  var chart = stackedBarChart($source[0], [data[0], data[2], data[3]]);
+  $source.find('th:eq(1)').click(function(){
+    chart.setData([data[0], data[2], data[3]]);
+  });
+  $source.find('th:eq(2)').click(function(){
+    chart.setData([data[1], data[2], data[3]]);
+  });
+
   $('table').tablebars();
   $(".onion").onionize();
 </script>
