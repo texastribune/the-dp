@@ -146,3 +146,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     @property
     def latest_enrollment(self):
         return self.enrollment_set.latest('year')
+
+    @property
+    def latest_admissions(self):
+        return self.admissions_set.latest('year')

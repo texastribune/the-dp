@@ -61,3 +61,7 @@ class PriceTrendsTestCase(TestCase):
     def test_latest_enrollment(self):
         enrollment = self.ut.latest_enrollment
         self.assertEqual(enrollment, self.ut.enrollment_set.latest('year'))
+
+    def test_latest_admissions(self):
+        admissions = self.ut.latest_admissions
+        self.assertEqual(admissions, self.ut.admissions_set.latest('year'))
