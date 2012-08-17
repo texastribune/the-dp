@@ -41,7 +41,9 @@
 
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
-    {% instachart object.admissions.all "admissions" %}
+    {% with object_list=object.admissions_set.all %}
+      {% include "instachart/admissions/admissions.html" %}
+    {% endwith %}
     <p>
       <strong>How many applicants end up going to {{ institution.name }}?</strong>
       With the data we have, we can see how selective the school was by seeing how many were admitted, and looking at the number enrolled we can see how selective the applicants were. We can also look at this information over time. How fast the bars below get thinner indicate how hard it is to get into a school. Hitting the <code>Fold</code> button shows how it looks averaged out over the all the years we have available.
