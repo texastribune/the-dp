@@ -17,3 +17,11 @@ class InstitutionTestCase(TestCase):
     def test_sentences_property_returns_SummarySentences_object(self):
         self.assertTrue(isinstance(self.obj.sentences,
                 models.SummarySentences))
+
+    def test_latest_enrollment(self):
+        enrollment = self.obj.latest_enrollment
+        self.assertEqual(enrollment, self.obj.enrollment_set.latest('year'))
+
+    def test_latest_admissions(self):
+        admissions = self.obj.latest_admissions
+        self.assertEqual(admissions, self.obj.admissions_set.latest('year'))
