@@ -3,7 +3,10 @@
   http://mbostock.github.com/d3/ex/stack.html
 */
 
-var d3BarChart = function(el, data){
+var d3BarChart = function(el, data, options){
+  var defaultOptions = {
+    style: 'stacked'
+  };
   var color = d3.scale.category10();
   var width = 940;
   var height = 300;
@@ -12,6 +15,8 @@ var d3BarChart = function(el, data){
   var enable_axis_y = true;
   var bottom_axis_height = enable_axis_x ? 30 : 0;
   var left_width = enable_axis_y ? 40 : 0;
+
+  options = $.extend({}, defaultOptions, options);
 
   // configure plot area
   var plot = {
