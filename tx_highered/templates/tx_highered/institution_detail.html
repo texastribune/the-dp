@@ -83,7 +83,7 @@
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script>
   var $source = $('#pricetrends table');
-  var data = buildTableData($source);
+  var data = $source.tabulate();
   var chart = stackedBarChart($source[0], [data[0], data[2], data[3]]);
   $source.find('th:eq(1)').click(function(){
     chart.setData([data[0], data[2], data[3]]);

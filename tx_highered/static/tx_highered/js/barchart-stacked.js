@@ -3,25 +3,6 @@
   http://mbostock.github.com/d3/ex/stack.html
 */
 
-function buildTableData($table){
-  // build data
-  var $headings = $table.find('thead th').map(function(){ return $(this).text(); });
-  var $rows = $table.find('tbody > tr');
-  var data = $headings.slice(1).toArray().map(function(){ return []; });
-  $rows.each(function(_, row){
-    var $cells = $(row).children();
-    var xVal = +$cells.eq(0).text();
-    $cells.slice(1).each(function(idx, cell){
-      data[idx].push({
-        x: xVal,
-        y: $(cell).data('value'),
-        title: "" + $headings[idx + 1] + " " + xVal + " <strong>" + $.trim($(cell).text()) + "</strong>"
-      });
-    });
-  });
-  return data;
-}
-
 var stackedBarChart = function(el, data){
   var color = d3.scale.category10();
   var width = 940;
