@@ -4,12 +4,11 @@ svg {
     shape-rendering: crispEdges;
   }
 
-  .x.axis line {
-    stroke: #333;
+  .axis .domain {
+    display: none;
   }
 
-  .y.axis line, .y.axis path {
-    fill: none;
+  .y.axis line {
     stroke: #000;
   }
 }

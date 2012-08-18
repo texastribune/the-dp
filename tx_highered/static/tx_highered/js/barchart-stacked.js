@@ -23,42 +23,31 @@ function buildTableData($table){
 }
 
 var stackedBarChart = function(el, data){
-  var color = d3.interpolateRgb("#aad", "#556");
+  var color = d3.scale.category10();
   var width = 940;
   var height = 300;
   var margin = [10, 50, 10, 50];
-  var x_axis_height = 30;
+  var enable_axis_x = true;
+  var enable_axis_y = true;
+  var bottom_axis_height = enable_axis_x ? 30 : 0;
+  var left_width = enable_axis_y ? 40 : 0;
+
+  // configure plot area
+  var plot = {
+    w: width - margin[1] - margin[3] - left_width,
+    h: height - margin[0] - margin[2] - bottom_axis_height
+  };
+
 
   // transform data, pre-calculate y0 bar stack offset
   data = d3.layout.stack()(data);
-
-  // insert DOM
-  var $canvas = $('<div class="chart" />').insertAfter(el);
-
-
-  // setup d3
-  var svg = d3.select($canvas[0])
-            .append("svg:svg")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr("viewBox", [0, 0, width, height].join(" "))
-            .attr("preserveAspectRatio", "xMinYMin meet");
-
-  w = width - margin[1] - margin[3];
-  h = height - margin[0] - margin[2] - x_axis_height;
-  var vis = svg
-            .append("g")
-            .attr("class", "vis")
-            .attr("width", w)
-            .attr("height", h)
-            .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
 
   // continue d3 configuration
   var len_series = data.length;
   var len_x = data[0].length,
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x,
-      bar_width = w / len_x * 0.9,
+      bar_width = plot.w / len_x * 0.9,
       max_totaly = d3.max(data, function(d) {
         return d3.max(d, function(d) {
           return d.y0 + d.y;
@@ -72,7 +61,7 @@ var stackedBarChart = function(el, data){
       // map x value
       x_scale = d3.scale.linear()
                   .domain([min_x, max_x])
-                  .range([0, w]),
+                  .range([0, plot.w]),
       x = function(d) { return x_scale(d.x); },
       height_scale_stack,  // scaler for mapping height
       y_scale_stack,  // scaler for mapping y position
@@ -80,19 +69,35 @@ var stackedBarChart = function(el, data){
 
   // sets global height and scales
   function rescale(new_height){
-    max_totaly = new_height;
     height_scale_stack = d3.scale.linear()
-                      .domain([0, max_totaly])
-                      .range([0, h]);
+                      .domain([0, new_height])
+                      .range([0, plot.h]);
     y_scale_stack = d3.scale.linear()
-                      .domain([0, max_totaly])
-                      .range([h, 0]);
+                      .domain([0, new_height])
+                      .range([plot.h, 0]);
     y_stack = function(d) { return y_scale_stack(d.y + d.y0); };
   }
-
   rescale(max_totaly);
 
-  vis.attr("transform", "translate(" + (margin[3] - bar_width / 2) + "," + margin[0] + ")");
+  // insert DOM
+  var $canvas = $('<div class="chart" />').insertAfter(el);
+
+
+  // setup d3 canvas
+  var svg = d3.select($canvas[0])
+            .append("svg:svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", [0, 0, width, height].join(" "))
+            .attr("preserveAspectRatio", "xMinYMin meet");
+
+  // setup d3 plot area
+  var vis = svg
+            .append("g")
+            .attr("class", "vis")
+            .attr("width", plot.w)
+            .attr("height", plot.h)
+            .attr("transform", "translate(" + (margin[3] + left_width) + "," + margin[0] + ")");
 
   // set up a layer for each series
   var layers = vis.selectAll("g.layer")
@@ -108,25 +113,40 @@ var stackedBarChart = function(el, data){
       .attr("class", "bar")
       .attr("width", bar_width)
       .attr("x", x)
-      .attr("y", h)
+      .attr("y", plot.h)
       .attr("height", 0)
+      .attr("transform", "translate(" + (-bar_width/2) + ",0)")
       .transition()
         .delay(function(d, i) { return i * 10; })
         // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
         .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
         .attr("height", function(d) { return height_scale_stack(d.y); });
 
-  $('rect.bar', svg.$elem).tooltip({title: function(){
-    return this.__data__.title;
-  }});
+  // tooltip
+  $('rect.bar', svg.$elem).tooltip({title: function(){ return this.__data__.title; }});
 
-  // FIXME formatter is wrong, assumes this is a number instead of a year
-  x_axis = d3.svg.axis().scale(x_scale).tickSize(6, 1, 1);
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(" + (margin[3]) + "," + (height - margin[2] - x_axis_height) + ")")
-      .call(x_axis);
+  if (enable_axis_x) {
+    x_axis = d3.svg.axis()
+             .scale(x_scale)
+             .tickSize(6, 1, 1)
+             .tickFormat(function(a){ return a; });
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(" + (margin[3] + left_width) + "," + (height - margin[2] - bottom_axis_height) + ")")
+        .call(x_axis);
+  }
 
+  if (enable_axis_y) {
+    y_axis = d3.svg.axis()
+             .scale(y_scale_stack)
+             .orient("left");
+    svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+        .call(y_axis);
+  }
+
+  // interaction, new data api
   function set_data(new_data){
     // process add stack offsets
     data = d3.layout.stack()(new_data);
