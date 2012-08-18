@@ -102,7 +102,7 @@ var d3BarChart = function(el, data, options){
 
   // setup d3 canvas
   var svg = d3.select(el)
-            .append("svg:svg")
+            .append("svg")
             .attr("width", "100%")
             .attr("height", "100%")
             .attr("viewBox", [0, 0, width, height].join(" "))
@@ -150,7 +150,7 @@ var d3BarChart = function(el, data, options){
         .attr("height", function(d) { return height_scale_stack(d.y); });
 
   // tooltip
-  $('rect.bar', svg.$elem).tooltip({title: function(){ return this.__data__.title; }});
+  $('rect.bar', svg[0]).tooltip({title: function(){ return this.__data__.y; }});
 
   if (enable_axis_x) {
     x_axis = d3.svg.axis()
@@ -195,6 +195,7 @@ var d3BarChart = function(el, data, options){
   return {
     // properties
     elem: el,
+    svg: svg,
 
     // methods
     setData: set_data
