@@ -41,7 +41,7 @@
 
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
-    {% with object_list=object.admissions_set.all %}
+    {% with object_list=object.admissions.all %}
       {% include "instachart/admissions/admissions.html" %}
     {% endwith %}
     <p>
