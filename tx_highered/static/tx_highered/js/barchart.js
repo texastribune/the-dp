@@ -3,7 +3,7 @@
   http://mbostock.github.com/d3/ex/stack.html
 */
 
-var stackedBarChart = function(el, data){
+var d3BarChart = function(el, data){
   var color = d3.scale.category10();
   var width = 940;
   var height = 300;
