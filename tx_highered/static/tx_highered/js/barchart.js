@@ -65,12 +65,8 @@ var d3BarChart = function(el, data, options){
   }
   rescale(max_totaly);
 
-  // insert DOM
-  var $canvas = $('<div class="chart" />').insertAfter(el);
-
-
   // setup d3 canvas
-  var svg = d3.select($canvas[0])
+  var svg = d3.select(el)
             .append("svg:svg")
             .attr("width", "100%")
             .attr("height", "100%")
@@ -160,6 +156,10 @@ var d3BarChart = function(el, data, options){
   }
 
   return {
+    // properties
+    elem: el,
+
+    // methods
     setData: set_data
   };
 };

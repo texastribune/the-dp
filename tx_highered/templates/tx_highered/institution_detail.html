@@ -84,7 +84,8 @@
 <script>
   var $source = $('#pricetrends table');
   var data = $source.tabulate();
-  var chart = d3BarChart($source[0], [data[0], data[2], data[3]]);
+  var chart = d3BarChart($('<div class="chart" />').insertAfter($source)[0],
+              [data[0], data[2], data[3]]);
   $source.find('th:eq(1)').click(function(){
     chart.setData([data[0], data[2], data[3]]);
   });
