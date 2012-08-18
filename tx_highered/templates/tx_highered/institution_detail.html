@@ -94,10 +94,16 @@
     chart.setData([data[1], data[2], data[3]]);
   });
 
+  var normData = normalizeFirst([data[0], data[1]]);
   var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
               [data[0], data[1]], {
                 'style': 'grouped'
               });
+  $(chart2.elem).hover(function(){
+    chart2.setData(normData);
+  }, function(){
+    chart2.setData([data[0], data[1]]);
+  });
 
   $('table').tablebars();
   $(".onion").onionize();

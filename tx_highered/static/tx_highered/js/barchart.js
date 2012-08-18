@@ -3,6 +3,23 @@
   http://mbostock.github.com/d3/ex/stack.html
 */
 
+// data processor
+function normalizeFirst(data, idx){
+  data = $.extend(true, [], data);  // make a deep copy of data
+  idx = idx || 0;
+  // var max_first = data
+  var max_value = Math.max.apply(null, data.map(function(d){ return d[idx].y; }));
+  var set, factor;
+  for (var i = 0; i < data.length; i++){
+    set = data[i];
+    factor = max_value / set[idx].y;
+    for (var j = 0; j < set.length; j++){
+      set[j].y *= factor / max_value;
+    }
+  }
+  return data;
+}
+
 var d3BarChart = function(el, data, options){
   var defaultOptions = {
     style: 'stacked'
@@ -25,8 +42,10 @@ var d3BarChart = function(el, data, options){
   };
 
 
-  // transform data, pre-calculate y0 bar stack offset
-  data = d3.layout.stack()(data);
+  if (options.style == "stacked"){
+    // transform data, pre-calculate y0 bar stack offset
+    data = d3.layout.stack()(data);
+  }
 
   // continue d3 configuration
   var len_series = data.length;
@@ -34,45 +53,51 @@ var d3BarChart = function(el, data, options){
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x,
       bar_width = plot.w / len_x * 0.9,
-      max_totaly = d3.max(data, function(d) {
-        return d3.max(d, function(d) {
-          return d.y0 + d.y;
+      // TODO refactor to generate with or without d.y0 constant dyanamically
+      find_ceiling = function(data){
+        return d3.max(data, function(d) {
+          return d3.max(d, function(d) {
+            return d.y;
+          });
         });
-      }),
-      // max_y = d3.max(data, function(d) {
-      //   return d3.max(d, function(d) {
-      //     return d.y;
-      //   });
-      // }),
-      // map x value
+      },
+      find_ceiling_stacked = function(data){
+        return d3.max(data, function(d) {
+          return d3.max(d, function(d) {
+            return d.y + d.y0;
+          });
+        });
+      },
       x_scale = d3.scale.linear()
                   .domain([min_x, max_x])
                   .range([0, plot.w]),
+      x_axis,
       x = function(d) { return x_scale(d.x); },
-      height_scale_stack,  // scaler for mapping height
-      y_scale,
+      height_scale_stack = d3.scale.linear().range([0, plot.h]),
+      y_scale = d3.scale.linear().range([plot.h, 0]),
+      y_axis,
       y;
 
   // sets global height and scales
-  function rescale(new_height){
-    height_scale_stack = d3.scale.linear()
-                      .domain([0, new_height])
-                      .range([0, plot.h]);
-    y_scale = d3.scale.linear()
-        .domain([0, new_height])
-        .range([plot.h, 0]);
+  function rescale(data_ceiling){
+    height_scale_stack.domain([0, data_ceiling]);
+    y_scale.domain([0, data_ceiling]);
+    if (y_axis){
+      svg.select('.y.axis').transition().call(y_axis);
+    }
   }
-  rescale(max_totaly);
 
   if (options.style == "grouped") {
     bar_width = bar_width / len_series;
   }
 
   if (options.style == "stacked"){
+    find_ceiling = find_ceiling_stacked;
     y = function(d) { return y_scale(d.y + d.y0); };
   } else {
     y = function(d) { return y_scale(d.y); };
   }
+  rescale(find_ceiling(data));
 
 
   // setup d3 canvas
@@ -98,6 +123,7 @@ var d3BarChart = function(el, data, options){
       .attr("class", "layer")
       .style("fill", function(d, i) { return color(i / (len_series - 1)); });
 
+  // shift grouped bars so they're adjacent to each other
   if (options.style == "grouped") {
     layers
       .attr("transform", function(d, i) {
@@ -153,15 +179,7 @@ var d3BarChart = function(el, data, options){
     data = d3.layout.stack()(new_data);
 
     // reset height ceiling
-    ceiling = d3.max(data, function(d) {
-      return d3.max(d, function(d) {
-        return d.y0 + d.y;
-      });
-    });
-    // if (ceiling > max_totaly) {
-    //   rescale(ceiling);
-    // }
-    rescale(ceiling);
+    rescale(find_ceiling(data));
 
     // update layers data
     layers.data(data);
