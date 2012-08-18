@@ -7,10 +7,11 @@ A Very Rough guide to starting devlopment:
 git checkout $REPOSITORY && cd $PATH
 mkvirtualenv $ENVNAME
 setvirtualenvproject
-pip install -r requirements-dev.txt
 export DJANGO_SETTINGS_MODULE=exampleproject.settings
 export HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
 add2virtualenv .
+add2virtualenv exampleproject
+pip install -r requirements-dev.txt
 
 # syncdb and load fixtures
 ./bin/migrate.sh
