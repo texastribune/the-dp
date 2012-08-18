@@ -50,20 +50,30 @@ var d3BarChart = function(el, data, options){
                   .range([0, plot.w]),
       x = function(d) { return x_scale(d.x); },
       height_scale_stack,  // scaler for mapping height
-      y_scale_stack,  // scaler for mapping y position
-      y_stack;  // scaler for mapping y position considering stacked offset
+      y_scale,
+      y;
 
   // sets global height and scales
   function rescale(new_height){
     height_scale_stack = d3.scale.linear()
                       .domain([0, new_height])
                       .range([0, plot.h]);
-    y_scale_stack = d3.scale.linear()
-                      .domain([0, new_height])
-                      .range([plot.h, 0]);
-    y_stack = function(d) { return y_scale_stack(d.y + d.y0); };
+    y_scale = d3.scale.linear()
+        .domain([0, new_height])
+        .range([plot.h, 0]);
   }
   rescale(max_totaly);
+
+  if (options.style == "grouped") {
+    bar_width = bar_width / len_series;
+  }
+
+  if (options.style == "stacked"){
+    y = function(d) { return y_scale(d.y + d.y0); };
+  } else {
+    y = function(d) { return y_scale(d.y); };
+  }
+
 
   // setup d3 canvas
   var svg = d3.select(el)
@@ -88,6 +98,15 @@ var d3BarChart = function(el, data, options){
       .attr("class", "layer")
       .style("fill", function(d, i) { return color(i / (len_series - 1)); });
 
+  if (options.style == "grouped") {
+    layers
+      .attr("transform", function(d, i) {
+        // only tested for len_series == 2
+        var offset = bar_width * (0.5 + i - len_series / 2);
+        return "translate(" + offset + ",0)";
+      });
+  }
+
   // setup a bar for each point in a series
   var bars = layers.selectAll("rect.bar")
     .data(function(d) { return d; })
@@ -101,7 +120,7 @@ var d3BarChart = function(el, data, options){
       .transition()
         .delay(function(d, i) { return i * 10; })
         // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
-        .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
+        .attr("y", y)
         .attr("height", function(d) { return height_scale_stack(d.y); });
 
   // tooltip
@@ -120,7 +139,7 @@ var d3BarChart = function(el, data, options){
 
   if (enable_axis_y) {
     y_axis = d3.svg.axis()
-             .scale(y_scale_stack)
+             .scale(y_scale)
              .orient("left");
     svg.append("g")
         .attr("class", "y axis")
@@ -150,7 +169,7 @@ var d3BarChart = function(el, data, options){
     layers.selectAll("rect.bar")
       .data(function(d) { return d; })
       .transition()
-        .attr("y", function(d) { return y_scale_stack(d.y + d.y0); })
+        .attr("y", y)
         .attr("height", function(d) { return height_scale_stack(d.y); });
     return layers;
   }

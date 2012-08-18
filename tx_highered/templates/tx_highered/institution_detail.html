@@ -84,6 +84,7 @@
 <script>
   var $source = $('#pricetrends table');
   var data = $source.tabulate();
+
   var chart = d3BarChart($('<div class="chart" />').insertAfter($source)[0],
               [data[0], data[2], data[3]]);
   $source.find('th:eq(1)').click(function(){
@@ -92,6 +93,11 @@
   $source.find('th:eq(2)').click(function(){
     chart.setData([data[1], data[2], data[3]]);
   });
+
+  var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
+              [data[0], data[1]], {
+                'style': 'grouped'
+              });
 
   $('table').tablebars();
   $(".onion").onionize();
