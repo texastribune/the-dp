@@ -1,5 +1,7 @@
 /* Texas Higher Ed App CSS assumes bootstrap
 */
+.chart { height: 300px; }
+
 svg .axis { shape-rendering: crispEdges; }
 svg .axis .domain { display: none; }
 svg .y.axis line { stroke: #000; }
