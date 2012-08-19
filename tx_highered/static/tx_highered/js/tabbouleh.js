@@ -31,7 +31,7 @@
           x: x,
           y: y,
           series: headers[index + 1],
-          label: getCellLabel(headers[index + 1], x, y)
+          title: getCellLabel(headers[index + 1], x, y)
         });
       });
     });
