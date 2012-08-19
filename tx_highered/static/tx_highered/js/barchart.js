@@ -207,6 +207,7 @@ var d3BarChart = function(el, data, options){
     // properties
     elem: el,
     svg: svg,
+    vis: vis,
 
     // methods
     setData: set_data,

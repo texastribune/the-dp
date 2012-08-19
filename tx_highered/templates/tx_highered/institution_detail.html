@@ -103,20 +103,24 @@
     chart.setData([data[1], data[3], data[2]]);
   });
 
-  var normData = normalizeFirst([data[0], data[1]]);
   var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
               [data[0], data[1]], {
                 'style': 'grouped'
               });
+  var x_array = data[0].map(function(a){ return a.x; });
   var oldTooltip = chart2.option('tooltip');
   var hoverTooltip = function(){
         var d = this.__data__;
         return d.series + " <b>" + d3.format(",.2f")(this.__data__.y * 100) + "%</b>";
       };
-  $(chart2.elem).hover(function(){
+  chart2.vis.selectAll('rect.bar').on("click", function(){
+    var idx = x_array.indexOf(this.__data__.x);
+    if (idx === -1) { console.error("couldn't find index", x_array, this.__data__); return; }
+    var normData = normalizeFirst([data[0], data[1]], idx);
     chart2.option('tooltip', hoverTooltip);
     chart2.setData(normData);
-  }, function(){
+  });
+  $(chart2.elem).on("dblclick", function(){
     chart2.option('tooltip', oldTooltip);
     chart2.setData([data[0], data[1]]);
   });
