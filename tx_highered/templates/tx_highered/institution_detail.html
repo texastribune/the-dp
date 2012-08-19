@@ -88,7 +88,7 @@
   // store
 
   var chart = d3BarChart($('<div class="chart" />').insertAfter($source)[0],
-      [data[0], data[2], data[3]],
+      [data[0], data[3], data[2]],
       {
         'style': 'stacked',
         'tooltip': function(){
@@ -97,10 +97,10 @@
         }
       });
   $source.find('th:eq(1)').click(function(){
-    chart.setData([data[0], data[2], data[3]]);
+    chart.setData([data[0], data[3], data[2]]);
   });
   $source.find('th:eq(2)').click(function(){
-    chart.setData([data[1], data[2], data[3]]);
+    chart.setData([data[1], data[3], data[2]]);
   });
 
   var normData = normalizeFirst([data[0], data[1]]);
