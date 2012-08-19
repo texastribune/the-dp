@@ -22,7 +22,8 @@ function normalizeFirst(data, idx){
 
 var d3BarChart = function(el, data, options){
   var defaultOptions = {
-    style: 'stacked'
+    style: 'stacked',
+    tooltip: function(){ return this.__data__.title || this.__data__.y; }
   };
   var color = d3.scale.category10();
   var width = 940;
@@ -150,7 +151,7 @@ var d3BarChart = function(el, data, options){
         .attr("height", function(d) { return height_scale_stack(d.y); });
 
   // tooltip
-  $('rect.bar', svg[0]).tooltip({title: function(){ return this.__data__.y; }});
+  $('rect.bar', svg[0]).tooltip({ title: options.tooltip });
 
   if (enable_axis_x) {
     x_axis = d3.svg.axis()
