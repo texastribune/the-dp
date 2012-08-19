@@ -106,15 +106,18 @@
   var normData = normalizeFirst([data[0], data[1]]);
   var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
               [data[0], data[1]], {
-                'style': 'grouped',
-                'tooltip': function(){
-                  var d = this.__data__;
-                  return d.series + " <b>" + d3.format(",.2f")(this.__data__.y * 100) + "%</b>";
-                }
+                'style': 'grouped'
               });
+  var oldTooltip = chart2.option('tooltip');
+  var hoverTooltip = function(){
+        var d = this.__data__;
+        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y * 100) + "%</b>";
+      };
   $(chart2.elem).hover(function(){
+    chart2.option('tooltip', hoverTooltip);
     chart2.setData(normData);
   }, function(){
+    chart2.option('tooltip', oldTooltip);
     chart2.setData([data[0], data[1]]);
   });
 

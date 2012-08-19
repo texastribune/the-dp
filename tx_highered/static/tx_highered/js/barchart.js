@@ -151,7 +151,10 @@ var d3BarChart = function(el, data, options){
         .attr("height", function(d) { return height_scale_stack(d.y); });
 
   // tooltip
-  $('rect.bar', svg[0]).tooltip({ title: options.tooltip });
+  $('rect.bar', svg[0]).tooltip({
+    // manually call because options.tooltip can change
+    title: function(){ return options.tooltip.call(this); }
+  });
 
   if (enable_axis_x) {
     x_axis = d3.svg.axis()
@@ -193,12 +196,20 @@ var d3BarChart = function(el, data, options){
     return layers;
   }
 
+  function set_or_get_option(name, newvalue){
+    if (typeof newvalue === "undefined"){
+      return options[name];
+    }
+    options[name] = newvalue;
+  }
+
   return {
     // properties
     elem: el,
     svg: svg,
 
     // methods
-    setData: set_data
+    setData: set_data,
+    option: set_or_get_option
   };
 };
