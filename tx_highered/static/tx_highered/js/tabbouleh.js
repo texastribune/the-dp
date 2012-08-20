@@ -30,7 +30,8 @@
         data[index].push({
           x: x,
           y: y,
-          label: getCellLabel(headers[index], x, y)
+          series: headers[index + 1],
+          title: getCellLabel(headers[index + 1], x, y)
         });
       });
     });
