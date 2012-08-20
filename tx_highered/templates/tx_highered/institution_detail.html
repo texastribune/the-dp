@@ -121,11 +121,31 @@
     chart2.option('tooltip', hoverTooltip);
     chart2.yAxis.tickFormat(function(a){ return a + '%'; });
     chart2.setData(normData);
+    // add sea-level line
+    var s = chart2.yAxis.scale();
+    chart2.vis.selectAll('line.sealevel')
+      .data([100, 200, 300, 400])
+        .enter().append('line').attr('class', 'sealevel')
+          .attr('x1', 0)
+          .attr('x2', '100%')
+          .attr('y1', 0)
+          .attr('y2', 0)
+          .attr('stroke-opacity', 0)
+          .attr("transform", function(d){ return "translate(-40, " + s(d) + ")"; });
+    chart2.vis.selectAll('line.sealevel')  // called after .enter() AND updates
+      .transition()
+        .attr("transform", function(d){ return "translate(-40, " + s(d) + ")"; })
+        .attr('stroke-opacity', 100);
   });
   $(chart2.elem).on("dblclick", function(){
     chart2.option('tooltip', oldTooltip);
     chart2.yAxis.tickFormat(oldYFormat);
     chart2.setData([data[0], data[1]]);
+    // remove sea-level line
+    chart2.svg.selectAll('line.sealevel').data([]).exit()
+      .transition()
+        .attr('stroke-opacity', 0)
+        .remove();
   });
 
   $('table').tablebars();

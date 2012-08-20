@@ -5,6 +5,7 @@
 svg .axis { shape-rendering: crispEdges; }
 svg .axis .domain { display: none; }
 svg .y.axis line { stroke: #000; }
+svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
 h3 > .page-anchor { visibility: hidden; }
 
