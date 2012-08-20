@@ -109,6 +109,7 @@
               });
   var x_array = data[0].map(function(a){ return a.x; });
   var oldTooltip = chart2.option('tooltip');
+  var oldYFormat = chart2.yAxis.tickFormat();
   var hoverTooltip = function(){
         var d = this.__data__;
         return d.series + " <b>" + d3.format(",.2f")(this.__data__.y) + "%</b>";
@@ -118,10 +119,12 @@
     if (idx === -1) { console.error("couldn't find index", x_array, this.__data__); return; }
     var normData = normalizeFirst([data[0], data[1]], idx);
     chart2.option('tooltip', hoverTooltip);
+    chart2.yAxis.tickFormat(function(a){ return a + '%'; });
     chart2.setData(normData);
   });
   $(chart2.elem).on("dblclick", function(){
     chart2.option('tooltip', oldTooltip);
+    chart2.yAxis.tickFormat(oldYFormat);
     chart2.setData([data[0], data[1]]);
   });
 
