@@ -3,6 +3,7 @@ var el = "#admissions .d3-viz";
 var w = 800,
     h = 300,
     yPadding = 20
+    ;
 
 // Initialize SVG
 var svg = d3.select(el)
@@ -28,7 +29,7 @@ var maxAdmissions = d3.max(admissions, function(d) { return d.y; });
 var rScale = d3.scale.linear().domain([0, maxAdmissions]).range([h, 0]);
 var xScale = d3.scale.linear().domain([minYear, maxYear]).range([0, w]);
 var yScale = d3.scale.linear().domain([0, maxApplicants]).range([h, 0]);
-var barWidth = w / applicants.length;
+var barWidth = w / (applicants.length + 1) - 10;
 
 // Axes,
 var yearFormat = d3.format("4d");
@@ -36,12 +37,12 @@ var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(6, 1, 1).tickF
 
 svg.append("g")
   .attr("class", "axis")
-  .attr("transform", "translate(20, " + (h - yPadding) + ")")
+  .attr("transform", "translate(" + (barWidth / 2 + 20) + ", " + (h - yPadding) + ")")
   .call(xAxis);
 
 // Attrs
 function xN(d, i, n) {
-  return xScale(d.x) + (20 * i) + (10 * n);
+  return xScale(d.x) + (n * 10);
 }
 
 function y(d) {
