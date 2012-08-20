@@ -1,2 +1,6 @@
 {% load humanize %}
+{% if obj.number_of_full_time_students %}
 The {{ obj.name }}, located in {{ obj.city }}, Texas, has {{ obj.number_of_full_time_students|intcomma }} full-time students enrolled.
+{% else %}
+The {{ obj.name }} is located in {{ obj.city }}.
+{% endif %}

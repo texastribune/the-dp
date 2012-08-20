@@ -1,2 +1,4 @@
 {% load humanize %}
+{% if obj.latest_tuition %}
 It costs ${{ obj.latest_tuition.in_state|intcomma }} per semester for in-state students, compared to ${{ obj.latest_tuition.out_of_state|intcomma }} for out-of-state students.
+{% endif %}
