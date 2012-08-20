@@ -111,7 +111,7 @@
   var oldTooltip = chart2.option('tooltip');
   var hoverTooltip = function(){
         var d = this.__data__;
-        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y * 100) + "%</b>";
+        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y) + "%</b>";
       };
   chart2.vis.selectAll('rect.bar').on("click", function(){
     var idx = x_array.indexOf(this.__data__.x);

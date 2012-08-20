@@ -14,7 +14,7 @@ function normalizeFirst(data, idx){
     set = data[i];
     factor = max_value / set[idx].y;
     for (var j = 0; j < set.length; j++){
-      set[j].y *= factor / max_value;
+      set[j].y *= factor / max_value * 100;
     }
   }
   return data;
