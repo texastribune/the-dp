@@ -8,25 +8,15 @@
 
 
 {% block main %}
-  {% if 0 and object.wikipedia_abstract %}
-    <div class="wikipedia-abstract">
-      <div class="row">
-        <div class="span8">
-          <div class="well">
-            <small>From <a class="external" href="{{ object.wikipedia_url }}" target="_blank">Wikipedia</a>:</small>
-            {{ object.wikipedia_abstract|safe }}
-            <p>
-              <small class="attribution cc">
-                Text is available under the <a href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" rel="license">Creative Commons Attribution-ShareAlike License</a><a style="display:none;" href="//creativecommons.org/licenses/by-sa/3.0/" rel="license"></a>;
-                {{ object.wikipedia_scraped }}
-              </small>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-  {% lorem 3 p %}
+  <p>
+    {{ object.sentences.introductory }}
+    {{ object.sentences.admissions }}
+    {{ object.sentences.cost }}
+  </p>
+
+  <p>
+    {{ object.sentences.sat_scores }}
+  </p>
 
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
