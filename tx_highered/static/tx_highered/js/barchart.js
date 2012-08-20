@@ -54,9 +54,10 @@ var d3BarChart = function(el, data, options){
   var left_axis_width = enable_axis_y ? 40 : 0;
   var bottom_axis_height = enable_axis_x ? 30 : 0;
   var plot_box = {
-    w: width - margin[1] - margin[3] - left_axis_width,
-    h: height - margin[0] - margin[2] - bottom_axis_height
-  };
+        w: width - margin[1] - margin[3] - left_axis_width,
+        h: height - margin[0] - margin[2] - bottom_axis_height
+      },
+      bar_width;
   // setup plot DOM
   var plot = svg
             .append("g")
@@ -66,11 +67,10 @@ var d3BarChart = function(el, data, options){
             .attr("transform", "translate(" + (margin[3] + left_axis_width) + "," + margin[0] + ")");
 
   // d3 configuration
-  var len_series = data.length;
-  var len_x = data[0].length,
+  var len_series = data.length; // m, i, rows
+  var len_x = data[0].length,   // n, j, cols
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x,
-      bar_width = plot_box.w / len_x * 0.9,
       // TODO refactor to generate with or without d.y0 constant dyanamically
       find_ceiling = function(data){
         return d3.max(data, function(d) {
@@ -105,7 +105,9 @@ var d3BarChart = function(el, data, options){
     }
   }
 
+  bar_width = plot_box.w / len_x;  // bar_width is an outer width
   if (options.style == "grouped") {
+    // subdivide bar_width further
     bar_width = bar_width / len_series;
   }
 
@@ -138,7 +140,7 @@ var d3BarChart = function(el, data, options){
     .data(function(d) { return d; })
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("width", bar_width)
+      .attr("width", bar_width * 0.9)
       .attr("x", x)
       .attr("y", plot_box.h)
       .attr("height", 0)
