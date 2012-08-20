@@ -16,6 +16,16 @@ function normalizeFirst(data, idx){
 }
 
 
+// inclusive range
+function irange(min, max){
+  var a = [];
+  for (var i = min; i <= max; i++){
+    a.push(i);
+  }
+  return a;
+}
+
+
 /*
   Based on:
   http://mbostock.github.com/d3/ex/stack.html
@@ -29,7 +39,7 @@ var d3BarChart = function(el, data, options){
   };
   var enable_axis_x = true;
   var enable_axis_y = true;
-  var margin = [10, 50, 10, 50];
+  var margin = [10, 50, 30, 50];
   options = $.extend({}, defaultOptions, options);
 
   // data pre-processor
@@ -43,19 +53,17 @@ var d3BarChart = function(el, data, options){
   var height = 300;
   // setup svg DOM
   var svg = d3.select(el)
-            .append("svg")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr("viewBox", [0, 0, width, height].join(" "))
-            .attr("preserveAspectRatio", "xMinYMin meet");
+              .append("svg")
+              .attr("width", "100%")
+              .attr("height", "100%")
+              .attr("viewBox", [0, 0, width, height].join(" "))
+              .attr("preserveAspectRatio", "xMinYMin meet");
 
 
   // configure plot box
-  var left_axis_width = enable_axis_y ? 40 : 0;
-  var bottom_axis_height = enable_axis_x ? 30 : 0;
   var plot_box = {
-        w: width - margin[1] - margin[3] - left_axis_width,
-        h: height - margin[0] - margin[2] - bottom_axis_height
+        w: width - margin[1] - margin[3],
+        h: height - margin[0] - margin[2]
       },
       bar_width;
   // setup plot DOM
@@ -64,7 +72,7 @@ var d3BarChart = function(el, data, options){
             .attr("class", "plot")
             .attr("width", plot_box.w)
             .attr("height", plot_box.h)
-            .attr("transform", "translate(" + (margin[3] + left_axis_width) + "," + margin[0] + ")");
+            .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
 
   // d3 configuration
   var len_series = data.length; // m, i, rows
@@ -86,9 +94,9 @@ var d3BarChart = function(el, data, options){
           });
         });
       },
-      x_scale = d3.scale.linear()
-                  .domain([min_x, max_x])
-                  .range([0, plot_box.w]),
+      x_scale = d3.scale.ordinal()
+                  .domain(irange(min_x, max_x))
+                  .rangeRoundBands([0, plot_box.w], 0.1, 0.1),
       x_axis,
       x = function(d) { return x_scale(d.x); },
       height_scale_stack = d3.scale.linear().range([0, plot_box.h]),
@@ -129,8 +137,7 @@ var d3BarChart = function(el, data, options){
   if (options.style == "grouped") {
     layers
       .attr("transform", function(d, i) {
-        // only tested for len_series == 2
-        var offset = bar_width * (0.5 + i - len_series / 2);
+        var offset = bar_width * 0.9 * i;
         return "translate(" + offset + ",0)";
       });
   }
@@ -144,7 +151,6 @@ var d3BarChart = function(el, data, options){
       .attr("x", x)
       .attr("y", plot_box.h)
       .attr("height", 0)
-      .attr("transform", "translate(" + (-bar_width / 2) + ", 0)")
       .transition()
         .delay(function(d, i) { return i * 10; })
         // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
@@ -160,12 +166,13 @@ var d3BarChart = function(el, data, options){
   // draw axes
   if (enable_axis_x) {
     x_axis = d3.svg.axis()
+    .orient("bottom")
              .scale(x_scale)
              .tickSize(6, 1, 1)
              .tickFormat(function(a){ return a; });
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(" + (margin[3] + left_axis_width) + "," + (height - margin[2] - bottom_axis_height) + ")")
+        .attr("transform", "translate(" + margin[3] + "," + (height - margin[2]) + ")")
         .call(x_axis);
   }
   if (enable_axis_y) {

@@ -131,10 +131,10 @@
           .attr('y1', 0)
           .attr('y2', 0)
           .attr('stroke-opacity', 0)
-          .attr("transform", function(d){ return "translate(-40, " + s(d) + ")"; });
+          .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; });
     chart2.plot.selectAll('line.sealevel')  // called after .enter() AND updates
       .transition()
-        .attr("transform", function(d){ return "translate(-40, " + s(d) + ")"; })
+        .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
         .attr('stroke-opacity', 100);
   });
   $(chart2.elem).on("dblclick", function(){
