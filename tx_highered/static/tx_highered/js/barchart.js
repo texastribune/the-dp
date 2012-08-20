@@ -124,7 +124,7 @@ var d3BarChart = function(el, data, options){
     .data(data)
     .enter().append("g")
       .attr("class", "layer")
-      .style("fill", function(d, i) { return options.color(i / (len_series - 1)); });
+      .style("fill", function(d, i) { return options.color(i); });
   // shift grouped bars so they're adjacent to each other
   if (options.style == "grouped") {
     layers
@@ -179,8 +179,8 @@ var d3BarChart = function(el, data, options){
   }
 
   // PUBLIC METHOD
-  function set_or_get_data(new_data){
-    if (new_data === void 0) {
+  function get_or_set_data(new_data){
+    if (typeof new_data === "undefined"){
       return data;
     }
 
@@ -202,8 +202,8 @@ var d3BarChart = function(el, data, options){
   }
 
   // PUBLIC METHOD
-  function set_or_get_option(name, newvalue){
-    if (newvalue === void 0){
+  function get_or_set_option(name, newvalue){
+    if (typeof newvalue === "undefined"){
       return options[name];
     }
     options[name] = newvalue;
@@ -218,7 +218,7 @@ var d3BarChart = function(el, data, options){
     yAxis: y_axis,
 
     // methods
-    setData: set_or_get_data,
-    option: set_or_get_option
+    data: get_or_set_data,
+    option: get_or_set_option
   };
 };

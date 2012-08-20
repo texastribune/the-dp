@@ -97,10 +97,10 @@
         }
       });
   $source.find('th:eq(1)').click(function(){
-    chart.setData([data[0], data[3], data[2]]);
+    chart.data([data[0], data[3], data[2]]);
   });
   $source.find('th:eq(2)').click(function(){
-    chart.setData([data[1], data[3], data[2]]);
+    chart.data([data[1], data[3], data[2]]);
   });
 
   var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
@@ -120,7 +120,7 @@
     var normData = normalizeFirst([data[0], data[1]], idx);
     chart2.option('tooltip', hoverTooltip);
     chart2.yAxis.tickFormat(function(a){ return a + '%'; });
-    chart2.setData(normData);
+    chart2.data(normData);
     // add sea-level line
     var s = chart2.yAxis.scale();
     chart2.plot.selectAll('line.sealevel')
@@ -140,7 +140,7 @@
   $(chart2.elem).on("dblclick", function(){
     chart2.option('tooltip', oldTooltip);
     chart2.yAxis.tickFormat(oldYFormat);
-    chart2.setData([data[0], data[1]]);
+    chart2.data([data[0], data[1]]);
     // remove sea-level line
     chart2.svg.selectAll('line.sealevel').data([]).exit()
       .transition()
