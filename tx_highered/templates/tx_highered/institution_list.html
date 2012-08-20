@@ -33,8 +33,9 @@
       <div class="span9">
         <h2>
           <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+
+          <small>{{ object.type }}</small>
         </h2>
-        {{ object.type }}
 
         {% include "tx_highered/includes/sentences.html" %}
 
