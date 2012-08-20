@@ -29,6 +29,18 @@ var rScale = d3.scale.linear().domain([0, maxApplicants]).range([h, 0]);
 var xScale = d3.scale.linear().domain([minYear, maxYear]).range([0, w]);
 var yScale = d3.scale.linear().domain([0, maxApplicants]).range([h, 0]);
 
+function x(d, i, n) {
+  return xScale(d.x) + (20 * i) + (10 * n);
+}
+
+function y(d) {
+  return yScale(d.y);
+}
+
+function height(d) {
+  return h - yScale(d.y);
+}
+
 // Render applicants
 svg.append("g")
   .selectAll("rect")
@@ -37,15 +49,9 @@ svg.append("g")
   .append("rect")
   .attr("fill", "lightgray")
   .attr("width", 80)
-  .attr("height", function(d) {
-    return h - yScale(d.y);
-  })
-  .attr("x", function(d) {
-    return xScale(d.x);
-  })
-  .attr("y", function(d) {
-    return yScale(d.y);
-  })
+  .attr("height", height)
+  .attr("x", function(d, i) { return x(d, i, 0); })
+  .attr("y", y)
   ;
 
 // Render admissions
@@ -55,16 +61,10 @@ svg.append("g")
   .enter()
   .append("rect")
   .attr("fill", "darkgray")
-  .attr("width", 70)
-  .attr("height", function(d) {
-    return h - yScale(d.y);
-  })
-  .attr("x", function(d) {
-    return xScale(d.x);
-  })
-  .attr("y", function(d) {
-    return yScale(d.y);
-  })
+  .attr("width", 80)
+  .attr("height", height)
+  .attr("x", function(d, i) { return x(d, i, 1); })
+  .attr("y", y)
   ;
 
 // Render enrollment
@@ -74,14 +74,8 @@ svg.append("g")
   .enter()
   .append("rect")
   .attr("fill", "gray")
-  .attr("width", 40)
-  .attr("height", function(d) {
-    return h - yScale(d.y);
-  })
-  .attr("x", function(d) {
-    return xScale(d.x);
-  })
-  .attr("y", function(d) {
-    return yScale(d.y);
-  })
+  .attr("width", 80)
+  .attr("height", height)
+  .attr("x", function(d, i) { return x(d, i, 2); })
+  .attr("y", y)
   ;
