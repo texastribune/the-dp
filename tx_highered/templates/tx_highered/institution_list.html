@@ -35,8 +35,11 @@
           <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
         </h2>
         {{ object.type }}
-        {% lorem 1 p %}
+
+        {% include "tx_highered/includes/sentences.html" %}
+
       </div>
+
       <div class="span3">
         <div class="thumbnail">
           {% if object.wikipedia_seal %}
