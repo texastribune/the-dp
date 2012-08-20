@@ -95,14 +95,14 @@
   var oldYFormat = chart2.yAxis.tickFormat();
   var hoverTooltip = function(){
         var d = this.__data__;
-        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y) + "%</b>";
+        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y - 100) + "%</b>";
       };
   chart2.plot.selectAll('rect.bar').on("click", function(){
     var idx = x_array.indexOf(this.__data__.x);
     if (idx === -1) { console.error("couldn't find index", x_array, this.__data__); return; }
     var normData = normalizeFirst([data[0], data[1]], idx);
     chart2.option('tooltip', hoverTooltip);
-    chart2.yAxis.tickFormat(function(a){ return a + '%'; });
+    chart2.yAxis.tickFormat(function(a){ return a - 100 + '%'; });
     chart2.data(normData);
     // add sea-level line
     var s = chart2.yAxis.scale();
