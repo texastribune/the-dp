@@ -1,0 +1,2 @@
+{% load humanize %}
+The number of applicants is {% if obj.admissions.latest.applicants_has_risen %}up{% else %}down{% endif %} {{ obj.admissions.latest.applicants_change }} since {{ obj.admissions.oldest.year }}, when {{ obj.admissions.oldest.number_of_applicants|intcomma }} applied, {{ obj.admissions.oldest.number_admitted|intcomma }} were admitted, and {{ obj.admissions.oldest.number_admitted_who_enrolled|intcomma }} enrolled.
