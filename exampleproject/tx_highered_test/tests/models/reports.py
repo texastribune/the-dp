@@ -59,6 +59,23 @@ class PriceTrendsTestCase(TestCase):
         self.assertEqual(10, self.price_trends.out_of_state_change)
 
 
+class TestScoreManagerTestCase(TestCase):
+    def setUp(self):
+        # TODO Replace with Factory Boy
+        self.institute = models.Institution.objects.get(
+                name__endswith='at Austin')
+
+    def test_latest_returns_most_recent(self):
+        latest = (models.TestScores.objects
+                .filter(institution=self.institute).latest('year'))
+        self.assertEqual(latest, self.institute.testscores.latest())
+
+    def test_oldest_returns_oldest_model(self):
+        oldest = (models.TestScores.objects
+                .filter(institution=self.institute).order_by('year')[0])
+        self.assertEqual(oldest, self.institute.testscores.oldest())
+
+
 class AdmissionsManagerTestCase(TestCase):
     def setUp(self):
         # TODO Replace with Factory Boy

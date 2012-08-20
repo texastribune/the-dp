@@ -155,6 +155,15 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
 #############################################################################
 #   Admissions
 #############################################################################
+
+class TestScoresManager(models.Manager):
+    def latest(self):
+        return super(TestScoresManager, self).latest('year')
+
+    def oldest(self):
+        return self.order_by('year')[0]
+
+
 class TestScores(YearBasedInstitutionStatModel):
     # possible data sources: IPEDS
     sat_verbal_25th_percentile = models.IntegerField(null=True)
@@ -176,8 +185,25 @@ class TestScores(YearBasedInstitutionStatModel):
     act_submitted_number = models.IntegerField(null=True)
     act_submitted_percent = models.IntegerField(null=True)
 
+    objects = TestScoresManager()
+
     def __unicode__(self):
         return "Test Scores %s %s" % (self.display_year, self.institution)
+
+    @property
+    def sat_verbal_range(self):
+        return "%s - %s" % (self.sat_verbal_25th_percentile,
+                self.sat_verbal_75th_percentile)
+
+    @property
+    def sat_math_range(self):
+        return "%s - %s" % (self.sat_math_25th_percentile,
+                self.sat_math_75th_percentile)
+
+    @property
+    def sat_writing_range(self):
+        return "%s - %s" % (self.sat_writing_25th_percentile,
+                self.sat_writing_75th_percentile)
 
     @property
     def bar(self):

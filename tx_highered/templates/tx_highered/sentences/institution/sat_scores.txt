@@ -1,0 +1,2 @@
+{% load humanize %}
+For students admitted in 2011, SAT scores ranged from {{ obj.testscores.latest.sat_verbal_range }} on verbal, {{ obj.testscores.latest.sat_math_range }} on math, and {{ obj.testscores.latest.sat_writing_range }} on writing.
