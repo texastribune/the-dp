@@ -1,9 +1,4 @@
-/*
-  Based on:
-  http://mbostock.github.com/d3/ex/stack.html
-*/
-
-// data processor
+// data processor TODO move awaaaaay
 function normalizeFirst(data, idx){
   data = $.extend(true, [], data);  // make a deep copy of data
   idx = idx || 0;
@@ -20,40 +15,62 @@ function normalizeFirst(data, idx){
   return data;
 }
 
+
+/*
+  Based on:
+  http://mbostock.github.com/d3/ex/stack.html
+*/
 var d3BarChart = function(el, data, options){
+  // merge user options and default options
   var defaultOptions = {
+    color: d3.scale.category10(),
     style: 'stacked',
     tooltip: function(){ return this.__data__.title || this.__data__.y; }
   };
-  var color = d3.scale.category10();
-  var width = 940;
-  var height = 300;
-  var margin = [10, 50, 10, 50];
   var enable_axis_x = true;
   var enable_axis_y = true;
-  var bottom_axis_height = enable_axis_x ? 30 : 0;
-  var left_width = enable_axis_y ? 40 : 0;
-
+  var margin = [10, 50, 10, 50];
   options = $.extend({}, defaultOptions, options);
 
-  // configure plot area
-  var plot = {
-    w: width - margin[1] - margin[3] - left_width,
-    h: height - margin[0] - margin[2] - bottom_axis_height
-  };
-
-
+  // data pre-processor
   if (options.style == "stacked"){
     // transform data, pre-calculate y0 bar stack offset
     data = d3.layout.stack()(data);
   }
 
-  // continue d3 configuration
+  // configure svg box
+  var width = 940;
+  var height = 300;
+  // setup svg DOM
+  var svg = d3.select(el)
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", [0, 0, width, height].join(" "))
+            .attr("preserveAspectRatio", "xMinYMin meet");
+
+
+  // configure plot box
+  var left_axis_width = enable_axis_y ? 40 : 0;
+  var bottom_axis_height = enable_axis_x ? 30 : 0;
+  var plot_box = {
+    w: width - margin[1] - margin[3] - left_axis_width,
+    h: height - margin[0] - margin[2] - bottom_axis_height
+  };
+  // setup plot DOM
+  var plot = svg
+            .append("g")
+            .attr("class", "plot")
+            .attr("width", plot_box.w)
+            .attr("height", plot_box.h)
+            .attr("transform", "translate(" + (margin[3] + left_axis_width) + "," + margin[0] + ")");
+
+  // d3 configuration
   var len_series = data.length;
   var len_x = data[0].length,
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x,
-      bar_width = plot.w / len_x * 0.9,
+      bar_width = plot_box.w / len_x * 0.9,
       // TODO refactor to generate with or without d.y0 constant dyanamically
       find_ceiling = function(data){
         return d3.max(data, function(d) {
@@ -71,11 +88,11 @@ var d3BarChart = function(el, data, options){
       },
       x_scale = d3.scale.linear()
                   .domain([min_x, max_x])
-                  .range([0, plot.w]),
+                  .range([0, plot_box.w]),
       x_axis,
       x = function(d) { return x_scale(d.x); },
-      height_scale_stack = d3.scale.linear().range([0, plot.h]),
-      y_scale = d3.scale.linear().range([plot.h, 0]),
+      height_scale_stack = d3.scale.linear().range([0, plot_box.h]),
+      y_scale = d3.scale.linear().range([plot_box.h, 0]),
       y_axis,
       y;
 
@@ -100,30 +117,12 @@ var d3BarChart = function(el, data, options){
   }
   rescale(find_ceiling(data));
 
-
-  // setup d3 canvas
-  var svg = d3.select(el)
-            .append("svg")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr("viewBox", [0, 0, width, height].join(" "))
-            .attr("preserveAspectRatio", "xMinYMin meet");
-
-  // setup d3 plot area
-  var vis = svg
-            .append("g")
-            .attr("class", "vis")
-            .attr("width", plot.w)
-            .attr("height", plot.h)
-            .attr("transform", "translate(" + (margin[3] + left_width) + "," + margin[0] + ")");
-
   // set up a layer for each series
-  var layers = vis.selectAll("g.layer")
+  var layers = plot.selectAll("g.layer")
     .data(data)
     .enter().append("g")
       .attr("class", "layer")
-      .style("fill", function(d, i) { return color(i / (len_series - 1)); });
-
+      .style("fill", function(d, i) { return options.color(i / (len_series - 1)); });
   // shift grouped bars so they're adjacent to each other
   if (options.style == "grouped") {
     layers
@@ -141,9 +140,9 @@ var d3BarChart = function(el, data, options){
       .attr("class", "bar")
       .attr("width", bar_width)
       .attr("x", x)
-      .attr("y", plot.h)
+      .attr("y", plot_box.h)
       .attr("height", 0)
-      .attr("transform", "translate(" + (-bar_width/2) + ",0)")
+      .attr("transform", "translate(" + (-bar_width / 2) + ", 0)")
       .transition()
         .delay(function(d, i) { return i * 10; })
         // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
@@ -156,6 +155,7 @@ var d3BarChart = function(el, data, options){
     title: function(){ return options.tooltip.call(this); }
   });
 
+  // draw axes
   if (enable_axis_x) {
     x_axis = d3.svg.axis()
              .scale(x_scale)
@@ -163,10 +163,9 @@ var d3BarChart = function(el, data, options){
              .tickFormat(function(a){ return a; });
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(" + (margin[3] + left_width) + "," + (height - margin[2] - bottom_axis_height) + ")")
+        .attr("transform", "translate(" + (margin[3] + left_axis_width) + "," + (height - margin[2] - bottom_axis_height) + ")")
         .call(x_axis);
   }
-
   if (enable_axis_y) {
     y_axis = d3.svg.axis()
              .scale(y_scale)
@@ -177,8 +176,12 @@ var d3BarChart = function(el, data, options){
         .call(y_axis);
   }
 
-  // interaction, new data api
-  function set_data(new_data){
+  // PUBLIC METHOD
+  function set_or_get_data(new_data){
+    if (new_data === void 0) {
+      return data;
+    }
+
     // process add stack offsets
     data = d3.layout.stack()(new_data);
 
@@ -196,8 +199,9 @@ var d3BarChart = function(el, data, options){
     return layers;
   }
 
+  // PUBLIC METHOD
   function set_or_get_option(name, newvalue){
-    if (typeof newvalue === "undefined"){
+    if (newvalue === void 0){
       return options[name];
     }
     options[name] = newvalue;
@@ -207,12 +211,12 @@ var d3BarChart = function(el, data, options){
     // properties
     elem: el,
     svg: svg,
-    vis: vis,
+    plot: plot,
     xAxis: x_axis,
     yAxis: y_axis,
 
     // methods
-    setData: set_data,
+    setData: set_or_get_data,
     option: set_or_get_option
   };
 };
