@@ -8,15 +8,8 @@
 
 
 {% block main %}
-  <p>
-    {{ object.sentences.introductory }}
-    {{ object.sentences.admissions }}
-    {{ object.sentences.cost }}
-  </p>
 
-  <p>
-    {{ object.sentences.sat_scores }}
-  </p>
+  {% include "tx_highered/includes/sentences.html" %}
 
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
