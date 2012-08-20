@@ -33,11 +33,6 @@
       <div class="span9">
         <h2>
           <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
-          {% if object.system %}
-            <small>
-              {{ object.system }}
-            </small>
-          {% endif %}
         </h2>
         {{ object.type }}
         {% lorem 1 p %}
