@@ -1,10 +1,6 @@
 export PYTHONPATH=.
 
-# rm db.sqlite
-dropdb tx_highered
-# createdb -T template_postgis tx_highered
-createdb tx_highered
-
+# sync the configured database
 python exampleproject/manage.py syncdb --noinput
 
 # add the user: admin/admin
