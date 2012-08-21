@@ -3,6 +3,7 @@
 
 django-debug-toolbar
 Werkzeug
+South==0.7.3
 
 
 # use last good ipython that worked with shell_plus, must go before ipdb

@@ -140,7 +140,6 @@ INSTALLED_APPS = [
     # 'django.contrib.gis',
 
     'tx_highered',
-    'tx_highered.ipeds_importer',
 
     'armstrong.core.arm_layout',
     'reversion',  # required for arm_wells
@@ -148,6 +147,9 @@ INSTALLED_APPS = [
     'armstrong.core.arm_wells',
     'tx_highered.instachart',
 
+    # dev
+    'south',
+    'tx_highered.ipeds_importer',
     # Here for loading the test data
     'tx_highered_test',
 
