@@ -6,9 +6,6 @@
       <th class="span3" data-tablebars=1>Applicants</th>
       <th class="span3" data-tablebars=1>Admitted (of applicants)</th>
       <th class="span3" data-tablebars=1>Enrolled (of admitted)</th>
-      {% if not institution.is_private %}
-        <th class="span2" data-tablebars=1>First-Time Students in the Top 10%</th>
-      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -27,15 +24,6 @@
             {{ object.number_admitted_who_enrolled|intcomma }}
             <small>({{ object.percent_of_admitted_who_enrolled }}%)</small>
           </td>
-          {% if not institution.is_private %}
-            <td>
-              {% if object.percent_top10rule %}
-                {{ object.percent_top10rule }}%
-              {% else %}
-                &ndash;
-              {% endif %}
-            </td>
-          {% endif %}
         </tr>
       {% endif %}
     {% endfor %}
