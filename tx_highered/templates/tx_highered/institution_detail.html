@@ -37,11 +37,25 @@
       {% include "instachart/admissions/admissions.html" %}
     {% endwith %}
 
-    <div class="d3-viz" style="height: 300px"></div>
-    <a href="#" class="zoom">
-      <i class="icon-plus"></i>
-      Zoom
-    </a>
+    <div class="row">
+      <div class="span10">
+        <div class="d3-viz" style="height: 300px"></div>
+      </div>
+
+      <div class="span2">
+        <div class="well well-condensed">
+          <p>
+            This visualization shows the number of applicants,
+            those admitted, and the number of students that are
+            enrolled.
+          </p>
+
+          <a href="#" class="zoom">
+            <i class="icon-plus"></i>
+            Toggle Applicants
+          </a>
+        </div>
+      </div>
   </section>
 
   <h3>Enrollment</h3>
