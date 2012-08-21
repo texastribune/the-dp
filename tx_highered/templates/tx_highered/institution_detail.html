@@ -7,10 +7,19 @@
 {% block page_title %}{{ object.name }}{% endblock %}
 
 
+{% block header %}
+  <div class="row">
+    <div class="span9">
+      {% include "tx_highered/includes/sentences.html" %}
+    </div>
+
+    <div class="span3">
+      {% render_model object "quick-stats" %}
+    </div>
+  </div>
+{% endblock %}
+
 {% block main %}
-
-  {% include "tx_highered/includes/sentences.html" %}
-
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
     <p>{% lorem 20 w %}</p>
@@ -42,22 +51,6 @@
   <h3>Graduation Rates</h3>
   {% instachart object.graduationrates.all "graduationrates" %}
 {% endblock %}
-
-
-{% block rail %}
-  {% if object.wikipedia_seal %}
-    <div class="thumbnail">
-      <img src="{{ MEDIA_URL }}{{ object.wikipedia_seal }}">
-    </div>
-  {% endif %}
-  {% if object.wikipedia_logo %}
-    <div class="thumbnail">
-      <img src="{{ MEDIA_URL }}{{ object.wikipedia_logo }}">
-    </div>
-  {% endif %}
-  {% render_model object "table" %}
-{% endblock %}
-
 
 {% block extra_script %}{{ block.super }}
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>

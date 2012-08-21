@@ -1,0 +1,17 @@
+<div class="well well-small">
+  <div>
+    {{ object.address }}<br>
+    {{ object.city }}, Texas {{ object.zip_code }}
+  </div>
+
+  <div class="phone">
+    {{ object.phone }}
+  </div>
+
+  {% if object.url %}
+  <div class="website">
+    <a href="http://{{ object.url }}">{{ object.url }}</a>
+  </div>
+  {% endif %}
+
+</div>
