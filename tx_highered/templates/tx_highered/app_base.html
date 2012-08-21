@@ -5,14 +5,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/css/tx_highered.css" type="text/css">
 {% endblock %}
 
-
-{% block nav %}
-  <ul class="nav">
-    {# <li><a href="{% url system_list %}">Systems</a></li> #}
-    <li><a href="{% url institution_list %}">Directory</a></li>
-  </ul>
-{% endblock %}
-
+{% block topbar_base %}{% endblock %}
 
 {% block body %}
   {% block main %}
