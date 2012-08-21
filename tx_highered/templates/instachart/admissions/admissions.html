@@ -3,9 +3,9 @@
   <thead>
     <tr>
       <th class="span1">Year</th>
-      <th class="span3" data-tablebars=1>Number of Applicants</th>
-      <th class="span3" data-tablebars=1>Number Admitted</th>
-      <th class="span3" data-tablebars=1>Number Enrolled (of admitted)</th>
+      <th class="span3" data-tablebars=1>Applicants</th>
+      <th class="span3" data-tablebars=1>Admitted (of applicants)</th>
+      <th class="span3" data-tablebars=1>Enrolled (of admitted)</th>
       {% if not institution.is_private %}
         <th class="span2" data-tablebars=1>First-Time Students in the Top 10%</th>
       {% endif %}
@@ -21,11 +21,11 @@
           </td>
           <td data-value="{{ object.number_admitted }}">
             {{ object.number_admitted|intcomma }}
-            <small>/ {{ object.percent_of_applicants_admitted }}%</small>
+            <small>({{ object.percent_of_applicants_admitted }}%)</small>
           </td>
           <td data-value="{{ object.number_admitted_who_enrolled }}">
             {{ object.number_admitted_who_enrolled|intcomma }}
-            <small>/ {{ object.percent_of_admitted_who_enrolled }}%</small>
+            <small>({{ object.percent_of_admitted_who_enrolled }}%)</small>
           </td>
           {% if not institution.is_private %}
             <td>
