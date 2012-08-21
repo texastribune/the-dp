@@ -110,7 +110,7 @@
     .attr("y", y)
     ;
 
-
+  // Toggle zoom
   $("#admissions a.zoom").toggle(function(e) {
     e.preventDefault();
     svg.selectAll("rect")
@@ -131,5 +131,12 @@
       .transition()
       .call(yAxis.scale(yScale));
     $(this).children("i").attr("class", "icon-plus");
+  });
+
+  // Tooltip
+  $('#admissions rect').tooltip({
+    title: function(){
+      return this.__data__.title;
+    }
   });
 })();
