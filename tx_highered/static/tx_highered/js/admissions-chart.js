@@ -26,9 +26,9 @@ var maxYear = d3.max(applicants, function(d) { return d.x; });
 var maxApplicants = d3.max(applicants, function(d) { return d.y; });
 var minAdmissions = d3.min(admissions, function(d) { return d.y; });
 var maxAdmissions = d3.max(admissions, function(d) { return d.y; });
-var rScale = d3.scale.linear().domain([0, maxAdmissions]).range([h, 0]);
+var rScale = d3.scale.linear().domain([0, maxAdmissions]).range([h - yPadding, yPadding]);
 var xScale = d3.scale.linear().domain([minYear, maxYear]).range([0, w]);
-var yScale = d3.scale.linear().domain([0, maxApplicants]).range([h, 0]);
+var yScale = d3.scale.linear().domain([0, maxApplicants]).range([h - yPadding, yPadding]);
 var barWidth = w / (applicants.length + 1) - 10;
 
 // Axes,
@@ -51,6 +51,10 @@ function y(d) {
 
 function height(d) {
   return h - yScale(d.y);
+}
+
+function rY(d) {
+  return rScale(d.y) - yPadding;
 }
 
 function rHeight(d) {
@@ -97,3 +101,21 @@ svg.append("g")
   .attr("x", function(d, i) { return xN(d, i, 2); })
   .attr("y", y)
   ;
+
+
+$("#admissions a.zoom").toggle(function(e) {
+  e.preventDefault();
+  svg.selectAll("rect")
+    .transition()
+    .duration(1000)
+    .attr("y", rY)
+    .attr("height", rHeight);
+  $(this).children("i").attr("class", "icon-minus");
+}, function(e) {
+  e.preventDefault();
+  svg.selectAll("rect")
+    .transition()
+    .attr("y", y)
+    .attr("height", height);
+  $(this).children("i").attr("class", "icon-plus");
+});
