@@ -146,7 +146,7 @@ INSTALLED_APPS = [
     'reversion',  # required for arm_wells
     'armstrong.hatband',  # required for arm_wells
     'armstrong.core.arm_wells',
-    'instachart',
+    'tx_highered.instachart',
 
     # Here for loading the test data
     'tx_highered_test',

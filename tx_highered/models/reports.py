@@ -4,7 +4,7 @@ import math
 
 from django.db import models
 
-from instachart.models import SimpleChart
+from ..instachart.models import SimpleChart
 
 from .base import APP_LABEL
 
