@@ -1,6 +1,6 @@
 // Global settings
 var el = "#admissions .d3-viz";
-var w = 800,
+var w = $('#admissions .d3-viz').width(),
     h = 300,
     yPadding = 20
     ;
