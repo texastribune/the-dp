@@ -38,10 +38,14 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         # Featured Institutions, TODO, template tag? mixin?
-        well = Well.objects.get_current(
-            'Featured Institutions')
-        well.queryset = Institution.objects.exclude(wikipedia_seal='')
-        context['featured_institutions'] = well.items[:12]
+        queryset = Institution.objects.exclude(wikipedia_seal='')
+        try:
+            well = Well.objects.get_current(
+                'Featured Institutions')
+            well.queryset = queryset
+            context['featured_institutions'] = well.items[:12]
+        except Well.DoesNotExist:
+            context['featured_institutions'] = queryset[:12]
         return context
 
 
