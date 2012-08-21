@@ -10,3 +10,4 @@ logs
 exampleproject/settings/local.py
 MANIFEST
 dist/*
+*.egg-info
