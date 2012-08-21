@@ -35,15 +35,6 @@ class FunnelMixin(object):
 class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        # Featured Institutions, TODO, template tag? mixin?
-        well = Well.objects.get_current(
-            'Featured Institutions')
-        well.queryset = Institution.objects.exclude(wikipedia_seal='')
-        context['featured_institutions'] = well.items[:12]
-        return context
-
 
 class InstitutionListView(ListView):
     queryset = Institution.objects.filter(ipeds_id__isnull=False).\
