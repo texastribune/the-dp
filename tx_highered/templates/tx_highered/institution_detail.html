@@ -33,29 +33,33 @@
 
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
-    {% with object_list=object.admissions.all %}
-      {% include "instachart/admissions/admissions.html" %}
-    {% endwith %}
+    {% if object.admissions.all.exists %}
+      {% with object_list=object.admissions.all %}
+        {% include "instachart/admissions/admissions.html" %}
+      {% endwith %}
 
-    <div class="row">
-      <div class="span10">
-        <div class="d3-viz" style="height: 300px"></div>
-      </div>
-
-      <div class="span2">
-        <div class="well well-condensed">
-          <p>
-            This visualization shows the number of applicants,
-            those admitted, and the number of students that are
-            enrolled.
-          </p>
-
-          <a href="#" class="zoom">
-            <i class="icon-plus"></i>
-            Toggle Applicants
-          </a>
+      <div class="row">
+        <div class="span10">
+          <div class="d3-viz" style="height: 300px"></div>
         </div>
-      </div>
+
+        <div class="span2">
+          <div class="well well-condensed">
+            <p>
+              This visualization shows the number of applicants,
+              those admitted, and the number of students that are
+              enrolled.
+            </p>
+
+            <a href="#" class="zoom">
+              <i class="icon-plus"></i>
+              Toggle Applicants
+            </a>
+          </div>
+        </div>
+      {% else %}
+        {% include "tx_highered/includes/no_data.html" %}
+      {% endif %}
   </section>
 
   <h3>Enrollment</h3>
