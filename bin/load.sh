@@ -1,11 +1,10 @@
 export PYTHONPATH=$(pwd)
 
-# I also have this in my virtualenv's postactivate
-export DJANGO_SETTINGS_MODULE=exampleproject.settings
-
-# TODO don't setup examples here
-export THEDP_IMPORT_LOGFILE="../../logs/logger.jslog"
-mkdir -p ./logs
+# Make sure you have these environment variables and directories set:
+# export DJANGO_SETTINGS_MODULE=exampleproject.settings
+# export HIGHER_ED_DATA=$HOME/Download/Data
+# export THEDP_IMPORT_LOGFILE="../../logs/logger.jslog"
+# mkdir -p ./logs
 
 # new style reports
 # ipeds
