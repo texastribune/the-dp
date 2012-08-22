@@ -6,11 +6,12 @@ function render_enrollment_chart(dataset) {
   // Scales
   var yearFormat = d3.format("4d");
   var yearRange = d3.extent(dataset, function(d) { return d.year; });
+  var enrollmentMax = d3.max(dataset, function(d) { return d.enrollment; });
   var x = d3.scale.linear()
       .domain(yearRange)
       .range([0, width]);
   var y = d3.scale.linear()
-      .domain([0, 100])
+      .domain([0, enrollmentMax])
       .range([height, 0]);
   var colors = {
     'unknown': '#E30033',
@@ -29,10 +30,7 @@ function render_enrollment_chart(dataset) {
 
   var yAxis = d3.svg.axis()
       .scale(y)
-      .orient("left")
-      .tickFormat(function(t) {
-        return t + '%';
-      });
+      .orient("left");
 
   // Stacking
   var stack = d3.layout.stack()
@@ -55,8 +53,12 @@ function render_enrollment_chart(dataset) {
 
   var area = d3.svg.area()
       .x(function(d) { return x(d.year); })
-      .y0(function(d) { return y(d.y0); })
-      .y1(function(d) { return y(d.y0 + d.y); });
+      .y0(function(d) {
+        return y(d.y0 * d.enrollment / 100.0);
+      })
+      .y1(function(d) {
+        return y((d.y0 + d.y) * d.enrollment / 100.0);
+      });
 
   svg.selectAll(".layer")
       .data(layers)
@@ -65,7 +67,8 @@ function render_enrollment_chart(dataset) {
       .attr("d", function(d) { return area(d.values); })
       .style("fill", function(d) {
         return colors[d.key];
-      });
+      })
+      .style("fill-opacity", "0.8");
 
   svg.append("g")
       .attr("class", "x axis")
