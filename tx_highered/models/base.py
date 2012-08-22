@@ -1,5 +1,8 @@
-# from django.contrib.gis.db import models
-from django.db import models
+import logging
+
+from django.contrib.gis import geos
+from django.contrib.gis.db import models
+# from django.db import models
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
@@ -46,13 +49,32 @@ class ContactFieldsMixin(models.Model):
     zip_code = models.CharField(max_length=10, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     url = models.URLField(null=True, blank=True)
-    # coords = models.PointField(null=True, blank=True)
+    location = models.PointField(geography=True, null=True, blank=True)
 
-    # objects = models.GeoManager()
+    objects = models.GeoManager()
 
     class Meta:
         abstract = True
         app_label = APP_LABEL
+
+    def guess_location(self):
+        from geopy import geocoders
+        from urllib2 import URLError
+
+        logger = logging.getLogger('tx_highered.models.geolocate')
+
+        g = geocoders.Google()
+        # TODO better logging messages
+        try:
+            address = ", ".join([self.address, self.city, self.zip_code])
+            _, latlng = g.geocode(address)
+            self.location = geos.fromstr("POINT({0} {1})".format(*latlng))
+            logger.debug(self.location)
+            self.save()
+        except (ValueError, URLError, geocoders.google.GQueryError) as e:
+            logger.error("%s %s", (e, address))
+        except geocoders.google.GTooManyQueriesError as e:
+            logger.critical("%s %s", (e, address))
 
 
 class System(ContactFieldsMixin):

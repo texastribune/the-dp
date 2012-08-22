@@ -27,3 +27,5 @@ td.align-right .ui-tablebar { right: 0; }
 .funnel .bar { background: #0074cc; margin: 0 auto; overflow: hidden; text-indent: 110%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
+
+#intro p { font-size: 1.25em; }

@@ -2,6 +2,7 @@ export PYTHONPATH=.
 
 # sync the configured database
 python exampleproject/manage.py syncdb --noinput
+python exampleproject/manage.py migrate
 
 # add the user: admin/admin
 python exampleproject/manage.py loaddata ./exampleproject/fixtures/auth.json

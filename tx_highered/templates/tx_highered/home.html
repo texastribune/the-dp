@@ -1,91 +1,76 @@
 {% extends "tx_highered/app_base.html" %}
 {% load url from future %}
 {% load webdesign %}
+{# {% load adsense_tags %} #}
+
+{% block opengraph_meta %}{{ block.super }}
+  <meta property="og:title" content="The Texas Tribune Higher Education Explorer">
+  <meta property="og:description" content="">
+{% endblock %}
+
+{% comment %}
+Cargo-culted -- why is this the government-employee-salaries dataApp?
+
+TODO: enable once on the Tribune
+{% block adsense_slots %}
+  {{ block.super }}
+  {% adsense add_slot 'data page' %}
+  {% adsense_attrs '' 'dataApp=government-employee-salaries,content=data' %}
+{% endblock %}
+
+{% endcomment %}
 
 
-{% block head_title %}Home{% endblock %}
+{% block page_title %}Higher Education Explorer | {{ block.super }}{% endblock %}
 
+{% block breadcrumb %}{% endblock %}
 
-{% block main %}
-{% lorem 2 p %}
+{% block main_content %}
 
-<section>
   <div class="row">
-    <div class="span8">
-      <h2>Featured Page</h2>
-      <a class="thumbnail" href="funnel/">
-        <img src="http://flickholdr.com/320/240/funnel" width=620 height=400>
-        <div class="caption">
-          <h3>{% lorem 4 w random %}</h3>
-          <p>{% lorem 20 w %}</p>
-        </div>
-      </a>
-      <section>
-        <form class="well form-search">
-          <input type="text" class="span6 search-query">
-          <button class="btn" type="submit">Search</button>
-        </form>
+    <div class="span9">
+      <section id="intro">
+        <p>
+          {% lorem 1 p %}
+        </p>
       </section>
+
+      <hr>
+
+      <section class="row-fluid">
+        <div class="graphic pull-right">
+          <img src="http://placehold.it/150x150">
+        </div>
+
+        <div>
+          <h2>Search for Institutions</h2>
+
+          {% lorem 1 p %}
+
+
+          <form class="form-inline">
+            <input type="text" class="q" placeholder="Institution name">
+          </form>
+
+        </div>
+      </section>
+
     </div>
-    <div class="span4">
-      <h2><a href="{% url "institution_list" %}">Directory</a></h2>
-      <ul class="unstyled">
-        {% for object in featured_institutions %}
-          <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
-        {% endfor %}
-      </ul>
+
+    <div class="span3">
+      <div class="well well-small">
+        The <a href="#TODO">Higher Education Explorer</a> was created with
+        support from the <em>AWESOME Foundation</em>
+      </div>
+
+      <div>
+        <img src="http://placehold.it/300x250">
+      </div>
+
+      <div style="margin-top: 20px;">
+        <img src="http://placehold.it/300x250">
+      </div>
     </div>
   </div>
-</section>
 
-  <section>
-    <div class="row">
-      <div class="span4">
-        <a class="thumbnail" href="{% url "sat_search" %}">
-          <img src="http://flickholdr.com/320/240/test" width=320 height=240>
-          <div class="caption">
-            <h3>
-              Test Scores Explorer
-            </h3>
-          </div>
-        </a>
-      </div>
-      <div class="span4">
-        <a class="thumbnail" href="funnel/">
-          <img src="http://flickholdr.com/320/240/funnel" width=320 height=240>
-          <div class="caption">
-            <h3>
-              Admissions Funnel
-            </h3>
-          </div>
-        </a>
-      </div>
-      <div class="span4">
-        <a class="thumbnail" href="top10/">
-          <img src="http://flickholdr.com/320/240/percent" width=320 height=240>
-          <div class="caption">
-            <h3>
-              The Top 10% Rule
-            </h3>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="row">
-      {% for j in "123" %}
-        <div class="span4">
-          <a class="thumbnail" href="#">
-            <img src="http://placekitten.com/320/240" style="margin: 0 auto;">
-            <div class="caption">
-              <h3>
-                {% lorem 4 w random %}
-              </h3>
-            </div>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-  </section>
 {% endblock %}

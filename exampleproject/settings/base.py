@@ -18,18 +18,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tx_highered',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
-DATABASES = {'default': dj_database_url.config(default='postgres:///tx_highered')}
+DATABASES = {'default': dj_database_url.config(default='postgis:///tx_highered')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -137,10 +126,9 @@ INSTALLED_APPS = [
     # 'django.contrib.admindocs',
     'django.contrib.humanize',
     'django.contrib.webdesign',
-    # 'django.contrib.gis',
+    'django.contrib.gis',
 
     'tx_highered',
-    'tx_highered.ipeds_importer',
 
     'armstrong.core.arm_layout',
     'reversion',  # required for arm_wells
@@ -148,6 +136,9 @@ INSTALLED_APPS = [
     'armstrong.core.arm_wells',
     'tx_highered.instachart',
 
+    # dev
+    'south',
+    'tx_highered.ipeds_importer',
     # Here for loading the test data
     'tx_highered_test',
 
