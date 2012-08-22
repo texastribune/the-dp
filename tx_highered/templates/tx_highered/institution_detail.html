@@ -62,8 +62,10 @@
       {% endif %}
   </section>
 
-  <h3>Enrollment</h3>
-  {% instachart object.enrollment.all %}
+  <section id="enrollment">
+    <h3>Enrollment</h3>
+    {% instachart object.enrollment.all %}
+  </section>
 
   <h3>Graduation Rates</h3>
   {% instachart object.graduationrates.all "graduationrates" %}
@@ -74,6 +76,7 @@
 <script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/ethnicity-chart.js"></script>
 <script>
   var $section = $('#pricetrends');
   var $source = $section.find('table');
@@ -137,5 +140,10 @@
   });
 
   $(".onion").onionize();
+
+  // Enrollment chart
+  init_enrollment_chart({
+    url: "{% url enrollment_api object.id %}"
+  });
 </script>
 {% endblock %}
