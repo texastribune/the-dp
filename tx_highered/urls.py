@@ -21,4 +21,7 @@ urlpatterns = patterns('',
     url(r'^testing/$', TestScoresReport.as_view(), name="sat_search"),
     url(r'^funnel/$', FunnelReport.as_view()),
     url(r'^top10/$', Top10RuleReport.as_view()),
+) + patterns('tx_highered.api',
+    url(r'^api/institution/(?P<pk>\d+)/enrollment/$', 'enrollment_api',
+        name='enrollment_api'),
 )

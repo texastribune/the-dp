@@ -301,6 +301,19 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
             self.total_percent_unknown or 0)
     race_pie.verbose_name = "Race Pie"
 
+    def race_data(self):
+        data = []
+        for race in ('white', 'black', 'hispanic', 'native', 'asian',
+                     'unknown'):
+            attr = 'total_percent_%s' % race
+            data.append({
+                'year': self.year,
+                'race': race,
+                'value': getattr(self, attr),
+            })
+
+        return data
+
     chart_series = ('year',
                     'fulltime_equivalent',
                     'fulltime',
