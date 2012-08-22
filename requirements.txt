@@ -1,4 +1,5 @@
 #example project
+-r exampleproject/requirements.txt
 Django==1.4
 psycopg2
 armstrong.core.arm-layout==1.1.1
