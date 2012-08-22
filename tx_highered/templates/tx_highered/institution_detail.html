@@ -75,12 +75,13 @@
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script>
-  var $source = $('#pricetrends table');
+  var $section = $('#pricetrends');
+  var $source = $section.find('table');
   var data = $source.tabulate();
 
   // store
 
-  var chart = d3BarChart($('<div class="chart" />').insertAfter($source)[0],
+  var chart = d3BarChart($('<div class="chart" />').appendTo($section)[0],
       [data[0], data[3], data[2]],
       {
         'style': 'stacked',
@@ -96,27 +97,31 @@
     chart.data([data[1], data[3], data[2]]);
   });
 
-  var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
+  var chart2 = d3BarChart($('<div class="chart" />').appendTo($section)[0],
               [data[0], data[1]], {
                 'style': 'grouped'
               });
+
+  var normData = normalizeFirst([data[0], data[1]], 0);
+  var chart3 = d3BarChart($('<div class="chart" />').appendTo($section)[0],
+        normData, {
+          'style': 'grouped',
+          'tooltip': function(){
+            var d = this.__data__;
+            return d.series + " <b>" + d3.format(",.2f")(this.__data__.y - 100) + "%</b>";
+          }
+        });
+  chart3.yAxis.tickFormat(function(a){ return a - 100 + '%'; });
+  // TODO apply yAxis tick format
   var x_array = data[0].map(function(a){ return a.x; });
-  var oldTooltip = chart2.option('tooltip');
-  var oldYFormat = chart2.yAxis.tickFormat();
-  var hoverTooltip = function(){
-        var d = this.__data__;
-        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y - 100) + "%</b>";
-      };
-  chart2.plot.selectAll('rect.bar').on("click", function(){
+  chart3.plot.selectAll('rect.bar').on("click", function(){
     var idx = x_array.indexOf(this.__data__.x);
     if (idx === -1) { console.error("couldn't find index", x_array, this.__data__); return; }
     var normData = normalizeFirst([data[0], data[1]], idx);
-    chart2.option('tooltip', hoverTooltip);
-    chart2.yAxis.tickFormat(function(a){ return a - 100 + '%'; });
-    chart2.data(normData);
+    chart3.data(normData);
     // add sea-level line
-    var s = chart2.yAxis.scale();
-    chart2.plot.selectAll('line.sealevel')
+    var s = chart3.yAxis.scale();
+    chart3.plot.selectAll('line.sealevel')
       .data([100, 200, 300, 400])
         .enter().append('line').attr('class', 'sealevel')
           .attr('x1', 0)
@@ -125,20 +130,10 @@
           .attr('y2', 0)
           .attr('stroke-opacity', 0)
           .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; });
-    chart2.plot.selectAll('line.sealevel')  // called after .enter() AND updates
+    chart3.plot.selectAll('line.sealevel')  // called after .enter() AND updates
       .transition()
         .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
         .attr('stroke-opacity', 100);
-  });
-  $(chart2.elem).on("dblclick", function(){
-    chart2.option('tooltip', oldTooltip);
-    chart2.yAxis.tickFormat(oldYFormat);
-    chart2.data([data[0], data[1]]);
-    // remove sea-level line
-    chart2.svg.selectAll('line.sealevel').data([]).exit()
-      .transition()
-        .attr('stroke-opacity', 0)
-        .remove();
   });
 
   $(".onion").onionize();
