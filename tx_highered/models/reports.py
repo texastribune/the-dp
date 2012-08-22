@@ -305,12 +305,13 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
         data = []
         for race in ('white', 'black', 'hispanic', 'native', 'asian',
                      'unknown'):
-            attr = 'total_percent_%s' % race
-            data.append({
-                'year': self.year,
-                'race': race,
-                'value': getattr(self, attr),
-            })
+            value = getattr(self, 'total_percent_%s' % race, None)
+            if value is not None:
+                data.append({
+                    'year': self.year,
+                    'race': race,
+                    'value': value,
+                })
 
         return data
 
