@@ -310,6 +310,7 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
                 data.append({
                     'year': self.year,
                     'race': race,
+                    'enrollment': self.total,
                     'value': value,
                 })
 
