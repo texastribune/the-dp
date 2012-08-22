@@ -14,12 +14,12 @@ function render_enrollment_chart(dataset) {
       .domain([0, enrollmentMax])
       .range([height, 0]);
   var colors = {
-    'unknown': '#E30033',
-    'black': '#FF6633',
-    'hispanic': '#D6E985',
-    'native': '#006666',
-    'asian': '#3399CC',
-    'white': '#993399'
+    'total_percent_unknown': '#E30033',
+    'total_percent_black': '#FF6633',
+    'total_percent_hispanic': '#D6E985',
+    'total_percent_native': '#006666',
+    'total_percent_asian': '#3399CC',
+    'total_percent_white': '#993399'
   };
 
   // Axes
@@ -47,7 +47,7 @@ function render_enrollment_chart(dataset) {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var nest = d3.nest()
-      .key(function(d) { return d.race; });
+      .key(function(d) { return d.metric; });
 
   var layers = stack(nest.entries(dataset));
 

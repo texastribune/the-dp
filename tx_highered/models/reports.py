@@ -280,25 +280,34 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     fulltime = models.IntegerField(null=True, verbose_name='Full-time')
     parttime = models.IntegerField(null=True, verbose_name='Part-time')
     # TODO better list that works with IPEDS and THECB
-    total_percent_white = models.IntegerField(null=True)
-    total_percent_black = models.IntegerField(null=True)
-    total_percent_hispanic = models.IntegerField(null=True)
-    total_percent_native = models.IntegerField(null=True)
-    total_percent_asian = models.IntegerField(null=True)
-    total_percent_unknown = models.IntegerField(null=True)
+    total_percent_white = models.IntegerField(null=True,
+        verbose_name='% White')
+    total_percent_black = models.IntegerField(null=True,
+        verbose_name='% Black')
+    total_percent_hispanic = models.IntegerField(null=True,
+        verbose_name='% Hispanic')
+    total_percent_native = models.IntegerField(null=True,
+        verbose_name='% Native Am.')
+    total_percent_asian = models.IntegerField(null=True,
+        verbose_name='% Asian')
+    total_percent_unknown = models.IntegerField(null=True,
+        verbose_name='% N/A')
 
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
 
+    race_attrs = ['total_percent_%s' % race for race in ('white', 'black',
+            'hispanic', 'native', 'asian', 'unknown')]
+
     def race_data(self):
         data = []
-        for race in ('white', 'black', 'hispanic', 'native', 'asian',
-                     'unknown'):
-            value = getattr(self, 'total_percent_%s' % race, None)
+        for race_attr in self.race_attrs:
+            value = getattr(self, race_attr, None)
             if value is not None:
                 data.append({
                     'year': self.year,
-                    'race': race,
+                    'metric': race_attr,
+                    'race': self._meta.get_field(race_attr).verbose_name,
                     'enrollment': self.total,
                     'value': value,
                 })
@@ -308,7 +317,7 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     chart_series = ('year',
                     'fulltime_equivalent',
                     'fulltime',
-                    'parttime',)
+                    'parttime',) + tuple(race_attrs)
 
 
 class GraduationRates(YearBasedInstitutionStatModel, SimpleChart):
