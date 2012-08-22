@@ -137,7 +137,6 @@ INSTALLED_APPS = [
     'tx_highered.instachart',
 
     # dev
-    'south',
     'tx_highered.ipeds_importer',
     # Here for loading the test data
     'tx_highered_test',
