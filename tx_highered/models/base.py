@@ -43,6 +43,10 @@ INSTITUTION_CHOICES = (
     )
 
 
+from geopy import geocoders
+from urllib2 import URLError
+
+
 class ContactFieldsMixin(models.Model):
     address = models.CharField(max_length=200, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
@@ -57,24 +61,33 @@ class ContactFieldsMixin(models.Model):
         abstract = True
         app_label = APP_LABEL
 
-    def guess_location(self):
-        from geopy import geocoders
-        from urllib2 import URLError
+    def _guess_location(self, address_array):
+        g = geocoders.Google()
+        address = ", ".join(address_array)
+        _, latlng = g.geocode(address)
+        self.location = geos.fromstr("POINT({0} {1})".format(*latlng))
+        self.save()
+        return self.location
 
+    def guess_location(self):
         logger = logging.getLogger('tx_highered.models.geolocate')
 
-        g = geocoders.Google()
         # TODO better logging messages
         try:
-            address = ", ".join([self.address, self.city, self.zip_code])
-            _, latlng = g.geocode(address)
-            self.location = geos.fromstr("POINT({0} {1})".format(*latlng))
+            guess1 = [self.address, self.city, self.zip_code]
+            self._guess_location(guess1)
             logger.debug(self.location)
-            self.save()
         except (ValueError, URLError, geocoders.google.GQueryError) as e:
-            logger.error("%s %s", (e, address))
+            logger.error("%s %s" % (e.message, ", ".join(guess1)))
+            # try again
+            try:
+                guess2 = [self.name, self.zip_code]
+                self._guess_location(guess2)
+                logger.debug(self.location)
+            except (ValueError, URLError, geocoders.google.GQueryError) as e:
+                logger.error("%s %s" % (e.message, ", ".join(guess2)))
         except geocoders.google.GTooManyQueriesError as e:
-            logger.critical("%s %s", (e, address))
+            logger.error("%s %s" % (e.message, ", ".join(guess1)))
 
 
 class System(ContactFieldsMixin):
