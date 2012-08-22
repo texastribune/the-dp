@@ -126,7 +126,7 @@ INSTALLED_APPS = [
     # 'django.contrib.admindocs',
     'django.contrib.humanize',
     'django.contrib.webdesign',
-    # 'django.contrib.gis',
+    'django.contrib.gis',
 
     'tx_highered',
 

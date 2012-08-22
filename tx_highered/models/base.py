@@ -1,5 +1,5 @@
-# from django.contrib.gis.db import models
-from django.db import models
+from django.contrib.gis.db import models
+# from django.db import models
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
@@ -46,9 +46,9 @@ class ContactFieldsMixin(models.Model):
     zip_code = models.CharField(max_length=10, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     url = models.URLField(null=True, blank=True)
-    # coords = models.PointField(null=True, blank=True)
+    location = models.PointField(geography=True, null=True, blank=True)
 
-    # objects = models.GeoManager()
+    objects = models.GeoManager()
 
     class Meta:
         abstract = True
