@@ -289,18 +289,6 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
 
-    def race_pie(self):
-        return ('<img src="http://chart.apis.google.com/chart?chs=400x225&cht=p'
-            '&chd=t:%d,%d,%d,%d,%d,%d'
-            '&chl=White|Black|Hispanic|Native American|Asian|Unknown" width="400" height="225" alt="" >') % (
-            self.total_percent_white or 0,
-            self.total_percent_black or 0,
-            self.total_percent_hispanic or 0,
-            self.total_percent_native or 0,
-            self.total_percent_asian or 0,
-            self.total_percent_unknown or 0)
-    race_pie.verbose_name = "Race Pie"
-
     def race_data(self):
         data = []
         for race in ('white', 'black', 'hispanic', 'native', 'asian',
@@ -319,8 +307,7 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     chart_series = ('year',
                     'fulltime_equivalent',
                     'fulltime',
-                    'parttime',
-                    'race_pie')
+                    'parttime',)
 
 
 class GraduationRates(YearBasedInstitutionStatModel, SimpleChart):
