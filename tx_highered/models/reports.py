@@ -275,9 +275,10 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
 
 class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total = models.IntegerField(null=True)
-    fulltime_equivalent = models.IntegerField(null=True)
-    fulltime = models.IntegerField(null=True)
-    parttime = models.IntegerField(null=True)
+    fulltime_equivalent = models.IntegerField(null=True,
+        verbose_name='Full-time Equivalent')
+    fulltime = models.IntegerField(null=True, verbose_name='Full-time')
+    parttime = models.IntegerField(null=True, verbose_name='Part-time')
     # TODO better list that works with IPEDS and THECB
     total_percent_white = models.IntegerField(null=True)
     total_percent_black = models.IntegerField(null=True)
