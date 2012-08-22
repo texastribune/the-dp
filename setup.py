@@ -32,6 +32,7 @@ setup(
     url='http://github.com/texastribune/tx_highered/',
     license='Apache Software License',
     install_requires=[
+        'geopy',
     ],
     packages=find_packages('./tx_highered', 'tx_highered').keys(),
     package_data={
