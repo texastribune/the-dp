@@ -1,3 +1,5 @@
+{% load cache %}
+{% cache 3600 higher_ed_sentence object.id %}
 <p>
   {{ object.sentences.introductory }}
   {{ object.sentences.admissions }}
@@ -7,3 +9,4 @@
 <p>
   {{ object.sentences.sat_scores }}
 </p>
+{% endcache %}
