@@ -31,7 +31,7 @@
   var rScale = d3.scale.linear().domain([0, maxAdmissions]).range([h - yPadding, yPadding]);
   var xScale = d3.scale.linear().domain([minYear, maxYear]).range([xPadding, w]);
   var yScale = d3.scale.linear().domain([0, maxApplicants]).range([h - yPadding, yPadding]);
-  var barWidth = w / (applicants.length + 1) - 10;
+  var barWidth = w / (maxYear - minYear) - 30;
 
   // Axes,
   var yearFormat = d3.format("4d");
