@@ -8,7 +8,11 @@ var TestScoresChart = function(){
   var defaultOptions = {
     color: d3.scale.category10(),
     style: 'stacked',
-    tooltip: function(){ return this.__data__.title || this.__data__.y; }
+    tooltip: function(){
+      var d = this.__data__;
+      return d.title ||
+      "" + d.y_min + " - " + d.y_max + "";
+    }
   };
   var enable_axis_x = true;
   var enable_axis_y = true;
@@ -165,10 +169,10 @@ var TestScoresChart = function(){
           .attr("height", function(d) { return height_scale_stack(d.y_max - d.y_min); });
 
     // tooltip
-    // $('rect.bar', svg[0]).tooltip({
-    //   // manually call because options.tooltip can change
-    //   title: function(){ return options.tooltip.call(this); }
-    // });
+    $('rect.bar', svg[0]).tooltip({
+      // manually call because options.tooltip can change
+      title: function(){ return options.tooltip.call(this); }
+    });
 
     // draw axes
     if (enable_axis_x) {
