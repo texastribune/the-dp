@@ -1,12 +1,12 @@
 {% load cache %}
 {% cache 3600 higher_ed_sentence object.id %}
 <p>
-  {{ object.sentences.introductory }}
-  {{ object.sentences.admissions }}
-  {{ object.sentences.cost }}
+  {{ object.sentences.introductory|safe }}
+  {{ object.sentences.admissions|safe }}
+  {{ object.sentences.cost|safe }}
 </p>
 
 <p>
-  {{ object.sentences.sat_scores }}
+  {{ object.sentences.sat_scores|safe }}
 </p>
 {% endcache %}
