@@ -4,7 +4,7 @@
   var w = $('#admissions .d3-viz').width(),
       h = 300,
       xPadding = 50,
-      yPadding = 20
+      yPadding = 30
       ;
 
   // Initialize SVG
