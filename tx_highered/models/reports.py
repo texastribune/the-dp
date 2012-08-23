@@ -222,8 +222,11 @@ class TestScores(YearBasedInstitutionStatModel):
 
     @property
     def sat_writing_range(self):
-        return "%s - %s" % (self.sat_writing_25th_percentile,
-                self.sat_writing_75th_percentile)
+        if self.sat_writing_25th_percentile:
+            return "%s - %s" % (self.sat_writing_25th_percentile,
+                    self.sat_writing_75th_percentile)
+        else:
+            return ""
 
     @property
     def bar(self):

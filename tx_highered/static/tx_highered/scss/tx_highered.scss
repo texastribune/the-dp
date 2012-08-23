@@ -9,12 +9,14 @@
 @import "svg";
 
 
+#intro p { font-size: 1.25em; }
+
 // use visiblity because display:none affects box size calculations
 h3 > .page-anchor { visibility: hidden; }
 h3:hover > .page-anchor { visibility: visible; }
 
 // mimic h1 > small
-td small {
+.table small {
   color: #999;
 }
 

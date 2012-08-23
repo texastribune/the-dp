@@ -7,11 +7,13 @@ svg .axis .domain { display: none; }
 svg .y.axis line { stroke: #000; }
 svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
+#intro p { font-size: 1.25em; }
+
 h3 > .page-anchor { visibility: hidden; }
 
 h3:hover > .page-anchor { visibility: visible; }
 
-td small { color: #999; }
+.table small { color: #999; }
 
 td.align-right { text-align: right; }
 td.align-right .ui-tablebar { right: 0; }
@@ -27,5 +29,3 @@ td.align-right .ui-tablebar { right: 0; }
 .funnel .bar { background: #0074cc; margin: 0 auto; overflow: hidden; text-indent: 110%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
-
-#intro p { font-size: 1.25em; }
