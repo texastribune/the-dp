@@ -1,5 +1,5 @@
 function render_enrollment_chart(dataset) {
-  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+  var margin = {top: 20, right: 20, bottom: 30, left: 60},
       width = 760 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
