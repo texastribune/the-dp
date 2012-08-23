@@ -1,6 +1,7 @@
 {% extends "tx_highered/two_column_base.html" %}
 {% load layout_helpers humanize instachart %}
 {% load webdesign %}
+{% load url from future %}
 
 
 {% block head_title %}{{ object.name }}{% endblock %}
@@ -77,6 +78,7 @@
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/ethnicity-chart.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script>
   var $section = $('#pricetrends');
   var $source = $section.find('table');
@@ -143,7 +145,10 @@
 
   // Enrollment chart
   init_enrollment_chart({
-    url: "{% url enrollment_api object.id %}"
+    url: "{% url "enrollment_api" object.id %}"
   });
+
+
+  TestScoresChart.init("{% url "institution_api" object.id "testscores" %}");
 </script>
 {% endblock %}
