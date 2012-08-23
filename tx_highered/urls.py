@@ -6,6 +6,7 @@ from .views import (HomeView,
                     InstitutionDetailView, InstitutionListView,
                     RenderModelDetailView,
                     TestScoresReport, FunnelReport, Top10RuleReport)
+from . import api
 
 
 urlpatterns = patterns('',
@@ -24,4 +25,7 @@ urlpatterns = patterns('',
 ) + patterns('tx_highered.api',
     url(r'^api/institution/(?P<pk>\d+)/enrollment/$', 'enrollment_api',
         name='enrollment_api'),
+    url(r'^api/institution/(?P<pk>\d+)/(?P<metric>\w+)/$',
+        api.ReportView.as_view(report_name='testscores'),
+        name='institution_api'),
 )
