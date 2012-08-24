@@ -90,7 +90,6 @@
   var chart = new D3StackedBarChart($('<div class="chart" />').appendTo($section)[0],
       [data[0], data[3], data[2]],
       {
-        'style': 'stacked',
         'tooltip': function(){
           var d = this.__data__;
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
@@ -103,12 +102,10 @@
     chart.data([data[1], data[3], data[2]]);
   });
 
-/*
-  var chart2 = new D3BarChart($('<div class="chart" />').appendTo($section)[0],
-              [data[0], data[1]], {
-                'style': 'grouped'
-              });
+  var chart2 = new D3GroupedBarChart($('<div class="chart" />').appendTo($section)[0],
+              [data[0], data[1]]);
 
+/*
   var normData = normalizeFirst([data[0], data[1]], 0);
   var chart3 = new D3BarChart($('<div class="chart" />').appendTo($section)[0],
         normData, {
