@@ -42,18 +42,6 @@ D3Chart.prototype.data = function(new_data){
 
   data = self.init_data(new_data);
   self._data = data;
-
-  // reset height ceiling
-  self.rescale(self.get_max_y(data));
-
-  // update layers data
-  self._layers.data(data);
-  // update bars data :(
-  self._layers.selectAll("rect.bar")
-    .data(function(d) { return d; })
-    .transition()
-      .attr("y", self.y)
-      .attr("height", function(d) { return self.height_scale(d.y); });
   return self;
 };
 
@@ -175,6 +163,31 @@ D3BarChart.prototype._main = function(){
         .call(y_axis);
     self.yAxis = y_axis;
   }
+};
+
+// get or set data
+D3Chart.prototype.data = function(new_data){
+  var self = this,
+      data;
+  if (typeof new_data === "undefined"){
+    return this._data;
+  }
+
+  data = self.init_data(new_data);
+  self._data = data;
+
+  // reset height ceiling
+  self.rescale(self.get_max_y(data));
+
+  // update layers data
+  self._layers.data(data);
+  // update bars data :(
+  self._layers.selectAll("rect.bar")
+    .data(function(d) { return d; })
+    .transition()
+      .attr("y", self.y)
+      .attr("height", function(d) { return self.height_scale(d.y); });
+  return self;
 };
 
 D3BarChart.prototype.get_max_y = function(data){
