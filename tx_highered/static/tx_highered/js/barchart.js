@@ -26,14 +26,62 @@ function irange(min, max){
 }
 
 
-function D3BarChart(el, data, options){
+var D3BarChart = Class.extend({
+});
+
+D3BarChart.prototype.init = function(el, data, options){
   this.elem = el;
   this._data = data;
   this._init(options);
+  this._main();
+};
 
+  // sets global height and scales
+D3BarChart.prototype._init = function(options){
+  // merge user options and default options
+  var self = this;
+  var defaultOptions = {
+      color: d3.scale.category10(),
+      style: 'stacked',
+      height: 300,
+      width: 940,
+      tooltip: function(){ return this.__data__.title || this.__data__.y; },
+      enable_axis_x: true,
+      enable_axis_y: true,
+      margin: [10, 50, 30, 50]
+  };
+  self.options = $.extend({}, defaultOptions, options);
+
+  // plot box
+  var plot_box = {
+        w: self.options.width - self.options.margin[1] - self.options.margin[3],
+        h: self.options.height - self.options.margin[0] - self.options.margin[2]
+      };
+  self.options.plot_box = plot_box;
+
+  // setup x and y extents
+  var data = self._data;
+  var len_x = data[0].length,   // n, j, cols
+      min_x = data[0][0].x,
+      max_x = data[0][len_x - 1].x;
+
+  // plot x and y
+  this.x_scale = d3.scale.ordinal()
+              .domain(irange(min_x, max_x))
+              .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
+  this.x_axis = null;
+  this.x = function(d) { return self.x_scale(d.x); };
+  this.height_scale = d3.scale.linear().range([0, plot_box.h]);
+  this.y_scale = d3.scale.linear().range([plot_box.h, 0]);
+  this.y_axis = null;
+  this.y = null;
+};
+
+D3BarChart.prototype._main = function(){
+  var self = this;
 
   // setup svg DOM
-  var svg = d3.select(el)
+  var svg = d3.select(this.elem)
               .append("svg")
               .attr("width", "100%")
               .attr("height", "100%")
@@ -58,8 +106,6 @@ function D3BarChart(el, data, options){
       //     });
       //   });
       // };
-  var self = this;
-
 
   var len_series = this._data.length; // m, i, rows
   var len_x = this._data[0].length;   // n, j, cols
@@ -76,11 +122,11 @@ function D3BarChart(el, data, options){
   // } else {
   self.y = function(d) { return self.y_scale(d.y); };
   // }
-  this.rescale(this.find_ceiling(data));
+  this.rescale(this.find_ceiling(this._data));
 
   // set up a layer for each series
   var layers = plot.selectAll("g.layer")
-    .data(data)
+    .data(this._data)
     .enter().append("g")
       .attr("class", "layer")
       .style("fill", function(d, i) { return self.options.color(i); });
@@ -124,48 +170,6 @@ function D3BarChart(el, data, options){
         .call(y_axis);
   }
   */
-
-}
-
-  // sets global height and scales
-D3BarChart.prototype._init = function(options){
-  // merge user options and default options
-  var self = this;
-  var defaultOptions = {
-      color: d3.scale.category10(),
-      style: 'stacked',
-      height: 300,
-      width: 940,
-      tooltip: function(){ return this.__data__.title || this.__data__.y; },
-      enable_axis_x: true,
-      enable_axis_y: true,
-      margin: [10, 50, 30, 50]
-  };
-  self.options = $.extend({}, defaultOptions, options);
-
-  // plot box
-  var plot_box = {
-        w: self.options.width - self.options.margin[1] - self.options.margin[3],
-        h: self.options.height - self.options.margin[0] - self.options.margin[2]
-      };
-  self.options.plot_box = plot_box;
-
-  // setup x and y extents
-  var data = self._data;
-  var len_x = data[0].length,   // n, j, cols
-      min_x = data[0][0].x,
-      max_x = data[0][len_x - 1].x;
-
-  // plot x and y
-  this.x_scale = d3.scale.ordinal()
-              .domain(irange(min_x, max_x))
-              .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
-  this.x_axis = null;
-  this.x = function(d) { return self.x_scale(d.x); };
-  this.height_scale = d3.scale.linear().range([0, plot_box.h]);
-  this.y_scale = d3.scale.linear().range([plot_box.h, 0]);
-  this.y_axis = null;
-  this.y = null;
 };
 
 D3BarChart.prototype.find_ceiling = function(data){
@@ -237,3 +241,6 @@ D3BarChart.prototype.option = function(name, newvalue){
   }
   this.options[name] = newvalue;
 };
+
+
+var D3StackedBarChart = D3BarChart.extend();
