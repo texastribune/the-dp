@@ -87,7 +87,7 @@
 
   // store
 
-  var chart = d3BarChart($('<div class="chart" />').appendTo($section)[0],
+  var chart = new D3BarChart($('<div class="chart" />').appendTo($section)[0],
       [data[0], data[3], data[2]],
       {
         'style': 'stacked',
@@ -103,13 +103,14 @@
     chart.data([data[1], data[3], data[2]]);
   });
 
-  var chart2 = d3BarChart($('<div class="chart" />').appendTo($section)[0],
+/*
+  var chart2 = new D3BarChart($('<div class="chart" />').appendTo($section)[0],
               [data[0], data[1]], {
                 'style': 'grouped'
               });
 
   var normData = normalizeFirst([data[0], data[1]], 0);
-  var chart3 = d3BarChart($('<div class="chart" />').appendTo($section)[0],
+  var chart3 = new D3BarChart($('<div class="chart" />').appendTo($section)[0],
         normData, {
           'style': 'grouped',
           'tooltip': function(){
@@ -141,7 +142,7 @@
         .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
         .attr('stroke-opacity', 100);
   });
-
+*/
   $(".onion").onionize();
 
   // Enrollment chart

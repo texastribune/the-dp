@@ -66,5 +66,5 @@
 {% block extra_script %}{{ block.super }}
   <script src="{{ STATIC_URL }}js/jquery.tablebars.js"></script>
   <script src="{{ STATIC_URL }}js/jquery.onionskin.js"></script>
-  <script src="{{ STATIC_URL }}js/d3.v2{% if not DEBUG %}.min{% endif %}.js"></script>
+  <script src="{{ STATIC_URL }}js/d3.v2{% if not debug %}.min{% endif %}.js"></script>
 {% endblock %}
