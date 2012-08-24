@@ -44,7 +44,7 @@ D3Chart.prototype.data = function(new_data){
   self._data = data;
 
   // reset height ceiling
-  self.rescale(self.find_ceiling(data));
+  self.rescale(self.get_max_y(data));
 
   // update layers data
   self._layers.data(data);
@@ -71,7 +71,7 @@ var D3BarChart = D3Chart.extend({});
 
 D3BarChart.prototype.init = function(el, data, options){
   this.elem = el;
-  this._data = data;
+  this._data = this.init_data(data);
   this._init(options);
   this._main();
 };
@@ -79,7 +79,7 @@ D3BarChart.prototype.init = function(el, data, options){
 D3BarChart.prototype._init = function(options){
   // merge user options and default options
   var self = this,
-      data;
+      data = this._data;
   var defaultOptions = {
       color: d3.scale.category10(),
       style: 'stacked',
@@ -99,9 +99,6 @@ D3BarChart.prototype._init = function(options){
       };
   self.options.plot_box = plot_box;
 
-
-  data = this.init_data(this._data);
-  self._data = data;
 
   // setup x and y extents
   var len_x = data[0].length,   // n, j, cols
@@ -144,10 +141,10 @@ D3BarChart.prototype._main = function(){
   this.bar_width = this.get_bar_width();
 
   self.y = self.get_y();
-  this.rescale(this.find_ceiling(this._data));
+  this.rescale(this.get_max_y(this._data));
 
   this._layers = this.get_layers();
-  this.bars();
+  this.get_bars();
 
   // tooltip
   $('rect.bar', svg[0]).tooltip({
@@ -180,7 +177,7 @@ D3BarChart.prototype._main = function(){
   }
 };
 
-D3BarChart.prototype.find_ceiling = function(data){
+D3BarChart.prototype.get_max_y = function(data){
   return d3.max(data, function(d) {
     return d3.max(d, function(d) {
       return d.y;
@@ -214,7 +211,7 @@ D3BarChart.prototype.get_layers = function(){
 };
 
 // setup a bar for each point in a series
-D3BarChart.prototype.bars = function(){
+D3BarChart.prototype.get_bars = function(){
   var self = this;
   return this._layers.selectAll("rect.bar")
     .data(function(d) { return d; })
@@ -246,7 +243,7 @@ D3StackedBarChart.prototype.init_data = function(new_data){
   return d3.layout.stack()(new_data);
 };
 
-D3StackedBarChart.prototype.find_ceiling = function(data){
+D3StackedBarChart.prototype.get_max_y = function(data){
   return d3.max(data, function(d) {
     return d3.max(d, function(d) {
       return d.y + d.y0;

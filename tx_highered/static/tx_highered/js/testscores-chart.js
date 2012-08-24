@@ -1,6 +1,4 @@
 
-/* globals: d3, $ */
-
 var TestScoresChart = D3GroupedBarChart.extend();
 
 TestScoresChart.prototype.init_data = function(new_data){
@@ -18,20 +16,16 @@ TestScoresChart.prototype.init_data = function(new_data){
     processed_data.verbal.push({
       x: datum.year,
       y: datum.sat.verbal[0],
-      y_min: datum.sat.verbal[0],
       y_max: datum.sat.verbal[1]
     });
     processed_data.math.push({
       x: datum.year,
       y: datum.sat.math[0],
-      y_min: datum.sat.math[0],
       y_max: datum.sat.math[1]
     });
     processed_data.writing.push({
       x: datum.year,
       y: datum.sat.writing[0],
-      y0: datum.sat.writing[1] - datum.sat.writing[0],
-      y_min: datum.sat.writing[0],
       y_max: datum.sat.writing[1]
     });
   }
@@ -40,12 +34,12 @@ TestScoresChart.prototype.init_data = function(new_data){
   return data;
 };
 
-TestScoresChart.prototype.find_ceiling = function(){
+TestScoresChart.prototype.get_max_y = function(){
   return 800;
 };
 
 // setup a bar for each point in a series
-TestScoresChart.prototype.bars = function(){
+TestScoresChart.prototype.get_bars = function(){
   var self = this;
   return this._layers.selectAll("rect.bar")
     .data(function(d) { return d; })
@@ -59,5 +53,5 @@ TestScoresChart.prototype.bars = function(){
         .delay(function(d, i) { return i * 10; })
         // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
         .attr("y", self.y)
-        .attr("height", function(d) { return self.height_scale(d.y_max - d.y_min); });
+        .attr("height", function(d) { return self.height_scale(d.y_max - d.y); });
 };
