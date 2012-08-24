@@ -17,32 +17,31 @@ TestScoresChart.prototype.init_data = function(new_data){
     var datum = new_data[i];
     processed_data.verbal.push({
       x: datum.year,
+      y: datum.sat.verbal[0],
       y_min: datum.sat.verbal[0],
       y_max: datum.sat.verbal[1]
     });
     processed_data.math.push({
       x: datum.year,
+      y: datum.sat.math[0],
       y_min: datum.sat.math[0],
       y_max: datum.sat.math[1]
     });
     processed_data.writing.push({
       x: datum.year,
+      y: datum.sat.writing[0],
+      y0: datum.sat.writing[1] - datum.sat.writing[0],
       y_min: datum.sat.writing[0],
       y_max: datum.sat.writing[1]
     });
   }
-  data = [processed_data.verbal, processed_data.math, processed_data.writing];
+  var data = [processed_data.verbal, processed_data.math, processed_data.writing];
   this._data = data;
   return data;
 };
 
 TestScoresChart.prototype.find_ceiling = function(){
   return 800;
-};
-
-D3BarChart.prototype.get_y = function(){
-  var self = this;
-  return function(d) { return self.y_scale(d.y_min); };
 };
 
 // setup a bar for each point in a series

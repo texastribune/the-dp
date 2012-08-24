@@ -26,6 +26,7 @@ function irange(min, max){
 }
 
 
+/***************** CHART ******************/
 var D3Chart = Class.extend({});
 
 // override this if data needs to be scrubbed before getting charted
@@ -33,24 +34,27 @@ D3Chart.prototype.init_data = function(data){ return data; };
 
 // get or set data
 D3Chart.prototype.data = function(new_data){
-  var self = this, data;
+  var self = this,
+      data;
   if (typeof new_data === "undefined"){
     return this._data;
   }
 
-  data = this.init_data(new_data);
+  data = self.init_data(new_data);
+  self._data = data;
 
   // reset height ceiling
-  this.rescale(this.find_ceiling(data));
+  self.rescale(self.find_ceiling(data));
 
   // update layers data
-  this._layers.data(data);
+  self._layers.data(data);
   // update bars data :(
-  this._layers.selectAll("rect.bar")
+  self._layers.selectAll("rect.bar")
     .data(function(d) { return d; })
     .transition()
       .attr("y", self.y)
       .attr("height", function(d) { return self.height_scale(d.y); });
+  return self;
 };
 
 // get or set option
@@ -62,6 +66,7 @@ D3Chart.prototype.option = function(name, newvalue){
 };
 
 
+/***************** BAR CHART ******************/
 var D3BarChart = D3Chart.extend({});
 
 D3BarChart.prototype.init = function(el, data, options){
@@ -73,7 +78,8 @@ D3BarChart.prototype.init = function(el, data, options){
 
 D3BarChart.prototype._init = function(options){
   // merge user options and default options
-  var self = this;
+  var self = this,
+      data;
   var defaultOptions = {
       color: d3.scale.category10(),
       style: 'stacked',
@@ -94,10 +100,10 @@ D3BarChart.prototype._init = function(options){
   self.options.plot_box = plot_box;
 
 
-  var data = this.init_data(this._data);
+  data = this.init_data(this._data);
+  self._data = data;
 
   // setup x and y extents
-  console.log(data);
   var len_x = data[0].length,   // n, j, cols
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x;
@@ -220,7 +226,6 @@ D3BarChart.prototype.bars = function(){
       .attr("height", 0)
       .transition()
         .delay(function(d, i) { return i * 10; })
-        // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
         .attr("y", self.y)
         .attr("height", function(d) { return self.height_scale(d.y); });
 };
@@ -233,12 +238,12 @@ D3BarChart.prototype.get_bar_width = function(){
 };
 
 
+/***************** STACKED BAR CHART ******************/
 var D3StackedBarChart = D3BarChart.extend();
 
 D3StackedBarChart.prototype.init_data = function(new_data){
   // process add stack offsets
-  this._data = d3.layout.stack()(new_data);
-  return this._data;
+  return d3.layout.stack()(new_data);
 };
 
 D3StackedBarChart.prototype.find_ceiling = function(data){
@@ -255,6 +260,7 @@ D3StackedBarChart.prototype.get_y = function(){
 };
 
 
+/***************** GROUPED BAR CHART ******************/
 var D3GroupedBarChart = D3BarChart.extend();
 
 D3GroupedBarChart.prototype.get_layers = function(){

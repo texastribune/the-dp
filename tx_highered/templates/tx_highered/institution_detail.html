@@ -150,7 +150,7 @@
   var url = "{% url "institution_api" object.id "testscores" %}";
   var testchart;
   d3.json(url, function(new_data) {
-    testchart = new TestScoresChart($('#testing').append($('<div class="chart">'))[0],
+    testchart = new TestScoresChart($('<div class="chart">').appendTo($('#testing'))[0],
       new_data,
       {
         tooltip: function(){
