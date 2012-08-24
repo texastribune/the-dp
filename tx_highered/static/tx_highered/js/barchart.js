@@ -115,26 +115,26 @@ D3BarChart.prototype._init = function(options){
 };
 
 D3BarChart.prototype._main = function(){
-  var self = this;
+  var self = this, svg, plot;
 
   this.init_data(this._data);
 
   // setup svg DOM
-  var svg = d3.select(this.elem)
-              .append("svg")
-              .attr("width", "100%")
-              .attr("height", "100%")
-              .attr("viewBox", [0, 0, this.options.width, this.options.height].join(" "))
-              .attr("preserveAspectRatio", "xMinYMin meet");
+  svg = d3.select(this.elem)
+          .append("svg")
+          .attr("width", "100%")
+          .attr("height", "100%")
+          .attr("viewBox", [0, 0, this.options.width, this.options.height].join(" "))
+          .attr("preserveAspectRatio", "xMinYMin meet");
   this.svg = svg;
 
   // setup plot DOM
-  var plot = svg
-            .append("g")
-            .attr("class", "plot")
-            .attr("width", this.options.plot_box.w)
-            .attr("height", this.options.plot_box.h)
-            .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
+  plot = svg
+           .append("g")
+           .attr("class", "plot")
+           .attr("width", this.options.plot_box.w)
+           .attr("height", this.options.plot_box.h)
+           .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
   this.plot = plot;
 
   this.bar_width = this.get_bar_width();
@@ -145,12 +145,12 @@ D3BarChart.prototype._main = function(){
   this._layers = this.get_layers();
   this.bars();
 
-  /*
   // tooltip
   $('rect.bar', svg[0]).tooltip({
     // manually call because options.tooltip can change
-    title: function(){ return options.tooltip.call(this); }
+    title: function(){ return self.options.tooltip.call(this); }
   });
+  /*
 
   // draw axes
   if (enable_axis_x) {
