@@ -105,9 +105,8 @@
   var chart2 = new D3GroupedBarChart($('<div class="chart" />').appendTo($section)[0],
               [data[0], data[1]]);
 
-/*
   var normData = normalizeFirst([data[0], data[1]], 0);
-  var chart3 = new D3BarChart($('<div class="chart" />').appendTo($section)[0],
+  var chart3 = new D3GroupedBarChart($('<div class="chart" />').appendTo($section)[0],
         normData, {
           'style': 'grouped',
           'tooltip': function(){
@@ -139,7 +138,7 @@
         .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
         .attr('stroke-opacity', 100);
   });
-*/
+
   $(".onion").onionize();
 
   // Enrollment chart

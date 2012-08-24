@@ -33,12 +33,12 @@ D3Chart.prototype.init_data = function(data){ return data; };
 
 // get or set data
 D3Chart.prototype.data = function(new_data){
-  var self = this;
+  var self = this, data;
   if (typeof new_data === "undefined"){
     return this._data;
   }
 
-  this.init_data(new_data);
+  data = this.init_data(new_data);
 
   // reset height ceiling
   this.rescale(this.find_ceiling(data));
@@ -49,11 +49,9 @@ D3Chart.prototype.data = function(new_data){
   this._layers.selectAll("rect.bar")
     .data(function(d) { return d; })
     .transition()
-      .attr("y", y)
+      .attr("y", self.y)
       .attr("height", function(d) { return self.height_scale(d.y); });
 
-  this._data = data;
-  return layers;
 };
 
 // get or set option
@@ -115,7 +113,7 @@ D3BarChart.prototype._init = function(options){
 };
 
 D3BarChart.prototype._main = function(){
-  var self = this, svg, plot;
+  var self = this, svg, plot, x_axis, y_axis;
 
   this.init_data(this._data);
 
@@ -150,30 +148,30 @@ D3BarChart.prototype._main = function(){
     // manually call because options.tooltip can change
     title: function(){ return self.options.tooltip.call(this); }
   });
-  /*
 
   // draw axes
-  if (enable_axis_x) {
+  if (self.options.enable_axis_x) {
     x_axis = d3.svg.axis()
-    .orient("bottom")
-             .scale(x_scale)
-             .tickSize(6, 1, 1)
-             .tickFormat(function(a){ return a; });
+      .orient("bottom")
+      .scale(self.x_scale)
+      .tickSize(6, 1, 1)
+      .tickFormat(function(a){ return a; });
     svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(" + margin[3] + "," + (height - margin[2]) + ")")
-        .call(x_axis);
+      .attr("class", "x axis")
+      .attr("transform", "translate(" + self.options.margin[3] + "," + (self.options.height - self.options.margin[2]) + ")")
+      .call(x_axis);
+    self.xAxis = x_axis;
   }
-  if (enable_axis_y) {
+  if (self.options.enable_axis_y) {
     y_axis = d3.svg.axis()
-             .scale(y_scale)
+             .scale(self.y_scale)
              .orient("left");
     svg.append("g")
         .attr("class", "y axis")
-        .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+        .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
         .call(y_axis);
+    self.yAxis = y_axis;
   }
-  */
 };
 
 D3BarChart.prototype.find_ceiling = function(data){
@@ -193,8 +191,8 @@ D3BarChart.prototype.rescale = function(data_ceiling){
   var self = this;
   self.height_scale.domain([0, data_ceiling]);
   self.y_scale.domain([0, data_ceiling]);
-  if (self.y_axis){
-    self.svg.select('.y.axis').transition().call(self.y_axis);
+  if (self.yAxis){
+    self.svg.select('.y.axis').transition().call(self.yAxis);
   }
 };
 
