@@ -51,7 +51,6 @@ D3Chart.prototype.data = function(new_data){
     .transition()
       .attr("y", self.y)
       .attr("height", function(d) { return self.height_scale(d.y); });
-
 };
 
 // get or set option
@@ -94,8 +93,11 @@ D3BarChart.prototype._init = function(options){
       };
   self.options.plot_box = plot_box;
 
+
+  var data = this.init_data(this._data);
+
   // setup x and y extents
-  var data = self._data;
+  console.log(data);
   var len_x = data[0].length,   // n, j, cols
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x;
@@ -114,8 +116,6 @@ D3BarChart.prototype._init = function(options){
 
 D3BarChart.prototype._main = function(){
   var self = this, svg, plot, x_axis, y_axis;
-
-  this.init_data(this._data);
 
   // setup svg DOM
   svg = d3.select(this.elem)

@@ -147,6 +147,18 @@
   });
 
 
-  TestScoresChart.init("{% url "institution_api" object.id "testscores" %}");
+  var url = "{% url "institution_api" object.id "testscores" %}";
+  var testchart;
+  d3.json(url, function(new_data) {
+    testchart = new TestScoresChart($('#testing').append($('<div class="chart">'))[0],
+      new_data,
+      {
+        tooltip: function(){
+          var d = this.__data__;
+          return d.title ||
+          "" + d.y_min + " - " + d.y_max + "";
+      }
+    })
+  });
 </script>
 {% endblock %}
