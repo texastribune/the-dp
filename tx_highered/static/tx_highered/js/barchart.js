@@ -60,52 +60,53 @@ var D3BarChart = D3Chart.extend({});
 D3BarChart.prototype.init = function(el, data, options){
   this.elem = el;
   this._data = this.init_data(data);
-  this._init(options);
-  this._main();
+  this.setUp(options);
+  this.render();
 };
 
-D3BarChart.prototype._init = function(options){
+D3BarChart.prototype.setUp = function(options){
   // merge user options and default options
   var self = this,
       data = this._data;
   var defaultOptions = {
-      color: d3.scale.category10(),
-      style: 'stacked',
-      height: 300,
-      width: 940,
-      tooltip: function(){ return this.__data__.title || this.__data__.y; },
-      enable_axis_x: true,
-      enable_axis_y: true,
-      margin: [10, 50, 30, 50]
-  };
+        color: d3.scale.category10(),
+        height: 300,
+        width: 940,
+        margin: [10, 50, 30, 50],
+        tooltip: function(){ return this.__data__.title || this.__data__.y; },
+        enable_axis_x: true,
+        enable_axis_y: true
+      };
   self.options = $.extend({}, defaultOptions, options);
 
-  // plot box
+  // pre-calculate plot box dimensions
   var plot_box = {
         w: self.options.width - self.options.margin[1] - self.options.margin[3],
         h: self.options.height - self.options.margin[0] - self.options.margin[2]
       };
   self.options.plot_box = plot_box;
 
-
-  // setup x and y extents
-  var len_x = data[0].length,   // n, j, cols
+  // setup x scales
+  var len_x = data[0].length,
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x;
-
-  // plot x and y
   this.x_scale = d3.scale.ordinal()
-              .domain(irange(min_x, max_x))
-              .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
-  this.x_axis = null;
-  this.x = function(d) { return self.x_scale(d.x); };
-  this.height_scale = d3.scale.linear().range([0, plot_box.h]);
-  this.y_scale = d3.scale.linear().range([plot_box.h, 0]);
-  this.y_axis = null;
-  this.y = null;
+      .domain(irange(min_x, max_x))
+      .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
+  self.x_axis = null;
+  self.x = function(d) { return self.x_scale(d.x); };
+
+  // setup y scales
+  self.height_scale = d3.scale.linear().range([0, plot_box.h]);
+  self.y_scale = d3.scale.linear().range([plot_box.h, 0]);
+  self.y_axis = null;
+  self.y = self.get_y();
+
+  // setup bar width
+  self.bar_width = this.get_bar_width();
 };
 
-D3BarChart.prototype._main = function(){
+D3BarChart.prototype.render = function(){
   var self = this, svg, plot, x_axis, y_axis;
 
   // setup svg DOM
@@ -126,9 +127,6 @@ D3BarChart.prototype._main = function(){
            .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
   this.plot = plot;
 
-  this.bar_width = this.get_bar_width();
-
-  self.y = self.get_y();
   this.rescale(this.get_max_y(this._data));
 
   this._layers = this.get_layers();
@@ -243,7 +241,7 @@ D3BarChart.prototype.get_bars = function(){
 D3BarChart.prototype.get_bar_width = function(){
   var len_series = this._data.length; // m, i, rows
   var len_x = this._data[0].length;   // n, j, cols
-  bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
+  var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
   return bar_width;
 };
 
@@ -284,7 +282,7 @@ D3GroupedBarChart.prototype.get_layers = function(){
   // shift grouped bars so they're adjacent to each other
   layers
     .attr("transform", function(d, i) {
-      var offset = bar_width * 0.9 * i;
+      var offset = self.bar_width * 0.9 * i;
       return "translate(" + offset + ",0)";
     });
   return layers;
@@ -293,7 +291,7 @@ D3GroupedBarChart.prototype.get_layers = function(){
 D3GroupedBarChart.prototype.get_bar_width = function(){
   var len_series = this._data.length; // m, i, rows
   var len_x = this._data[0].length;   // n, j, cols
-  bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
+  var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
   bar_width = bar_width / len_series;
   return bar_width;
 };
