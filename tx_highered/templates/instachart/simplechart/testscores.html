@@ -2,9 +2,15 @@
 <table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
-      <th>Year</th>
-      <th>Scores</th>
+      <th rowspan=2>Year</th>
+      <th>Scores <small>(25th percentile - 75th percentile)</small></th>
+    </tr>
+    <tr>
+      <th>Verbal</th>
+      <th>Math</th>
+      <th>Writing</th>
     </tr>
   </thead>
-  {% render_list object_list "testscores_tbody" %}
+  {# {% render_list object_list "testscores_tbody" %} #}
+  {% render_list object_list "testscores_tbody_basic" %}
 </table>

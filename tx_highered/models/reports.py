@@ -190,6 +190,26 @@ class TestScores(YearBasedInstitutionStatModel):
     def __unicode__(self):
         return "Test Scores %s %s" % (self.display_year, self.institution)
 
+    def __json__(self):
+        return {
+            'year': self.year,
+            'sat': {
+                'verbal': [self.sat_verbal_25th_percentile, self.sat_verbal_75th_percentile],
+                'math': [self.sat_math_25th_percentile, self.sat_math_75th_percentile],
+                'writing': [self.sat_writing_25th_percentile, self.sat_writing_75th_percentile],
+                'submitted_number': self.sat_submitted_number,
+                'submitted_percent': self.sat_submitted_percent,
+            },
+            'act': {
+                'verbal': [self.act_english_25th_percentile, self.act_english_75th_percentile],
+                'math': [self.act_math_25th_percentile, self.act_math_75th_percentile],
+                'writing': [self.act_writing_25th_percentile, self.act_writing_75th_percentile],
+                'composite': [self.act_composite_25th_percentile, self.act_composite_75th_percentile],
+                'submitted_number': self.act_submitted_number,
+                'submitted_percent': self.act_submitted_percent,
+            },
+        }
+
     @property
     def sat_verbal_range(self):
         return "%s - %s" % (self.sat_verbal_25th_percentile,
@@ -202,8 +222,11 @@ class TestScores(YearBasedInstitutionStatModel):
 
     @property
     def sat_writing_range(self):
-        return "%s - %s" % (self.sat_writing_25th_percentile,
-                self.sat_writing_75th_percentile)
+        if self.sat_writing_25th_percentile:
+            return "%s - %s" % (self.sat_writing_25th_percentile,
+                    self.sat_writing_75th_percentile)
+        else:
+            return ""
 
     @property
     def bar(self):

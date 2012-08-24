@@ -26,4 +26,16 @@ class EnrollmentApiView(SingleObjectMixin, ApiView):
         return race_data
 
 
+class ReportView(SingleObjectMixin, ApiView):
+    model = Institution
+    report_name = None
+
+    def get_content_data(self):
+        self.object = self.get_object()
+        return_data = []
+        for obj in getattr(self.object, self.report_name).all():
+            return_data.append(obj.__json__())
+        return return_data
+
+
 enrollment_api = EnrollmentApiView.as_view()
