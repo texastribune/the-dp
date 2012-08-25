@@ -73,6 +73,7 @@
 {% endblock %}
 
 {% block extra_script %}{{ block.super }}
+<script src="{{ STATIC_URL }}vendor/underscore.js/1.3.3/underscore{% if not debug %}-min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
@@ -86,10 +87,9 @@
 
   // store
 
-  var chart = d3BarChart($('<div class="chart" />').appendTo($section)[0],
+  var chart = new D3StackedBarChart($('<div class="chart" />').appendTo($section)[0],
       [data[0], data[3], data[2]],
       {
-        'style': 'stacked',
         'tooltip': function(){
           var d = this.__data__;
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
@@ -102,13 +102,11 @@
     chart.data([data[1], data[3], data[2]]);
   });
 
-  var chart2 = d3BarChart($('<div class="chart" />').appendTo($section)[0],
-              [data[0], data[1]], {
-                'style': 'grouped'
-              });
+  var chart2 = new D3GroupedBarChart($('<div class="chart" />').appendTo($section)[0],
+              [data[0], data[1]]);
 
   var normData = normalizeFirst([data[0], data[1]], 0);
-  var chart3 = d3BarChart($('<div class="chart" />').appendTo($section)[0],
+  var chart3 = new D3GroupedBarChart($('<div class="chart" />').appendTo($section)[0],
         normData, {
           'style': 'grouped',
           'tooltip': function(){
@@ -149,6 +147,17 @@
   });
 
 
-  TestScoresChart.init("{% url "institution_api" object.id "testscores" %}");
+  var testchart_url = "{% url "institution_api" object.id "testscores" %}";
+  var testchart = new TestScoresChart(
+        $('<div class="chart">').appendTo($('#testing'))[0],
+        testchart_url,
+        {
+          tooltip: function(){
+            var d = this.__data__;
+            return d.title ||
+            "" + d.y + " - " + d.y_max + "";
+          }
+        }
+      );
 </script>
 {% endblock %}

@@ -1,3 +1,9 @@
+/*global $, d3, Class */
+(function(){
+  "use strict";
+// begin file-iffy, unindent
+
+
 // data processor TODO move awaaaaay
 function normalizeFirst(data, idx){
   data = $.extend(true, [], data);  // make a deep copy of data
@@ -14,6 +20,7 @@ function normalizeFirst(data, idx){
   }
   return data;
 }
+window.normalizeFirst = normalizeFirst;
 
 
 // inclusive range
@@ -26,206 +33,298 @@ function irange(min, max){
 }
 
 
-/*
-  Based on:
-  http://mbostock.github.com/d3/ex/stack.html
-*/
-var d3BarChart = function(el, data, options){
-  // merge user options and default options
-  var defaultOptions = {
-    color: d3.scale.category10(),
-    style: 'stacked',
-    tooltip: function(){ return this.__data__.title || this.__data__.y; }
-  };
-  var enable_axis_x = true;
-  var enable_axis_y = true;
-  var margin = [10, 50, 30, 50];
-  options = $.extend({}, defaultOptions, options);
+/***************** CHART ******************/
+var D3Chart = Class.extend({});
+window.D3Chart = D3Chart;
 
-  // data pre-processor
-  if (options.style == "stacked"){
-    // transform data, pre-calculate y0 bar stack offset
-    data = d3.layout.stack()(data);
+// override this if data needs to be scrubbed before getting charted
+D3Chart.prototype.init_data = function(data){ return data; };
+
+// get or set data
+D3Chart.prototype.data = function(new_data){
+  var data;
+  if (typeof new_data === "undefined"){
+    return this._data;
   }
 
-  // configure svg box
-  var width = 940;
-  var height = 300;
-  // setup svg DOM
-  var svg = d3.select(el)
-              .append("svg")
-              .attr("width", "100%")
-              .attr("height", "100%")
-              .attr("viewBox", [0, 0, width, height].join(" "))
-              .attr("preserveAspectRatio", "xMinYMin meet");
+  this._data = this.init_data(new_data);
+  this.refresh();
+  return this;
+};
 
 
-  // configure plot box
-  var plot_box = {
-        w: width - margin[1] - margin[3],
-        h: height - margin[0] - margin[2]
-      },
-      bar_width;
-  // setup plot DOM
-  var plot = svg
-            .append("g")
-            .attr("class", "plot")
-            .attr("width", plot_box.w)
-            .attr("height", plot_box.h)
-            .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
-
-  // d3 configuration
-  var len_series = data.length; // m, i, rows
-  var len_x = data[0].length,   // n, j, cols
-      min_x = data[0][0].x,
-      max_x = data[0][len_x - 1].x,
-      // TODO refactor to generate with or without d.y0 constant dyanamically
-      find_ceiling = function(data){
-        return d3.max(data, function(d) {
-          return d3.max(d, function(d) {
-            return d.y;
-          });
-        });
-      },
-      find_ceiling_stacked = function(data){
-        return d3.max(data, function(d) {
-          return d3.max(d, function(d) {
-            return d.y + d.y0;
-          });
-        });
-      },
-      x_scale = d3.scale.ordinal()
-                  .domain(irange(min_x, max_x))
-                  .rangeRoundBands([0, plot_box.w], 0.1, 0.1),
-      x_axis,
-      x = function(d) { return x_scale(d.x); },
-      height_scale_stack = d3.scale.linear().range([0, plot_box.h]),
-      y_scale = d3.scale.linear().range([plot_box.h, 0]),
-      y_axis,
-      y;
-
-  // sets global height and scales
-  function rescale(data_ceiling){
-    height_scale_stack.domain([0, data_ceiling]);
-    y_scale.domain([0, data_ceiling]);
-    if (y_axis){
-      svg.select('.y.axis').transition().call(y_axis);
-    }
+// get or set data
+D3Chart.prototype.refresh = function(){
+  return this;
+};
+// get or set option
+D3Chart.prototype.option = function(name, newvalue){
+  if (typeof newvalue === "undefined"){
+    return this.options[name];
   }
+  this.options[name] = newvalue;
+  return this;
+};
 
-  bar_width = plot_box.w / len_x;  // bar_width is an outer width
-  if (options.style == "grouped") {
-    // subdivide bar_width further
-    bar_width = bar_width / len_series;
-  }
 
-  if (options.style == "stacked"){
-    find_ceiling = find_ceiling_stacked;
-    y = function(d) { return y_scale(d.y + d.y0); };
+/***************** BAR CHART ******************/
+var D3BarChart = D3Chart.extend({});
+window.D3BarChart = D3BarChart;
+
+D3BarChart.prototype.init = function(el, data, options){
+  var self = this;
+  this.elem = el;
+  if (typeof data == "string"){  // if data is url
+    d3.json(data, function(new_data) {
+      self._data = self.init_data(new_data);
+      self.setUp(options);
+      self.render();
+    });
   } else {
-    y = function(d) { return y_scale(d.y); };
+    this._data = this.init_data(data);
+    this.setUp(options);
+    this.render();
   }
-  rescale(find_ceiling(data));
+};
 
-  // set up a layer for each series
-  var layers = plot.selectAll("g.layer")
-    .data(data)
-    .enter().append("g")
-      .attr("class", "layer")
-      .style("fill", function(d, i) { return options.color(i); });
-  // shift grouped bars so they're adjacent to each other
-  if (options.style == "grouped") {
-    layers
-      .attr("transform", function(d, i) {
-        var offset = bar_width * 0.9 * i;
-        return "translate(" + offset + ",0)";
-      });
-  }
+D3BarChart.prototype.setUp = function(options){
+  // merge user options and default options
+  var self = this,
+      data = this._data;
+  var defaultOptions = {
+        color: d3.scale.category10(),
+        height: 300,
+        width: 940,
+        margin: [10, 50, 30, 50],
+        tooltip: function(){ return this.__data__.title || this.__data__.y; },
+        enable_axis_x: true,
+        enable_axis_y: true
+      };
+  self.options = $.extend({}, defaultOptions, options);
 
-  // setup a bar for each point in a series
-  var bars = layers.selectAll("rect.bar")
-    .data(function(d) { return d; })
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("width", bar_width * 0.9)
-      .attr("x", x)
-      .attr("y", plot_box.h)
-      .attr("height", 0)
-      .transition()
-        .delay(function(d, i) { return i * 10; })
-        // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
-        .attr("y", y)
-        .attr("height", function(d) { return height_scale_stack(d.y); });
+  // pre-calculate plot box dimensions
+  var plot_box = {
+        w: self.options.width - self.options.margin[1] - self.options.margin[3],
+        h: self.options.height - self.options.margin[0] - self.options.margin[2]
+      };
+  self.options.plot_box = plot_box;
+
+  // setup x scales
+  var len_x = data[0].length,
+      min_x = data[0][0].x,
+      max_x = data[0][len_x - 1].x;
+  this.x_scale = d3.scale.ordinal()
+      .domain(irange(min_x, max_x))
+      .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
+  self.x_axis = null;
+  self.x = function(d) { return self.x_scale(d.x); };
+
+  // setup y scales
+  self.height_scale = d3.scale.linear().range([0, plot_box.h]);
+  self.y_scale = d3.scale.linear().range([plot_box.h, 0]);
+  self.y_axis = null;
+  self.y = self.get_y();
+  self.h = self.get_h();
+
+  // setup bar width
+  self.bar_width = this.get_bar_width();
+};
+
+D3BarChart.prototype.render = function(){
+  var self = this, svg, plot, x_axis, y_axis;
+
+  // setup svg DOM
+  svg = d3.select(this.elem)
+          .append("svg")
+          .attr("width", "100%")
+          .attr("height", "100%")
+          .attr("viewBox", [0, 0, this.options.width, this.options.height].join(" "))
+          .attr("preserveAspectRatio", "xMinYMin meet");
+  this.svg = svg;
+
+  // setup plot DOM
+  plot = svg
+           .append("g")
+           .attr("class", "plot")
+           .attr("width", this.options.plot_box.w)
+           .attr("height", this.options.plot_box.h)
+           .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
+  this.plot = plot;
+
+  this.rescale(self.get_y_domain());
+
+  this._layers = this.get_layers();
+  this.get_bars();
 
   // tooltip
   $('rect.bar', svg[0]).tooltip({
     // manually call because options.tooltip can change
-    title: function(){ return options.tooltip.call(this); }
+    title: function(){ return self.options.tooltip.call(this); }
   });
 
   // draw axes
-  if (enable_axis_x) {
+  if (self.options.enable_axis_x) {
     x_axis = d3.svg.axis()
-    .orient("bottom")
-             .scale(x_scale)
-             .tickSize(6, 1, 1)
-             .tickFormat(function(a){ return a; });
+      .orient("bottom")
+      .scale(self.x_scale)
+      .tickSize(6, 1, 1)
+      .tickFormat(function(a){ return a; });
     svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(" + margin[3] + "," + (height - margin[2]) + ")")
-        .call(x_axis);
+      .attr("class", "x axis")
+      .attr("transform", "translate(" + self.options.margin[3] + "," + (self.options.height - self.options.margin[2]) + ")")
+      .call(x_axis);
+    self.xAxis = x_axis;
   }
-  if (enable_axis_y) {
+  if (self.options.enable_axis_y) {
     y_axis = d3.svg.axis()
-             .scale(y_scale)
+             .scale(self.y_scale)
              .orient("left");
     svg.append("g")
         .attr("class", "y axis")
-        .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+        .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
         .call(y_axis);
+    self.yAxis = y_axis;
   }
-
-  // PUBLIC METHOD
-  function get_or_set_data(new_data){
-    if (typeof new_data === "undefined"){
-      return data;
-    }
-
-    // process add stack offsets
-    data = d3.layout.stack()(new_data);
-
-    // reset height ceiling
-    rescale(find_ceiling(data));
-
-    // update layers data
-    layers.data(data);
-    // update bars data :(
-    layers.selectAll("rect.bar")
-      .data(function(d) { return d; })
-      .transition()
-        .attr("y", y)
-        .attr("height", function(d) { return height_scale_stack(d.y); });
-    return layers;
-  }
-
-  // PUBLIC METHOD
-  function get_or_set_option(name, newvalue){
-    if (typeof newvalue === "undefined"){
-      return options[name];
-    }
-    options[name] = newvalue;
-  }
-
-  return {
-    // properties
-    elem: el,
-    svg: svg,
-    plot: plot,
-    xAxis: x_axis,
-    yAxis: y_axis,
-
-    // methods
-    data: get_or_set_data,
-    option: get_or_set_option
-  };
 };
+
+D3BarChart.prototype.get_y_domain = function(){
+   return [0, this.get_max_y(this._data)];
+};
+
+D3BarChart.prototype.refresh = function(){
+  var self = this,
+      data = self._data;
+
+  // reset height ceiling
+  self.rescale(self.get_y_domain());
+
+  // update layers data
+  self._layers.data(data);
+  // update bars data :(
+  self._layers.selectAll("rect.bar")
+    .data(function(d) { return d; })
+    .transition()
+      .attr("y", self.y)
+      .attr("height", self.h);
+
+  if (self.yAxis){
+    self.svg.select('.y.axis').transition().call(self.yAxis);
+  }
+  return this;
+};
+
+D3BarChart.prototype.get_max_y = function(data){
+  return d3.max(data, function(d) {
+    return d3.max(d, function(d) {
+      return d.y;
+    });
+  });
+};
+
+D3BarChart.prototype.get_y = function(){
+  var self = this;
+  return function(d) { return self.y_scale(d.y); };
+};
+
+D3BarChart.prototype.get_h = function(){
+  var self = this;
+  return function(d) { return self.height_scale(d.y); };
+};
+
+D3BarChart.prototype.rescale = function(extent){
+  // TODO get rid of this method
+  this.height_scale.domain([0, extent[1] - extent[0]]);
+  this.y_scale.domain(extent);
+  return this;
+};
+
+D3BarChart.prototype.get_layers = function(){
+  // set up a layer for each series
+  var self = this;
+  var layers = self.plot.selectAll("g.layer")
+    .data(this._data)
+    .enter().append("g")
+      .attr("class", "layer")
+      .style("fill", function(d, i) { return self.options.color(i); });
+  return layers;
+};
+
+// setup a bar for each point in a series
+D3BarChart.prototype.get_bars = function(){
+  var self = this;
+  return this._layers.selectAll("rect.bar")
+    .data(function(d) { return d; })
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("width", self.bar_width * 0.9)
+      .attr("x", self.x)
+      .attr("y", self.options.plot_box.h)
+      .attr("height", 0)
+      .transition()
+        .delay(function(d, i) { return i * 10; })
+        .attr("y", self.y)
+        .attr("height", self.h);
+};
+
+D3BarChart.prototype.get_bar_width = function(){
+  var len_series = this._data.length; // m, i, rows
+  var len_x = this._data[0].length;   // n, j, cols
+  var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
+  return bar_width;
+};
+
+
+/***************** STACKED BAR CHART ******************/
+var D3StackedBarChart = D3BarChart.extend();
+window.D3StackedBarChart = D3StackedBarChart;
+
+D3StackedBarChart.prototype.init_data = function(new_data){
+  // process add stack offsets
+  return d3.layout.stack()(new_data);
+};
+
+D3StackedBarChart.prototype.get_max_y = function(data){
+  return d3.max(data, function(d) {
+    return d3.max(d, function(d) {
+      return d.y + d.y0;
+    });
+  });
+};
+
+D3StackedBarChart.prototype.get_y = function(){
+  var self = this;
+  return function(d) { return self.y_scale(d.y + d.y0); };
+};
+
+
+/***************** GROUPED BAR CHART ******************/
+var D3GroupedBarChart = D3BarChart.extend();
+window.D3GroupedBarChart = D3GroupedBarChart;
+
+D3GroupedBarChart.prototype.get_layers = function(){
+  // set up a layer for each series
+  var self = this;
+  var layers = self.plot.selectAll("g.layer")
+    .data(this._data)
+    .enter().append("g")
+      .attr("class", "layer")
+      .style("fill", function(d, i) { return self.options.color(i); });
+  // shift grouped bars so they're adjacent to each other
+  layers
+    .attr("transform", function(d, i) {
+      var offset = self.bar_width * 0.9 * i;
+      return "translate(" + offset + ",0)";
+    });
+  return layers;
+};
+
+D3GroupedBarChart.prototype.get_bar_width = function(){
+  var len_series = this._data.length; // m, i, rows
+  var len_x = this._data[0].length;   // n, j, cols
+  var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
+  bar_width = bar_width / len_series;
+  return bar_width;
+};
+
+// end file iffy
+})();
