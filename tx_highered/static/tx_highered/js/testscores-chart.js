@@ -1,5 +1,12 @@
+/*global D3GroupedBarChart */
+(function(){
+  "use strict";
+// begin file-iffy, unindent
 
+
+/***************** TEST SCORES BAR CHART ******************/
 var TestScoresChart = D3GroupedBarChart.extend();
+window.TestScoresChart = TestScoresChart;
 
 TestScoresChart.prototype.init_data = function(new_data){
   // only do SAT
@@ -55,3 +62,6 @@ TestScoresChart.prototype.get_bars = function(){
         .attr("y", self.y)
         .attr("height", function(d) { return self.height_scale(d.y_max - d.y); });
 };
+
+// end file iffy
+})();

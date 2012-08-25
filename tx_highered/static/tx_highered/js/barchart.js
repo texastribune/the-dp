@@ -1,3 +1,9 @@
+/*global $, d3, Class */
+(function(){
+  "use strict";
+// begin file-iffy, unindent
+
+
 // data processor TODO move awaaaaay
 function normalizeFirst(data, idx){
   data = $.extend(true, [], data);  // make a deep copy of data
@@ -14,6 +20,7 @@ function normalizeFirst(data, idx){
   }
   return data;
 }
+window.normalizeFirst = normalizeFirst;
 
 
 // inclusive range
@@ -28,6 +35,7 @@ function irange(min, max){
 
 /***************** CHART ******************/
 var D3Chart = Class.extend({});
+window.D3Chart = D3Chart;
 
 // override this if data needs to be scrubbed before getting charted
 D3Chart.prototype.init_data = function(data){ return data; };
@@ -56,6 +64,7 @@ D3Chart.prototype.option = function(name, newvalue){
 
 /***************** BAR CHART ******************/
 var D3BarChart = D3Chart.extend({});
+window.D3BarChart = D3BarChart;
 
 D3BarChart.prototype.init = function(el, data, options){
   this.elem = el;
@@ -248,6 +257,7 @@ D3BarChart.prototype.get_bar_width = function(){
 
 /***************** STACKED BAR CHART ******************/
 var D3StackedBarChart = D3BarChart.extend();
+window.D3StackedBarChart = D3StackedBarChart;
 
 D3StackedBarChart.prototype.init_data = function(new_data){
   // process add stack offsets
@@ -270,6 +280,7 @@ D3StackedBarChart.prototype.get_y = function(){
 
 /***************** GROUPED BAR CHART ******************/
 var D3GroupedBarChart = D3BarChart.extend();
+window.D3GroupedBarChart = D3GroupedBarChart;
 
 D3GroupedBarChart.prototype.get_layers = function(){
   // set up a layer for each series
@@ -296,3 +307,5 @@ D3GroupedBarChart.prototype.get_bar_width = function(){
   return bar_width;
 };
 
+// end file iffy
+})();
