@@ -42,23 +42,28 @@ D3Chart.prototype.init_data = function(data){ return data; };
 
 // get or set data
 D3Chart.prototype.data = function(new_data){
-  var self = this,
-      data;
+  var data;
   if (typeof new_data === "undefined"){
     return this._data;
   }
 
-  data = self.init_data(new_data);
-  self._data = data;
-  return self;
+  this._data = this.init_data(new_data);
+  this.refresh();
+  return this;
 };
 
+
+// get or set data
+D3Chart.prototype.refresh = function(){
+  return this;
+};
 // get or set option
 D3Chart.prototype.option = function(name, newvalue){
   if (typeof newvalue === "undefined"){
     return this.options[name];
   }
   this.options[name] = newvalue;
+  return this;
 };
 
 
@@ -145,7 +150,7 @@ D3BarChart.prototype.render = function(){
            .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
   this.plot = plot;
 
-  this.rescale(this.get_max_y(this._data));
+  this.rescale(0, this.get_max_y(this._data));
 
   this._layers = this.get_layers();
   this.get_bars();
@@ -181,19 +186,12 @@ D3BarChart.prototype.render = function(){
   }
 };
 
-// get or set data
-D3Chart.prototype.data = function(new_data){
+D3BarChart.prototype.refresh = function(){
   var self = this,
-      data;
-  if (typeof new_data === "undefined"){
-    return this._data;
-  }
-
-  data = self.init_data(new_data);
-  self._data = data;
+      data = self._data;
 
   // reset height ceiling
-  self.rescale(self.get_max_y(data));
+  self.rescale(0, self.get_max_y(data));
 
   // update layers data
   self._layers.data(data);
@@ -203,7 +201,11 @@ D3Chart.prototype.data = function(new_data){
     .transition()
       .attr("y", self.y)
       .attr("height", function(d) { return self.height_scale(d.y); });
-  return self;
+
+  if (self.yAxis){
+    self.svg.select('.y.axis').transition().call(self.yAxis);
+  }
+  return this;
 };
 
 D3BarChart.prototype.get_max_y = function(data){
@@ -219,13 +221,10 @@ D3BarChart.prototype.get_y = function(){
   return function(d) { return self.y_scale(d.y); };
 };
 
-D3BarChart.prototype.rescale = function(data_ceiling){
+D3BarChart.prototype.rescale = function(data_floor, data_ceiling){
   var self = this;
   self.height_scale.domain([0, data_ceiling]);
   self.y_scale.domain([0, data_ceiling]);
-  if (self.yAxis){
-    self.svg.select('.y.axis').transition().call(self.yAxis);
-  }
 };
 
 D3BarChart.prototype.get_layers = function(){

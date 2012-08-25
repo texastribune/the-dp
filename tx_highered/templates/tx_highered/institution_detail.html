@@ -147,10 +147,10 @@
   });
 
 
-  var url = "{% url "institution_api" object.id "testscores" %}";
+  var testchart_url = "{% url "institution_api" object.id "testscores" %}";
   var testchart = new TestScoresChart(
         $('<div class="chart">').appendTo($('#testing'))[0],
-        url,
+        testchart_url,
         {
           tooltip: function(){
             var d = this.__data__;
