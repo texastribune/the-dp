@@ -67,10 +67,19 @@ var D3BarChart = D3Chart.extend({});
 window.D3BarChart = D3BarChart;
 
 D3BarChart.prototype.init = function(el, data, options){
+  var self = this;
   this.elem = el;
-  this._data = this.init_data(data);
-  this.setUp(options);
-  this.render();
+  if (typeof data == "string"){  // if data is url
+    d3.json(data, function(new_data) {
+      self._data = self.init_data(new_data);
+      self.setUp(options);
+      self.render();
+    });
+  } else {
+    this._data = this.init_data(data);
+    this.setUp(options);
+    this.render();
+  }
 };
 
 D3BarChart.prototype.setUp = function(options){
