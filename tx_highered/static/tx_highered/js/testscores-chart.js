@@ -41,8 +41,13 @@ TestScoresChart.prototype.init_data = function(new_data){
   return data;
 };
 
-TestScoresChart.prototype.get_max_y = function(){
-  return 800;
+TestScoresChart.prototype.get_y_domain = function(){
+  return [200, 800];
+};
+
+TestScoresChart.prototype.get_y = function(){
+  var self = this;
+  return function(d) { return self.y_scale(d.y_max); };
 };
 
 TestScoresChart.prototype.get_h = function(){

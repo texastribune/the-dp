@@ -151,7 +151,7 @@ D3BarChart.prototype.render = function(){
            .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
   this.plot = plot;
 
-  this.rescale(0, this.get_max_y(this._data));
+  this.rescale(self.get_y_domain());
 
   this._layers = this.get_layers();
   this.get_bars();
@@ -187,12 +187,16 @@ D3BarChart.prototype.render = function(){
   }
 };
 
+D3BarChart.prototype.get_y_domain = function(){
+   return [0, this.get_max_y(this._data)];
+};
+
 D3BarChart.prototype.refresh = function(){
   var self = this,
       data = self._data;
 
   // reset height ceiling
-  self.rescale(0, self.get_max_y(data));
+  self.rescale(self.get_y_domain());
 
   // update layers data
   self._layers.data(data);
@@ -227,10 +231,11 @@ D3BarChart.prototype.get_h = function(){
   return function(d) { return self.height_scale(d.y); };
 };
 
-D3BarChart.prototype.rescale = function(data_floor, data_ceiling){
-  var self = this;
-  self.height_scale.domain([0, data_ceiling]);
-  self.y_scale.domain([0, data_ceiling]);
+D3BarChart.prototype.rescale = function(extent){
+  // TODO get rid of this method
+  this.height_scale.domain([0, extent[1] - extent[0]]);
+  this.y_scale.domain(extent);
+  return this;
 };
 
 D3BarChart.prototype.get_layers = function(){
