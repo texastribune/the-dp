@@ -124,6 +124,7 @@ D3BarChart.prototype.setUp = function(options){
   self.y_scale = d3.scale.linear().range([plot_box.h, 0]);
   self.y_axis = null;
   self.y = self.get_y();
+  self.h = self.get_h();
 
   // setup bar width
   self.bar_width = this.get_bar_width();
@@ -200,7 +201,7 @@ D3BarChart.prototype.refresh = function(){
     .data(function(d) { return d; })
     .transition()
       .attr("y", self.y)
-      .attr("height", function(d) { return self.height_scale(d.y); });
+      .attr("height", self.h);
 
   if (self.yAxis){
     self.svg.select('.y.axis').transition().call(self.yAxis);
@@ -219,6 +220,11 @@ D3BarChart.prototype.get_max_y = function(data){
 D3BarChart.prototype.get_y = function(){
   var self = this;
   return function(d) { return self.y_scale(d.y); };
+};
+
+D3BarChart.prototype.get_h = function(){
+  var self = this;
+  return function(d) { return self.height_scale(d.y); };
 };
 
 D3BarChart.prototype.rescale = function(data_floor, data_ceiling){
@@ -252,7 +258,7 @@ D3BarChart.prototype.get_bars = function(){
       .transition()
         .delay(function(d, i) { return i * 10; })
         .attr("y", self.y)
-        .attr("height", function(d) { return self.height_scale(d.y); });
+        .attr("height", self.h);
 };
 
 D3BarChart.prototype.get_bar_width = function(){

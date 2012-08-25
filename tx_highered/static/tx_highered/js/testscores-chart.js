@@ -45,22 +45,9 @@ TestScoresChart.prototype.get_max_y = function(){
   return 800;
 };
 
-// setup a bar for each point in a series
-TestScoresChart.prototype.get_bars = function(){
+TestScoresChart.prototype.get_h = function(){
   var self = this;
-  return this._layers.selectAll("rect.bar")
-    .data(function(d) { return d; })
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("width", self.bar_width * 0.9)
-      .attr("x", self.x)
-      .attr("y", self.options.plot_box.h)
-      .attr("height", 0)
-      .transition()
-        .delay(function(d, i) { return i * 10; })
-        // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
-        .attr("y", self.y)
-        .attr("height", function(d) { return self.height_scale(d.y_max - d.y); });
+  return function(d) { return self.height_scale(d.y_max - d.y); };
 };
 
 // end file iffy
