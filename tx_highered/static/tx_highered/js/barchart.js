@@ -23,16 +23,6 @@ function normalizeFirst(data, idx){
 window.normalizeFirst = normalizeFirst;
 
 
-// inclusive range
-function irange(min, max){
-  var a = [];
-  for (var i = min; i <= max; i++){
-    a.push(i);
-  }
-  return a;
-}
-
-
 /***************** CHART ******************/
 var D3Chart = Class.extend({});
 window.D3Chart = D3Chart;
@@ -114,7 +104,7 @@ D3BarChart.prototype.setUp = function(options){
       min_x = data[0][0].x,
       max_x = data[0][len_x - 1].x;
   this.x_scale = d3.scale.ordinal()
-      .domain(irange(min_x, max_x))
+      .domain(d3.range(min_x, max_x + 1))
       .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
   self.x_axis = null;
   self.x = function(d) { return self.x_scale(d.x); };
