@@ -68,8 +68,10 @@
     {% instachart object.enrollment.all %}
   </section>
 
-  <h3>Graduation Rates</h3>
-  {% instachart object.graduationrates.all "graduationrates" %}
+  <section id="gradrates">
+    <h3>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h3>
+    {% instachart object.graduationrates.all "gradrates" %}
+  </section>
 {% endblock %}
 
 {% block extra_script %}{{ block.super }}
@@ -81,6 +83,7 @@
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/ethnicity-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
 <script>
   $(".onion").onionize();
 
