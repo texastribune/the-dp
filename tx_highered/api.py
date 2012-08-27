@@ -38,4 +38,17 @@ class ReportView(SingleObjectMixin, ApiView):
         return return_data
 
 
+class AutocompleteApiView(ApiView):
+    def get_content_data(self):
+        data = []
+        for i in Institution.objects.all():
+            data.append({
+                'uri': i.get_absolute_url(),
+                'name': unicode(i),
+            })
+
+        return data
+
+
 enrollment_api = EnrollmentApiView.as_view()
+autocomplete_api = AutocompleteApiView.as_view()

@@ -28,4 +28,5 @@ urlpatterns = patterns('',
     url(r'^api/institution/(?P<pk>\d+)/(?P<metric>\w+)/$',
         api.ReportView.as_view(report_name='testscores'),
         name='institution_api'),
+    url(r'^api/autocomplete/$', 'autocomplete_api', name='autocomplete_api'),
 )
