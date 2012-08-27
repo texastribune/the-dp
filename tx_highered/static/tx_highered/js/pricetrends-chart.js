@@ -44,26 +44,30 @@
             return d.series + " <b>" + d3.format(",.2f")(this.__data__.y - 100) + "%</b>";
           }
         });
+  // change yaxis tick format
   chart3.yAxis.tickFormat(function(a){ return a - 100 + '%'; });
+  // add sea-level line
+  var s = chart3.yAxis.scale();
+  chart3.plot.selectAll('line.sealevel')
+    .data([100, 200, 300, 400])
+      .enter().append('line').attr('class', 'sealevel')
+        .attr('x1', 0)
+        .attr('x2', '100%')
+        .attr('y1', 0)
+        .attr('y2', 0)
+        .attr('stroke-opacity', 0)
+        .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
+        .transition()
+          .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
+          .attr('stroke-opacity', 100);
   chart3.refresh();
-  // TODO apply yAxis tick format
+
   var x_array = data[0].map(function(a){ return a.x; });
   chart3.plot.selectAll('rect.bar').on("click", function(){
     var idx = x_array.indexOf(this.__data__.x);
     if (idx === -1) { return; }
     var normData = normalizeFirst([data[0], data[1]], idx);
     chart3.data(normData);
-    // add sea-level line
-    var s = chart3.yAxis.scale();
-    chart3.plot.selectAll('line.sealevel')
-      .data([100, 200, 300, 400])
-        .enter().append('line').attr('class', 'sealevel')
-          .attr('x1', 0)
-          .attr('x2', '100%')
-          .attr('y1', 0)
-          .attr('y2', 0)
-          .attr('stroke-opacity', 0)
-          .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; });
     chart3.plot.selectAll('line.sealevel')  // called after .enter() AND updates
       .transition()
         .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
