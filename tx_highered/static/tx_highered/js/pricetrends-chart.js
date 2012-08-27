@@ -45,6 +45,7 @@
           }
         });
   chart3.yAxis.tickFormat(function(a){ return a - 100 + '%'; });
+  chart3.refresh();
   // TODO apply yAxis tick format
   var x_array = data[0].map(function(a){ return a.x; });
   chart3.plot.selectAll('rect.bar').on("click", function(){
