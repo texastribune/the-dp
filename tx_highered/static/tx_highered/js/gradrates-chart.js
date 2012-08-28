@@ -38,7 +38,7 @@
   var colors = ['#99c', '#639', '#306'].reverse();
 
   var chart = new GradRatesChart(
-        $('<div class="chart" />').appendTo($section)[0],
+        $section.placeChartContainer(),
         data,
         {
           'color': colors,

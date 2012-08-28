@@ -22,6 +22,12 @@ function normalizeFirst(data, idx){
 }
 window.normalizeFirst = normalizeFirst;
 
+// shortcut for adding a chart to the given container element
+$.fn.placeChartContainer = function(){
+  var elem = $('<div class="chart d3-viz chart-viz"/>');
+  this.append(elem);
+  return elem[0];  // TODO return elem
+};
 
 /***************** CHART ******************/
 var D3Chart = Class.extend({});
