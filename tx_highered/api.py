@@ -44,7 +44,7 @@ class AutocompleteApiView(ApiView):
         for i in Institution.objects.all():
             data.append({
                 'uri': i.get_absolute_url(),
-                'name': unicode(i),
+                'name': i.name,
             })
 
         return data
