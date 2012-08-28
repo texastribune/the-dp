@@ -28,17 +28,25 @@
 {% block main %}
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
-    <p>{% lorem 20 w %}</p>
+    <div class="well well-small chart-help">
+      {% lorem 20 w %}
+    </div>
     {% instachart object.pricetrends.all "pricetrends" %}
   </section>
 
   <section id="testing">
     <h3>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h3>
+    <div class="well well-small chart-help">
+      {% lorem 20 w %}
+    </div>
     {% instachart object.testscores.all "testscores" %}
   </section>
 
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
+    <div class="well well-small chart-help">
+      {% lorem 20 w %}
+    </div>
     {% if object.admissions.all.exists %}
       {% with object_list=object.admissions.all %}
         {% include "instachart/admissions/admissions.html" %}
@@ -70,11 +78,17 @@
 
   <section id="enrollment">
     <h3>Enrollment</h3>
+    <div class="well well-small chart-help">
+      {% lorem 20 w %}
+    </div>
     {% instachart object.enrollment.all %}
   </section>
 
   <section id="gradrates">
     <h3>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h3>
+    <div class="well well-small chart-help">
+      {% lorem 20 w %}
+    </div>
     {% instachart object.graduationrates.all "gradrates" %}
   </section>
 {% endblock %}

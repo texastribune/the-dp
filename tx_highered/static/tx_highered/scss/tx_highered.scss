@@ -11,14 +11,17 @@
 
 #intro p { font-size: 1.25em; }
 
+
+.chart-help {
+  .bootstrap &.well {  // increase css selectivity
+    background-color: whiteSmoke;
+  }
+  font-family: sans-serif;
+}
+
 // use visiblity because display:none affects box size calculations
 h3 > .page-anchor { visibility: hidden; }
 h3:hover > .page-anchor { visibility: visible; }
-
-// mimic h1 > small
-.table small {
-  color: #999;
-}
 
 td.align-right {
   text-align: right;
