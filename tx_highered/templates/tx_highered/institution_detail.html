@@ -8,6 +8,11 @@
 {% block page_title %}{{ object.name }}{% endblock %}
 
 
+{% block breadcrumb %}
+  <li class="active"><a href="">{{ object.name }}</a></li>
+{% endblock %}
+
+
 {% block page_top %}
   <div class="row">
     <div class="span9">
