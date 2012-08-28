@@ -1,32 +1,12 @@
 {% extends "tx_highered/app_base.html" %}
 {% load webdesign %}
 
-
 {% block head_title %}Institutions{% endblock %}
 
-
 {% block main %}
-<header class="page-header">
-  <h1>Directory</h1>
-</header>
-
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="#">...</a></li>
-    <li><a href="#">...</a></li>
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        Type
-        <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="#">University</a></li>
-        <li><a href="#">Community College</a></li>
-        <li><a href="#">Health-Related</a></li>
-        <li><a href="#">Junior College</a></li>
-      </ul>
-    </li>
-  </ul>
+  <header class="page-header">
+    <h1>Directory</h1>
+  </header>
 
   {% for object in object_list %}
     <div id="{{ object.slug }}" class="row">
@@ -42,5 +22,4 @@
       </div>
     </div>
   {% endfor %}
-
 {% endblock %}
