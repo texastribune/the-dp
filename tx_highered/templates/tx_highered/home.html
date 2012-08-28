@@ -74,3 +74,37 @@ TODO: enable once on the Tribune
   </div>
 
 {% endblock %}
+
+{% block extra_script %}{{ block.super }}
+  <script>
+    $(function() {
+      // TODO: Patch jQuery autocomplete to filter using fuzzy matching
+      $.ui.autocomplete.filter = function(array, term) {
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(term), "i" );
+        return $.grep( array, function(value) {
+          return matcher.test( value.label || value.value || value );
+        });
+      };
+
+      // Go to the server for name-URI
+      $.get("{% url 'autocomplete_api' %}", function(data) {
+        // Map intitution names to URIs
+        var urisByName = {};
+        $.map(data, function(o) {
+          urisByName[o.name] = o.uri;
+        });
+
+        // Initialize autocomplete
+        $(".q").autocomplete({
+          source: $.map(data, function(n) { return n.name; }),
+          select: function(e, o) {
+            var uri = urisByName[o.item.label];
+            if (typeof(uri) !== "undefined") {
+              location.href = uri;
+            }
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}
