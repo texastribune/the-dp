@@ -92,6 +92,11 @@ D3BarChart.prototype.setUp = function(options){
       };
   self.options = $.extend({}, defaultOptions, options);
 
+  // allow an array of hex values for convenience
+  if ($.isArray(self.options.color)) {
+    self.options.color = d3.scale.ordinal().range(self.options.color);
+  }
+
   // pre-calculate plot box dimensions
   var plot_box = {
         w: self.options.width - self.options.margin[1] - self.options.margin[3],

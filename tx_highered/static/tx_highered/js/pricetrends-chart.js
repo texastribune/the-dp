@@ -8,7 +8,7 @@
 
   // store
 
-  var price_colors = d3.scale.ordinal().range(['#39c', '#066', '#9c6', '#9cc']);
+  var price_colors = ['#39c', '#066', '#9c6', '#9cc'];
                                                // instate, outstate, roomboard, books
   var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; });
   var chart = new D3StackedBarChart($('<div class="chart" />').appendTo($section)[0],

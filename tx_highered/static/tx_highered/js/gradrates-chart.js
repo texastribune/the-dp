@@ -41,7 +41,7 @@
         $('<div class="chart" />').appendTo($section)[0],
         data,
         {
-          'color': d3.scale.ordinal().range(colors),
+          'color': colors,
           'tooltip': function(){
             var d = this.__data__;
             return d.series + " bachelor's graduation rate<br><b>" +
