@@ -26,7 +26,7 @@ window.normalizeFirst = normalizeFirst;
 $.fn.placeChartContainer = function(){
   var elem = $('<div class="chart d3-viz chart-viz"/>');
   this.append(elem);
-  return elem[0];  // TODO return elem
+  return elem;
 };
 
 /***************** CHART ******************/
@@ -69,7 +69,13 @@ window.D3BarChart = D3BarChart;
 
 D3BarChart.prototype.init = function(el, data, options){
   var self = this;
-  this.elem = el;
+  if (el.jquery) {  // todo what about things like zepto?
+    this.elem = el[0];
+  } else if (typeof el == "string"){
+    this.elem = document.getElementById(el);
+  } else {
+    this.elem = el;
+  }
   if (typeof data == "string"){  // if data is url
     d3.json(data, function(new_data) {
       self._data = self.init_data(new_data);
