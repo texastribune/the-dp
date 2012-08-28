@@ -80,10 +80,10 @@ TODO: enable once on the Tribune
     $(function() {
       // Patch jQuery autocomplete to filter using fuzzy matching
       $.ui.autocomplete.filter = function(array, term) {
-        var escapedTerm = $.ui.autocomplete.escapeRegex(term),
-            matcher = new RegExp(escapedTerm.split('').join('.*'), 'i');
+        term = $.ui.autocomplete.escapeRegex(term)
+        var matcher = new RegExp(term.split('').join('.*'), 'i');
         return $.grep( array, function(value) {
-          return matcher.test( value.label );
+          return matcher.test( value.label || value.value || value );
         });
       };
 
