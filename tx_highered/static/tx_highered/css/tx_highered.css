@@ -1,6 +1,8 @@
 /* Texas Higher Ed App CSS assumes bootstrap
 */
-.chart { height: 300px; }
+.chart-viz { height: 300px; }
+.chart-viz .axis { font-family: sans-serif; font-size: 12px; }
+.chart-viz .axis text { fill: #333; }
 
 svg .axis { shape-rendering: crispEdges; }
 svg .axis .domain { display: none; }

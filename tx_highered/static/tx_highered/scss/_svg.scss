@@ -1,5 +1,15 @@
-.chart {
+.chart-viz {
   height: 300px;
+
+  .axis {
+    // copy .chart-data's style
+    font-family: sans-serif;  // TODO inherit sans-serif
+    font-size: 12px;
+
+    text {
+      fill: #333;
+    }
+  }
 }
 
 svg {
