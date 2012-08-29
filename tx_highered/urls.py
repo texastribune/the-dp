@@ -11,8 +11,8 @@ from . import api
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name="home"),
-    url(r'^institution/$', InstitutionListView.as_view(), name="institution_list"),
-    url(r'^institution/(?P<slug>[-\w]+)/$', InstitutionDetailView.as_view(),
+    url(r'^institutions/$', InstitutionListView.as_view(), name="institution_list"),
+    url(r'^institutions/(?P<slug>[-\w]+)/$', InstitutionDetailView.as_view(),
         name="institution_detail"),
     url(r'^system/$', ListView.as_view(
         model=System), name="system_list"),
