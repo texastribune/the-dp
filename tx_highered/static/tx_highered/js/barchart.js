@@ -71,6 +71,7 @@ D3BarChart.prototype.init = function(el, data, options){
   var self = this;
   if (el.jquery) {  // todo what about things like zepto?
     this.elem = el[0];
+    this.$elem = el;
   } else if (typeof el == "string"){
     this.elem = document.getElementById(el);
   } else {
@@ -97,11 +98,17 @@ D3BarChart.prototype.setUp = function(options){
         color: d3.scale.category10(),
         height: 300,
         width: 940,
-        margin: [10, 50, 30, 50],
+        margin: [0, 0, 30, 50],
         tooltip: function(){ return this.__data__.title || this.__data__.y; },
         enable_axis_x: true,
         enable_axis_y: true
       };
+
+  // set up box dimensions based on the parent element
+  if (!self.$elem) { self.$elem = $(self.elem); }
+  defaultOptions.height = self.$elem.height();
+  defaultOptions.width = self.$elem.width();
+
   self.options = $.extend({}, defaultOptions, options);
 
   // allow an array of hex values for convenience
