@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tx_highered/css/jquery-ui-custom.css">
 {% endblock %}
 
+{% block extra_head %}{{ block.super }}
+  <!-- Tribune Data Apps TypeKit -->
+  <script src="http://use.typekit.com/rbc7eex.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+{% endblock %}
+
 
 {% block body_class %}data-app{% endblock %}
 
