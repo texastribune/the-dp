@@ -20,11 +20,12 @@
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
         }
       });
-  $source.find('th:eq(1)').click(function(){
-    chart.data([data[0], zeroes, data[3], data[2]]);
-  });
-  $source.find('th:eq(2)').click(function(){
-    chart.data([zeroes, data[1], data[3], data[2]]);
+  $('#totalcosts-viz button').click(function(){
+    $(this).siblings('.active').removeClass('active').end().addClass('active');
+    var idx = $(this).prevAll().length;
+    var copy = $.extend(false, [], data).toArray(); // shallow copy
+    copy[idx] = zeroes;
+    chart.data(copy);
   });
 
   var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
