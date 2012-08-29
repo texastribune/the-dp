@@ -50,7 +50,7 @@ function render_enrollment_chart(dataset) {
   var stacked_dataset = stack(nested_dataset);
 
   // Render
-  var svg = d3.select("#enrollment").append("svg")
+  var svg = d3.select("#enrollment .chart").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -63,7 +63,7 @@ function render_enrollment_chart(dataset) {
       .attr("class", "layer")
       .style("fill", function(d) {
         return colors[d.key];
-      })
+      });
 
   var bars = layers.selectAll("rect")
     .data(function(d, i) { return d.values; })
