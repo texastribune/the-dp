@@ -44,11 +44,11 @@ def get_institutions(category):
     doc = pq(response.content)
 
     current_data = {}
+    fice = None
     current_year = None
     current_name = None
     for tr in doc.find('tr'):
         name = None
-        fice = None
         current_year = 2011
         for td in tr.getchildren():
             td_class = td.attrib.get('class')
@@ -64,14 +64,14 @@ def get_institutions(category):
                             'fice': fice or None,
                             'data': current_data
                         })
-                        import pprint
-                        pprint.pprint(institutions[-1])
                     current_data = {}
                     current_name = name
             elif td_class in FICE_CLASSES:
-                fice = td.text.strip()
+                if td.text.strip():
+                    fice = td.text.strip()
             elif td_class in ETHNICITY_CLASSES:
-                ethnicity = td.text.strip()
+                if td.text.strip():
+                    ethnicity = td.text.strip()
             elif td_class == TOTAL_CLASS:
                 current_data.setdefault('total', {})
                 current_data['total'][current_year] = td.text.strip()
