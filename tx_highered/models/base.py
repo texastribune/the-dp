@@ -200,3 +200,23 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 b["room_and_board"][t.year] = t.room_and_board_on_campus
             self._tuition_buckets = b
         return self._tuition_buckets
+
+    @property
+    def sat_score_buckets(self):
+        if not hasattr(self, '_sat_score_buckets'):
+            b = {
+                'years': [],
+                'verbal_range': {},
+                'math_range': {},
+                'writing_range': {},
+            }
+            for a in self.testscores.all():
+                b['years'].append(a.year)
+                b['verbal_range'][a.year] = (a.sat_verbal_range
+                        if a.sat_verbal_25th_percentile else 'N/A')
+                b['math_range'][a.year] = (a.sat_math_range
+                        if a.sat_math_25th_percentile else 'N/A')
+                b['writing_range'][a.year] = (a.sat_writing_range
+                        if a.sat_writing_25th_percentile else 'N/A')
+            self._sat_score_buckets = b
+        return self._sat_score_buckets

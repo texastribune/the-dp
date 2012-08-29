@@ -99,6 +99,29 @@
       {% lorem 20 w %}
     </div>
     {% instachart object.testscores.all "testscores" %}
+
+    <table class="chart-data table table-striped table-condensed" style="width:100%;">
+      <tr>
+        <th></th>
+        {% for year in object.sat_score_buckets.years %}<th style="text-align:center;">{{ year }}</th>{% endfor %}
+      </tr>
+
+      <tr>
+        <th style="text-align: right; white-space:nowrap;">Verbal</th>
+        {% for a in object.sat_score_buckets.verbal_range.values %}<td style="text-align:center;">{{ a }}</td>{% endfor %}
+      </tr>
+
+      <tr>
+        <th style="text-align: right; white-space:nowrap;">Math</th>
+        {% for a in object.sat_score_buckets.math_range.values %}<td style="text-align:center;">{{ a }}</td>{% endfor %}
+      </tr>
+
+      <tr>
+        <th style="text-align: right; white-space:nowrap;">Writing</th>
+        {% for a in object.sat_score_buckets.writing_range.values %}<td style="text-align:center;">{{ a }}</td>{% endfor %}
+      </tr>
+
+    </table>
   </section>
 
   <section id="admissions">
