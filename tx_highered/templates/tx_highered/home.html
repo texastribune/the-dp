@@ -40,7 +40,7 @@ TODO: enable once on the Tribune
 
       <section class="row-fluid">
         <div class="graphic pull-right">
-          <img src="http://placehold.it/150x150">
+          <img src="http://s3.amazonaws.com/static.texastribune.org/common/tx_schools/statewide-search-icon.png" />
         </div>
 
         <div>
@@ -55,6 +55,12 @@ TODO: enable once on the Tribune
 
         </div>
       </section>
+
+      <div class="row">
+        <span id="statewideZoom">Return to statewide view</span>
+
+        <div id="mapCanvas"></div>
+      </div>
 
     </div>
 
@@ -73,6 +79,156 @@ TODO: enable once on the Tribune
       </div>
     </div>
   </div>
+
+<div id="mapPopupContainer" class="shadow"><h4>Hover over a campus</h4></div>
+
+<script id="mapPopup" type="text/x-handlebars-template">
+  <h2>{{name}}</h2>
+  <h4>{{city}}, TX</h4>
+</script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
+    <![endif]-->
+     <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.Default.ie.css" />
+    <![endif] -->
+    <style>
+
+    body {
+        color: #222222;
+    }
+
+    #container {
+        width: 636px;
+    }
+
+    #mapCanvas {
+        width: 100%;
+        height: 650px;
+    }
+
+    #mapPopupContainer {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        text-align: center;
+        font-size: 14px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1002;
+        background-color: #FFFFFF;
+        padding: 8px;
+        display: none;
+    }
+
+    #mapPopupContainer h2 {
+        font-size: 1em;
+        margin: 0;
+        padding: 0;
+    }
+
+    #mapPopupContainer h4 {
+        font-size: .85em;
+        margin: 0;
+        padding: 0;
+    }
+
+    #statewideZoom {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    #statewideZoom:hover {
+        text-decoration: none;
+    }
+
+    .shadow {
+        -moz-box-shadow:    2px 2px 5px 1px #444444;
+        -webkit-box-shadow: 2px 2px 5px 1px #444444;
+        box-shadow:         1px 1px 4px 1px #444444;
+    }
+
+    </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet-src.js"></script>
+<script src="http://danzel.github.com/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
+<script src="http://dev.rdmurphy.net/texas-tribune/highered_map/institutions.js"></script>
+<script>
+
+// handlebar template
+
+var source = $("#mapPopup").html();
+var template = Handlebars.compile(source);
+
+var $mapPopupContainer = $("#mapPopupContainer");
+
+// map
+
+var mapOptions = {
+    center: [31.22219703210317, -99.9018131],
+    zoom: 6,
+    minZoom: 6
+};
+
+var map = L.map('mapCanvas', mapOptions);
+
+var layer = new L.TileLayer("http://{s}.tiles.mapbox.com/v3/texastribune.map-3g2hqvcf/{z}/{x}/{y}.png", {
+  //attribution: "Map data (c) <a href='http://www.openstreetmap.org/'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Tiles Courtesy of <a href='http://www.mapquest.com/'>MapQuest</a>",
+  subdomains: ["a", "b", "c", "d"]
+}).addTo(map);
+
+var capIcon = L.icon({
+    iconUrl: 'path7442.png',
+    iconSize: [28, 21],
+    iconAnchor: [14, 11.5],
+    popupAnchor: [14, 11.5]
+});
+
+var markers = new L.MarkerClusterGroup({
+    maxClusterRadius: 60,
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    disableClusteringAtZoom: 13
+});
+
+var geoLayer = L.geoJson(campuses, {
+    pointToLayer: function(feature, latlng) {
+        var marker = L.marker(latlng, {icon: capIcon});
+        markers.addLayer(marker);
+        return marker;
+    },
+    onEachFeature: function(feature, layer) {
+        var data = feature.properties;
+
+        layer.on("mouseover", function(_) {
+            $mapPopupContainer.html(template({
+                name: data.name,
+                city: data.city
+            }));
+        });
+
+        layer.on("mouseout", function(_) {
+            $mapPopupContainer.html("<h4>Hover over a campus</h4>");
+        });
+    }
+});
+
+markers.addTo(map);
+
+$("#statewideZoom").on("click", function() {
+    map.setView(mapOptions.center, mapOptions.zoom);
+});
+
+// add popup container
+
+$mapPopupContainer.appendTo("#mapCanvas").css("display", "inline");
+
+</script>
+
 
 {% endblock %}
 
