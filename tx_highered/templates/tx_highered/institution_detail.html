@@ -38,13 +38,19 @@
     </div>
     {% instachart object.pricetrends.all "pricetrends" %}
     <div class="row">
-      <div id="totalcosts-viz" class="span12">
-        <div class="well well-small chart-help">
-          Total Costs <button class="btn active">In-State</button><button class="btn">Out-of-State</button>
+
+      <div class="chart d3-viz chart-viz span10">
+      </div>
+
+      <div class="span2">
+        <div class="well well-condensed chart-help">
+          Total Costs<br>
+          <button class="btn active">In-State</button><br>
+          <button class="btn">Out-of-State</button>
         </div>
-        <div class="chart d3-viz chart-viz"></div>
       </div>
     </div>
+
     <div class="row">
       <div class="span6">
         <div class="well well-small chart-help">
@@ -52,9 +58,11 @@
         </div>
         <div class="chart d3-viz chart-viz"></div>
       </div>
+
+
       <div class="span6">
         <div class="well well-small chart-help">
-          Relative In-State vs Out-of-State Tuition Costs. Click to compare to a year.
+          Relative In-State vs Out-of-State Tuition Costs.
         </div>
         <div class="chart d3-viz chart-viz"></div>
       </div>
