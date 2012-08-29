@@ -8,7 +8,7 @@
 {% block page_title %}{{ object.name }}{% endblock %}
 
 
-{% block breadcrumb %}
+{% block breadcrumb_items %}
   <li class="active"><a href="">{{ object.name }}</a></li>
 {% endblock %}
 
@@ -25,7 +25,7 @@
   </div>
 {% endblock %}
 
-{% block main %}
+{% block two_column_main %}
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
     <div class="well well-small chart-help">

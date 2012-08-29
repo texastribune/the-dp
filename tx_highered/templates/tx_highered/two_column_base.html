@@ -1,13 +1,6 @@
 {% extends "tx_highered/app_base.html" %}
 
-{% block body %}
-  {% block breadcrumb_base %}
-    <ul class="breadcrumb">
-      <li><a href="{% url tx_highered:home %}">Home</a><span class="divider">/</span></li>
-      {% block breadcrumb %}{% endblock %}
-    </ul>
-  {% endblock %}
-
+{% block main_content %}
   <header class="page-header">
     <h1>{% block page_title %}{% endblock %}</h1>
   </header>
@@ -20,8 +13,7 @@
 
   <div class="row">
     <div class="span12">
-      {% block main %}{% endblock %}
+      {% block two_column_main %}{% endblock %}
     </div>
   </div>
-
 {% endblock %}
