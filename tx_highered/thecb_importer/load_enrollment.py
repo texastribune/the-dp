@@ -1,5 +1,10 @@
+from collections import defaultdict
+import sys
+
 from pyquery import PyQuery as pq
 import requests
+
+from tx_highered.models import Institution, PublicEnrollment
 
 REPORT_URL = "http://reports.thecb.state.tx.us/ibi_apps/WFServlet?"
 
@@ -84,10 +89,55 @@ def get_institutions(category):
     return institutions
 
 
-def clean_institution(institution):
-    pass
+def clean_field_name(field):
+    return {
+        'African American': 'african_american_count',
+        'American Indian/Alaskan Native': 'native_american_count',
+        'Asian': 'asian_count',
+        'Hispanic': 'hispanic_count',
+        'International': 'international_count',
+        'Multiracial': 'multiracial_count',
+        'Native Hawaiian/Pacific Island': 'pacific_islander_count',
+        'Unknown or Not Reported': 'unknown_count',
+        'White': 'white_count',
+        'total': 'total'
+    }[field]
+
+
+def clean_institution_data(data):
+    # Look up related institution from the FICE ID
+    try:
+        institution = Institution.objects.get(fice_id=data['fice'])
+    except Institution.DoesNotExist:
+        sys.stderr.write('missing FICE ID %(fice)s (%(name)s)\n' % data)
+        return
+
+    # The data item looks like this (multiple ethnicities with a total):
+    # { race: [{year: enrollment}, ...], ..., total: [...] }
+    data_by_year = defaultdict(dict)
+    for field, value in data['data'].items():
+        field_name = clean_field_name(field)
+        for year, enrollment in value.items():
+            data_by_year[year][field_name] = int(enrollment.replace(',', ''))
+
+    # Calculate percentages
+    for year, year_data in data_by_year.items():
+        total = year_data['total']
+        if total != 0:
+            for field, count in year_data.items():
+                if field == 'total':
+                    continue
+                percent_field = field.replace('_count', '_percent')
+                year_data[percent_field] = round(100.0 * count / total, 1)
+        yield dict(year_data, institution=institution, year=year)
+
+
+def main():
+    for category in ('public', 'public 2-year'):
+        for institution in get_institutions(category):
+            for cleaned_data in clean_institution_data(institution):
+                PublicEnrollment.objects.create(**cleaned_data)
 
 
 if __name__ == '__main__':
-    get_institutions('public')
-    get_institutions('public 2-year')
+    main()
