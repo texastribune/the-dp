@@ -99,7 +99,7 @@ class System(ContactFieldsMixin):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('system_detail', (), {'slug': self.slug})
+        return ('tx_highered:system_detail', (), {'slug': self.slug})
 
 
 class WikipediaFields(models.Model):
@@ -148,7 +148,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('institution_detail', (), {'slug': self.slug})
+        return ('tx_highered:institution_detail', (), {'slug': self.slug})
 
     @property
     def type(self):

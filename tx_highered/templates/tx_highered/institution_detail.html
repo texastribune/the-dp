@@ -108,11 +108,11 @@
 
   // Enrollment chart
   init_enrollment_chart({
-    url: "{% url "enrollment_api" object.id %}"
+    url: "{% url "tx_highered:enrollment_api" object.id %}"
   });
 
 
-  var testchart_url = "{% url "institution_api" object.id "testscores" %}";
+  var testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
   var testchart = new TestScoresChart(
         $('#testing').placeChartContainer(),
         testchart_url,

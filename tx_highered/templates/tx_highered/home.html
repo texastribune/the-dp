@@ -59,8 +59,8 @@ TODO: enable once on the Tribune
 
     <div class="span3">
       <div class="well well-small">
-        The <a href="#TODO">Higher Education Explorer</a> was created with
-        support from the <em>AWESOME Foundation</em>
+        The <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
+        was created with support from the <em>AWESOME Foundation</em>
       </div>
 
       <div>
@@ -88,7 +88,7 @@ TODO: enable once on the Tribune
       };
 
       // Go to the server for name-URI
-      $.get("{% url 'autocomplete_api' %}", function(data) {
+      $.get("{% url 'tx_highered:autocomplete_api' %}", function(data) {
         // Map intitution names to URIs
         var urisByName = {};
         $.map(data, function(o) {

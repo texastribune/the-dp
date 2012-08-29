@@ -3,7 +3,7 @@
 {% block body %}
   {% block breadcrumb_base %}
     <ul class="breadcrumb">
-      <li><a href="#TODO">Home</a><span class="divider">/</span></li>
+      <li><a href="{% url tx_highered:home %}">Home</a><span class="divider">/</span></li>
       {% block breadcrumb %}{% endblock %}
     </ul>
   {% endblock %}

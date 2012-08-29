@@ -40,7 +40,8 @@
         {% block breadcrumb %}
           <ul class="breadcrumb">
             <li>
-              <a href="#TODO">Home</a> <span class="divider">/</span>
+              <a href="{% url tx_highered:home %}">Home</a>
+              <span class="divider">/</span>
             </li>
 
             {% block breadcrumb_items %}{% endblock %}
