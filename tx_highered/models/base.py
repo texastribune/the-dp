@@ -181,3 +181,22 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     @property
     def latest_enrollment(self):
         return self.enrollment.latest('year')
+
+    @property
+    def tuition_buckets(self):
+        if not hasattr(self, "_tuition_buckets"):
+            b = {
+                "years": [],
+                "in_state": {},
+                "out_of_state": {},
+                "books_and_supplies": {},
+                "room_and_board": {},
+            }
+            for t in self.pricetrends.all():
+                b["years"].append(t.year)
+                b["in_state"][t.year] = t.in_state
+                b["out_of_state"][t.year] = t.out_of_state
+                b["books_and_supplies"][t.year] = t.books_and_supplies
+                b["room_and_board"][t.year] = t.room_and_board_on_campus
+            self._tuition_buckets = b
+        return self._tuition_buckets
