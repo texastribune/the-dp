@@ -98,7 +98,7 @@ D3BarChart.prototype.setUp = function(options){
         color: d3.scale.category10(),
         height: 300,
         width: 940,
-        margin: [0, 0, 30, 50],
+        margin: [10, 0, 30, 50],
         tooltip: function(){ return this.__data__.title || this.__data__.y; },
         enable_axis_x: true,
         enable_axis_y: true
