@@ -18,7 +18,7 @@ class Http500View(View):
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'tx_highered.views.home', name='home'),
-    url(r'', include('tx_highered.urls')),
+    url(r'', include('tx_highered.urls', namespace='tx_highered')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
