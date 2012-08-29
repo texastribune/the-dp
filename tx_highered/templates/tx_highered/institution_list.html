@@ -1,13 +1,15 @@
 {% extends "tx_highered/app_base.html" %}
-{% load webdesign %}
+
 
 {% block head_title %}Institutions{% endblock %}
+
 
 {% block breadcrumb_items %}
   <li class="active"><a href="">Institutions</a></li>
 {% endblock %}
 
-{% block main_content %}
+
+{% block main %}
   <header class="page-header">
     <h1>Directory</h1>
   </header>
@@ -22,7 +24,6 @@
         </h2>
 
         {% include "tx_highered/includes/sentences.html" %}
-
       </div>
     </div>
   {% endfor %}

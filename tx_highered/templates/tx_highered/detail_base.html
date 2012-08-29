@@ -2,7 +2,8 @@
 {% comment %}
 {% endcomment %}
 
-{% block main_content %}
+
+{% block main_base %}
   <header class="page-header">
     <h1>{% block page_title %}{% endblock %}</h1>
   </header>
@@ -15,7 +16,7 @@
 
   <div class="row">
     <div class="span12">
-      {% block two_column_main %}{% endblock %}
+      {% block main %}{% endblock %}
     </div>
   </div>
 {% endblock %}
