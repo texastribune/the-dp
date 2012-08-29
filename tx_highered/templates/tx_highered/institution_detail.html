@@ -41,22 +41,22 @@
       </tr>
 
       <tr>
-        <th>In-State Tuition</th>
+        <th style="text-align: right; white-space:nowrap;">In-State Tuition</th>
         {% for a in object.tuition_buckets.in_state.values %}<td>${{ a|intcomma }}</td>{% endfor %}
       </tr>
 
       <tr>
-        <th>Out-Of-State Tuition</th>
+        <th style="text-align: right; white-space:nowrap;">Out-Of-State Tuition</th>
         {% for a in object.tuition_buckets.out_of_state.values %}<td>${{ a|intcomma }}</td>{% endfor %}
       </tr>
 
       <tr>
-        <th>Books &amp; Supplies</th>
+        <th style="text-align: right; white-space:nowrap;">Books &amp; Supplies</th>
         {% for a in object.tuition_buckets.books_and_supplies.values %}<td>${{ a|intcomma }}</td>{% endfor %}
       </tr>
 
       <tr>
-        <th>Room &amp; Board</th>
+        <th style="text-align: right; white-space:nowrap;">Room &amp; Board</th>
         {% for a in object.tuition_buckets.room_and_board.values %}<td>${{ a|intcomma }}</td>{% endfor %}
       </tr>
 
