@@ -1,4 +1,4 @@
-{% extends "tx_highered/two_column_base.html" %}
+{% extends "tx_highered/detail_base.html" %}
 {% load layout_helpers humanize instachart %}
 {% load webdesign %}
 {% load url from future %}
@@ -51,7 +51,7 @@
     </div>
     {% if object.admissions.all.exists %}
       {% with object_list=object.admissions.all %}
-        {% include "instachart/admissions/admissions.html" %}
+        {% include "instachart/simplechart/admissions.html" %}
       {% endwith %}
 
       <div class="row">
