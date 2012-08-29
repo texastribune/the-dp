@@ -11,7 +11,7 @@
   var price_colors = ['#39c', '#066', '#9c6', '#9cc'];
                                                // instate, outstate, roomboard, books
   var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; });
-  var chart = new D3StackedBarChart($section.placeChartContainer(),
+  var chart = new D3StackedBarChart($section.find(".chart:eq(0)"),
       [data[0], zeroes, data[3], data[2]],
       {
         'color': price_colors,
@@ -27,14 +27,14 @@
     chart.data([zeroes, data[1], data[3], data[2]]);
   });
 
-  var chart2 = new D3GroupedBarChart($section.placeChartContainer(),
+  var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
               [data[0], data[1]],
               {
                 'color': price_colors
               });
 
   var normData = normalizeFirst([data[0], data[1]], 0);
-  var chart3 = new D3GroupedBarChart($section.placeChartContainer(),
+  var chart3 = new D3GroupedBarChart($section.find(".chart:eq(2)"),
         normData,
         {
           'color': price_colors,
