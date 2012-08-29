@@ -3,7 +3,7 @@
   "use strict";
 
   var $section = $('#pricetrends');
-  var $source = $section.find('table');
+  var $source = $section.find('table.data-source');
   var data = $source.tabulate();
 
   // store
