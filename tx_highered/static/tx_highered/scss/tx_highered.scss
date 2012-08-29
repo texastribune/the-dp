@@ -12,6 +12,16 @@
 #intro p { font-size: 1.25em; }
 
 
+.chart-data {
+  .dollar {
+    color: #666;
+  }
+  .currency {
+    float: right;
+    margin-right: 14px;  // XXX using margin for position
+  }
+}
+
 .chart-help {
   .bootstrap &.well {  // increase css selectivity
     background-color: whiteSmoke;

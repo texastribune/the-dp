@@ -42,22 +42,30 @@
 
       <tr>
         <th style="text-align: right; white-space:nowrap;">In-State Tuition</th>
-        {% for a in object.tuition_buckets.in_state.values %}<td>${{ a|intcomma }}</td>{% endfor %}
+        {% for a in object.tuition_buckets.in_state.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
       </tr>
 
       <tr>
         <th style="text-align: right; white-space:nowrap;">Out-Of-State Tuition</th>
-        {% for a in object.tuition_buckets.out_of_state.values %}<td>${{ a|intcomma }}</td>{% endfor %}
+        {% for a in object.tuition_buckets.out_of_state.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
       </tr>
 
       <tr>
         <th style="text-align: right; white-space:nowrap;">Books &amp; Supplies</th>
-        {% for a in object.tuition_buckets.books_and_supplies.values %}<td>${{ a|intcomma }}</td>{% endfor %}
+        {% for a in object.tuition_buckets.books_and_supplies.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
       </tr>
 
       <tr>
         <th style="text-align: right; white-space:nowrap;">Room &amp; Board</th>
-        {% for a in object.tuition_buckets.room_and_board.values %}<td>${{ a|intcomma }}</td>{% endfor %}
+        {% for a in object.tuition_buckets.room_and_board.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
       </tr>
 
     </table>
