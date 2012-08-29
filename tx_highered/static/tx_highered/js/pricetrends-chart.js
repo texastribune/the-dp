@@ -20,7 +20,7 @@
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
         }
       });
-  $('#totalcosts-viz button').click(function(){
+  $('#pricetrends .chart-help button').click(function(){
     $(this).siblings('.active').removeClass('active').end().addClass('active');
     var idx = $(this).prevAll().length;
     var copy = $.extend(false, [], data).toArray(); // shallow copy
