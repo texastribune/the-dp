@@ -1,34 +1,82 @@
-/* Texas Higher Ed App CSS assumes bootstrap
+/*
+  Texas Higher Ed App CSS
+  assumes bootstrap
 */
-.chart-viz { height: 300px; }
-.chart-viz .axis { font-family: sans-serif; font-size: 12px; }
-.chart-viz .axis text { fill: #333; }
+.chart-viz {
+  height: 300px; }
+  .chart-viz .axis {
+    font-family: sans-serif;
+    font-size: 12px; }
+    .chart-viz .axis text {
+      fill: #333; }
 
-svg .axis { shape-rendering: crispEdges; }
-svg .axis .domain { display: none; }
-svg .y.axis line { stroke: #000; }
-svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
+svg .axis {
+  shape-rendering: crispEdges; }
+svg .axis .domain {
+  display: none; }
+svg .y.axis line {
+  stroke: #000; }
+svg .sealevel {
+  stroke: rgba(30, 30, 80, 0.4); }
 
-#intro p { font-size: 1.25em; }
+#intro p {
+  font-size: 1.25em; }
 
-.chart-help { font-family: sans-serif; }
-.bootstrap .chart-help.well { background-color: whiteSmoke; }
+.chart-help {
+  font-family: sans-serif; }
+  .bootstrap .chart-help.well {
+    background-color: whiteSmoke; }
 
-h3 > .page-anchor { visibility: hidden; }
+h3 > .page-anchor {
+  visibility: hidden; }
 
-h3:hover > .page-anchor { visibility: visible; }
+h3:hover > .page-anchor {
+  visibility: visible; }
 
-td.align-right { text-align: right; }
-td.align-right .ui-tablebar { right: 0; }
+td.align-right {
+  text-align: right; }
+  td.align-right .ui-tablebar {
+    right: 0; }
 
-.ui-tablebar { color: #333; background: #dacd99; }
+.ui-tablebar {
+  color: #333;
+  background: #dacd99; }
 
-.onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }
+.onion-item, .onion-legend-item {
+  display: inline-block;
+  text-align: center;
+  width: 100px; }
 
-.nav-pills .onion-legend-item { float: none; }
+.nav-pills .onion-legend-item {
+  float: none; }
 
-.funnel { width: 100%; }
+.funnel {
+  width: 100%; }
 
-.funnel .bar { background: #0074cc; margin: 0 auto; overflow: hidden; text-indent: 110%; }
+.funnel .bar {
+  background: #0074cc;
+  margin: 0 auto;
+  overflow: hidden;
+  text-indent: 110%; }
 
-.ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
+.ui-onion-item-active .bar {
+  outline: 1px solid black;
+  background: transparent; }
+
+.data-app .page-header {
+  background: url(./icon.png) no-repeat left;
+  background-position-y: 3px; }
+  .data-app .page-header h1 {
+    font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif;
+    font-weight: 900;
+    font-size: 2.75em;
+    text-transform: uppercase;
+    height: 60px;
+    padding-left: 70px; }
+    .data-app .page-header h1 a {
+      color: #222;
+      text-decoration: none; }
+    .data-app .page-header h1 small {
+      display: block;
+      font-size: 0.5em;
+      text-transform: none; }
