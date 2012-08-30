@@ -14,6 +14,8 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 #pricetrends .chart-data tbody td { text-align: right; }
 #pricetrends .chart-data .dollar { color: #666; }
 #pricetrends .chart-data .currency { margin-right: 14px; }
+#pricetrends .chart-help .instate.active a { background-color: #3399CC; }
+#pricetrends .chart-help .outofstate.active a { background-color: #006666; }
 
 h2 > .page-anchor { visibility: hidden; }
 
