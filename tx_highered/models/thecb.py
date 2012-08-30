@@ -36,12 +36,21 @@ class PublicEnrollment(YearBasedInstitutionStatModel):
     unknown_count = models.IntegerField(null=True)
     white_count = models.IntegerField(null=True)
 
-    african_american_percent = models.FloatField(null=True)
-    asian_percent = models.FloatField(null=True)
-    hispanic_percent = models.FloatField(null=True)
-    international_percent = models.FloatField(null=True)
-    multiracial_percent = models.FloatField(null=True)
-    native_american_percent = models.FloatField(null=True)
-    pacific_islander_percent = models.FloatField(null=True)
-    unknown_percent = models.FloatField(null=True)
-    white_percent = models.FloatField(null=True)
+    african_american_percent = models.FloatField(null=True,
+        verbose_name='% Black')
+    asian_percent = models.FloatField(null=True,
+        verbose_name='% Asian')
+    hispanic_percent = models.FloatField(null=True,
+        verbose_name='% Hispanic')
+    international_percent = models.FloatField(null=True,
+        verbose_name='% International')
+    multiracial_percent = models.FloatField(null=True,
+        verbose_name='% Multiracial')
+    native_american_percent = models.FloatField(null=True,
+        verbose_name='% Native Am.')
+    pacific_islander_percent = models.FloatField(null=True,
+        verbose_name='% Pacific Islander')
+    unknown_percent = models.FloatField(null=True,
+        verbose_name='% N/A')
+    white_percent = models.FloatField(null=True,
+        verbose_name='% White')
