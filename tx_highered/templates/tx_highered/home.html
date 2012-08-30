@@ -94,8 +94,8 @@ TODO: enable once on the Tribune
 <div id="mapPopupContainer" class="shadow"><h4>Hover over a campus</h4></div>
 
 <script id="mapPopup" type="text/x-handlebars-template">
-  <h2>{{name}}</h2>
-  <h4>{{city}}, TX</h4>
+  <h2>{% templatetag openvariable %}name{% templatetag closevariable %}</h2>
+  <h4>{% templatetag openvariable %}city{% templatetag closevariable %}, TX</h4>
 </script>
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
