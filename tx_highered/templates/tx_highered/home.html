@@ -87,23 +87,13 @@ TODO: enable once on the Tribune
   <h4>{{city}}, TX</h4>
 </script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" />
-    <![endif]-->
-     <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="http://danzel.github.com/Leaflet.markercluster/dist/MarkerCluster.Default.ie.css" />
-    <![endif] -->
+    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/MarkerCluster.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/MarkerCluster.Default.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/MarkerCluster.Default.ie.css" /><![endif] -->
+
     <style>
-
-    body {
-        color: #222222;
-    }
-
-    #container {
-        width: 636px;
-    }
 
     #mapCanvas {
         width: 100%;
