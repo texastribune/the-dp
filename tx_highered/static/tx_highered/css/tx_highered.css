@@ -44,3 +44,4 @@ td.align-right .ui-tablebar { right: 0; }
 .data-app .app-header h1 { font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif; font-weight: 900; font-size: 2.75em; text-transform: uppercase; height: 60px; padding-left: 70px; }
 .data-app .app-header h1 a { color: #222; text-decoration: none; }
 .data-app .app-header h1 small { display: block; font-size: 0.5em; text-transform: none; }
+.data-app .page-header { font-family: Helvetica, Arial, sans-serif; }
