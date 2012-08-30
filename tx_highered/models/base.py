@@ -180,4 +180,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def latest_enrollment(self):
-        return self.enrollment.latest('year')
+        if self.is_private:
+            return self.enrollment.latest('year')
+        else:
+            return self.publicenrollment.latest('year')
