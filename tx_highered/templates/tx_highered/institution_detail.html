@@ -27,9 +27,11 @@
 
 
 {% block main %}
+
+  <hr>
   <section id="pricetrends">
-    <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
-    <div class="well well-small chart-help">
+    <h2>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
       Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
     </div>
     {% instachart object.pricetrends.all "pricetrends" %}
@@ -78,7 +80,7 @@
 
       <div class="span2">
         <div class="chart-help">
-          <h3>Total Costs</h3>
+          <h2>Total Costs</h2>
 
           <ul class="nav nav-pills nav-stacked">
             <li class="active">
@@ -108,11 +110,14 @@
     </div>
   </section>
 
+  <hr>
   <section id="testing">
-    <h3>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h3>
-    <div class="well well-small chart-help">
-      Average SAT scores for entering students broken down by section
+    <h2>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Average SAT scores for entering students broken down by section
     </div>
+
     {% instachart object.testscores.all "testscores" %}
 
     <table class="chart-data table table-striped table-condensed">
@@ -141,10 +146,13 @@
     </table>
   </section>
 
+  <hr>
   <section id="admissions">
-    <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
-    <div class="well well-small chart-help">
-      Total number of applications, percent of applicants who were admitted, and percent of those admitted who ultimately enrolled
+    <h2>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Total number of applications, percent of applicants who were admitted, and percent of those admitted who ultimately enrolled
+      </p>
     </div>
 
     {% if object.admissions.all.exists %}
@@ -202,10 +210,14 @@
       {% endif %}
   </section>
 
+  <hr>
   <section id="enrollment">
-    <h3>Enrollment</h3>
-    <div class="well well-small chart-help">
-      Total full-time equivalent students, the actual number of full-time and part-time students, and a student body breakdown by ethnicity
+    <h2>Enrollment</h2>
+    <div class="chart-help">
+      <p>
+        Total full-time equivalent students, the actual number of full-time and part-time students, and a student body breakdown by ethnicity
+      </p>
+
     </div>
     {% instachart object.enrollment.all %}
     <div class="row">
@@ -216,10 +228,13 @@
     </div>
   </section>
 
+  <hr>
   <section id="gradrates">
-    <h3>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h3>
-    <div class="well well-small chart-help">
-      Percent of first-time, full-time students who graduated in a given number of years
+    <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Percent of first-time, full-time students who graduated in a given number of years
+      </p>
     </div>
     {% instachart object.graduationrates.all "gradrates" %}
   </section>

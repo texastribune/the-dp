@@ -15,9 +15,9 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 #pricetrends .chart-data .dollar { color: #666; }
 #pricetrends .chart-data .currency { margin-right: 14px; }
 
-h3 > .page-anchor { visibility: hidden; }
+h2 > .page-anchor { visibility: hidden; }
 
-h3:hover > .page-anchor { visibility: visible; }
+h2:hover > .page-anchor { visibility: visible; }
 
 td.align-right { text-align: right; }
 td.align-right .ui-tablebar { right: 0; }

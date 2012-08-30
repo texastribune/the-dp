@@ -25,8 +25,8 @@
 
 
 // use visiblity because display:none affects box size calculations
-h3 > .page-anchor { visibility: hidden; }
-h3:hover > .page-anchor { visibility: visible; }
+h2 > .page-anchor { visibility: hidden; }
+h2:hover > .page-anchor { visibility: visible; }
 
 td.align-right {
   text-align: right;
