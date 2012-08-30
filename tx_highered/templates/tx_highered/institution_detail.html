@@ -30,7 +30,7 @@
   <section id="pricetrends">
     <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
     <div class="well well-small chart-help">
-      {% lorem 20 w %}
+      Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
     </div>
     {% instachart object.pricetrends.all "pricetrends" %}
 
@@ -111,7 +111,7 @@
   <section id="testing">
     <h3>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h3>
     <div class="well well-small chart-help">
-      {% lorem 20 w %}
+      Average SAT scores for entering students broken down by section
     </div>
     {% instachart object.testscores.all "testscores" %}
 
@@ -144,7 +144,7 @@
   <section id="admissions">
     <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
     <div class="well well-small chart-help">
-      {% lorem 20 w %}
+      Total number of applications, percent of applicants who were admitted, and percent of those admitted who ultimately enrolled
     </div>
 
     {% if object.admissions.all.exists %}
@@ -205,7 +205,7 @@
   <section id="enrollment">
     <h3>Enrollment</h3>
     <div class="well well-small chart-help">
-      {% lorem 20 w %}
+      Total full-time equivalent students, the actual number of full-time and part-time students, and a student body breakdown by ethnicity
     </div>
     {% instachart object.enrollment.all %}
     <div class="row">
@@ -219,7 +219,7 @@
   <section id="gradrates">
     <h3>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h3>
     <div class="well well-small chart-help">
-      {% lorem 20 w %}
+      Percent of first-time, full-time students who graduated in a given number of years
     </div>
     {% instachart object.graduationrates.all "gradrates" %}
   </section>
