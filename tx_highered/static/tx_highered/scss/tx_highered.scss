@@ -51,6 +51,18 @@ td.align-right {
 .higher-ed {
   .landing {
     .q { width: 95%; }
+
+    .map-container {
+      position: relative;
+
+      button {
+        position: absolute;
+        left: 33%;
+        width: 33%;
+        display: block;
+        z-index: 1000;
+      }
+    }
   }
 }
 

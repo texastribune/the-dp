@@ -54,12 +54,23 @@ TODO: enable once on the Tribune
           </form>
 
         </div>
+        <hr>
       </section>
 
-      <div class="row">
-        <span id="statewideZoom">Return to statewide view</span>
+      <div class="row-fluid map-container">
+        <div>
+          <h2>
+            View Institutions Statewide
+          </h2>
 
-        <div id="mapCanvas"></div>
+          {% lorem 1 p %}
+
+          <button id="statewideZoom" class="btn" style="position:absolute; display:block; margin: 0 auto -40px;">
+            Return to statewide view
+          </button>
+
+          <div id="mapCanvas"></div>
+        </div>
       </div>
 
     </div>
@@ -123,15 +134,6 @@ TODO: enable once on the Tribune
         font-size: .85em;
         margin: 0;
         padding: 0;
-    }
-
-    #statewideZoom {
-        text-decoration: underline;
-        cursor: pointer;
-    }
-
-    #statewideZoom:hover {
-        text-decoration: none;
     }
 
     .shadow {
