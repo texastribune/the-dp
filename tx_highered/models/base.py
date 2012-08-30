@@ -172,7 +172,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def number_of_full_time_students(self):
-        return self.enrollment.latest('year').fulltime
+        return self.latest_enrollment.total
 
     @property
     def latest_tuition(self):
@@ -180,6 +180,10 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def latest_enrollment(self):
+        if self.is_private:
+            return self.enrollment.latest('year')
+        else:
+            return self.publicenrollment.latest('year')
         return self.enrollment.latest('year')
 
     @property

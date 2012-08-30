@@ -19,8 +19,16 @@ class EnrollmentApiView(SingleObjectMixin, ApiView):
 
     def get_content_data(self):
         self.object = self.get_object()
+
+        # Use IPEDS enrollment data if this is a private university;
+        # otherwise use THECB data.
+        if self.object.is_private:
+            qs = self.object.enrollment.all()
+        else:
+            qs = self.object.publicenrollment.all()
+
         race_data = []
-        for enrollment in self.object.enrollment.all():
+        for enrollment in qs:
             race_data.extend(enrollment.race_data())
 
         return race_data
