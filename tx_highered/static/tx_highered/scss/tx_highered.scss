@@ -13,13 +13,15 @@
 
 
 .chart-data {
+  thead th { text-align: center !important; }
   .dollar {
     color: #666;
   }
   .currency {
-    float: right;
     margin-right: 14px;  // XXX using margin for position
   }
+
+  tr td { text-align: right !important; }
 }
 
 .chart-help {

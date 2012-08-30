@@ -11,8 +11,10 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
 #intro p { font-size: 1.25em; }
 
+.chart-data thead th { text-align: center !important; }
 .chart-data .dollar { color: #666; }
-.chart-data .currency { float: right; margin-right: 14px; }
+.chart-data .currency { margin-right: 14px; }
+.chart-data tr td { text-align: right !important; }
 
 .chart-help { font-family: sans-serif; }
 .bootstrap .chart-help.well { background-color: whiteSmoke; }
