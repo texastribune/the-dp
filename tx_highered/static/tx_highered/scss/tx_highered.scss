@@ -100,4 +100,10 @@ td.align-right {
   .page-header {
     font-family: $sansFontFamily;
   }
+
+  // section headings, h2 is reserved for future expansion (e.g. h2 enrollment,
+  // h3 by ethnicity, h3 by gender, h3 by age, h3 by geographic origin)
+  h3 {
+    font-family: $sansFontFamily;
+  }
 }
