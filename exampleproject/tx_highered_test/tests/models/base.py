@@ -14,8 +14,8 @@ class InstitutionTestCase(TestCase):
         self.assertEqual(latest, self.obj.latest_tuition)
 
     def test_number_of_full_time_students(self):
-        full_time = self.obj.enrollment.latest('year').fulltime
-        self.assertEqual(full_time, self.obj.number_of_full_time_students)
+        total = self.obj.publicenrollment.latest('year').total
+        self.assertEqual(total, self.obj.number_of_full_time_students)
 
     def test_sentences_property_returns_SummarySentences_object(self):
         self.assertTrue(isinstance(self.obj.sentences,
