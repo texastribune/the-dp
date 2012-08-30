@@ -18,12 +18,21 @@ function render_enrollment_chart(dataset) {
     .domain([0, enrollmentMax])
     .range([0, height]);
   var colors = {
-    'total_percent_unknown': '#E30033',
+    'total_percent_unknown': '#E30033', // IPEDS
     'total_percent_black': '#FF6633',
     'total_percent_hispanic': '#D6E985',
     'total_percent_native': '#006666',
     'total_percent_asian': '#3399CC',
-    'total_percent_white': '#993399'
+    'total_percent_white': '#993399',
+    'unknown_percent': '#E30033', // THECB
+    'african_american_percent': '#FF6633',
+    'hispanic_percent': '#D6E985',
+    'native_american_percent': '#006666',
+    'asian_percent': '#3399CC',
+    'white_percent': '#993399',
+    'international_percent': 'black',
+    'multiracial_percent': 'black',
+    'pacific_islander_percent': 'black'
   };
 
   // Axes
