@@ -2,7 +2,7 @@ import logging
 
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
-# from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
@@ -172,7 +172,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def number_of_full_time_students(self):
-        return self.latest_enrollment.total
+        enrollment = self.latest_enrollment
+        return enrollment.total if enrollment else None
 
     @property
     def latest_tuition(self):
@@ -180,11 +181,14 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def latest_enrollment(self):
-        if self.is_private:
-            return self.enrollment.latest('year')
-        else:
-            return self.publicenrollment.latest('year')
-        return self.enrollment.latest('year')
+        try:
+            if self.publicenrollment.exists():
+                return self.publicenrollment.latest('year')
+            else:
+                return self.enrollment.latest('year')
+        except ObjectDoesNotExist:
+            return None
+
 
     @property
     def tuition_buckets(self):
