@@ -20,12 +20,15 @@
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
         }
       });
-  $('#pricetrends .chart-help button').click(function(){
-    $(this).siblings('.active').removeClass('active').end().addClass('active');
-    var idx = $(this).prevAll().length;
+  $('#pricetrends .chart-help a').click(function(){
+    var $this = $(this);
+    $this.parent().parent().find('.active').removeClass('active');
+    $this.parent().addClass('active');
+    var idx = $(this).data('idx');
     var copy = $.extend(false, [], data).toArray(); // shallow copy
     copy[idx] = zeroes;
     chart.data(copy);
+    return false;
   });
 
   var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
