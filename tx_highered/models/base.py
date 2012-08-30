@@ -220,3 +220,24 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                         if a.sat_writing_25th_percentile else 'N/A')
             self._sat_score_buckets = b
         return self._sat_score_buckets
+
+    @property
+    def admission_buckets(self):
+        if not hasattr(self, '_admission_buckets'):
+            b = {
+                'years': [],
+                'applicants': {},
+                'admitted': {},
+                'enrolled': {},
+            }
+            for a in self.admissions.all():
+                if not a.number_admitted:
+                    continue
+                b['years'].append(a.year)
+                b['applicants'][a.year] = a.number_of_applicants
+                b['admitted'][a.year] = (a.number_admitted,
+                        a.percent_of_applicants_admitted)
+                b['enrolled'][a.year] = (a.number_admitted_who_enrolled,
+                        a.percent_of_admitted_who_enrolled)
+            self._admission_buckets = b
+        return self._admission_buckets

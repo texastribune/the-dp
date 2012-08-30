@@ -146,10 +146,37 @@
     <div class="well well-small chart-help">
       {% lorem 20 w %}
     </div>
+
     {% if object.admissions.all.exists %}
       {% with object_list=object.admissions.all %}
         {% include "instachart/simplechart/admissions.html" %}
       {% endwith %}
+
+    <table class="chart-data table table-striped table-condensed admissions" style="width:100%;">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in object.admission_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <th>Applicants</th>
+            {% for a in object.admission_buckets.applicants.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+          </tr>
+
+          <tr>
+            <th>Admitted</th>
+            {% for a in object.admission_buckets.admitted.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
+          </tr>
+
+          <tr>
+            <th>Enrolled</th>
+            {% for a in object.admission_buckets.enrolled.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
+          </tr>
+        </tbody>
+      </table>
 
       <div class="row">
         <div class="span10">
