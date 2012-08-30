@@ -5,14 +5,15 @@
   var $section = $('#pricetrends');
   var $source = $section.find('table.data-source');
   var data = $source.tabulate();
+  data = [data[0], data[1], data[3], data[2]];  // make sure books is last
 
   // store
 
+                   // instate, outstate, roomboard, books
   var price_colors = ['#39c', '#066', '#9c6', '#9cc'];
-                                               // instate, outstate, roomboard, books
   var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; });
   var chart = new D3StackedBarChart($section.find(".chart:eq(0)"),
-      [data[0], zeroes, data[3], data[2]],
+      [data[0], zeroes, data[2], data[3]],
       {
         'color': price_colors,
         'tooltip': function(){
@@ -20,15 +21,18 @@
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
         }
       });
-  $('#pricetrends .chart-help a').click(function(){
+  $('#pricetrends .chart-help a').click(function(e){
+    e.preventDefault();
     var $this = $(this);
     $this.parent().parent().find('.active').removeClass('active');
     $this.parent().addClass('active');
     var idx = $(this).data('idx');
-    var copy = $.extend(false, [], data).toArray(); // shallow copy
+    var copy = $.extend([], data);  // shallow copy, passing true/false won't
+                                    // work because jquery is too smart for
+                                    // itself and starts copying prototypes so
+                                    // Arrays turn into Objects
     copy[idx] = zeroes;
     chart.data(copy);
-    return false;
   });
 
   var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
