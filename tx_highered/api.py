@@ -47,13 +47,16 @@ class ReportView(SingleObjectMixin, ApiView):
 
 
 class AutocompleteApiView(ApiView):
+    available_fields = ['is_private', 'number_of_full_time_students']
+
     def get_content_data(self):
         data = []
         for i in Institution.objects.all():
-            data.append({
-                'uri': i.get_absolute_url(),
-                'name': i.name,
-            })
+            object_data = {'uri': i.get_absolute_url(), 'name': i.name}
+            for field in self.request.GET.get('fields', '').split(','):
+                if field in self.available_fields:
+                    object_data[field] = getattr(i, field)
+            data.append(object_data)
 
         return data
 
