@@ -97,12 +97,9 @@ TODO: enable once on the Tribune
   <h2>{{name}}</h2>
   <h4>{{city}}, TX</h4>
 </script>
+
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
-
-    <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/MarkerCluster.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/MarkerCluster.Default.css" />
-    <!--[if lte IE 8]><link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/MarkerCluster.Default.ie.css" /><![endif] -->
 
     <style>
 
@@ -145,7 +142,6 @@ TODO: enable once on the Tribune
     </style>
 
 <script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet-src.js"></script>
-<script src="http://danzel.github.com/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 <script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
 <script src="http://dev.rdmurphy.net/texas-tribune/highered_map/institutions.js"></script>
 <script>
@@ -167,16 +163,9 @@ TODO: enable once on the Tribune
         iconAnchor: [14, 11.5],
         popupAnchor: [14, 11.5]
       }),
-      markers = new L.MarkerClusterGroup({
-        maxClusterRadius: 60,
-        showCoverageOnHover: false,
-        spiderfyOnMaxZoom: true,
-        disableClusteringAtZoom: 13
-      }),
       geoLayer = L.geoJson(campuses, {
         pointToLayer: function(feature, latlng) {
           var marker = L.marker(latlng, {icon: capIcon});
-          markers.addLayer(marker);
           return marker;
         },
 
@@ -192,9 +181,7 @@ TODO: enable once on the Tribune
             $mapPopupContainer.html("<h4>Hover over a campus</h4>");
           });
         }
-      });
-
-  markers.addTo(map);
+      }).addTo(map);
 
   $("#statewideZoom").on("click", function() {
     map.setView(mapOptions.center, mapOptions.zoom);
