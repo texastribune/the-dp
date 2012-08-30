@@ -11,8 +11,11 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
 #intro p { font-size: 1.25em; }
 
-.chart-data thead th { text-align: center !important; }
-.chart-data tbody th { text-align: right !important; }
+.bootstrap .chart-data { width: 100%; }
+.bootstrap .chart-data thead th { text-align: center; }
+.bootstrap .chart-data tbody th { text-align: right; white-space: nowrap; }
+.bootstrap .chart-data tbody td { text-align: center; }
+.bootstrap .chart-data.price tbody td { text-align: right; }
 .chart-data .dollar { color: #666; }
 .chart-data .currency { margin-right: 14px; }
 .chart-data tr td { text-align: right !important; }

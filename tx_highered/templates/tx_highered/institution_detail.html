@@ -34,7 +34,7 @@
     </div>
     {% instachart object.pricetrends.all "pricetrends" %}
 
-    <table class="chart-data table table-striped table-condensed" style="width:100%;">
+    <table class="chart-data table table-striped table-condensed">
       <thead>
         <tr>
           <th></th>
@@ -43,28 +43,28 @@
       </thead>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">In-State Tuition</th>
+        <th>In-State Tuition</th>
         {% for a in object.tuition_buckets.in_state.values %}
           <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
         {% endfor %}
       </tr>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">Out-Of-State Tuition</th>
+        <th>Out-Of-State Tuition</th>
         {% for a in object.tuition_buckets.out_of_state.values %}
           <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
         {% endfor %}
       </tr>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">Books &amp; Supplies</th>
+        <th>Books &amp; Supplies</th>
         {% for a in object.tuition_buckets.books_and_supplies.values %}
           <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
         {% endfor %}
       </tr>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">Room &amp; Board</th>
+        <th>Room &amp; Board</th>
         {% for a in object.tuition_buckets.room_and_board.values %}
           <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
         {% endfor %}
@@ -115,27 +115,27 @@
     </div>
     {% instachart object.testscores.all "testscores" %}
 
-    <table class="chart-data table table-striped table-condensed" style="width:100%;">
+    <table class="chart-data table table-striped table-condensed">
       <thead>
         <tr>
           <th></th>
-          {% for year in object.sat_score_buckets.years %}<th style="text-align:center;">{{ year }}</th>{% endfor %}
+          {% for year in object.sat_score_buckets.years %}<th>{{ year }}</th>{% endfor %}
         </tr>
       </thead>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">Verbal</th>
-        {% for a in object.sat_score_buckets.verbal_range.values %}<td style="text-align:center;">{{ a }}</td>{% endfor %}
+        <th>Verbal</th>
+        {% for a in object.sat_score_buckets.verbal_range.values %}<td>{{ a }}</td>{% endfor %}
       </tr>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">Math</th>
-        {% for a in object.sat_score_buckets.math_range.values %}<td style="text-align:center;">{{ a }}</td>{% endfor %}
+        <th>Math</th>
+        {% for a in object.sat_score_buckets.math_range.values %}<td>{{ a }}</td>{% endfor %}
       </tr>
 
       <tr>
-        <th style="text-align: right; white-space:nowrap;">Writing</th>
-        {% for a in object.sat_score_buckets.writing_range.values %}<td style="text-align:center;">{{ a }}</td>{% endfor %}
+        <th>Writing</th>
+        {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
       </tr>
 
     </table>
@@ -152,7 +152,7 @@
         {% include "instachart/simplechart/admissions.html" %}
       {% endwith %}
 
-    <table class="chart-data table table-striped table-condensed admissions" style="width:100%;">
+    <table class="chart-data table table-striped table-condensed admissions">
         <thead>
           <tr>
             <th></th>

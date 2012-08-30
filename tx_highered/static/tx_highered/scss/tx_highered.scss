@@ -13,8 +13,16 @@
 
 
 .chart-data {
-  thead th { text-align: center !important; }
-  tbody th { text-align: right !important; }
+  .bootstrap & { width: 100%; }
+
+  .bootstrap & thead th { text-align: center; }
+  .bootstrap & tbody {
+    th { text-align: right; white-space: nowrap; }
+    td { text-align: center ;}
+  }
+
+  .bootstrap &.price tbody td { text-align: right; }
+
   .dollar {
     color: #666;
   }
