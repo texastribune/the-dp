@@ -35,7 +35,7 @@
   var $section = $('#gradrates');
   var $source = $section.find('table');
   var data = $source.tabulate().toArray().reverse();
-  var colors = ['#99c', '#639', '#306'].reverse();
+  var colors = ['#99c', '#639', '#306'];
 
   var chart = new GradRatesChart(
         $section.placeChartContainer(),
