@@ -122,3 +122,19 @@ td.align-right {
     font-family: $sansFontFamily;
   }
 }
+
+// fix for dropdown menus in breadcrumb
+.bootstrap .breadcrumb {
+  // assumes there's a .btn element, but there isn't
+  .btn-group.open .dropdown-toggle { box-shadow: none; }
+
+  // dropdown-menus weren't designed to fit inside breadcrumbs
+  .dropdown-menu {
+    .active a {
+      color: white;
+    }
+    li {
+      display: block;
+    }
+  }
+}
