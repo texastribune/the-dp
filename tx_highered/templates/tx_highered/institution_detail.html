@@ -9,6 +9,23 @@
 
 
 {% block breadcrumb_items %}
+  {% if object.system %}
+    <li>
+      <div class="btn-group pull-left">
+        <a class="active dropdown-toggle" data-toggle="dropdown" href="#">
+          {{ object.system }}
+          <span class="caret" style="vertical-align: middle;"></span>
+          {# <i class="icon-chevron-down"></i> #}
+        </a>
+        <ul class="dropdown-menu">
+          {% for inst in object.system.institution_set.all %}
+            <li {% if inst == object %}class="active"{% endif %}><a tabindex="-1" href="{{ inst.get_absolute_url }}">{{ inst.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <span class="divider">/</span>
+    </li>
+  {% endif %}
   <li class="active"><a href="">{{ object.name }}</a></li>
 {% endblock %}
 
@@ -251,6 +268,7 @@
 {% endblock %}
 
 {% block extra_script %}{{ block.super }}
+<script src="{{ STATIC_URL }}vendor/bootstrap/js/bootstrap{% if not debug %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}vendor/underscore.js/1.3.3/underscore{% if not debug %}-min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
