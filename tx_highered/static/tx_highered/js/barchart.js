@@ -1,5 +1,5 @@
-/*global $, d3, Class */
-(function($, d3, Class, exports){
+/*global $, d3, tt */
+(function($, d3, tt, exports){
   "use strict";
 // begin file-iffy, unindent
 
@@ -23,7 +23,7 @@ function normalizeFirst(data, idx){
 exports.normalizeFirst = normalizeFirst;
 
 /***************** CHART ******************/
-var D3Chart = Class.extend({});
+var D3Chart = tt.Class.extend({});
 exports.D3Chart = D3Chart;
 
 // override this if data needs to be scrubbed before getting charted
@@ -334,4 +334,4 @@ D3GroupedBarChart.prototype.get_bar_width = function(){
 };
 
 // end file iffy
-})(jQuery, d3, Class, window);
+})(jQuery, d3, tt, window);
