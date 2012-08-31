@@ -39,7 +39,7 @@ INSTITUTION_CHOICES = (
         ("pub_tech", "Technical College System"),
         ("pub_state", "State Colleges"),
         ("pri_jr", "Junior College"),
-        ("pri_chi", "Chiropractic"),
+        ("pri_chi", "Chiropractic Institution"),
     )
 
 
