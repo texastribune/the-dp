@@ -5,7 +5,7 @@
 
 
 // data processor TODO move awaaaaay
-function normalizeFirst(data, idx){
+exports.normalizeFirst = function(data, idx){
   data = $.extend(true, [], data);  // make a deep copy of data
   idx = idx || 0;
   // var max_first = data
@@ -19,8 +19,7 @@ function normalizeFirst(data, idx){
     }
   }
   return data;
-}
-exports.normalizeFirst = normalizeFirst;
+};
 
 /***************** CHART ******************/
 var D3Chart = tt.Class.extend({});
