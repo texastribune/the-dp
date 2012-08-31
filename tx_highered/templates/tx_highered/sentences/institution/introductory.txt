@@ -1,6 +1,6 @@
 {% load humanize %}
 {% if obj.number_of_full_time_students %}
-{{ obj.sentence_name }}, located in {{ obj.city }}, Texas, has {{ obj.number_of_full_time_students|intcomma }} students enrolled.
+{{ obj.sentence_name }}, a {{ obj.sentence_institution_type }} located in {{ obj.city }}, Texas, has {{ obj.number_of_full_time_students|intcomma }} students enrolled.
 {% else %}
-{{ obj.sentence_name }} is located in {{ obj.city }}.
+{{ obj.sentence_name }} is a {{ obj.sentence_institution_type }} located in {{ obj.city }}.
 {% endif %}

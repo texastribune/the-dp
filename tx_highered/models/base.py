@@ -256,3 +256,11 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                         a.percent_of_admitted_who_enrolled)
             self._admission_buckets = b
         return self._admission_buckets
+
+    @property
+    def sentence_institution_type(self):
+        institution_type = self.get_institution_type_display().lower()
+        if self.is_private:
+            return u'private %s' % institution_type
+        else:
+            return u'public %s' % institution_type

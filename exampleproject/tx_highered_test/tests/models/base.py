@@ -31,3 +31,9 @@ class InstitutionTestCase(TestCase):
 
     def test_admissions_latest(self):
         self.obj.admissions.latest
+
+    def test_sentence_institution_type(self):
+        self.assertEqual(self.obj.sentence_institution_type,
+                         u'public university')
+        self.assertEqual(self.private_obj.sentence_institution_type,
+                         u'private university')
