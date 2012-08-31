@@ -316,10 +316,13 @@ var D3GroupedBarChart = exports.D3GroupedBarChart = D3BarChart.extend({
     // shift grouped bars so they're adjacent to each other
     layers
       .attr("transform", function(d, i) {
-        var offset = self.bar_width * 0.9 * i;
-        return "translate(" + offset + ",0)";
+        return "translate(" + self.getLayerOffset(i) + ",0)";
       });
     return layers;
+  },
+
+  getLayerOffset: function(i) {
+    return this.bar_width * 0.9 * i;
   },
 
   get_bar_width: function(){

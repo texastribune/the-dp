@@ -10,22 +10,9 @@
         }
       };
 
-  var Chart = D3BarChart.extend({
-    get_layers: function(){
-      // set up a layer for each series
-      var self = this;
-      var layers = self.plot.selectAll("g.layer")
-        .data(this._data)
-        .enter().append("g")
-          .attr("class", "layer")
-          .style("fill", function(d, i) { return self.options.color(i); });
-      // shift grouped bars so they're adjacent to each other
-      layers
-        .attr("transform", function(d, i) {
-          var offset = 20 - 10 * i;
-          return "translate(" + offset + ",0)";
-        });
-      return layers;
+  var Chart = D3GroupedBarChart.extend({
+    getLayerOffset: function(i) {
+      return 20 - 10 * i;
     },
 
     get_bar_width: function(){
