@@ -53,7 +53,7 @@
 .ui-autocomplete {
   position: absolute;
   cursor: default;
-  z-index: 99999;
+  z-index: 1003 !important;
 }
 
 /* workarounds */
