@@ -189,6 +189,13 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         except ObjectDoesNotExist:
             return None
 
+    @property
+    def sentence_name(self):
+        if self.name.startswith('University'):
+            return u'The %s' % self.name
+        else:
+            return self.name
+
 
     @property
     def tuition_buckets(self):
