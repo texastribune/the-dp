@@ -20,10 +20,11 @@
 
         $table.find('tbody > tr').each(function(_, row) {
           // Take the first cell as the x value
-          var x = getCellValue($(row).children().eq(0));
+          var $rowChildren = $(row).children(),
+              x = getCellValue($rowChildren.eq(0));
 
           // Append the remaining cells to their column data
-          $(row).children().slice(1).each(function(index, cell) {
+          $rowChildren.slice(1).each(function(index, cell) {
             var y = getCellValue(cell);
             data[index].push({
               x: x,
