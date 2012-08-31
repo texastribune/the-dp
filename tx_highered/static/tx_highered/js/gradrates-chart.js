@@ -38,7 +38,7 @@
   var colors = ['#99c', '#639', '#306'];
 
   var chart = new GradRatesChart(
-        $section.placeChartContainer(),
+        $section.find('.d3-viz'),
         data,
         {
           'color': colors,

@@ -144,6 +144,8 @@
       </tr>
 
     </table>
+
+    <div class="chart d3-viz chart-viz"></div>
   </section>
 
   <hr>
@@ -231,12 +233,20 @@
   <hr>
   <section id="gradrates">
     <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      <p>
-        Percent of first-time, full-time students who graduated in a given number of years
-      </p>
-    </div>
-    {% instachart object.graduationrates.all "gradrates" %}
+
+    <div class="row">
+      <div class="span12 chart-help">
+        <p>
+          Percent of first-time, full-time students who graduated in a given number of years
+        </p>
+      </div>
+
+      {% instachart object.graduationrates.all "gradrates" %}
+
+      <div class="span12">
+        <div class="chart d3-viz chart-viz"></div>
+      </div>
+
   </section>
 {% endblock %}
 
@@ -261,7 +271,7 @@
 
   var testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
   var testchart = new TestScoresChart(
-        $('#testing').placeChartContainer(),
+        $('#testing .d3-viz'),
         testchart_url,
         {
           color: ['#066', '#c93', '#339'],
