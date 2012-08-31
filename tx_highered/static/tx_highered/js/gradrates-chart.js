@@ -15,7 +15,7 @@
       return 20 - 10 * i;
     },
 
-    get_bar_width: function(){
+    getBarWidth: function(){
       var len_series = this._data.length; // m, i, rows
       var len_x = this._data[0].length;   // n, j, cols
       var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
@@ -24,7 +24,7 @@
     },
 
     // y-axis shows percentage
-    get_y_domain: function(){
+    getYDomain: function(){
       return [0, 100];
     }
   });

@@ -8,7 +8,7 @@
 var TestScoresChart = D3GroupedBarChart.extend();
 window.TestScoresChart = TestScoresChart;
 
-TestScoresChart.prototype.init_data = function(new_data){
+TestScoresChart.prototype.initData = function(new_data){
   // only do SAT
   /*
     from:
@@ -41,16 +41,16 @@ TestScoresChart.prototype.init_data = function(new_data){
   return data;
 };
 
-TestScoresChart.prototype.get_y_domain = function(){
+TestScoresChart.prototype.getYDomain = function(){
   return [200, 800];
 };
 
-TestScoresChart.prototype.get_y = function(){
+TestScoresChart.prototype.getY = function(){
   var self = this;
   return function(d) { return self.y_scale(d.y_max); };
 };
 
-TestScoresChart.prototype.get_h = function(){
+TestScoresChart.prototype.getH = function(){
   var self = this;
   return function(d) { return self.height_scale(d.y_max - d.y); };
 };

@@ -24,7 +24,7 @@ exports.normalizeFirst = function(data, idx){
 /***************** CHART ******************/
 var D3Chart = exports.D3Chart = tt.Class.extend({
   // override this if data needs to be scrubbed before getting charted
-  init_data: function(data){ return data; },
+  initData: function(data){ return data; },
 
   // get or set data
   data: function(new_data){
@@ -33,7 +33,7 @@ var D3Chart = exports.D3Chart = tt.Class.extend({
       return this._data;
     }
 
-    this._data = this.init_data(new_data);
+    this._data = this.initData(new_data);
     this.refresh();
     return this;
   },
@@ -69,12 +69,12 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     }
     if (typeof data == "string"){  // if data is url
       d3.json(data, function(new_data) {
-        self._data = self.init_data(new_data);
+        self._data = self.initData(new_data);
         self.setUp(options);
         self.render();
       });
     } else {
-      this._data = this.init_data(data);
+      this._data = this.initData(data);
       this.setUp(options);
       this.render();
     }
@@ -127,11 +127,11 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     self.height_scale = d3.scale.linear().range([0, plot_box.h]);
     self.y_scale = d3.scale.linear().range([plot_box.h, 0]);
     self.y_axis = null;
-    self.y = self.get_y();
-    self.h = self.get_h();
+    self.y = self.getY();
+    self.h = self.getH();
 
     // setup bar width
-    self.bar_width = this.get_bar_width();
+    self.bar_width = this.getBarWidth();
   },
 
   render: function(){
@@ -155,10 +155,10 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
              .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
     this.plot = plot;
 
-    this.rescale(self.get_y_domain());
+    this.rescale(self.getYDomain());
 
-    this._layers = this.get_layers();
-    this.get_bars();
+    this._layers = this.getLayers();
+    this.getBars();
 
     // tooltip
     $('rect.bar', svg[0]).tooltip({
@@ -191,8 +191,8 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     }
   },
 
-  get_y_domain: function(){
-     return [0, this.get_max_y(this._data)];
+  getYDomain: function(){
+     return [0, this.getMaxY(this._data)];
   },
 
   refresh: function(){
@@ -200,7 +200,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         data = self._data;
 
     // reset height ceiling
-    self.rescale(self.get_y_domain());
+    self.rescale(self.getYDomain());
 
     // update layers data
     self._layers.data(data);
@@ -217,7 +217,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     return this;
   },
 
-  get_max_y: function(data){
+  getMaxY: function(data){
     return d3.max(data, function(d) {
       return d3.max(d, function(d) {
         return d.y;
@@ -225,12 +225,12 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     });
   },
 
-  get_y: function(){
+  getY: function(){
     var self = this;
     return function(d) { return self.y_scale(d.y); };
   },
 
-  get_h: function(){
+  getH: function(){
     var self = this;
     return function(d) { return self.height_scale(d.y); };
   },
@@ -242,7 +242,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     return this;
   },
 
-  get_layers: function(){
+  getLayers: function(){
     // set up a layer for each series
     var self = this;
     var layers = self.plot.selectAll("g.layer")
@@ -254,7 +254,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
   },
 
   // setup a bar for each point in a series
-  get_bars: function(){
+  getBars: function(){
     var self = this;
     return this._layers.selectAll("rect.bar")
       .data(function(d) { return d; })
@@ -270,7 +270,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
           .attr("height", self.h);
   },
 
-  get_bar_width: function(){
+  getBarWidth: function(){
     var len_series = this._data.length; // m, i, rows
     var len_x = this._data[0].length;   // n, j, cols
     var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
@@ -282,12 +282,12 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
 /***************** STACKED BAR CHART ******************/
 var D3StackedBarChart = exports.D3StackedBarChart = D3BarChart.extend({
 
-  init_data: function(new_data){
+  initData: function(new_data){
     // process add stack offsets
     return d3.layout.stack()(new_data);
   },
 
-  get_max_y: function(data){
+  getMaxY: function(data){
     return d3.max(data, function(d) {
       return d3.max(d, function(d) {
         return d.y + d.y0;
@@ -295,7 +295,7 @@ var D3StackedBarChart = exports.D3StackedBarChart = D3BarChart.extend({
     });
   },
 
-  get_y: function(){
+  getY: function(){
     var self = this;
     return function(d) { return self.y_scale(d.y + d.y0); };
   }
@@ -305,7 +305,7 @@ var D3StackedBarChart = exports.D3StackedBarChart = D3BarChart.extend({
 /***************** GROUPED BAR CHART ******************/
 var D3GroupedBarChart = exports.D3GroupedBarChart = D3BarChart.extend({
 
-  get_layers: function(){
+  getLayers: function(){
     // set up a layer for each series
     var self = this;
     var layers = self.plot.selectAll("g.layer")
@@ -325,7 +325,7 @@ var D3GroupedBarChart = exports.D3GroupedBarChart = D3BarChart.extend({
     return this.bar_width * 0.9 * i;
   },
 
-  get_bar_width: function(){
+  getBarWidth: function(){
     var len_series = this._data.length; // m, i, rows
     var len_x = this._data[0].length;   // n, j, cols
     var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
