@@ -166,7 +166,8 @@ var map_institutions = function(data) {
         iconSize: [28, 21],
         iconAnchor: [14, 11.5],
         popupAnchor: [14, 11.5]
-      });
+      }),
+      navigationCanceled = false;
 
   // Create a feature for each institution
   $.each(data, function(i, institution) {
@@ -188,18 +189,28 @@ var map_institutions = function(data) {
             $mapPopupContainer.html("<h4>Hover over a campus</h4>");
           });
           layer.on("click", function() {
-            window.location.href = institution.uri;
-          });
+            navigationCanceled = false;
+            setTimeout(function() {
+              if (navigationCanceled !== true) {
+                window.location.href = institution.uri;
+              }
+            }, 500);
+          },
+          layer.on("dblclick", function() {
+            navigationCanceled = true;
+            map.zoomIn();
+          }));
         }
       }).addTo(map);
     }
   });
 
+  // Reset map when return button is clicked
   $("#statewideZoom").on("click", function() {
     map.setView(mapOptions.center, mapOptions.zoom);
   });
 
-  // add popup container
+  // Add popup container
   $mapPopupContainer.appendTo("#mapCanvas").css("display", "inline");
 };
 
