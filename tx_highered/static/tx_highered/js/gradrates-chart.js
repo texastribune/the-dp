@@ -7,7 +7,8 @@
           // TODO: replace with Handlebars
           return this.__data__.series + " bachelor's graduation rate<br><b>" +
             d3.format(",.2f")(this.__data__.y) + "%</b>";
-        }
+        },
+        'yAxisTickFormat': function(a){ return a + '%'; }
       };
 
   var Chart = D3GroupedBarChart.extend({
@@ -29,8 +30,5 @@
     }
   });
 
-  var myChart = new Chart($section.find('.d3-viz'), data, options);
-  myChart.yAxis.tickFormat(function(a){ return a + '%'; });
-  myChart.refresh();
-
+  new Chart($section.find('.d3-viz'), data, options);
 })();

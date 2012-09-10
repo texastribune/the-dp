@@ -183,6 +183,9 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
       y_axis = d3.svg.axis()
                .scale(self.y_scale)
                .orient("left");
+      if (self.options.yAxisTickFormat) {
+        y_axis.tickFormat(self.options.yAxisTickFormat);
+      }
       svg.append("g")
           .attr("class", "y axis")
           .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
