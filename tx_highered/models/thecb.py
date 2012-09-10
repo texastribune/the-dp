@@ -80,10 +80,6 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     def total_percent_unknown(self):
         return self.unknown_percent
 
-        # return self.international_percent
-        # return self.multiracial_percent
-        # return self.pacific_islander_percent
-
     def race_data(self):
         race_attrs = [f.attname for f in self._meta.fields
                       if '_percent' in f.attname]
@@ -104,5 +100,7 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     race_attrs = ['total_percent_%s' % race for race in
             ('white', 'black', 'hispanic', 'native', 'asian', 'unknown')]
 
-    chart_series = ('year',
-                    'total') + tuple(race_attrs)
+    chart_series = (('year', 'total') +
+                    tuple(race_attrs) +
+                    ('international_percent', 'multiracial_percent',
+                     'pacific_islander_percent'))

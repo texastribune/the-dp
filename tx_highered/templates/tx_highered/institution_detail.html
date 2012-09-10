@@ -289,10 +289,28 @@
             <th>% Asian</th>
             {% for a in b.total_percent_asian.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
           </tr>
+          {% if b.pacific_islander_percent %}
+            <tr>
+              <th>% Pacific Islander</th>
+              {% for a in b.pacific_islander_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+          {% endif %}
           <tr>
             <th>% Native</th>
             {% for a in b.total_percent_native.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
           </tr>
+          {% if b.multiracial_percent %}
+            <tr>
+              <th>% Multiracial</th>
+              {% for a in b.multiracial_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.international_percent %}
+            <tr>
+              <th>% International</th>
+              {% for a in b.international_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+          {% endif %}
           <tr>
             <th>% Unknown</th>
             {% for a in b.total_percent_unknown.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
