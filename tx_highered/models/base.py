@@ -1,4 +1,5 @@
 import logging
+from collections import defaultdict
 
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
@@ -256,6 +257,31 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                         a.percent_of_admitted_who_enrolled)
             self._admission_buckets = b
         return self._admission_buckets
+
+    def get_buckets(self, relation_name, pivot_on_field="year", fields=None):
+        """ pivot a related report model about the year field """
+        cache_key = "_" + relation_name;
+        if not hasattr(self, cache_key):
+            b = defaultdict(dict)
+            pivot_axis = []
+            relation = getattr(self, relation_name)
+            if fields is None:
+                # XXX requires instacharts
+                fields = relation.model.get_chart_field_names()
+                # TODO filter out pivot_on_field field
+            for report_obj in relation.all():
+                pivot = getattr(report_obj, pivot_on_field)
+                pivot_axis.append(pivot)
+                for field in fields:
+                    b[field][pivot] = getattr(report_obj, field)
+            b[pivot_on_field] = pivot_axis
+            setattr(self, cache_key, b)
+            return b
+        return getattr(self, cache_key)
+
+    @property
+    def enrollment_buckets(self):
+        return self.get_buckets("enrollment")
 
     @property
     def sentence_institution_type(self):

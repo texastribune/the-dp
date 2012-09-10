@@ -237,7 +237,57 @@
       </p>
 
     </div>
-    {% instachart object.enrollment.all %}
+    {# {% instachart object.enrollment.all %} #}
+    {% with b=object.enrollment_buckets %}
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in b.year %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Full-Time Equivalent (FTE)</th>
+            {% for a in b.fulltime_equivalent.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>Full-Time</th>
+            {% for a in b.fulltime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>Part-Time</th>
+            {% for a in b.parttime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>% White</th>
+            {% for a in b.total_percent_white.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>% Black</th>
+            {% for a in b.total_percent_black.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>% Hispanic</th>
+            {% for a in b.total_percent_hispanic.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>% Asian</th>
+            {% for a in b.total_percent_asian.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>% Native</th>
+            {% for a in b.total_percent_native.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+          </tr>
+          <tr>
+            <th>% Unknown</th>
+            {% for a in b.total_percent_unknown.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+          </tr>
+        </tbody>
+      </table>
+    {% endwith %}
     <div class="row">
       {# use grid and span12 because we'll probably need the grid #}
       <div class="span12">
