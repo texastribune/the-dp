@@ -46,7 +46,7 @@ class ReportView(SingleObjectMixin, ApiView):
         return return_data
 
 
-class AutocompleteApiView(ApiView):
+class InstitutionApiView(ApiView):
     available_fields = ['is_private', 'number_of_full_time_students']
 
     def get_content_data(self):
@@ -62,4 +62,4 @@ class AutocompleteApiView(ApiView):
 
 
 enrollment_api = EnrollmentApiView.as_view()
-autocomplete_api = AutocompleteApiView.as_view()
+institution_api = InstitutionApiView.as_view()

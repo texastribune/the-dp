@@ -209,7 +209,7 @@ TODO: enable once on the Tribune
       };
 
       // Go to the server for name-URI
-      $.get("{% url 'tx_highered:autocomplete_api' %}", function(data) {
+      $.get("{% url 'tx_highered:institution_api' %}", function(data) {
         // Map intitution names to URIs
         var urisByName = {};
         $.map(data, function(o) {
