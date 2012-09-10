@@ -187,6 +187,9 @@ var map_institutions = function(data) {
           layer.on("mouseout", function(_) {
             $mapPopupContainer.html("<h4>Hover over a campus</h4>");
           });
+          layer.on("click", function() {
+            window.location.href = institution.uri;
+          });
         }
       }).addTo(map);
     }
