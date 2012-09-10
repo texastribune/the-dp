@@ -66,7 +66,7 @@ class ContactFieldsMixin(models.Model):
         g = geocoders.Google()
         address = ", ".join(address_array)
         _, latlng = g.geocode(address)
-        self.location = geos.fromstr("POINT({0} {1})".format(*latlng))
+        self.location = geos.fromstr("POINT({1} {0})".format(*latlng))
         self.save()
         return self.location
 
