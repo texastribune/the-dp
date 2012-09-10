@@ -267,8 +267,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             relation = getattr(self, relation_name)
             if fields is None:
                 # XXX requires instacharts
-                fields = relation.model.get_chart_field_names()
-                # TODO filter out pivot_on_field field
+                fields = [x[0] for x in relation.model.get_chart_series() if x[0] != pivot_on_field]
             for report_obj in relation.all():
                 pivot = getattr(report_obj, pivot_on_field)
                 pivot_axis.append(pivot)
@@ -281,7 +280,10 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def enrollment_buckets(self):
-        return self.get_buckets("enrollment")
+        if self.is_private:  # if not self.has_thecb_data
+            return self.get_buckets("enrollment")
+        return self.get_buckets("publicenrollment")
+
 
     @property
     def sentence_institution_type(self):

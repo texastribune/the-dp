@@ -3,6 +3,7 @@ from __future__ import division
 from django.db import models
 
 from .reports import YearBasedInstitutionStatModel
+from ..instachart.models import SimpleChart
 
 
 __all__ = ['PublicEnrollment']
@@ -23,7 +24,7 @@ RACES = [
 """
 
 
-class PublicEnrollment(YearBasedInstitutionStatModel):
+class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     total = models.IntegerField(null=True)
 
     african_american_count = models.IntegerField(null=True)
@@ -55,6 +56,33 @@ class PublicEnrollment(YearBasedInstitutionStatModel):
     white_percent = models.FloatField(null=True,
         verbose_name='% White')
 
+    @property
+    def total_percent_white(self):
+        return self.white_percent
+
+    @property
+    def total_percent_black(self):
+        return self.african_american_percent
+
+    @property
+    def total_percent_hispanic(self):
+        return self.hispanic_percent
+
+    @property
+    def total_percent_native(self):
+        return self.native_american_percent
+
+    @property
+    def total_percent_asian(self):
+        return self.asian_percent
+
+    @property
+    def total_percent_unknown(self):
+        return self.unknown_percent
+
+        # return self.international_percent
+        # return self.multiracial_percent
+        # return self.pacific_islander_percent
 
     def race_data(self):
         race_attrs = [f.attname for f in self._meta.fields
@@ -72,3 +100,9 @@ class PublicEnrollment(YearBasedInstitutionStatModel):
                 })
 
         return data
+
+    race_attrs = ['total_percent_%s' % race for race in
+            ('white', 'black', 'hispanic', 'native', 'asian', 'unknown')]
+
+    chart_series = ('year',
+                    'total') + tuple(race_attrs)

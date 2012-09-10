@@ -247,18 +247,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>Full-Time Equivalent (FTE)</th>
-            {% for a in b.fulltime_equivalent.values %}<td>{{ a|intcomma }}</td>{% endfor %}
-          </tr>
-          <tr>
-            <th>Full-Time</th>
-            {% for a in b.fulltime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
-          </tr>
-          <tr>
-            <th>Part-Time</th>
-            {% for a in b.parttime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
-          </tr>
+          {% if b.total %}
+            <tr>
+              <th>Total</th>
+              {% for a in b.total.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.fulltime_equivalent %}
+            <tr>
+              <th>Full-Time Equivalent (FTE)</th>
+              {% for a in b.fulltime_equivalent.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.fulltime %}
+            <tr>
+              <th>Full-Time</th>
+              {% for a in b.fulltime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.parttime %}
+            <tr>
+              <th>Part-Time</th>
+              {% for a in b.parttime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
         </tbody>
         <tbody>
           <tr>

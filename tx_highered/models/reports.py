@@ -319,8 +319,8 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
 
-    race_attrs = ['total_percent_%s' % race for race in ('white', 'black',
-            'hispanic', 'native', 'asian', 'unknown')]
+    race_attrs = ['total_percent_%s' % race for race in
+            ('white', 'black', 'hispanic', 'native', 'asian', 'unknown')]
 
     def race_data(self):
         data = []
