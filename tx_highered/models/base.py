@@ -295,3 +295,11 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             return u'private %s' % institution_type
         else:
             return u'public %s' % institution_type
+
+    @property
+    def geojson(self):
+        from tx_highered.api import JSON
+        if self.location:
+            return JSON(self.location.geojson)
+        else:
+            return None

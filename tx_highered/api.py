@@ -7,6 +7,24 @@ from django.views.generic.detail import SingleObjectMixin
 from tx_highered.models import Institution
 
 
+class JSON(int):
+    """
+    Wraps encoded JSON and ensures it passes through the default encoder
+    without being encoded again.
+
+    Relies on an implementation detail of the built-in json module. int
+    values are encoded by calling `__str__` on them, so if that changes,
+    this code will break.
+    """
+    def __new__(cls, content):
+        o = super(JSON, cls).__new__(cls)
+        o.content = str(content)
+        return o
+
+    def __str__(self):
+        return self.content
+
+
 class ApiView(View):
     def get(self, request, *args, **kwargs):
         data = self.get_content_data()
@@ -47,7 +65,7 @@ class ReportView(SingleObjectMixin, ApiView):
 
 
 class InstitutionApiView(ApiView):
-    available_fields = ['is_private', 'number_of_full_time_students']
+    available_fields = ['is_private', 'number_of_full_time_students', 'geojson']
 
     def get_content_data(self):
         data = []
