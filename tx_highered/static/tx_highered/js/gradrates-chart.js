@@ -1,6 +1,6 @@
 (function(){
   var $section = $('#gradrates'),
-      data = $section.find('table').tabulate().toArray().reverse(),
+      data = $section.find('table.data-source').tabulate().toArray().reverse(),
       options = {
         'color': ['#99c', '#639', '#306'],
         'tooltip': function() {
