@@ -145,9 +145,11 @@ TODO: enable once on the Tribune
 
 <script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet-src.js"></script>
 <script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
-<script src="http://dev.rdmurphy.net/texas-tribune/highered_map/institutions.js"></script>
+{% endblock %}
+
+{% block extra_script %}{{ block.super }}
 <script>
-(function() {
+var map_institutions = function(data) {
   var template = Handlebars.compile($("#mapPopup").html()),
       $mapPopupContainer = $("#mapPopupContainer"),
       mapOptions = {
@@ -164,19 +166,22 @@ TODO: enable once on the Tribune
         iconSize: [28, 21],
         iconAnchor: [14, 11.5],
         popupAnchor: [14, 11.5]
-      }),
-      geoLayer = L.geoJson(campuses, {
+      });
+
+  // Create a feature for each institution
+  $.each(data, function(i, institution) {
+    if (institution.geojson) {
+      L.geoJson(institution.geojson, {
         pointToLayer: function(feature, latlng) {
           var marker = L.marker(latlng, {icon: capIcon});
           return marker;
         },
-
         onEachFeature: function(feature, layer) {
           var data = feature.properties;
           layer.on("mouseover", function(_) {
             $mapPopupContainer.html(template({
-              name: data.name,
-              city: data.city
+              name: institution.name,
+              city: institution.city
             }));
           });
           layer.on("mouseout", function(_) {
@@ -184,6 +189,8 @@ TODO: enable once on the Tribune
           });
         }
       }).addTo(map);
+    }
+  });
 
   $("#statewideZoom").on("click", function() {
     map.setView(mapOptions.center, mapOptions.zoom);
@@ -191,44 +198,42 @@ TODO: enable once on the Tribune
 
   // add popup container
   $mapPopupContainer.appendTo("#mapCanvas").css("display", "inline");
-})();
+};
 
-</script>
+var autocomplete_institutions = function(data) {
+  // Map intitution names to URIs
+  var urisByName = {};
+  $.map(data, function(o) {
+    urisByName[o.name] = o.uri;
+  });
 
+  // Initialize autocomplete
+  $(".q").autocomplete({
+    source: $.map(data, function(n) { return n.name; }),
+    select: function(e, o) {
+      var uri = urisByName[o.item.label];
+      if (typeof(uri) !== "undefined") {
+        location.href = uri;
+      }
+    }
+  });
+}
 
-{% endblock %}
+// Patch jQuery autocomplete to filter using fuzzy matching
+$.ui.autocomplete.filter = function(array, term) {
+  term = $.ui.autocomplete.escapeRegex(term)
+  var matcher = new RegExp(term.split('').join('.*'), 'i');
+  return $.grep( array, function(value) {
+    return matcher.test( value.label || value.value || value );
+  });
+};
 
-{% block extra_script %}{{ block.super }}
-  <script>
-    $(function() {
-      // Patch jQuery autocomplete to filter using fuzzy matching
-      $.ui.autocomplete.filter = function(array, term) {
-        term = $.ui.autocomplete.escapeRegex(term)
-        var matcher = new RegExp(term.split('').join('.*'), 'i');
-        return $.grep( array, function(value) {
-          return matcher.test( value.label || value.value || value );
-        });
-      };
-
-      // Go to the server for name-URI
-      $.get("{% url 'tx_highered:institution_api' %}", function(data) {
-        // Map intitution names to URIs
-        var urisByName = {};
-        $.map(data, function(o) {
-          urisByName[o.name] = o.uri;
-        });
-
-        // Initialize autocomplete
-        $(".q").autocomplete({
-          source: $.map(data, function(n) { return n.name; }),
-          select: function(e, o) {
-            var uri = urisByName[o.item.label];
-            if (typeof(uri) !== "undefined") {
-              location.href = uri;
-            }
-          }
-        });
-      });
+$(function() {
+    // Go to the server for institution API data
+    $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson", function(data) {
+      autocomplete_institutions(data);
+      map_institutions(data);
     });
-  </script>
+  });
+</script>
 {% endblock %}
