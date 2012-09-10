@@ -339,6 +339,31 @@
 
       {% instachart object.graduationrates.all "gradrates" %}
 
+      {% with b=object.graduationrates_buckets %}
+        <table class="chart-data table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              {% for year in b.year %}<th>{{ year }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Four Year</th>
+              {% for a in b.bachelor_4yr.values %}<td>{{ a }}%</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>Five Year</th>
+              {% for a in b.bachelor_5yr.values %}<td>{{ a }}%</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>Six Year</th>
+              {% for a in b.bachelor_6yr.values %}<td>{{ a }}%</td>{% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      {% endwith %}
+
       <div class="span12">
         <div class="chart d3-viz chart-viz"></div>
       </div>

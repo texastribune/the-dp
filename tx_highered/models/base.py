@@ -284,6 +284,9 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             return self.get_buckets("enrollment")
         return self.get_buckets("publicenrollment")
 
+    @property
+    def graduationrates_buckets(self):
+        return self.get_buckets("graduationrates")
 
     @property
     def sentence_institution_type(self):
