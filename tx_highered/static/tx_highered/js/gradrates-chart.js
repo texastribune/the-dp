@@ -29,6 +29,8 @@
     }
   });
 
-  new Chart($section.find('.d3-viz'), data, options);
+  var myChart = new Chart($section.find('.d3-viz'), data, options);
+  myChart.yAxis.tickFormat(function(a){ return a + '%'; });
+  myChart.refresh();
 
 })();
