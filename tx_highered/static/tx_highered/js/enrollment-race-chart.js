@@ -95,13 +95,37 @@
             .delay(function(d, i) { return i * 10; })
             .attr("y", self.y)
             .attr("height", self.h);
+    },
+    renderLegend: function(el){
+      var self = this;
+      if (el.jquery) {  // todo what about things like zepto?
+        this.$legend = el;
+        this.legend = el[0];
+      } else if (typeof el == "string"){
+        this.legend = document.getElementById(el);
+      } else {
+        this.legend = el;
+      }
+      var items = d3.select(this.legend).append("ul")
+        .selectAll("li")
+          .data(this._data)
+          // bars are built bottom-up, so build the legend the same way
+          .enter().insert("li", ":first-child");
+      items
+        .append("span").attr("class", "legend-key")
+        // TODO use an element that can be controlled with CSS better but is also printable
+        .html("&#9608;").style("color", this.layerFillStyle);
+      items
+        .append("span").attr("class", "legend-value")
+        .text(function(d){ return d.values[0].race.substr(2); });
     }
   });
 
   var options = {
     'color': d3.interpolateRgb("#445", "#ccd"),
     // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
-    'tooltip': function() { return this.__data__.y + " " + this.__data__.race; }
+    'tooltip': function() { return this.__data__.y + " " + this.__data__.race; },
+    'legendElem': $("#enrollment .legend")
   };
 
   new Chart($("#enrollment .chart"), enrollment_chart_url, options);

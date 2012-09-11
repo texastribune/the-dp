@@ -189,6 +189,11 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
           .call(y_axis);
       self.yAxis = y_axis;
     }
+    if (self.options.legendElem) {
+      // only one chart has a legend, as we add more, this will naturally
+      // get refactored into something that makes sense
+      self.renderLegend(self.options.legendElem);
+    }
   },
 
   getXScale: function(){
