@@ -155,7 +155,8 @@ var map_institutions = function(data) {
       mapOptions = {
         center: [31.22219703210317, -99.9018131],
         zoom: 6,
-        minZoom: 6
+        minZoom: 6,
+        maxZoom: 17
       },
       map = L.map('mapCanvas', mapOptions),
       layer = new L.TileLayer("http://{s}.tiles.mapbox.com/v3/texastribune.map-3g2hqvcf/{z}/{x}/{y}.png", {
