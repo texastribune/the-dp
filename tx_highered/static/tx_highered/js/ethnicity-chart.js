@@ -30,6 +30,11 @@
       // pull max from original raw data
       return d3.max(this.originalData, function(d) { return d.enrollment; });
     },
+    getLayerFillStyle: function(){
+      var self = this;
+      // TODO temp, need to match d.ethnicity
+      return function(d, i) { return self.options.color(i / 8); };
+    },
     getX: function(){
       // override to use `d.year` instead of `d.x`
       var self = this;
@@ -69,6 +74,7 @@
   });
 
   var options = {
+    'color': d3.interpolateRgb("#556", "#aab"),
     'tooltip': function() { return this.__data__.y + " " + this.__data__.race; }
   };
 

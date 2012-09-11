@@ -113,6 +113,8 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         };
     self.options.plot_box = plot_box;
 
+    self.layerFillStyle = self.getLayerFillStyle();
+
     // setup x scales
     this.x_scale = self.getXScale();
     self.x_axis = null;
@@ -234,6 +236,11 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     });
   },
 
+  getLayerFillStyle: function(){
+    var self = this;
+    return function(d, i) { return self.options.color(i); };
+  },
+
   getX: function(){
     var self = this;
     return function(d) { return self.x_scale(d.x); };
@@ -263,7 +270,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
       .data(this._data)
       .enter().append("g")
         .attr("class", "layer")
-        .style("fill", function(d, i) { return self.options.color(i); });
+        .style("fill", self.layerFillStyle);
     return layers;
   },
 
@@ -326,7 +333,7 @@ var D3GroupedBarChart = exports.D3GroupedBarChart = D3BarChart.extend({
       .data(this._data)
       .enter().append("g")
         .attr("class", "layer")
-        .style("fill", function(d, i) { return self.options.color(i); });
+        .style("fill", self.layerFillStyle);
     // shift grouped bars so they're adjacent to each other
     layers
       .attr("transform", function(d, i) {
