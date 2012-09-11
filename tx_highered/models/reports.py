@@ -49,6 +49,7 @@ class YearBasedInstitutionStatModel(models.Model):
         ('academic', 'Academic'),  # 2003-2004
         ('calendar', 'Calendar'),  # 2004
         ('fall', 'Fall'),          # F04
+        ('fiscal', 'FY'),          # FY 2010
         ('aug', 'August 31st'))    # August
     year = models.IntegerField(default=1970, verbose_name=u'Year')
     year_type = models.CharField(max_length=10, choices=YEAR_TYPE_CHOICES, null=True)
@@ -74,6 +75,8 @@ class YearBasedInstitutionStatModel(models.Model):
         elif self.year_type == 'fall':
             # return "F%02d" % (int(self.year) % 100)
             return "Fall %s" % self.year
+        elif self.year_type == 'fiscal':
+            return "FY %s" % self.year
         elif self.year_type == 'aug':
             return "August 31st, %s" % self.year
         return "%d %s" % (self.year, self.year_type)
