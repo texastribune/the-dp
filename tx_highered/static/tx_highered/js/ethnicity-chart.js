@@ -31,9 +31,9 @@
       return d3.max(this.originalData, function(d) { return d.enrollment; });
     },
     getLayerFillStyle: function(){
-      var self = this;
-      // TODO temp, need to match d.ethnicity
-      return function(d, i) { return self.options.color(i / 8); };
+      var self = this,
+          n = self._data.length ;
+      return function(d, i) { return self.options.color(i / n); };
     },
     getX: function(){
       // override to use `d.year` instead of `d.x`
@@ -74,7 +74,7 @@
   });
 
   var options = {
-    'color': d3.interpolateRgb("#556", "#aab"),
+    'color': d3.interpolateRgb("#556", "#bbc"),
     'tooltip': function() { return this.__data__.y + " " + this.__data__.race; }
   };
 
