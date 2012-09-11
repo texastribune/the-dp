@@ -2,6 +2,17 @@
 (function() {
   "use strict";
 
+  // private functions from
+  // https://raw.github.com/mbostock/d3/master/src/layout/stack.js
+  // for re-ordering data
+  function d3_layout_stackReduceSum(d) {
+    return d.reduce(d3_layout_stackSum, 0);
+  }
+
+  function d3_layout_stackSum(p, d) {
+    return p + d[1];
+  }
+
   var Chart = D3StackedBarChart.extend({
     initData: function(new_data){
       // override to process data differently
@@ -11,6 +22,12 @@
           .entries(new_data);
       var stack = d3.layout.stack()
           .offset("zero")  // default
+          .order(function(data) {
+            var n = data.length,
+                sums = data.map(d3_layout_stackReduceSum),
+                index = d3.range(n).sort(function(a, b) { return sums[a] - sums[b]; });
+            return index.reverse();
+          })
           .values(function(d) { return d.values; })
           .x(function(d) { return d.year; })  // this doesn't seem to work
           .y(function(d) { return d.value; });
