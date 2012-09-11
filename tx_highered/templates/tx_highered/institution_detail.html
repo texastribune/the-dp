@@ -379,16 +379,17 @@
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/ethnicity-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
 <script>
   $(".onion").onionize();
 
   // Enrollment chart
-  init_enrollment_chart({
-    url: "{% url "tx_highered:enrollment_api" object.id %}"
-  });
+  // init_enrollment_chart({
+  //   url: "{% url "tx_highered:enrollment_api" object.id %}"
+  // });
+
+  var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
 
 
   var testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
@@ -405,4 +406,5 @@
         }
       );
 </script>
+<script src="{{ STATIC_URL }}tx_highered/js/ethnicity-chart.js"></script>
 {% endblock %}

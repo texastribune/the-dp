@@ -114,14 +114,9 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     self.options.plot_box = plot_box;
 
     // setup x scales
-    var len_x = data[0].length,
-        min_x = data[0][0].x,
-        max_x = data[0][len_x - 1].x;
-    this.x_scale = d3.scale.ordinal()
-        .domain(d3.range(min_x, max_x + 1))
-        .rangeRoundBands([0, plot_box.w], 0.1, 0.1);
+    this.x_scale = self.getXScale();
     self.x_axis = null;
-    self.x = function(d) { return self.x_scale(d.x); };
+    self.x = self.getX();
 
     // setup y scales
     self.height_scale = d3.scale.linear().range([0, plot_box.h]);
@@ -194,6 +189,17 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     }
   },
 
+  getXScale: function(){
+    var self = this,
+        data = this._data;
+    var len_x = data[0].length,
+        min_x = data[0][0].x,
+        max_x = data[0][len_x - 1].x;
+    return d3.scale.ordinal()
+        .domain(d3.range(min_x, max_x + 1))
+        .rangeRoundBands([0, self.options.plot_box.w], 0.1, 0.1);
+  },
+
   getYDomain: function(){
      return [0, this.getMaxY(this._data)];
   },
@@ -226,6 +232,11 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         return d.y;
       });
     });
+  },
+
+  getX: function(){
+    var self = this;
+    return function(d) { return self.x_scale(d.x); };
   },
 
   getY: function(){
