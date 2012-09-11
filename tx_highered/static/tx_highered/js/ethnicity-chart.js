@@ -20,19 +20,27 @@
       var nested_dataset = d3.nest()
           .key(function(d) { return d.metric; })
           .entries(new_data);
-      var stack = d3.layout.stack()
+      var stackOrder,
+          stack = d3.layout.stack()
           .offset("zero")  // default
           .order(function(data) {
             var n = data.length,
-                sums = data.map(d3_layout_stackReduceSum),
-                index = d3.range(n).sort(function(a, b) { return sums[a] - sums[b]; });
-            return index.reverse();
+                sums = data.map(d3_layout_stackReduceSum);
+            stackOrder = d3.range(n).sort(function(a, b) { return sums[b] - sums[a]; });
+            return stackOrder;
           })
           .values(function(d) { return d.values; })
           .x(function(d) { return d.year; })  // this doesn't seem to work
           .y(function(d) { return d.value; });
       var stacked_dataset = stack(nested_dataset);
-      return stacked_dataset;
+      // actually sort the data too so colors are applied in sort order
+      var return_data = [];
+      for (var i = 0; i < stackOrder.length; i++){
+        return_data.push(stacked_dataset[stackOrder[i]]);
+      }
+      // slower but terser alternative
+      // return stackOrder.map(function(x){ return stacked_dataset[x]; });
+      return return_data;
     },
     getXScale: function(){
       // override to pull year range from original data
@@ -91,7 +99,8 @@
   });
 
   var options = {
-    'color': d3.interpolateRgb("#556", "#bbc"),
+    'color': d3.interpolateRgb("#445", "#ccd"),
+    // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
     'tooltip': function() { return this.__data__.y + " " + this.__data__.race; }
   };
 
