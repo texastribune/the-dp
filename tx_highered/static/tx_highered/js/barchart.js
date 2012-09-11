@@ -192,6 +192,8 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
   },
 
   getXScale: function(){
+    // TODO this makes a lot of assumptions about how the input data is
+    // structured and ordered, replace with d3.extent
     var self = this,
         data = this._data;
     var len_x = data[0].length,
