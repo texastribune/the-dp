@@ -57,6 +57,15 @@ TODO: enable once on the Tribune
 
         </div>
         <hr>
+        {% if short_list %}
+          <div class="well">
+            <ul>
+              {% for object in short_list %}
+                <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
       </section>
 
       <div class="row-fluid map-container">

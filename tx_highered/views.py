@@ -1,3 +1,5 @@
+from django.db.models import Max
+from django.core.cache import cache
 from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
@@ -33,6 +35,19 @@ class FunnelMixin(object):
 
 class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
+
+    def get_short_list_qs(self):
+        queryset = cache.get(__name__ + ".shortlist")
+        if queryset is None:
+            queryset = Institution.objects.all().annotate(
+                enr=Max('enrollment__total')).filter(enr__isnull=False).order_by('-enr')
+            cache.set(__name__ + ".shortlist", queryset, 3600 * 24 * 7)
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context['short_list'] = self.get_short_list_qs()[:15]
+        return context
 
 
 class InstitutionListView(ListView):
