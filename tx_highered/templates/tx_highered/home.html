@@ -58,12 +58,14 @@ TODO: enable once on the Tribune
         </div>
         <hr>
         {% if short_list %}
-          <div class="well">
-            <ul>
-              {% for object in short_list %}
-                <li><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
-              {% endfor %}
-            </ul>
+          <div class="well well-small sans-serif">
+            <h4>Top {{ short_list|length }} Higher Education Institutions by Enrollment:</h4>
+            {% for object in short_list %}
+              <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+              {% if not forloop.last %}
+                <span class="divider">&bull;</span>
+              {% endif %}
+            {% endfor %}
           </div>
         {% endif %}
       </section>
