@@ -349,7 +349,8 @@
   <section id="gradrates">
     <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
 
-    <div class="row">
+    {% if object.graduationrates.all.exists %}
+      <div class="row">
       <div class="span12 chart-help">
         <p>
           Percent of first-time, full-time students who graduated in a given number of years
@@ -386,6 +387,9 @@
       <div class="span12">
         <div class="chart d3-viz chart-viz"></div>
       </div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
   </section>
 {% endblock %}
 
