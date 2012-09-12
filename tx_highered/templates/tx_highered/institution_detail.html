@@ -59,7 +59,7 @@
         {% include "instachart/simplechart/admissions.html" %}
       {% endwith %}
 
-    <table class="chart-data table table-striped table-condensed admissions">
+      <table class="chart-data table table-striped table-condensed admissions">
         <thead>
           <tr>
             <th></th>
@@ -102,9 +102,10 @@
             </a>
           </div>
         </div>
-      {% else %}
-        {% include "tx_highered/includes/no_data.html" %}
-      {% endif %}
+      </div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
   </section>
 
   <section id="testing">
