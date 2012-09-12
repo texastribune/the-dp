@@ -11,7 +11,7 @@
 {% block breadcrumb_items %}
   {% if object.system %}
     <li>
-      <div class="btn-group pull-left">
+      <div class="btn-group">
         <a class="active dropdown-toggle" data-toggle="dropdown" href="#{# object.system.get_absolute_url #}">
           {{ object.system }}
           <span class="caret" style="vertical-align: middle;"></span>
@@ -22,10 +22,13 @@
           {% endfor %}
         </ul>
       </div>
-      <span class="divider">/</span>
+
     </li>
   {% endif %}
-  <li class="active"><a href="">{{ object.name }}</a></li>
+  <li class="active">
+    <span class="divider">/</span>
+    <a href="">{{ object.name }}</a>
+  </li>
 {% endblock %}
 
 
