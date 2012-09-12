@@ -259,7 +259,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def admission_top10_buckets(self):
-        return self.get_buckets('admissions', fields=['percent_top10rule'])
+        return self.get_buckets('admissions', fields=['percent_top10rule'],
+                                 filter_on_field='percent_top10rule')
 
     def get_buckets(self, relation_name, pivot_on_field="year",
                     filter_on_field=None, fields=None):
