@@ -261,85 +261,89 @@
     <div class="chart-help">
       Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
     </div>
-    {% instachart object.pricetrends.all "pricetrends" %}
+    {% if object.pricetrends.all.exists %}
+      {% instachart object.pricetrends.all "pricetrends" %}
 
-    <table class="chart-data table table-striped table-condensed">
-      <thead>
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in object.tuition_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+
         <tr>
-          <th></th>
-          {% for year in object.tuition_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          <th>In-State Tuition</th>
+          {% for a in object.tuition_buckets.in_state.values %}
+            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+          {% endfor %}
         </tr>
-      </thead>
 
-      <tr>
-        <th>In-State Tuition</th>
-        {% for a in object.tuition_buckets.in_state.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
+        <tr>
+          <th>Out-Of-State Tuition</th>
+          {% for a in object.tuition_buckets.out_of_state.values %}
+            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+          {% endfor %}
+        </tr>
 
-      <tr>
-        <th>Out-Of-State Tuition</th>
-        {% for a in object.tuition_buckets.out_of_state.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
+        <tr>
+          <th>Books &amp; Supplies</th>
+          {% for a in object.tuition_buckets.books_and_supplies.values %}
+            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+          {% endfor %}
+        </tr>
 
-      <tr>
-        <th>Books &amp; Supplies</th>
-        {% for a in object.tuition_buckets.books_and_supplies.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
+        <tr>
+          <th>Room &amp; Board</th>
+          {% for a in object.tuition_buckets.room_and_board.values %}
+            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+          {% endfor %}
+        </tr>
 
-      <tr>
-        <th>Room &amp; Board</th>
-        {% for a in object.tuition_buckets.room_and_board.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
+      </table>
+      <div class="row">
 
-    </table>
-    <div class="row">
+        <div class="chart d3-viz chart-viz span10">
+        </div>
 
-      <div class="chart d3-viz chart-viz span10">
-      </div>
+        <div class="span2">
+          <div class="chart-help">
+            <h2>Total Costs</h2>
 
-      <div class="span2">
-        <div class="chart-help">
-          <h2>Total Costs</h2>
-
-          <ul class="nav nav-pills nav-stacked">
-            <li class="instate active">
-              <a href="#" data-idx="1">In-State</a></li>
-            <li class="outofstate">
-              <a href="#" data-idx="0">Out-of-State</a></li>
-          </ul>
+            <ul class="nav nav-pills nav-stacked">
+              <li class="instate active">
+                <a href="#" data-idx="1">In-State</a></li>
+              <li class="outofstate">
+                <a href="#" data-idx="0">Out-of-State</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="span10">
-        <div class="well well-small chart-help">
-          In-State vs Out-of-State Tuition Costs
+      <div class="row">
+        <div class="span10">
+          <div class="well well-small chart-help">
+            In-State vs Out-of-State Tuition Costs
+          </div>
+          <div class="chart d3-viz chart-viz"></div>
         </div>
-        <div class="chart d3-viz chart-viz"></div>
-      </div>
-      <div class="span2">
-        {# This space left intentionally blank #}
-      </div>
-
-
-      {% comment %}
-      <div class="span6">
-        <div class="well well-small chart-help">
-          Relative In-State vs Out-of-State Tuition Costs
+        <div class="span2">
+          {# This space left intentionally blank #}
         </div>
-        <div class="chart d3-viz chart-viz"></div>
+
+
+        {% comment %}
+        <div class="span6">
+          <div class="well well-small chart-help">
+            Relative In-State vs Out-of-State Tuition Costs
+          </div>
+          <div class="chart d3-viz chart-viz"></div>
+        </div>
+        {% endcomment %}
       </div>
-      {% endcomment %}
-    </div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
   </section>
 
   <section id="gradrates">
