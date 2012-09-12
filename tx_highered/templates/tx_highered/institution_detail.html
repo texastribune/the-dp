@@ -115,34 +115,38 @@
         Average SAT scores for entering students broken down by section
     </div>
 
-    {% instachart object.testscores.all "testscores" %}
+    {% if object.testscores.all.exists %}
+      {% instachart object.testscores.all "testscores" %}
 
-    <table class="chart-data table table-striped table-condensed">
-      <thead>
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in object.sat_score_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+
         <tr>
-          <th></th>
-          {% for year in object.sat_score_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          <th>Verbal</th>
+          {% for a in object.sat_score_buckets.verbal_range.values %}<td>{{ a }}</td>{% endfor %}
         </tr>
-      </thead>
 
-      <tr>
-        <th>Verbal</th>
-        {% for a in object.sat_score_buckets.verbal_range.values %}<td>{{ a }}</td>{% endfor %}
-      </tr>
+        <tr>
+          <th>Math</th>
+          {% for a in object.sat_score_buckets.math_range.values %}<td>{{ a }}</td>{% endfor %}
+        </tr>
 
-      <tr>
-        <th>Math</th>
-        {% for a in object.sat_score_buckets.math_range.values %}<td>{{ a }}</td>{% endfor %}
-      </tr>
+        <tr>
+          <th>Writing</th>
+          {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
+        </tr>
 
-      <tr>
-        <th>Writing</th>
-        {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
-      </tr>
+      </table>
 
-    </table>
-
-    <div class="chart d3-viz chart-viz"></div>
+      <div class="chart d3-viz chart-viz"></div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
   </section>
 
   <section id="enrollment">
