@@ -46,133 +46,6 @@
 
 
 {% block main %}
-
-  <hr>
-  <section id="pricetrends">
-    <h2>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
-    </div>
-    {% instachart object.pricetrends.all "pricetrends" %}
-
-    <table class="chart-data table table-striped table-condensed">
-      <thead>
-        <tr>
-          <th></th>
-          {% for year in object.tuition_buckets.years %}<th>{{ year }}</th>{% endfor %}
-        </tr>
-      </thead>
-
-      <tr>
-        <th>In-State Tuition</th>
-        {% for a in object.tuition_buckets.in_state.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
-
-      <tr>
-        <th>Out-Of-State Tuition</th>
-        {% for a in object.tuition_buckets.out_of_state.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
-
-      <tr>
-        <th>Books &amp; Supplies</th>
-        {% for a in object.tuition_buckets.books_and_supplies.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
-
-      <tr>
-        <th>Room &amp; Board</th>
-        {% for a in object.tuition_buckets.room_and_board.values %}
-          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-        {% endfor %}
-      </tr>
-
-    </table>
-    <div class="row">
-
-      <div class="chart d3-viz chart-viz span10">
-      </div>
-
-      <div class="span2">
-        <div class="chart-help">
-          <h2>Total Costs</h2>
-
-          <ul class="nav nav-pills nav-stacked">
-            <li class="instate active">
-              <a href="#" data-idx="1">In-State</a></li>
-            <li class="outofstate">
-              <a href="#" data-idx="0">Out-of-State</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="span10">
-        <div class="well well-small chart-help">
-          In-State vs Out-of-State Tuition Costs
-        </div>
-        <div class="chart d3-viz chart-viz"></div>
-      </div>
-      <div class="span2">
-        {# This space left intentionally blank #}
-      </div>
-
-
-      {% comment %}
-      <div class="span6">
-        <div class="well well-small chart-help">
-          Relative In-State vs Out-of-State Tuition Costs
-        </div>
-        <div class="chart d3-viz chart-viz"></div>
-      </div>
-      {% endcomment %}
-    </div>
-  </section>
-
-  <hr>
-  <section id="testing">
-    <h2>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      <p>
-        Average SAT scores for entering students broken down by section
-    </div>
-
-    {% instachart object.testscores.all "testscores" %}
-
-    <table class="chart-data table table-striped table-condensed">
-      <thead>
-        <tr>
-          <th></th>
-          {% for year in object.sat_score_buckets.years %}<th>{{ year }}</th>{% endfor %}
-        </tr>
-      </thead>
-
-      <tr>
-        <th>Verbal</th>
-        {% for a in object.sat_score_buckets.verbal_range.values %}<td>{{ a }}</td>{% endfor %}
-      </tr>
-
-      <tr>
-        <th>Math</th>
-        {% for a in object.sat_score_buckets.math_range.values %}<td>{{ a }}</td>{% endfor %}
-      </tr>
-
-      <tr>
-        <th>Writing</th>
-        {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
-      </tr>
-
-    </table>
-
-    <div class="chart d3-viz chart-viz"></div>
-  </section>
-
-  <hr>
   <section id="admissions">
     <h2>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h2>
     <div class="chart-help">
@@ -234,7 +107,43 @@
       {% endif %}
   </section>
 
-  <hr>
+  <section id="testing">
+    <h2>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Average SAT scores for entering students broken down by section
+    </div>
+
+    {% instachart object.testscores.all "testscores" %}
+
+    <table class="chart-data table table-striped table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          {% for year in object.sat_score_buckets.years %}<th>{{ year }}</th>{% endfor %}
+        </tr>
+      </thead>
+
+      <tr>
+        <th>Verbal</th>
+        {% for a in object.sat_score_buckets.verbal_range.values %}<td>{{ a }}</td>{% endfor %}
+      </tr>
+
+      <tr>
+        <th>Math</th>
+        {% for a in object.sat_score_buckets.math_range.values %}<td>{{ a }}</td>{% endfor %}
+      </tr>
+
+      <tr>
+        <th>Writing</th>
+        {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
+      </tr>
+
+    </table>
+
+    <div class="chart d3-viz chart-viz"></div>
+  </section>
+
   <section id="enrollment">
     <h2>Enrollment</h2>
     <div class="chart-help">
@@ -338,7 +247,92 @@
     </div>
   </section>
 
-  <hr>
+  <section id="pricetrends">
+    <h2>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
+    </div>
+    {% instachart object.pricetrends.all "pricetrends" %}
+
+    <table class="chart-data table table-striped table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          {% for year in object.tuition_buckets.years %}<th>{{ year }}</th>{% endfor %}
+        </tr>
+      </thead>
+
+      <tr>
+        <th>In-State Tuition</th>
+        {% for a in object.tuition_buckets.in_state.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
+      </tr>
+
+      <tr>
+        <th>Out-Of-State Tuition</th>
+        {% for a in object.tuition_buckets.out_of_state.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
+      </tr>
+
+      <tr>
+        <th>Books &amp; Supplies</th>
+        {% for a in object.tuition_buckets.books_and_supplies.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
+      </tr>
+
+      <tr>
+        <th>Room &amp; Board</th>
+        {% for a in object.tuition_buckets.room_and_board.values %}
+          <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+        {% endfor %}
+      </tr>
+
+    </table>
+    <div class="row">
+
+      <div class="chart d3-viz chart-viz span10">
+      </div>
+
+      <div class="span2">
+        <div class="chart-help">
+          <h2>Total Costs</h2>
+
+          <ul class="nav nav-pills nav-stacked">
+            <li class="instate active">
+              <a href="#" data-idx="1">In-State</a></li>
+            <li class="outofstate">
+              <a href="#" data-idx="0">Out-of-State</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span10">
+        <div class="well well-small chart-help">
+          In-State vs Out-of-State Tuition Costs
+        </div>
+        <div class="chart d3-viz chart-viz"></div>
+      </div>
+      <div class="span2">
+        {# This space left intentionally blank #}
+      </div>
+
+
+      {% comment %}
+      <div class="span6">
+        <div class="well well-small chart-help">
+          Relative In-State vs Out-of-State Tuition Costs
+        </div>
+        <div class="chart d3-viz chart-viz"></div>
+      </div>
+      {% endcomment %}
+    </div>
+  </section>
+
   <section id="gradrates">
     <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
 
@@ -379,7 +373,6 @@
       <div class="span12">
         <div class="chart d3-viz chart-viz"></div>
       </div>
-
   </section>
 {% endblock %}
 
