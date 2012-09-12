@@ -292,45 +292,39 @@
             {% for year in object.tuition_buckets.years %}<th>{{ year }}</th>{% endfor %}
           </tr>
         </thead>
-
-        <tr>
-          <th>In-State Tuition</th>
-          {% for a in object.tuition_buckets.in_state.values %}
-            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-          {% endfor %}
-        </tr>
-
-        <tr>
-          <th>Out-Of-State Tuition</th>
-          {% for a in object.tuition_buckets.out_of_state.values %}
-            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-          {% endfor %}
-        </tr>
-
-        <tr>
-          <th>Books &amp; Supplies</th>
-          {% for a in object.tuition_buckets.books_and_supplies.values %}
-            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-          {% endfor %}
-        </tr>
-
-        <tr>
-          <th>Room &amp; Board</th>
-          {% for a in object.tuition_buckets.room_and_board.values %}
-            <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
-          {% endfor %}
-        </tr>
-
+        <tbody>
+          <tr>
+            <th>In-State Tuition</th>
+            {% for a in object.tuition_buckets.in_state.values %}
+              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th>Out-Of-State Tuition</th>
+            {% for a in object.tuition_buckets.out_of_state.values %}
+              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th>Books &amp; Supplies</th>
+            {% for a in object.tuition_buckets.books_and_supplies.values %}
+              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th>Room &amp; Board</th>
+            {% for a in object.tuition_buckets.room_and_board_on_campus.values %}
+              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+            {% endfor %}
+          </tr>
+        </tbody>
       </table>
+
       <div class="row">
-
-        <div class="chart d3-viz chart-viz span10">
-        </div>
-
+        <div class="span10 chart d3-viz chart-viz"></div>
         <div class="span2">
           <div class="chart-help">
             <h2>Total Costs</h2>
-
             <ul class="nav nav-pills nav-stacked">
               <li class="instate active">
                 <a href="#" data-idx="1">In-State</a></li>
