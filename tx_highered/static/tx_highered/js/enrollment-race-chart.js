@@ -107,10 +107,12 @@
         this.legend = el;
       }
       var items = d3.select(this.legend).append("ul")
+        .attr("class", "nav nav-pills nav-stacked")
         .selectAll("li")
           .data(this._data)
           // bars are built bottom-up, so build the legend the same way
-          .enter().insert("li", ":first-child");
+          .enter().insert("li", ":first-child")
+            .append('a').attr("href", "#");
       items
         .append("span").attr("class", "legend-key")
         // TODO use an element that can be controlled with CSS better but is also printable
@@ -118,6 +120,11 @@
       items
         .append("span").attr("class", "legend-value")
         .text(function(d){ return d.values[0].race.substr(2); });
+      // events
+      items.on("click", function(d, i){
+        // refocus_graph(i)
+        d3.event.preventDefault();
+      });
     }
   });
 
