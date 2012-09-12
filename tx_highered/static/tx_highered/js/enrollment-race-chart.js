@@ -97,18 +97,38 @@
             .attr("height", self.h);
     },
     focusOnSeries: function(idx, targetElem){
-      var self = this;
+      var self = this, filtered, targeted;
       if (self.activeSeriesIdx == idx){
         // show all
         self._layers.attr("display", null);
+        // save state
         self.activeSeriesIdx = -1;  // in the vain hope that not changing types is more performant
+
+        // re-redraw
+        targeted = d3.select(this._layers[0][idx]);  // this is super lame
+        targeted.selectAll("rect.bar")
+          .transition()
+            .attr("y", self.y);
+
         $(targetElem).parent().removeClass('active').siblings('.active').removeClass('active');
       } else {
-        var filtered = this._layers.filter(function(d, i){ return i != idx; });
-        filtered.attr("display", "none");
-        var targeted = d3.select(this._layers[0][idx]);  // this is super lame
+        // show only one
+        targeted = d3.select(this._layers[0][idx]);  // this is super lame
         targeted.attr("display", null);
+        // hide the rest
+        filtered = this._layers.filter(function(d, i){ return i != idx; });
+        filtered.attr("display", "none");
+        // save state
         self.activeSeriesIdx = idx;
+
+        // redraw
+        targeted.selectAll("rect.bar")
+          .transition()
+            .attr("y", function(d, i){
+              // send thee to the bottom of the sea!
+              return self.options.plot_box.h - self.h(d, i);
+            });
+
         $(targetElem).parent().addClass('active').siblings('.active').removeClass('active');
       }
     },
