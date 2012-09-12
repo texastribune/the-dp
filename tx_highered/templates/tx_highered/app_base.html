@@ -48,11 +48,7 @@
             <span class="divider">/</span>
           </li>
           {% block breadcrumb_items %}{% endblock %}
-          <li class="pull-right">
-            <form class="navbar-search">
-              <input type="text" class="search-query" placeholder="Search">
-            </form>
-          </li>
+          {% block breadcrumb_items_after %}{% endblock %}
         </ul>
       {% endblock %}
 

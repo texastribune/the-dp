@@ -1,4 +1,5 @@
 {% extends "tx_highered/app_base.html" %}
+{% load url from future %}
 {% comment %}
 {% endcomment %}
 
@@ -19,4 +20,30 @@
       {% block main %}{% endblock %}
     </div>
   </div>
+{% endblock %}
+
+
+{% block breadcrumb_items_after %}
+  <li class="pull-right">
+    <form class="navbar-search">
+      <input type="text" class="search-query q" placeholder="Search">
+    </form>
+  </li>
+{% endblock %}
+
+
+{% block extra_script %}{{ block.super }}
+<script>
+  // enable autocomplete
+  // get geojson too because it should be in cache and doen't make response
+  // much larger
+
+  // $(window).load(function(){  // <-- switch to this to get autocomplete earlier
+  $("input.q").one("click", function() {
+    // Go to the server for institution API data
+    $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson", function(data) {
+      autocomplete_institutions(data);
+    });
+  });
+</script>
 {% endblock %}
