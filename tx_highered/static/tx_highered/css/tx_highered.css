@@ -57,3 +57,4 @@ td.align-right .ui-tablebar { right: 0; }
 .bootstrap .breadcrumb .btn-group.open .dropdown-toggle { box-shadow: none; }
 .bootstrap .breadcrumb .dropdown-menu .active a { color: white; }
 .bootstrap .breadcrumb .dropdown-menu li { display: block; }
+.bootstrap .breadcrumb .navbar-search { margin-top: -1px; }

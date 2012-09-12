@@ -123,7 +123,7 @@ td.align-right {
   }
 }
 
-// fix for dropdown menus in breadcrumb
+// fixes for elements getting shoved into the breadcrumb
 .bootstrap .breadcrumb {
   // assumes there's a .btn element, but there isn't
   .btn-group > .dropdown-toggle {
@@ -132,7 +132,6 @@ td.align-right {
   }
   .btn-group.open .dropdown-toggle { box-shadow: none; }
 
-  // dropdown-menus weren't designed to fit inside breadcrumbs
   .dropdown-menu {
     .active a {
       color: white;
@@ -140,5 +139,9 @@ td.align-right {
     li {
       display: block;
     }
+  }
+
+  .navbar-search {
+    margin-top: -1px;
   }
 }
