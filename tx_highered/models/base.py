@@ -276,7 +276,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 pivot_axis.append(pivot)
                 for field in fields:
                     b[field][pivot] = getattr(report_obj, field)
-            b[pivot_on_field] = pivot_axis
+            b[pivot_on_field + "s"] = pivot_axis  # poor man's `pluralize()`
             setattr(self, cache_key, b)
             return b
         return getattr(self, cache_key)
