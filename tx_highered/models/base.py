@@ -261,7 +261,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     def admission_top10_buckets(self):
         return self.get_buckets('admissions', fields=['percent_top10rule'])
 
-    def get_buckets(self, relation_name, pivot_on_field="year", fields=None):
+    def get_buckets(self, relation_name, pivot_on_field="year",
+                    filter_on_field=None, fields=None):
         """ pivot a related report model about the year field """
         cache_key = "_" + relation_name
         if not hasattr(self, cache_key):
@@ -272,6 +273,12 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 # XXX requires instacharts
                 fields = [x[0] for x in relation.model.get_chart_series() if x[0] != pivot_on_field]
             for report_obj in relation.all():
+                if filter_on_field is not None:
+                    # make sure we want this data
+                    filter_value = getattr(report_obj, filter_on_field)
+                    if filter_value is None or filter_value is '':
+                        # null or blank
+                        continue
                 pivot = getattr(report_obj, pivot_on_field)
                 pivot_axis.append(pivot)
                 for field in fields:
