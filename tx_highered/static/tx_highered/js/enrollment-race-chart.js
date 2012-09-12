@@ -96,6 +96,22 @@
             .attr("y", self.y)
             .attr("height", self.h);
     },
+    focusOnSeries: function(idx, targetElem){
+      var self = this;
+      if (self.activeSeriesIdx == idx){
+        // show all
+        self._layers.attr("display", null);
+        self.activeSeriesIdx = -1;  // in the vain hope that not changing types is more performant
+        $(targetElem).parent().removeClass('active').siblings('.active').removeClass('active');
+      } else {
+        var filtered = this._layers.filter(function(d, i){ return i != idx; });
+        filtered.attr("display", "none");
+        var targeted = d3.select(this._layers[0][idx]);  // this is super lame
+        targeted.attr("display", null);
+        self.activeSeriesIdx = idx;
+        $(targetElem).parent().addClass('active').siblings('.active').removeClass('active');
+      }
+    },
     renderLegend: function(el){
       var self = this;
       if (el.jquery) {  // todo what about things like zepto?
@@ -122,8 +138,8 @@
         .text(function(d){ return d.values[0].race.substr(2); });
       // events
       items.on("click", function(d, i){
-        // refocus_graph(i)
         d3.event.preventDefault();
+        self.focusOnSeries(i, this);
       });
     }
   });
