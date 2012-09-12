@@ -106,6 +106,25 @@
     {% else %}
       {% include "tx_highered/includes/no_data.html" %}
     {% endif %}
+
+    {% if not object.is_private and object.admission_top10_buckets.year|length %}
+      {% with b=object.admission_top10_buckets %}
+        <table class="chart-data table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              {% for year in b.year %}<th>{{ year }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>First-Time Students in Top 10%</th>
+              {% for a in b.percent_top10rule.values %}<td>{{ a }}%</td>{% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      {% endwith %}
+    {% endif %}
   </section>
 
   <section id="testing">

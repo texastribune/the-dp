@@ -197,7 +197,6 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.name
 
-
     @property
     def tuition_buckets(self):
         if not hasattr(self, "_tuition_buckets"):
@@ -258,9 +257,13 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             self._admission_buckets = b
         return self._admission_buckets
 
+    @property
+    def admission_top10_buckets(self):
+        return self.get_buckets('admissions', fields=['percent_top10rule'])
+
     def get_buckets(self, relation_name, pivot_on_field="year", fields=None):
         """ pivot a related report model about the year field """
-        cache_key = "_" + relation_name;
+        cache_key = "_" + relation_name
         if not hasattr(self, cache_key):
             b = defaultdict(dict)
             pivot_axis = []
