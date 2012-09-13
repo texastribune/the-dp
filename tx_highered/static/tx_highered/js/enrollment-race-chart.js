@@ -105,11 +105,17 @@
         self.activeSeriesIdx = -1;  // in the vain hope that not changing types is more performant
 
         // re-redraw
-        targeted = d3.select(this._layers[0][idx]);  // this is super lame
-        targeted.selectAll("rect.bar")
-          .transition()
-            .attr("y", self.y);
+        self.rescale(self.getYDomain());  // TODO cache original outside this method
+        // targeted = d3.select(this._layers[0][idx]);  // this is super lame
+        // targeted.selectAll("rect.bar")
+        //   .transition()
+        //     .attr("y", self.y)
+        //     .attr("height", self.h);
 
+        this._layers.selectAll("rect.bar")
+          .transition()
+            .attr("y", self.y)
+            .attr("height", self.h);
         $(targetElem).parent().removeClass('active').siblings('.active').removeClass('active');
       } else {
         // show only one
@@ -122,14 +128,20 @@
         self.activeSeriesIdx = idx;
 
         // redraw
+        var max = d3.max(targeted.data()[0].values.map(function(a){ return a.value * a.enrollment / 100; }));
+        self.rescale([0, max]);
         targeted.selectAll("rect.bar")
           .transition()
             .attr("y", function(d, i){
               // send thee to the bottom of the sea!
               return self.options.plot_box.h - self.h(d, i);
-            });
+            })
+            .attr("height", self.h);
 
         $(targetElem).parent().addClass('active').siblings('.active').removeClass('active');
+      }
+      if (self.yAxis){
+        self.svg.select('.y.axis').transition().call(self.yAxis);
       }
     },
     renderLegend: function(el){
