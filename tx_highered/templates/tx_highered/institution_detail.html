@@ -365,14 +365,13 @@
 
   <section id="gradrates">
     <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Percent of first-time, full-time students who graduated in a given number of years
+      </p>
+    </div>
 
     {% if object.graduationrates.all.exists %}
-      <div class="span12 chart-help">
-        <p>
-          Percent of first-time, full-time students who graduated in a given number of years
-        </p>
-      </div>
-
       {% instachart object.graduationrates.all "gradrates" %}
 
       {% with b=object.graduationrates_buckets %}
