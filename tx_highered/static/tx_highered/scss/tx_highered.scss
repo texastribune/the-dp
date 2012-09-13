@@ -121,6 +121,11 @@ td.align-right {
   h3 {
     font-family: $sansFontFamily;
   }
+
+  .rollup {
+    font-family: $sansFontFamily;
+    font-size: 150%;
+  }
 }
 
 // fixes for elements getting shoved into the breadcrumb
