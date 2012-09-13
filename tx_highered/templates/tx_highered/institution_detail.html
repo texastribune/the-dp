@@ -35,28 +35,25 @@
 
 
 {% block page_top %}
-  <div class="row">
-    <div class="span9">
-      {% if institution.sentence_institution_type %}
-        <p class="rollup">
-            {{ institution.sentence_institution_type.title }}
-        </p>
-      {% endif %}
+  {% if institution.sentence_institution_type %}
+    <p class="rollup">
+        {{ institution.sentence_institution_type.title }}
+    </p>
+  {% endif %}
 
-      {% if institution.number_of_full_time_students %}
-        <p class="rollup">
-            {{ institution.number_of_full_time_students|intcomma }} students
-        </p>
-      {% endif %}
+  {% if institution.number_of_full_time_students %}
+    <p class="rollup">
+        {{ institution.number_of_full_time_students|intcomma }} students
+    </p>
+  {% endif %}
 
-      {% include "tx_highered/includes/sentences.html" %}
-    </div>
-
-    <div class="span3">
-      {% render_model object "quick-stats" %}
-    </div>
-  </div>
+  {% include "tx_highered/includes/sentences.html" %}
 {% endblock %}
+
+
+{% block rail %}
+  {% render_model object "quick-stats" %}
+{% endblock rail %}
 
 
 {% block main %}
