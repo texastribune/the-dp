@@ -13,6 +13,11 @@
     return p + d[1];
   }
 
+  // similar to python's any
+  function any(arr){
+    return arr.reduce(function(a, b){ return a || b; });
+  }
+
   var Chart = D3StackedBarChart.extend({
     initData: function(new_data){
       // override to process data differently
@@ -100,37 +105,46 @@
       var self = this, filtered, targeted,
           $target = $(targetElem).parent(),
           $set = $target.parent().children();
-      $set.filter('.active').removeClass('active');
-      if (self.activeSeriesIdx == idx){
-        // show all
-        self._layers.attr("display", null);
-        // save state
-        self.activeSeriesIdx = -1;  // in the vain hope that not changing types is more performant
+      // Interaction and UI
+      // TODO allow multiple elements to be active
+      var MODE; // DELETEME
+      if (self.activeSeriesIdx == idx){  // DELETEME
+        $set.filter('.active').removeClass('active');
+        self.activeSeriesIdx = -1;  // DELETEME
+        MODE = "blur";
+      } else {
+        $set.filter('.active').removeClass('active');
+        $target.addClass('active');
+        self.activeSeriesIdx = idx;  // DELETEME
+        MODE = "focus";
+      }
 
-        // re-redraw
+      // determine which layers to show
+      // activeMask is the mask of what series are active: [true, false, false, ...]
+      var activeMask = $set.map(function(i, x){ return $(x).hasClass('active'); }).toArray().reverse();
+      if (!any(activeMask)){
+        activeMask = activeMask.map(function(){ return true; });
+      }
+
+      // sort layers into two groups and toggle visiblity
+      targeted = this._layers.filter(function(d, i){ return activeMask[i]; });
+      targeted.attr("display", null);
+      filtered = this._layers.filter(function(d, i){ return !activeMask[i]; });
+      filtered.attr("display", "none");
+
+      // TODO recalculate
+
+      // redraw
+      // TODO show multiple layers, this involves re-calculating everything
+      // which is expensive
+      if (MODE == "blur"){
         self.rescale(self.getYDomain());  // TODO cache original outside this method
-        // targeted = d3.select(this._layers[0][idx]);  // this is super lame
-        // targeted.selectAll("rect.bar")
-        //   .transition()
-        //     .attr("y", self.y)
-        //     .attr("height", self.h);
 
         this._layers.selectAll("rect.bar")
           .transition()
             .attr("y", self.y)
             .attr("height", self.h);
       } else {
-        // show only one
-        $target.addClass('active');
-        targeted = d3.select(this._layers[0][idx]);  // this is super lame
-        targeted.attr("display", null);
-        // hide the rest
-        filtered = this._layers.filter(function(d, i){ return i != idx; });
-        filtered.attr("display", "none");
-        // save state
-        self.activeSeriesIdx = idx;
-
-        // redraw
         var max = d3.max(targeted.data()[0].values.map(function(a){ return a.value * a.enrollment / 100; }));
         self.rescale([0, max]);
         targeted.selectAll("rect.bar")
