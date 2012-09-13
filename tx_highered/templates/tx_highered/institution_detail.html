@@ -420,6 +420,10 @@
   </section>
 {% endblock %}
 
+{% block attribution %}
+    {% include "tx_highered/includes/attribution.html" %}
+{% endblock %}
+
 {% block extra_script %}{{ block.super }}
 <script src="{{ STATIC_URL }}vendor/bootstrap/js/bootstrap{% if not debug %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}vendor/underscore.js/1.3.3/underscore{% if not debug %}-min{% endif %}.js"></script>

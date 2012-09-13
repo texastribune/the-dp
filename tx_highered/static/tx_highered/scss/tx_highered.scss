@@ -126,6 +126,15 @@ td.align-right {
     font-family: $sansFontFamily;
     font-size: 150%;
   }
+
+  #attribution {
+    margin-top: 2em;
+    margin-bottom: -2em;
+    i {
+      height: 1.2em;
+      vertical-align: middle;
+    }
+  }
 }
 
 // fixes for elements getting shoved into the breadcrumb

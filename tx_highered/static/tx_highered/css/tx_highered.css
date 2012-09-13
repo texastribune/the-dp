@@ -117,6 +117,12 @@ td.align-right {
 .data-app .rollup {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 150%; }
+.data-app #attribution {
+  margin-top: 2em;
+  margin-bottom: -2em; }
+  .data-app #attribution i {
+    height: 1.2em;
+    vertical-align: middle; }
 
 .bootstrap .breadcrumb .btn-group > .dropdown-toggle {
   padding-left: 0;
