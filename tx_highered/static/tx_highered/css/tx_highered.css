@@ -148,6 +148,9 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 .chart-legend ul { list-style: none; margin: 0; }
 .chart-legend .legend-key { margin-right: 5px; }
 
+.rail .search h4 { font-size: 12px; margin-bottom: 2px; }
+.rail .q { font-size: 12px !important; }
+
 #intro p { font-size: 1.25em; }
 
 #pricetrends .chart-data tbody td { text-align: right; }

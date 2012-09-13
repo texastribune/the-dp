@@ -4,6 +4,9 @@
 {% endcomment %}
 
 
+{% block body_class %}{{ block.super }} detail{% endblock %}
+
+
 {% block main_base %}
   <header class="page-header">
     <h1>{% block page_title %}{% endblock %}</h1>
@@ -17,8 +20,17 @@
             {% block page_top %}{% endblock %}
           </div>
 
-          <div class="span3">
+          <div class="span3 rail">
             {% block rail %}{% endblock %}
+            <form class="navbar-search">
+            </form>
+            <div class="well well-small chart-help search">
+              <h4>Search</h4>
+              <div class="input-append">{% spaceless %}
+                <input type="text" placeholder="District or school name" class="q span2" name="q">
+                <button class="btn"><i class="icon icon-share-alt"></i></button>
+              {% endspaceless %}</div>
+            </div>
           </div>
         </div>
       {% endblock %}
@@ -33,15 +45,6 @@
       {% block attribution %}{% endblock %}
     </div>
   </div>
-{% endblock %}
-
-
-{% block breadcrumb_items_after %}
-  <li class="pull-right">
-    <form class="navbar-search">
-      <input type="text" class="search-query q" placeholder="Search">
-    </form>
-  </li>
 {% endblock %}
 
 
