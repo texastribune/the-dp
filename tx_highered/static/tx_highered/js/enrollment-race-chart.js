@@ -97,7 +97,10 @@
             .attr("height", self.h);
     },
     focusOnSeries: function(idx, targetElem){
-      var self = this, filtered, targeted;
+      var self = this, filtered, targeted,
+          $target = $(targetElem).parent(),
+          $set = $target.parent().children();
+      $set.filter('.active').removeClass('active');
       if (self.activeSeriesIdx == idx){
         // show all
         self._layers.attr("display", null);
@@ -116,9 +119,9 @@
           .transition()
             .attr("y", self.y)
             .attr("height", self.h);
-        $(targetElem).parent().removeClass('active').siblings('.active').removeClass('active');
       } else {
         // show only one
+        $target.addClass('active');
         targeted = d3.select(this._layers[0][idx]);  // this is super lame
         targeted.attr("display", null);
         // hide the rest
@@ -137,8 +140,6 @@
               return self.options.plot_box.h - self.h(d, i);
             })
             .attr("height", self.h);
-
-        $(targetElem).parent().addClass('active').siblings('.active').removeClass('active');
       }
       if (self.yAxis){
         self.svg.select('.y.axis').transition().call(self.yAxis);
