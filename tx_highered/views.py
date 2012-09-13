@@ -60,6 +60,7 @@ class InstitutionDetailView(DetailView, FunnelMixin):
 
     def get_context_data(self, *args, **kwargs):
         context = super(InstitutionDetailView, self).get_context_data(*args, **kwargs)
+        context['prompt_for_chrome_frame'] = True
         self.annotate_funnels(self.object)
         return context
 
