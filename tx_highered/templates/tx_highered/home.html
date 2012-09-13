@@ -1,24 +1,17 @@
 {% extends "tx_highered/app_base.html" %}
 {% load url from future %}
 {% load webdesign %}
-{# {% load adsense_tags %} #}
+
 
 {% block opengraph_meta %}{{ block.super }}
   <meta property="og:title" content="The Texas Tribune Higher Education Explorer">
   <meta property="og:description" content="">
 {% endblock %}
 
-{% comment %}
-Cargo-culted -- why is this the government-employee-salaries dataApp?
 
-TODO: enable once on the Tribune
-{% block adsense_slots %}
-  {{ block.super }}
-  {% adsense add_slot 'data page' %}
-  {% adsense_attrs '' 'dataApp=government-employee-salaries,content=data' %}
+{% block adsense_slots %}{{ block.super }}
+  {% include "tx_highered/includes/app_meta.html" %}
 {% endblock %}
-
-{% endcomment %}
 
 
 {% block page_title %}Higher Education Explorer | {{ block.super }}{% endblock %}
@@ -96,13 +89,7 @@ TODO: enable once on the Tribune
         </div>
       </div>
 
-      <div>
-        <img src="http://placehold.it/300x250">
-      </div>
-
-      <div style="margin-top: 20px;">
-        <img src="http://placehold.it/300x250">
-      </div>
+      {% include "tx_highered/includes/home_rail.html" %}
     </div>
   </div>
 
