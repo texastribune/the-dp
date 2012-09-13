@@ -280,7 +280,9 @@
   <section id="pricetrends">
     <h2>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h2>
     <div class="chart-help">
-      Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
+      <p>
+        Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
+      </p>
     </div>
     {% if object.pricetrends.all.exists %}
       {% instachart object.pricetrends.all "pricetrends" %}
