@@ -106,7 +106,7 @@ def main(path):
         parser.feed(el)
 
     # Match institutions by name and create or update
-    qs = Institution.objects.only('pk', 'name')
+    qs = Institution.objects.only('id', 'name')
     matcher = FuzzyMatcher(qs, 'name')
     for name, bachelor_6yr in parser.iter_results():
         institution = matcher.match(name)
