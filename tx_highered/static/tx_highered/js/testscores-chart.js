@@ -55,5 +55,11 @@ TestScoresChart.prototype.getH = function(){
   return function(d) { return self.height_scale(d.y_max - d.y); };
 };
 
+var series = ["verbal", "math", "writing"];
+
+TestScoresChart.prototype.getLegendSeriesTitle = function(d, i){
+  return series[i];
+};
+
 // end file iffy
 })();
