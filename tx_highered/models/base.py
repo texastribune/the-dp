@@ -251,7 +251,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     def get_buckets(self, relation_name, pivot_on_field="year",
                     filter_on_field=None, fields=None):
         """ pivot a related report model about the year field """
-        cache_key = "_" + relation_name
+        cache_key = "_%s%s" % (relation_name, len(fields) if fields else "")
         if not hasattr(self, cache_key):
             b = defaultdict(dict)
             pivot_axis = []
@@ -278,7 +278,17 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     @property
     def enrollment_buckets(self):
         if self.is_private:  # if not self.has_thecb_data
-            return self.get_buckets("enrollment")
+            fields = ("fulltime_equivalent", "fulltime", "parttime")
+            return self.get_buckets("enrollment", fields=fields)
+        fields = ("total",)
+        return self.get_buckets("publicenrollment", fields=fields)
+
+    @property
+    def demographics_buckets(self):
+        if self.is_private:  # if not self.has_thecb_data
+            # hack to hide empty column
+            # FIXME assumes white is > 0
+            return self.get_buckets("enrollment", filter_on_field="total_percent_white")
         return self.get_buckets("publicenrollment")
 
     @property

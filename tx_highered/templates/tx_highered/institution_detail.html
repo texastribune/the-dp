@@ -182,43 +182,45 @@
   <section id="enrollment">
     {% with b=object.enrollment_buckets %}
       <h2>Enrollment <small class="page-anchor"><a href="#enrollment"><i class="icon-share"></i></a></small></h2>
-        <div class="chart-help">
-          Total full-time equivalent students, the actual number of full-time and part-time students
-        </div>
-        <table class="chart-data table table-striped table-condensed">
-          <thead>
+      <div class="chart-help">
+        Total full-time equivalent students, the actual number of full-time and part-time students
+      </div>
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% if b.total %}
             <tr>
-              <th></th>
-              {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+              <th>Total</th>
+              {% for a in b.total.values %}<td>{{ a|intcomma }}</td>{% endfor %}
             </tr>
-          </thead>
-          <tbody>
-            {% if b.total %}
-              <tr>
-                <th>Total</th>
-                {% for a in b.total.values %}<td>{{ a|intcomma }}</td>{% endfor %}
-              </tr>
-            {% endif %}
-            {% if b.fulltime_equivalent %}
-              <tr>
-                <th>Full-Time Equivalent (FTE)</th>
-                {% for a in b.fulltime_equivalent.values %}<td>{{ a|intcomma }}</td>{% endfor %}
-              </tr>
-            {% endif %}
-            {% if b.fulltime %}
-              <tr>
-                <th>Full-Time</th>
-                {% for a in b.fulltime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
-              </tr>
-            {% endif %}
-            {% if b.parttime %}
-              <tr>
-                <th>Part-Time</th>
-                {% for a in b.parttime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
-              </tr>
-            {% endif %}
-          </tbody>
-        </table>
+          {% endif %}
+          {% if b.fulltime_equivalent %}
+            <tr>
+              <th>Full-Time Equivalent (FTE)</th>
+              {% for a in b.fulltime_equivalent.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.fulltime %}
+            <tr>
+              <th>Full-Time</th>
+              {% for a in b.fulltime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.parttime %}
+            <tr>
+              <th>Part-Time</th>
+              {% for a in b.parttime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    {% endwith %}
+    {% with b=object.demographics_buckets %}
       <a name="#demographics"></a>
       <h3>Demographics <small class="page-anchor"><a href="#demographics"><i class="icon-share"></i></a></h3>
       <div class="chart-help">
