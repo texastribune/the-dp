@@ -111,19 +111,30 @@
               .transition()
                 .attr("y", self.y)
                 .attr("height", self.h);
+          },
+          addResetCtl = function(){
+            if ($target.parent().children('.reset').length) { return; }
+            var $resetCtl = $('<li class="reset"><a href="#">&times; Reset</a></li>');
+            $resetCtl.click(function(){
+              $set.filter('.active').removeClass('active');
+              self._layers.attr("display", null);  // XXX
+              reset();
+              $resetCtl.hide(500, function(){ $resetCtl.remove(); });
+            });
+            $resetCtl.find('a').click(function(e){ e.preventDefault(); });
+            $target.parent().append($resetCtl);
           };
 
       // Interaction and UI
       // TODO allow multiple elements to be active
       var MODE; // DELETEME
-      if (self.activeSeriesIdx == idx){  // DELETEME
+      if ($target.hasClass('active')){
         $set.filter('.active').removeClass('active');
-        self.activeSeriesIdx = -1;  // DELETEME
         MODE = "blur";
       } else {
         $set.filter('.active').removeClass('active');
         $target.addClass('active');
-        self.activeSeriesIdx = idx;  // DELETEME
+        addResetCtl();
         MODE = "focus";
       }
 
@@ -139,8 +150,6 @@
       targeted.attr("display", null);
       filtered = this._layers.filter(function(d, i){ return !activeMask[i]; });
       filtered.attr("display", "none");
-
-      // TODO recalculate
 
       // redraw
       // TODO show multiple layers, this involves re-calculating everything
