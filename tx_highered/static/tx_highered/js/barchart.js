@@ -303,6 +303,37 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     var len_x = this._data[0].length;   // n, j, cols
     var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
     return bar_width;
+  },
+
+  renderLegend: function(el){
+    var self = this;
+    if (el.jquery) {  // todo what about things like zepto?
+      this.$legend = el;
+      this.legend = el[0];
+    } else if (typeof el == "string"){
+      this.legend = document.getElementById(el);
+    } else {
+      this.legend = el;
+    }
+    var items = d3.select(this.legend).append("ul")
+      .attr("class", "nav nav-pills nav-stacked")
+      .selectAll("li")
+        .data(this._data)
+        // bars are built bottom-up, so build the legend the same way
+        .enter().insert("li", ":first-child")
+          .append('a').attr("href", "#");
+    items
+      .append("span").attr("class", "legend-key")
+      // TODO use an element that can be controlled with CSS better but is also printable
+      .html("&#9608;").style("color", this.layerFillStyle);
+    items
+      .append("span").attr("class", "legend-value")
+      .text(function(d){ return "lol"; });
+    // events
+    items.on("click", function(d, i){
+      d3.event.preventDefault();
+      self.focusOnSeries(i, this);
+    });
   }
 });
 

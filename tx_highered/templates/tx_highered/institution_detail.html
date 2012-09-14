@@ -178,6 +178,11 @@
           <div class="chart d3-viz chart-viz"></div>
         </div>
         <div class="span2">
+          <div class="chart-help">
+            <h2>Legend</h2>
+            <div class="legend chart-legend">
+            </div>
+          </div>
         </div>
       </div>
     {% else %}
@@ -470,7 +475,8 @@
             var d = this.__data__;
             return d.title ||
             "" + d.y + " - " + d.y_max + "";
-          }
+          },
+          legendElem: $('#testing .legend')
         }
       );
 </script>
