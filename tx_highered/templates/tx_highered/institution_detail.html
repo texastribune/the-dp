@@ -85,12 +85,12 @@
           </tr>
 
           <tr>
-            <th>Admitted</th>
+            <th>Admitted<br><small>(% of Applicants)</small></th>
             {% for a in object.admission_buckets.admitted.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
           </tr>
 
           <tr>
-            <th>Enrolled</th>
+            <th>Enrolled<br><small>(% of Admitted)</small></th>
             {% for a in object.admission_buckets.enrolled.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
           </tr>
         </tbody>

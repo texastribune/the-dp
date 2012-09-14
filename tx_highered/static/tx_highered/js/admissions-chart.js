@@ -136,7 +136,8 @@
   // Tooltip
   $('#admissions rect').tooltip({
     title: function(){
-      return this.__data__.title;
+      var d = this.__data__;
+      return d.series + " (" + d.x + "):<br><strong>" + d.y + "</strong>";
     }
   });
 })();
