@@ -1,4 +1,4 @@
-/*global D3GroupedBarChart */
+/*global D3GroupedBarChart, d3 */
 (function(){
   "use strict";
 // begin file-iffy, unindent
@@ -61,5 +61,30 @@ TestScoresChart.prototype.getLegendSeriesTitle = function(d, i){
   return series[i];
 };
 
+// LOL hack to conditionally set bar width depending on x
+TestScoresChart.prototype.getBars = function(){
+  var self = this;
+  var bars = this._layers.selectAll("rect.bar")
+    .data(function(d) { return d; })
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("width", function(d, i){
+        var f = d.x < 2007 ? 1.5 : 1;
+        return f * self.bar_width * 0.9; })
+      .attr("x", self.x)
+      .attr("y", self.options.plot_box.h)
+      .attr("height", 0)
+      .transition()
+        .delay(function(d, i) { return i * 10; })
+        .attr("y", self.y)
+        .attr("height", self.h);
+  // now shift second series's bars to the right
+  d3.select(self._layers[0][1]).selectAll("rect.bar")
+      .attr("transform", function(d, i){
+        var dx = d.x < 2007 ? self.bar_width / 2 * 0.9 : 0;
+        return "translate(" + dx + ", 0)";
+      });
+  return bars;
+};
 // end file iffy
 })();
