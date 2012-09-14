@@ -180,17 +180,11 @@
   </section>
 
   <section id="enrollment">
-    <h2>Enrollment <small class="page-anchor"><a href="#enrollment"><i class="icon-share"></i></a></small></h2>
-    <a name="#demographics"></a>
-    <h3>Demographics <small class="page-anchor"><a href="#demographics"><i class="icon-share"></i></a></h3>
-    <div class="chart-help">
-      <p>
-        Total full-time equivalent students, the actual number of full-time and part-time students, and a student body breakdown by ethnicity
-      </p>
-    </div>
-    {% if object.enrollment.all.exists %}
-      {# {% instachart object.enrollment.all %} #}
-      {% with b=object.enrollment_buckets %}
+    {% with b=object.enrollment_buckets %}
+      <h2>Enrollment <small class="page-anchor"><a href="#enrollment"><i class="icon-share"></i></a></small></h2>
+        <div class="chart-help">
+          Total full-time equivalent students, the actual number of full-time and part-time students
+        </div>
         <table class="chart-data table table-striped table-condensed">
           <thead>
             <tr>
@@ -224,6 +218,20 @@
               </tr>
             {% endif %}
           </tbody>
+        </table>
+      <a name="#demographics"></a>
+      <h3>Demographics <small class="page-anchor"><a href="#demographics"><i class="icon-share"></i></a></h3>
+      <div class="chart-help">
+        Student body breakdown by ethnicity
+      </div>
+      {% if object.enrollment.all.exists %}
+        <table class="chart-data table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+            </tr>
+          </thead>
           <tbody>
             <tr>
               <th>% White</th>
@@ -269,23 +277,23 @@
             </tr>
           </tbody>
         </table>
-      {% endwith %}
-      <div class="row">
-        {# use grid and span12 because we'll probably need the grid #}
-        <div class="span10">
-          <div class="chart d3-viz chart-viz"></div>
-        </div>
-        <div class="span2">
-          <div class="chart-help">
-            <h2>Legend</h2>
-            <div class="legend chart-legend">
+        <div class="row">
+          {# use grid and span12 because we'll probably need the grid #}
+          <div class="span10">
+            <div class="chart d3-viz chart-viz"></div>
+          </div>
+          <div class="span2">
+            <div class="chart-help">
+              <h2>Legend</h2>
+              <div class="legend chart-legend">
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    {% else %}
-      {% include "tx_highered/includes/no_data.html" %}
-    {% endif %}
+      {% else %}
+        {% include "tx_highered/includes/no_data.html" %}
+      {% endif %}
+    {% endwith %}
   </section>
 
   <section id="pricetrends">
