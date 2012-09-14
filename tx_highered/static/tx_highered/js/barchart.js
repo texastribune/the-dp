@@ -11,7 +11,8 @@ var defaultOptions = {
       margin: [10, 0, 30, 50],
       tooltip: function(){ return this.__data__.title || this.__data__.y; },
       enable_axis_x: true,
-      enable_axis_y: true
+      enable_axis_y: true,
+      legendStackOrder: "btt"  // btt bottom-to-top or ttb top-to-bottom
     };
 
 
@@ -321,12 +322,16 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     } else {
       this.legend = el;
     }
+    // use null to make insert behave like append
+    //   doc source: https://github.com/mbostock/d3/wiki/Selections#wiki-insert
+    //   null convention source: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-952280727
+    var legendStackOrder = self.options.legendStackOrder == "btt" ? ":first-child" : null;
     var items = d3.select(this.legend).append("ul")
       .attr("class", "nav nav-pills nav-stacked")
       .selectAll("li")
         .data(this._data)
         // bars are built bottom-up, so build the legend the same way
-        .enter().insert("li", ":first-child")
+        .enter().insert("li", legendStackOrder)
           .append('a').attr("href", "#");
     items
       .append("span").attr("class", "legend-key")
