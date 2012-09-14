@@ -6,7 +6,7 @@ from .reports import YearBasedInstitutionStatModel
 from ..instachart.models import SimpleChart
 
 
-__all__ = ['PublicEnrollment']
+__all__ = ['PublicEnrollment', 'PublicGraduationRates']
 
 
 """
@@ -104,3 +104,40 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
                     tuple(race_attrs) +
                     ('international_percent', 'multiracial_percent',
                      'pacific_islander_percent'))
+
+
+class PublicGraduationRates(YearBasedInstitutionStatModel, SimpleChart):
+    associate_3yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Associate degree within three years",
+        help_text=u"Only available for community colleges")
+    associate_4yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Associate degree within four years",
+        help_text=u"Only available for community colleges")
+    associate_6yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Associate degree within six years",
+        help_text=u"Only available for community colleges")
+
+    bachelor_3yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Bachelor degree within three years",
+        help_text=u"Only available for community colleges")
+    bachelor_4yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Bachelor degree within four years")
+    bachelor_5yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Bachelor degree within five years")
+    bachelor_6yr = models.DecimalField(null=True,
+        max_digits=5, decimal_places=2,
+        verbose_name=u"Bachelor degree within six years")
+
+    def __unicode__(self):
+        return "Graduation Rates %s %s" % (self.display_year, self.institution)
+
+    chart_series = ('display_year',
+                    ('bachelor_4yr', "%s%%"),
+                    ('bachelor_5yr', "%s%%"),
+                    ('bachelor_6yr', "%s%%"))

@@ -15,6 +15,9 @@ python tx_highered/scripts/import_customreport.py $HIGHER_ED_DATA/IPEDS/custom_r
 # thecb
 python tx_highered/scripts/import_thecb_report.py $HIGHER_ED_DATA/THECB/custom_reports/top_10_percent.html
 python tx_highered/thecb_importer/load_enrollment.py
+python tx_highered/thecb_importer/load_graduation_rates.py $HIGHER_ED_DATA/THECB/custom_reports/university_graduation_rates.xls.html
+python tx_highered/thecb_importer/load_graduation_rates.py $HIGHER_ED_DATA/THECB/custom_reports/community_graduation_rates.xls.html
+python tx_highered/thecb_importer/load_almanac_graduation_rates.py $HIGHER_ED_DATA/THECB/Almanac/almanac_p21.pdf.json
 
 # old style auto-discover
 python tx_highered/scripts/import_report.py $HIGHER_ED_DATA/IPEDS/reports
