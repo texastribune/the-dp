@@ -104,7 +104,15 @@
     focusOnSeries: function(idx, targetElem){
       var self = this, filtered, targeted,
           $target = $(targetElem).parent(),
-          $set = $target.parent().children();
+          $set = $target.parent().children(),
+          reset = function(){
+            self.rescale(self.getYDomain());  // TODO cache original outside this method
+            self._layers.selectAll("rect.bar")
+              .transition()
+                .attr("y", self.y)
+                .attr("height", self.h);
+          };
+
       // Interaction and UI
       // TODO allow multiple elements to be active
       var MODE; // DELETEME
@@ -138,12 +146,7 @@
       // TODO show multiple layers, this involves re-calculating everything
       // which is expensive
       if (MODE == "blur"){
-        self.rescale(self.getYDomain());  // TODO cache original outside this method
-
-        this._layers.selectAll("rect.bar")
-          .transition()
-            .attr("y", self.y)
-            .attr("height", self.h);
+        reset();
       } else {
         var max = d3.max(targeted.data()[0].values.map(function(a){ return a.value * a.enrollment / 100; }));
         self.rescale([0, max]);
