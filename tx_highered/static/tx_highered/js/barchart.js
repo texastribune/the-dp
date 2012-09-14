@@ -3,6 +3,17 @@
   "use strict";
 // begin file-iffy, unindent
 
+// CONFIGURATION
+var defaultOptions = {
+      color: d3.scale.category10(),
+      height: 300,
+      width: 940,
+      margin: [10, 0, 30, 50],
+      tooltip: function(){ return this.__data__.title || this.__data__.y; },
+      enable_axis_x: true,
+      enable_axis_y: true
+    };
+
 
 // data processor TODO move awaaaaay
 exports.normalizeFirst = function(data, idx){
@@ -84,15 +95,6 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     // merge user options and default options
     var self = this,
         data = this._data;
-    var defaultOptions = {
-          color: d3.scale.category10(),
-          height: 300,
-          width: 940,
-          margin: [10, 0, 30, 50],
-          tooltip: function(){ return this.__data__.title || this.__data__.y; },
-          enable_axis_x: true,
-          enable_axis_y: true
-        };
 
     // set up box dimensions based on the parent element
     if (!self.$elem) { self.$elem = $(self.elem); }
