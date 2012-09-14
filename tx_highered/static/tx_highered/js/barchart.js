@@ -332,7 +332,9 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     // events
     items.on("click", function(d, i){
       d3.event.preventDefault();
-      self.focusOnSeries(i, this);
+      if (self.legendActivate){
+        self.legendActivate(i, this);
+      }
     });
   }
 });

@@ -101,7 +101,8 @@
             .attr("y", self.y)
             .attr("height", self.h);
     },
-    focusOnSeries: function(idx, targetElem){
+
+    legendActivateSeries: function(idx, targetElem){
       var self = this, filtered, targeted,
           $target = $(targetElem).parent(),
           $set = $target.parent().children(),
@@ -171,6 +172,7 @@
         self.svg.select('.y.axis').transition().call(self.yAxis);
       }
     },
+
     renderLegend: function(el){
       var self = this;
       if (el.jquery) {  // todo what about things like zepto?
@@ -198,7 +200,7 @@
       // events
       items.on("click", function(d, i){
         d3.event.preventDefault();
-        self.focusOnSeries(i, this);
+        self.legendActivateSeries(i, this);
       });
     }
   });
