@@ -305,6 +305,10 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     return bar_width;
   },
 
+  getLegendSeriesTitle: function(d, i){
+    return "lol";
+  },
+
   renderLegend: function(el){
     var self = this;
     if (el.jquery) {  // todo what about things like zepto?
@@ -328,12 +332,12 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
       .html("&#9608;").style("color", this.layerFillStyle);
     items
       .append("span").attr("class", "legend-value")
-      .text(function(d){ return "lol"; });
+      .text(self.getLegendSeriesTitle);
     // events
     items.on("click", function(d, i){
       d3.event.preventDefault();
-      if (self.legendActivate){
-        self.legendActivate(i, this);
+      if (self.legendActivateSeries){
+        self.legendActivateSeries(i, this);
       }
     });
   }
