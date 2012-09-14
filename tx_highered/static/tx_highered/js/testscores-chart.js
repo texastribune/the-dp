@@ -69,7 +69,7 @@ TestScoresChart.prototype.getBars = function(){
     .enter().append("rect")
       .attr("class", "bar")
       .attr("width", function(d, i){
-        var f = d.x < 2007 ? 1.5 : 1;
+        var f = d.x < 2006 ? 1.5 : 1;
         return f * self.bar_width * 0.9; })
       .attr("x", self.x)
       .attr("y", self.options.plot_box.h)
@@ -81,7 +81,7 @@ TestScoresChart.prototype.getBars = function(){
   // now shift second series's bars to the right
   d3.select(self._layers[0][1]).selectAll("rect.bar")
       .attr("transform", function(d, i){
-        var dx = d.x < 2007 ? self.bar_width / 2 * 0.9 : 0;
+        var dx = d.x < 2006 ? self.bar_width / 2 * 0.9 : 0;
         return "translate(" + dx + ", 0)";
       });
   return bars;
