@@ -42,8 +42,10 @@
 
 
 // use visiblity because display:none affects box size calculations
-h2 > .page-anchor { visibility: hidden; }
-h2:hover > .page-anchor { visibility: visible; }
+h2, h3 {
+  > .page-anchor { visibility: hidden; }
+  &:hover > .page-anchor { visibility: visible; }
+}
 
 td.align-right {
   text-align: right;
@@ -120,7 +122,7 @@ td.align-right {
 
   // section headings, h2 is reserved for future expansion (e.g. h2 enrollment,
   // h3 by ethnicity, h3 by gender, h3 by age, h3 by geographic origin)
-  h3 {
+  h2, h3 {
     font-family: $sansFontFamily;
   }
 
