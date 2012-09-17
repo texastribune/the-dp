@@ -11,6 +11,8 @@ from django.views.generic.detail import SingleObjectMixin
 
 
 class DjObjectTools(object):
+    change_form_template = "djobjecttools/institution_admin_change_form.html"
+
     def get_tool_urls(self):
         tools = {}
         for tool in self.djtools:
@@ -20,6 +22,17 @@ class DjObjectTools(object):
                 ModelToolsView.as_view(model=self.model, tools=tools)))
         )
         return my_urls
+
+    def get_urls(self):
+        urls = super(DjObjectTools, self).get_urls()
+        return self.get_tool_urls() + urls
+
+    def render_change_form(self, request, context, **kwargs):
+        context['djtools'] = [(x,
+            getattr(getattr(self, x), 'short_description', ''))
+            for x in self.djtools]
+        return super(DjObjectTools, self).render_change_form(request,
+            context, **kwargs)
 
 
 class ModelToolsView(SingleObjectMixin, View):
@@ -39,7 +52,7 @@ class ModelToolsView(SingleObjectMixin, View):
         messages.info(request, message)
 
 
-class InstitutionAdmin(admin.ModelAdmin, DjObjectTools):
+class InstitutionAdmin(DjObjectTools, admin.ModelAdmin):
     list_display = ('name', 'ipeds_id', 'fice_id', 'ope_id')
     list_filter = ('institution_type', 'is_private')
     # list_editable = ('ipeds_id', 'fice_id', 'ope_id')
@@ -56,23 +69,6 @@ class InstitutionAdmin(admin.ModelAdmin, DjObjectTools):
     geocode.short_description = u"Remember to save before using"
 
     djtools = ['geocode']
-
-    # TODO move this in DjObjectTools
-    change_form_template = "djobjecttools/institution_admin_change_form.html"
-
-    # TODO move this in DjObjectTools
-    def get_urls(self):
-        urls = super(InstitutionAdmin, self).get_urls()
-        return self.get_tool_urls() + urls
-
-    # TODO move this in DjObjectTools
-    def render_change_form(self, request, context, **kwargs):
-        context['djtools'] = [(x,
-            getattr(getattr(self, x), 'short_description', ''))
-            for x in self.djtools]
-        return super(InstitutionAdmin, self).render_change_form(request,
-            context, **kwargs)
-
 
 admin.site.register(Institution, InstitutionAdmin)
 admin.site.register(System, admin.ModelAdmin)
