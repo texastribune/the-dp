@@ -45,11 +45,6 @@ class InstitutionAdmin(admin.ModelAdmin, DjObjectTools):
     # list_editable = ('ipeds_id', 'fice_id', 'ope_id')
     ordering = ('name', )
 
-    def get_urls(self):
-        # TODO make this magical
-        urls = super(InstitutionAdmin, self).get_urls()
-        return self.get_tool_urls() + urls
-
     def geocode(self, request, obj):
         old_location = obj.location
         obj.guess_location()
@@ -61,8 +56,19 @@ class InstitutionAdmin(admin.ModelAdmin, DjObjectTools):
 
     djtools = ['geocode']
 
-    class Media:
-        js = ("djobjecttools/djobjecttools.js", )
+    # TODO move this in DjObjectTools
+    change_form_template = "djobjecttools/institution_admin_change_form.html"
+
+    # TODO move this in DjObjectTools
+    def get_urls(self):
+        urls = super(InstitutionAdmin, self).get_urls()
+        return self.get_tool_urls() + urls
+
+    # TODO move this in DjObjectTools
+    def render_change_form(self, request, context, **kwargs):
+        context['djtools'] = self.djtools
+        return super(InstitutionAdmin, self).render_change_form(request,
+            context, **kwargs)
 
 
 admin.site.register(Institution, InstitutionAdmin)
