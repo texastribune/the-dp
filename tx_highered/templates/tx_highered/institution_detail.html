@@ -1,6 +1,5 @@
 {% extends "tx_highered/detail_base.html" %}
 {% load layout_helpers humanize instachart %}
-{% load webdesign %}
 {% load url from future %}
 
 
@@ -458,7 +457,6 @@
 
 {% block extra_script %}{{ block.super }}
 <script src="{{ STATIC_URL }}vendor/bootstrap/js/bootstrap{% if not debug %}.min{% endif %}.js"></script>
-<script src="{{ STATIC_URL }}vendor/underscore.js/1.3.3/underscore{% if not debug %}-min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
