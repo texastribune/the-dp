@@ -6,6 +6,20 @@ FIXME this markup is all wrong but it'll work for now
 {% endcomment %}
 {% block object-tools %}{{ block.super }}
   {% for tool in djtools %}
-    <li><a href='tools/{{ tool }}/'>{{ tool|capfirst }}</a></li>
+    <li class="djtool-item"><a href='tools/{{ tool }}/'>
+      {# White space deliberately inserted #}
+      {{ tool|capfirst }}
+    </a></li>
   {% endfor %}
+  <script>
+    (function($){
+
+$(function(){
+  $('li.djtool-item a').addClass('btn').prepend($('<i class="icon-globe"/>'))
+    .prependTo($('#actions-right-alt'));
+  $('li.djtool-item').remove();
+});
+
+    })(window.django.jQuery);
+  </script>
 {% endblock %}
