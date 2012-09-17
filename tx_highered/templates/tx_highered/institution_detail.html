@@ -431,8 +431,17 @@
         </table>
       {% endwith %}
 
-      <div class="span12">
-        <div class="chart d3-viz chart-viz"></div>
+      <div class="row">
+        <div class="span10">
+          <div class="chart d3-viz chart-viz"></div>
+        </div>
+        <div class="span2">
+          <div class="chart-help">
+            <h3>Legend</h3>
+            <div class="legend chart-legend">
+            </div>
+          </div>
+        </div>
       </div>
     {% else %}
       {% include "tx_highered/includes/no_data.html" %}
