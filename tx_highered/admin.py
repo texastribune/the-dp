@@ -53,6 +53,7 @@ class InstitutionAdmin(admin.ModelAdmin, DjObjectTools):
             self.message_user(request, "Location Updated To: %s" % obj.location)
         else:
             self.message_user(request, "Location Unchanged")
+    geocode.short_description = u"Remember to save before using"
 
     djtools = ['geocode']
 
@@ -66,7 +67,9 @@ class InstitutionAdmin(admin.ModelAdmin, DjObjectTools):
 
     # TODO move this in DjObjectTools
     def render_change_form(self, request, context, **kwargs):
-        context['djtools'] = self.djtools
+        context['djtools'] = [(x,
+            getattr(getattr(self, x), 'short_description', ''))
+            for x in self.djtools]
         return super(InstitutionAdmin, self).render_change_form(request,
             context, **kwargs)
 
