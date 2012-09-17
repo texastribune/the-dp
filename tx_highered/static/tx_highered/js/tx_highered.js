@@ -1,3 +1,4 @@
+var autocomplete_trie = new Trie();
 
 // jQuery UI autocomplete
 var autocomplete_institutions = function(data) {
@@ -5,6 +6,11 @@ var autocomplete_institutions = function(data) {
   var urisByName = {};
   $.map(data, function(o) {
     urisByName[o.name] = o.uri;
+  });
+
+  // Insert institutions to trie
+  $.each(data, function(i, o) {
+    autocomplete_trie.insert(o.name.toLowerCase(), o);
   });
 
   // Initialize autocomplete
@@ -19,13 +25,8 @@ var autocomplete_institutions = function(data) {
   });
 };
 
-
 // Patch jQuery autocomplete to filter using fuzzy matching
 $.ui.autocomplete.filter = function(array, term) {
-  term = $.ui.autocomplete.escapeRegex(term);
-  var matcher = new RegExp(term.split('').join('.*'), 'i');
-  return $.grep( array, function(value) {
-    return matcher.test( value.label || value.value || value );
-  });
+  results = autocomplete_trie.search(term);
+  return $.map(results, function(r) { return r.data.name; });
 };
-
