@@ -189,11 +189,16 @@ var map_institutions = function(data) {
           layer.on("mouseout", function(_) {
             $mapPopupContainer.html("<h4>Hover over a campus</h4>");
           });
-          layer.on("click", function() {
+          layer.on("click", function(e) {
             navigationCanceled = false;
+            e = e.originalEvent;  // make e look like a standard event, not leaflet event
             setTimeout(function() {
               if (navigationCanceled !== true) {
-                window.location.href = institution.uri;
+                if (e.which && e.which == 2){
+                  window.open(institution.uri);
+                } else {
+                  window.location.href = institution.uri;
+                }
               }
             }, 500);
           },
