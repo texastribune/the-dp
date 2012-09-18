@@ -174,7 +174,6 @@
           <th>Writing</th>
           {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
         </tr>
-
       </table>
 
       <div class="row">
@@ -189,6 +188,10 @@
           </div>
         </div>
       </div>
+      <p>
+        <small>SAT Writing did not exist until 2006.</small><br>
+        <small>Schools may not have considered SAT Writing some years.</small>
+      </p>
     {% else %}
       {% include "tx_highered/includes/no_data.html" %}
     {% endif %}
@@ -306,6 +309,14 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="footnotes">
+          <p>
+            <small>Reporting changes from year to year.</small><br>
+            <small>Not Applicable (N/A) was introduced in 2010.</small><br>
+            <small>Multiracial was introduced in 2010.</small><br>
+            <small>Prior to 2011, Pacific Islander was bundled with Asian</small>
+          </p>
         </div>
       {% else %}
         {% include "tx_highered/includes/no_data.html" %}
