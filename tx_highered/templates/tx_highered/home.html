@@ -100,168 +100,33 @@
 
 <div id="mapPopupContainer" class="shadow"><h4>Hover over a campus</h4></div>
 
+{# TODO associate with maps.js #}
 <script id="mapPopup" type="text/x-handlebars-template">
   <h2>{% templatetag openvariable %}name{% templatetag closevariable %}</h2>
   <h4>{% templatetag openvariable %}city{% templatetag closevariable %}, TX</h4>
 </script>
-
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
-    <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
-
-    <style>
-
-    #mapCanvas {
-        width: 100%;
-        height: 650px;
-    }
-
-    #mapPopupContainer {
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        text-align: center;
-        font-size: 14px;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 1002;
-        background-color: #FFFFFF;
-        padding: 8px;
-        display: none;
-    }
-
-    #mapPopupContainer h2 {
-        font-size: 1em;
-        margin: 0;
-        padding: 0;
-    }
-
-    #mapPopupContainer h4 {
-        font-size: .85em;
-        margin: 0;
-        padding: 0;
-    }
-
-    .shadow {
-        -moz-box-shadow:    2px 2px 5px 1px #444444;
-        -webkit-box-shadow: 2px 2px 5px 1px #444444;
-        box-shadow:         1px 1px 4px 1px #444444;
-    }
-
-    </style>
-
-<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet-src.js"></script>
-<script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
 {% endblock %}
 
+
+{% block extra_style %}{{ block.super }}
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
+{% endblock %}
+
+
 {% block extra_script %}{{ block.super }}
-<script>
-var map_institutions = function(data) {
-  var template = Handlebars.compile($("#mapPopup").html()),
-      $mapPopupContainer = $("#mapPopupContainer"),
-      mapOptions = {
-        center: [31.22219703210317, -99.9018131],
-        zoom: 6,
-        minZoom: 6,
-        maxZoom: 17
-      },
-      map = L.map('mapCanvas', mapOptions),
-      layer = new L.TileLayer("http://{s}.tiles.mapbox.com/v3/texastribune.map-3g2hqvcf/{z}/{x}/{y}.png", {
-        subdomains: ["a", "b", "c", "d"]
-      }).addTo(map),
-      capIcon = L.icon({
-        iconUrl: '{{ STATIC_URL }}tx_highered/images/icon-cap.png',
-        iconSize: [28, 21],
-        iconAnchor: [14, 11.5],
-        popupAnchor: [14, 11.5]
-      }),
-      points = {public: [], private:[]},  // technically these are layers
-      navigationCanceled = false,
-      hideAll = function(x){
-        x.eachLayer(function(y){ y.setOpacity(0.1); })
-      },
-      showAll = function(x){
-        x.eachLayer(function(y){ y.setOpacity(1); })
-      };
-
-  // Create a feature for each institution
-  $.each(data, function(i, institution) {
-    if (!institution.geojson) return;
-    var point = L.geoJson(institution.geojson, {
-      pointToLayer: function(feature, latlng) {
-        var marker = L.marker(latlng, {icon: capIcon});
-        return marker;
-      },
-      onEachFeature: function(feature, layer) {
-        var data = feature.properties;
-        layer.on("mouseover", function(_) {
-          $mapPopupContainer.html(template({
-            name: institution.name,
-            city: institution.city
-          }));
-        });
-        layer.on("mouseout", function(_) {
-          $mapPopupContainer.html("<h4>Hover over a campus</h4>");
-        });
-        layer.on("click", function(e) {
-          navigationCanceled = false;
-          e = e.originalEvent;  // make e look like a standard event, not leaflet event
-          setTimeout(function() {
-            if (navigationCanceled !== true) {
-              if (e.which && e.which == 2){
-                window.open(institution.uri);
-              } else {
-                window.location.href = institution.uri;
-              }
-            }
-          }, 500);
-        },
-        layer.on("dblclick", function() {
-          navigationCanceled = true;
-          map.zoomIn();
-        }));
-      }
-    }).addTo(map);
-    // store reference
-    points[institution.is_private? 'private' : 'public'].push(point);
-  });
-
-
-  // selectively show/hide public/private institutions
-  $('#view-map h2 a.btn').click(function(e){
-    e.preventDefault();
-    var $this = $(this);
-    switch ($this.data('action')){
-      case 'public':
-        points.private.forEach(hideAll);
-        points.public.forEach(showAll);
-      break;
-      case 'private':
-        points.public.forEach(hideAll);
-        points.private.forEach(showAll);
-      break;
-      default:
-        points.private.forEach(showAll);
-        points.public.forEach(showAll);
-    }
-    $this.addClass('active').siblings('.active').removeClass('active');
-  });
-
-  // Reset map when return button is clicked
-  $("#statewideZoom").on("click", function() {
-    map.setView(mapOptions.center, mapOptions.zoom);
-  });
-
-  // Add popup container
-  $mapPopupContainer.appendTo("#mapCanvas").css("display", "inline");
-};
-
-$(function() {
-  // Go to the server for institution API data
-  $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson,is_private",
-    function(data) {
-      autocomplete_institutions(data);
-      map_institutions(data);
-    }
-  );
-});
-</script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet-src.js"></script>
+  <script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
+  <script src="{{ STATIC_URL }}tx_highered/js/maps.js"></script>
+  <script>
+    $(function() {
+      // Go to the server for institution API data
+      $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson,is_private",
+        function(data) {
+          autocomplete_institutions(data);
+          map_institutions(data);
+        }
+      );
+    });
+  </script>
 {% endblock %}
