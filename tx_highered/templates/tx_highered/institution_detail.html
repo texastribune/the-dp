@@ -52,9 +52,11 @@
 
 {% block rail %}
   {% render_model object "quick-stats" %}
-  <div class="well" style="padding: 0;">
-    {% include "tx_highered/includes/map_static_mapbox.html" with w=231 h=143 %}
-  </div>
+  {% if object.location %}
+    <div class="well" style="padding: 0;">
+      {% include "tx_highered/includes/map_static_mapbox.html" with w=231 h=143 %}
+    </div>
+  {% endif %}
 {% endblock rail %}
 
 
