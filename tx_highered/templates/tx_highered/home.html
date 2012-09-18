@@ -221,11 +221,13 @@ var map_institutions = function(data) {
 };
 
 $(function() {
-    // Go to the server for institution API data
-    $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson", function(data) {
+  // Go to the server for institution API data
+  $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson,is_private",
+    function(data) {
       autocomplete_institutions(data);
       map_institutions(data);
-    });
-  });
+    }
+  );
+});
 </script>
 {% endblock %}

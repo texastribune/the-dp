@@ -54,9 +54,11 @@
   // $(window).load(function(){  // <-- switch to this to get autocomplete earlier
   $("input.q").one("click", function() {
     // Go to the server for institution API data
-    $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson", function(data) {
-      autocomplete_institutions(data);
-    });
+    $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson,is_private",
+      function(data) {
+        autocomplete_institutions(data);
+      }
+    );
   });
 </script>
 {% endblock %}
