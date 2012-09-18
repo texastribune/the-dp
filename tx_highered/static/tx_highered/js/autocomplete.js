@@ -1,3 +1,10 @@
+(function($, Trie, exports){
+"use strict";
+
+
+var $elem = $(".q");
+
+
 var autocomplete_trie = new Trie();
 
 // jQuery UI autocomplete
@@ -14,7 +21,7 @@ var autocomplete_institutions = function(data) {
   });
 
   // Initialize autocomplete
-  $(".q").autocomplete({
+  $elem.autocomplete({
     source: $.map(data, function(n) { return n.name; }),
     select: function(e, o) {
       var uri = urisByName[o.item.label];
@@ -23,10 +30,18 @@ var autocomplete_institutions = function(data) {
       }
     }
   });
+
 };
 
 // Patch jQuery autocomplete to filter using fuzzy matching
 $.ui.autocomplete.filter = function(array, term) {
-  results = autocomplete_trie.search(term);
+  var results = autocomplete_trie.search(term);
   return $.map(results, function(r) { return r.data.name; });
 };
+
+
+// TODO camelCase
+exports.autocomplete_institutions = autocomplete_institutions;
+
+
+})(jQuery, Trie, window);
