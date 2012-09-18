@@ -105,7 +105,7 @@
     legendActivateSeries: function(idx, targetElem){
       var self = this, filtered, targeted,
           $target = $(targetElem).parent(),
-          $set = $target.parent().children(),
+          $set = $target.parent().children(':not(.reset)'),
           reset = function(){
             self.rescale(self.getYDomain());  // TODO cache original outside this method
             self._layers.selectAll("rect.bar")
