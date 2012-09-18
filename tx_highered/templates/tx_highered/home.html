@@ -172,43 +172,42 @@ var map_institutions = function(data) {
 
   // Create a feature for each institution
   $.each(data, function(i, institution) {
-    if (institution.geojson) {
-      L.geoJson(institution.geojson, {
-        pointToLayer: function(feature, latlng) {
-          var marker = L.marker(latlng, {icon: capIcon});
-          return marker;
-        },
-        onEachFeature: function(feature, layer) {
-          var data = feature.properties;
-          layer.on("mouseover", function(_) {
-            $mapPopupContainer.html(template({
-              name: institution.name,
-              city: institution.city
-            }));
-          });
-          layer.on("mouseout", function(_) {
-            $mapPopupContainer.html("<h4>Hover over a campus</h4>");
-          });
-          layer.on("click", function(e) {
-            navigationCanceled = false;
-            e = e.originalEvent;  // make e look like a standard event, not leaflet event
-            setTimeout(function() {
-              if (navigationCanceled !== true) {
-                if (e.which && e.which == 2){
-                  window.open(institution.uri);
-                } else {
-                  window.location.href = institution.uri;
-                }
-              }
-            }, 500);
-          },
-          layer.on("dblclick", function() {
-            navigationCanceled = true;
-            map.zoomIn();
+    if (!institution.geojson) return;
+    L.geoJson(institution.geojson, {
+      pointToLayer: function(feature, latlng) {
+        var marker = L.marker(latlng, {icon: capIcon});
+        return marker;
+      },
+      onEachFeature: function(feature, layer) {
+        var data = feature.properties;
+        layer.on("mouseover", function(_) {
+          $mapPopupContainer.html(template({
+            name: institution.name,
+            city: institution.city
           }));
-        }
-      }).addTo(map);
-    }
+        });
+        layer.on("mouseout", function(_) {
+          $mapPopupContainer.html("<h4>Hover over a campus</h4>");
+        });
+        layer.on("click", function(e) {
+          navigationCanceled = false;
+          e = e.originalEvent;  // make e look like a standard event, not leaflet event
+          setTimeout(function() {
+            if (navigationCanceled !== true) {
+              if (e.which && e.which == 2){
+                window.open(institution.uri);
+              } else {
+                window.location.href = institution.uri;
+              }
+            }
+          }, 500);
+        },
+        layer.on("dblclick", function() {
+          navigationCanceled = true;
+          map.zoomIn();
+        }));
+      }
+    }).addTo(map);
   });
 
   // Reset map when return button is clicked
