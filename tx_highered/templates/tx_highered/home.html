@@ -63,10 +63,15 @@
         {% endif %}
       </section>
 
-      <div class="row-fluid map-container">
+      <section id="view-map" class="row-fluid map-container">
         <div>
           <h2>
             View Institutions Statewide
+            <small>
+              <a href="#" class="btn btn-mini reset active" data-action="reset">All</a>
+              <a href="#" class="btn btn-mini public" data-action="public">Public</a>
+              <a href="#" class="btn btn-mini private" data-action="private">Private</a>
+            </small>
           </h2>
 
           {# {% lorem 1 p %} #}
@@ -77,7 +82,7 @@
 
           <div id="mapCanvas"></div>
         </div>
-      </div>
+      </section>
     </div>
 
     <div class="span4">
@@ -168,12 +173,19 @@ var map_institutions = function(data) {
         iconAnchor: [14, 11.5],
         popupAnchor: [14, 11.5]
       }),
-      navigationCanceled = false;
+      points = {public: [], private:[]},  // technically these are layers
+      navigationCanceled = false,
+      hideAll = function(x){
+        x.eachLayer(function(y){ y.setOpacity(0.1); })
+      },
+      showAll = function(x){
+        x.eachLayer(function(y){ y.setOpacity(1); })
+      };
 
   // Create a feature for each institution
   $.each(data, function(i, institution) {
     if (!institution.geojson) return;
-    L.geoJson(institution.geojson, {
+    var point = L.geoJson(institution.geojson, {
       pointToLayer: function(feature, latlng) {
         var marker = L.marker(latlng, {icon: capIcon});
         return marker;
@@ -208,6 +220,29 @@ var map_institutions = function(data) {
         }));
       }
     }).addTo(map);
+    // store reference
+    points[institution.is_private? 'private' : 'public'].push(point);
+  });
+
+
+  // selectively show/hide public/private institutions
+  $('#view-map h2 a.btn').click(function(e){
+    e.preventDefault();
+    var $this = $(this);
+    switch ($this.data('action')){
+      case 'public':
+        points.private.forEach(hideAll);
+        points.public.forEach(showAll);
+      break;
+      case 'private':
+        points.public.forEach(hideAll);
+        points.private.forEach(showAll);
+      break;
+      default:
+        points.private.forEach(showAll);
+        points.public.forEach(showAll);
+    }
+    $this.addClass('active').siblings('.active').removeClass('active');
   });
 
   // Reset map when return button is clicked
