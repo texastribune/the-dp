@@ -10,7 +10,13 @@ var $ctl = $elem.nextAll();
 
 var autocomplete_tries = [new Trie(), new Trie(), new Trie()];
 var _data = [[], [], []];
-var activeIdx = 0;
+var activeIdx = 0,
+    setActiveIdx = function(idx){
+      activeIdx = idx;
+      $ctl.eq(activeIdx).addClass('active').siblings('.active').removeClass('active');
+      // $elem.autocomplete('option', 'source', _data[activeIdx]);  // does nothing
+      $elem.autocomplete('search', $elem.val());
+    };
 
 // prebuild data source
 var build_sources = function(data){
@@ -48,15 +54,15 @@ var autocomplete_institutions = function(data) {
     }
   });
 
+  // interaction for changing target list of institutions to search
+  $ctl.on("click", function(e){
+    setActiveIdx($ctl.index(this));
+  });
   $elem.on("keydown", function(e){
     if (e.which == 9) {  // TAB
       e.preventDefault();
-      activeIdx = (activeIdx + 1) % 3;
-      $ctl.eq(activeIdx).addClass('active').siblings('.active').removeClass('active');
-      // $elem.autocomplete('option', 'source', _data[activeIdx]);  // does nothing
-      $elem.autocomplete('search', $elem.val());
+      setActiveIdx((activeIdx + 1) % 3);
     }
-
   });
 };
 
