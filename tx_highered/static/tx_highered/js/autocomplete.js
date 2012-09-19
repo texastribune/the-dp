@@ -8,17 +8,21 @@ var $elem = $(".q");
 var $ctl = $('#view-map a.btn');
 
 
-var autocomplete_trie = new Trie();
+var autocomplete_tries = [new Trie(), new Trie(), new Trie()];
 var _data = [[], [], []];
 var activeIdx = 0;
 
 // prebuild data source
 var build_sources = function(data){
-  var newdata = _data, inst;
+  var newdata = _data, inst, namelower;
   for (var i = 0; i < data.length; i++){
     inst = data[i];
     newdata[0].push(inst.name);
-    newdata[1 + !inst.is_private].push(inst.name);
+    newdata[1 + inst.is_private].push(inst.name);
+    // Insert institutions to trie
+    namelower = inst.name.toLowerCase();
+    autocomplete_tries[0].insert(namelower, data[i]);
+    autocomplete_tries[1 + inst.is_private].insert(namelower, data[i]);
   }
   return newdata;
 };
@@ -33,14 +37,9 @@ var autocomplete_institutions = function(data) {
     urisByName[o.name] = o.uri;
   });
 
-  // Insert institutions to trie
-  $.each(data, function(i, o) {
-    autocomplete_trie.insert(o.name.toLowerCase(), o);
-  });
-
   // Initialize autocomplete
   $elem.autocomplete({
-    source: _data[0],
+    source: ["foo", "bar", "baz"],  // source does nothing, but pass in an array to trick it
     select: function(e, o) {
       var uri = urisByName[o.item.label];
       if (typeof(uri) !== "undefined") {
@@ -51,11 +50,11 @@ var autocomplete_institutions = function(data) {
 
   $elem.on("keydown", function(e){
     if (e.which == 9) {  // TAB
-      activeIdx = (activeIdx + 1) % 3;
-      $elem.autocomplete('option', 'source', _data[activeIdx]);
-      $elem.autocomplete('search', $elem.val());
-      $ctl.eq(activeIdx).addClass('active').siblings('.active').removeClass('active');
       e.preventDefault();
+      activeIdx = (activeIdx + 1) % 3;
+      $ctl.eq(activeIdx).addClass('active').siblings('.active').removeClass('active');
+      // $elem.autocomplete('option', 'source', _data[activeIdx]);  // does nothing
+      $elem.autocomplete('search', $elem.val());
     }
 
   });
@@ -63,7 +62,7 @@ var autocomplete_institutions = function(data) {
 
 // Patch jQuery autocomplete to filter using fuzzy matching
 $.ui.autocomplete.filter = function(array, term) {
-  var results = autocomplete_trie.search(term);
+  var results = autocomplete_tries[activeIdx].search(term);
   return $.map(results, function(r) { return r.data.name; });
 };
 
