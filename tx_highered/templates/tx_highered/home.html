@@ -43,10 +43,12 @@
             {% lorem 28 w %}
           </p>
 
-
-          <form class="form-inline">
-            <input type="text" class="q" placeholder="Institution name">
-          </form>
+          <div class="input-append">{% spaceless %}
+            <input type="text" class="q span7" placeholder="Institution name">
+            <span class="add-on active" data-action="reset">All</span>
+            <span class="add-on" data-action="public">Public</span>
+            <span class="add-on" data-action="private">Private</span>
+          {% endspaceless %}</div>
 
         </div>
         <hr>
