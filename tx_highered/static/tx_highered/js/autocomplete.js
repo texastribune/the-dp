@@ -5,7 +5,7 @@
 
 // configuration
 var $elem = $(".q");
-var $ctl = $('#view-map a.btn');
+var $ctl = $elem.nextAll();
 
 
 var autocomplete_tries = [new Trie(), new Trie(), new Trie()];
