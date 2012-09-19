@@ -16,6 +16,7 @@ class RenderModelDetailView(DetailView):
 
 
 class FunnelMixin(object):
+    """ Adds `funnels` property to an `Institution` for the Funnel viz """
     def annotate_funnels(self, inst):
         enterdata = inst.admissions.all()
 
@@ -37,6 +38,7 @@ class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
 
     def get_short_list_qs(self):
+        """ list of high enrollment schools to make getting to UT one click """
         queryset = cache.get(__name__ + ".shortlist")
         if queryset is None:
             queryset = Institution.objects.all().annotate(
