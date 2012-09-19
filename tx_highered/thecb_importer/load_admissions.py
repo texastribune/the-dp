@@ -2,123 +2,124 @@
 #
 # The admissions data is loaded from PDF reports on the THECB website.
 #
-# To preprocess:
+# Use pdftohtml to preprocess:
 #
-# find . -name "*.pdf" -exec pdf2json -i {} \;
-# find . -name "*[0-9]" -exec sh -c 'jsonpp "$1" > "$1.pdf.json"' -- {} \;
-# find . -name "*[0-9]" -delete
+# find . -name "*.pdf" -exec sh -c 'pdftohtml -i -noframes -stdout "$1" > "$1.html"' -- {} \;
 #
 import HTMLParser
-import json
+import re
 import sys
+from collections import defaultdict
 from pprint import pprint
 
 
 class Node(object):
-    def __init__(self, text):
-        self.__dict__.update(text)
-        self.left = text['left']
-        self.top = text['top']
-        self.data = text['data']
+    html_parser = HTMLParser.HTMLParser()
 
-    @property
-    def begins_institution_name(self):
-        return 10 <= self.left <= 15 and 60 <= self.top <= 70
+    def __init__(self, line):
+        self.data = line.strip().replace('<br>', '')
 
-    @property
-    def begins_enrollment(self):
-        return 15 <= self.left <= 20 and self.data.startswith('Enrollment')
+        self.is_empty = False
+        self.is_number = False
+        self.is_institution = False
+        self.is_page_break = False
+        self.is_row_header = False
 
-    @property
-    def begins_acceptance(self):
-        return 15 <= self.left <= 20 and self.data.startswith('Acceptance')
+        unescaped_data = self.html_parser.unescape(self.data)
 
-    @property
-    def total_value(self):
-        # TODO: parse out the total from continuous values
-        return self.data
+        # Mark nodes we don't care about as empty
+        if not self.data or 'BODY>' in self.data or 'HTML>' in self.data:
+            self.is_empty = True
+
+        # HR elements signify page breaks
+        elif self.data == '<hr>':
+            self.is_page_break = True
+
+        # Sometimes multiple numbers appear in the same textbox.
+        # We only need the last one since we only care about totals.
+        elif re.match(r'^[\d,]+(\s[\d,]+)*$', self.data):
+            self.is_number = True
+            last_number = self.data.split()[-1].replace(',', '')
+            self.data = int(last_number)
+
+        # Institutions are the only non-numeric uppercase lines
+        elif unescaped_data.upper() == unescaped_data:
+            self.is_institution = True
+            self.data = unescaped_data
+
+        elif self.data in ('Total Texas', 'Top 10%',
+                           'Enrolled, other Texas public university'):
+            self.is_row_header = True
+
+    def __repr__(self):
+        return u'<Node: %r>' % self.data
 
 
 class Parser(object):
-    def __init__(self):
-        self._cache = []
-        self.records = {}
-        self._html_parser = HTMLParser.HTMLParser()
+    def __init__(self, path):
+        self.path = path
+        self.data = defaultdict(dict)
 
-        # State
-        self._current_institution = None
-        self._expect_acceptance = False
-        self._expect_enrollment = False
+        # Parse state
+        self.cache = []
+        self.in_body = False
+        self.institution = None
+        self.expected_field = None
 
-    def _clean_row(self, record):
-        # Parse applications
-        if (self._cache[0].data.startswith('Total')
-                and self._cache[1].data.startswith('Applicants')):
-            record['data'].append(('applicants', self._cache[-1].total_value))
+    def feed(self, line):
+        node = Node(line)
+        # print node
 
-        # Parse admissions
-        if self._cache[0].begins_acceptance:
-            self._expect_acceptance = True
-        elif (self._expect_acceptance
-                and self._cache[0].data.startswith('Total')
-                and self._cache[1].data.startswith('Accepted')):
-            record['data'].append(('admissions', self._cache[-1].total_value))
-            self._expect_acceptance = False
-
-        # Parse enrollment
-        if self._cache[0].begins_enrollment:
-            self._expect_enrollment = True
-        elif self._expect_enrollment:
-            record['data'].append(('enrollment', self._cache[-1].total_value))
-            self._expect_enrollment = False
-
-    def flush(self, new_page=False):
-        if not self._cache:
+        # The body begins after the first page break
+        if node.is_page_break:
+            self.in_body = True
+            self.institution = None
             return
 
-        # Parse institution name
-        if self._cache[0].begins_institution_name:
-            institution = ''.join([n.data for n in self._cache])
-            self._current_institution = self._html_parser.unescape(institution)
+        # Skip everything before the body
+        if not self.in_body:
+            return
 
-        # Get or create record for institution
-        if self._current_institution:
-            if self._current_institution in self.records:
-                record = self.records[self._current_institution]
-            else:
-                record = self.records[self._current_institution] = {
-                    'institution': self._current_institution,
-                    'data': [],
-                }
+        # Return if the node is empty
+        if node.is_empty:
+            return
 
-            # Save any relevant data for this record
-            self._clean_row(record)
+        # Expect data after seeing an institution
+        if node.is_institution:
+            self.institution = node.data
 
-        self._cache = []
+        # If we reach the end of a row and expect data, the last field
+        # of the row contains the value for the expected field.
+        if node.is_row_header and self.expected_field and self.cache:
+            institution_data = self.data[self.institution]
+            institution_data[self.expected_field] = self.cache[-1].data
+            self.expected_field = None
+            self.cache = []
 
-    def feed(self, text):
-        node = Node(text)
-        if self._cache and node.top - self._cache[-1].top > 20:
-            self.flush()
-        self._cache.append(node)
+        # Cache numbers until finding an expected value
+        elif node.is_number:
+            self.cache.append(node)
 
-    def iter_results(self):
-        keys = sorted(self.records.keys())
-        for key in keys:
-            yield self.records[key]
+        # Set expected field from the row header
+        if not self.institution:
+            return
+        if node.data == 'Total Applicants':
+            self.expected_field = 'total_applied'
+        elif node.data == 'Total Enrolled':
+            self.expected_field = 'total_enrolled'
+        elif node.data == 'Total Accepted':
+            self.expected_field = 'total_accepted'
+
+    def parse(self):
+        for line in open(self.path):
+            self.feed(line)
 
 
 def main(path):
-    json_text = open(path).read().decode('iso-8859-1')
-    json_data = json.loads(json_text)
-    parser = Parser()
-    for page_data in json_data:
-        for el in page_data['text']:
-            parser.feed(el)
-        parser.flush(new_page=True)
-
-    for record in parser.iter_results():
-        pprint(record)
+    parser = Parser(path)
+    parser.parse()
+    for institution, data in parser.data.iteritems():
+        pprint(dict(institution=institution, **data))
 
 
 if __name__ == '__main__':
