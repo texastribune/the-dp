@@ -6,7 +6,9 @@
 #
 # find . -name "*.pdf" -exec sh -c 'pdftohtml -i -noframes -stdout "$1" > "$1.html"' -- {} \;
 #
+import glob
 import HTMLParser
+import os
 import re
 import sys
 from collections import defaultdict
@@ -60,7 +62,11 @@ class Parser(object):
         self.path = path
         self.data = defaultdict(dict)
 
-        # Parse state
+        # Parse year from path name
+        name = os.path.basename(path).replace('.pdf.html', '')
+        self.year = int(name.split('_')[1])
+
+        # Store parser state
         self.cache = []
         self.in_body = False
         self.institution = None
@@ -115,11 +121,12 @@ class Parser(object):
             self.feed(line)
 
 
-def main(path):
-    parser = Parser(path)
-    parser.parse()
-    for institution, data in parser.data.iteritems():
-        pprint(dict(institution=institution, **data))
+def main(root):
+    for path in glob.glob(os.path.join(root, '*.pdf.html')):
+        parser = Parser(path)
+        parser.parse()
+        for institution, data in parser.data.iteritems():
+            pprint(dict(institution=institution, year=parser.year, **data))
 
 
 if __name__ == '__main__':
