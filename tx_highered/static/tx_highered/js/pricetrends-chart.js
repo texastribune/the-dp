@@ -10,7 +10,7 @@
   // store
 
                    // instate, outstate, roomboard, books
-  var price_colors = ['#39c', '#066', '#9c6', '#9cc'];
+  var price_colors = ['#39c', '#066', '#9c6', '#E63'];
   var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; });
   var chart = new D3StackedBarChart($section.find(".chart:eq(0)"),
       [data[0], zeroes, data[2], data[3]],
