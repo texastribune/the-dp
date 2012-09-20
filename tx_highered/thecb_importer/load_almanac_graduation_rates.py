@@ -11,11 +11,11 @@
 # $ jsonpp THECB2012almanacweb20120516 > almanac_p21.pdf.json
 #
 import HTMLParser
-from difflib import get_close_matches
 import json
 import re
 import sys
 
+from .utils import InstitutionFuzzyMatcher
 from tx_highered.models import Institution, PublicGraduationRates
 
 NAME_RE = re.compile(r"^([^\d\/\%]+)")
@@ -78,25 +78,6 @@ class Parser(object):
             yield self._clean_row(row)
 
 
-class FuzzyMatcher(object):
-    def __init__(self, qs, field):
-        self.lookups = {}
-        for o in qs:
-            key = getattr(o, field)
-            if key in self.lookups:
-                raise ValueError(u"Duplicate key '%s'" % key)
-            self.lookups[key] = o
-
-    def match(self, key):
-        # Return the exact match if it exists
-        if key in self.lookups:
-            return self.lookups[key]
-        # Fall back to the closest matching key
-        fuzzy_matches = get_close_matches(key, self.lookups.keys())
-        closest_key = fuzzy_matches[0]
-        return self.lookups[closest_key]
-
-
 def main(path):
     # Parse 2011 6-year graduation rates
     json_text = open(path).read().decode('iso-8859-1')
@@ -106,8 +87,7 @@ def main(path):
         parser.feed(el)
 
     # Match institutions by name and create or update
-    qs = Institution.objects.only('id', 'name')
-    matcher = FuzzyMatcher(qs, 'name')
+    matcher = InstitutionFuzzyMatcher()
     for name, bachelor_6yr in parser.iter_results():
         institution = matcher.match(name)
         attrs = dict(bachelor_6yr=bachelor_6yr)
