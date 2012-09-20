@@ -2,11 +2,11 @@ from __future__ import division
 
 from django.db import models
 
-from .reports import YearBasedInstitutionStatModel
+from .reports import YearBasedInstitutionStatModel, AdmissionsManager
 from ..instachart.models import SimpleChart
 
 
-__all__ = ['PublicEnrollment', 'PublicGraduationRates']
+__all__ = ['PublicEnrollment', 'PublicGraduationRates', 'PublicAdmissions']
 
 
 """
@@ -141,3 +141,13 @@ class PublicGraduationRates(YearBasedInstitutionStatModel, SimpleChart):
                     ('bachelor_4yr', "%s%%"),
                     ('bachelor_5yr', "%s%%"),
                     ('bachelor_6yr', "%s%%"))
+
+
+class PublicAdmissions(YearBasedInstitutionStatModel, SimpleChart):
+    number_of_applicants = models.IntegerField(null=True, blank=True)
+    number_admitted = models.IntegerField(null=True, blank=True)
+    number_admitted_who_enrolled = models.IntegerField(null=True, blank=True)
+    percent_of_applicants_admitted = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted")
+    percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
+
+    objects = AdmissionsManager()
