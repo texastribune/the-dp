@@ -156,6 +156,16 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.name
 
+    def get_admissions(self):
+        """
+        Public universities admissions data comes from the THECB.
+        All others use data from IPEDS.
+        """
+        if not self.is_private and self.institution_type == 'uni':
+            return self.publicadmissions.all()
+        else:
+            return self.admissions.all()
+
     @models.permalink
     def get_absolute_url(self):
         return ('tx_highered:institution_detail', (), {'slug': self.slug})
@@ -240,7 +250,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 'admitted': {},
                 'enrolled': {},
             }
-            for a in self.admissions.all():
+            for a in self.get_admissions():
                 if not a.number_admitted:
                     continue
                 b['years'].append(a.year)
