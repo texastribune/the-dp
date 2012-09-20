@@ -139,7 +139,6 @@ def main(root):
             try:
                 enrollment_rate = 100.0 * data['enrolled'] / data['accepted']
             except ZeroDivisionError:
-                acceptance_rate = None
 
             # Build attributes for model save
             attrs = {
@@ -152,6 +151,7 @@ def main(root):
                 'percent_of_admitted_who_enrolled': enrollment_rate
             }
             pprint(attrs)
+                enrollment_rate = None
 
 
 if __name__ == '__main__':
