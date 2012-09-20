@@ -126,7 +126,7 @@ class InstitutionManager(models.GeoManager):
     def published(self):
         """ only return institutions ready to be shown """
         qs = self.get_query_set()
-        return qs.filter(ipeds_id__isnull=False)
+        return qs.filter(ipeds_id__isnull=False, institution_type='uni')
 
 
 class Institution(ContactFieldsMixin, WikipediaFields):
