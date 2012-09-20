@@ -123,6 +123,13 @@ class Parser(object):
             self.feed(line)
 
 
+def derive_rate(numerator, denominator):
+    if denominator == 0 or numerator > denominator:
+        return None
+    else:
+        return round(100.0 * numerator / denominator, 2)
+
+
 def main(root):
     for path in glob.glob(os.path.join(root, '*.pdf.html')):
         parser = Parser(path)
@@ -132,18 +139,13 @@ def main(root):
             attrs = dict(institution=institution, year=parser.year, **data)
 
             # Derive acceptance and enrollment rates
-            try:
-                acceptance_rate = 100.0 * data['accepted'] / data['applied']
-            except ZeroDivisionError:
-                acceptance_rate = None
-            try:
-                enrollment_rate = 100.0 * data['enrolled'] / data['accepted']
-            except ZeroDivisionError:
-
             # Build attributes for model save
             attrs = {
                 'year': parser.year,
                 'institution': matcher.match(institution),
+            acceptance_rate = derive_rate(data['accepted'], data['applied'])
+            enrollment_rate = derive_rate(data['enrolled'], data['accepted'])
+
                 'number_of_applicants': data['applied'],
                 'number_admitted': data['accepted'],
                 'number_admitted_who_enrolled': data['enrolled'],
