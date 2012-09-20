@@ -122,6 +122,13 @@ class WikipediaFields(models.Model):
         abstract = True
 
 
+class InstitutionManager(models.GeoManager):
+    def published(self):
+        """ only return institutions ready to be shown """
+        qs = self.get_query_set()
+        return qs.filter(ipeds_id__isnull=False)
+
+
 class Institution(ContactFieldsMixin, WikipediaFields):
     name = models.CharField(max_length=60)
     slug = models.SlugField(max_length=60, unique=True)
@@ -140,6 +147,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     # only Title IV schools have this. This is a 6 digit zero padded number with
     # a two digit suffix for each location/branch
     ope_id = models.IntegerField(null=True, blank=True)
+
+    objects = InstitutionManager()
 
     def __unicode__(self):
         if self.system:
