@@ -12,9 +12,12 @@ import os
 import re
 import sys
 from collections import defaultdict
+from decimal import Decimal
 from pprint import pprint
 
-from tx_highered.thecb_importer.utils import InstitutionFuzzyMatcher
+from tx_highered.models import PublicAdmissions
+from tx_highered.thecb_importer.utils import (InstitutionFuzzyMatcher,
+        create_or_update)
 
 
 class Node(object):
@@ -139,21 +142,28 @@ def main(root):
             attrs = dict(institution=institution, year=parser.year, **data)
 
             # Derive acceptance and enrollment rates
-            # Build attributes for model save
-            attrs = {
-                'year': parser.year,
-                'institution': matcher.match(institution),
             acceptance_rate = derive_rate(data['accepted'], data['applied'])
             enrollment_rate = derive_rate(data['enrolled'], data['accepted'])
 
+            # Create or update institution admissions for this year
+            institution = matcher.match(institution)
+            defaults = {
+                'year_type': 'fall',
                 'number_of_applicants': data['applied'],
                 'number_admitted': data['accepted'],
                 'number_admitted_who_enrolled': data['enrolled'],
                 'percent_of_applicants_admitted': acceptance_rate,
                 'percent_of_admitted_who_enrolled': enrollment_rate
             }
-            pprint(attrs)
-                enrollment_rate = None
+            obj, row_count = create_or_update(PublicAdmissions.objects,
+                    institution=institution, year=parser.year,
+                    defaults=defaults)
+            if obj:
+                print 'created %s %d admissions...' % (
+                    institution.name, parser.year)
+            else:
+                print 'updated %s %d admissions...' % (
+                    institution.name, parser.year)
 
 
 if __name__ == '__main__':
