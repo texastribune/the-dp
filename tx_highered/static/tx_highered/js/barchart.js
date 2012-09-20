@@ -137,6 +137,8 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
   render: function(){
     var self = this, svg, plot, x_axis, y_axis;
 
+    this.$elem.removeClass('loading');
+
     // setup svg DOM
     svg = d3.select(this.elem)
             .append("svg")
