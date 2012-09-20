@@ -10,13 +10,16 @@
 # $ pdf2json -f 21 -l 21 THECB2012almanacweb20120516.pdf
 # $ jsonpp THECB2012almanacweb20120516 > almanac_p21.pdf.json
 #
+from __future__ import absolute_import
+
 import HTMLParser
 import json
 import re
 import sys
 
-from .utils import InstitutionFuzzyMatcher
 from tx_highered.models import Institution, PublicGraduationRates
+from tx_highered.thecb_importer.utils import (InstitutionFuzzyMatcher,
+        create_or_update)
 
 NAME_RE = re.compile(r"^([^\d\/\%]+)")
 
@@ -90,14 +93,10 @@ def main(path):
     matcher = InstitutionFuzzyMatcher()
     for name, bachelor_6yr in parser.iter_results():
         institution = matcher.match(name)
-        attrs = dict(bachelor_6yr=bachelor_6yr)
-        filter_attrs = dict(institution=institution, year=2011)
-        row_count = (PublicGraduationRates.objects
-                     .filter(**filter_attrs)
-                     .update(**attrs))
-        if not row_count:
-            attrs.update(filter_attrs)
-            PublicGraduationRates.objects.create(**attrs)
+        defaults = dict(bachelor_6yr=bachelor_6yr)
+        obj, row_count = create_or_update(PublicGraduationRates.objects,
+                institution=institution, year=2011, defaults=defaults)
+        if obj:
             print "created %s graduation rates..." % institution.name
         else:
             print "updated %s graduation rates..." % institution.name

@@ -35,3 +35,14 @@ class InstitutionFuzzyMatcher(FuzzyMatcher):
 
     def clean_key(self, key):
         return key.lower()
+
+
+def create_or_update(objects, **kwargs):
+    defaults = kwargs.pop('defaults', {})
+    row_count = objects.filter(**kwargs).update(**defaults)
+    if row_count:
+        return (None, row_count)
+    else:
+        kwargs.update(defaults)
+        obj = objects.create(**kwargs)
+        return (obj, 1)
