@@ -302,8 +302,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
   },
 
   getBarWidth: function(){
-    var len_series = this._data.length; // m, i, rows
-    var len_x = this._data[0].length;   // n, j, cols
+    var len_x = this.x_scale.range().length;
     var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
     return bar_width;
   },
@@ -398,11 +397,12 @@ var D3GroupedBarChart = exports.D3GroupedBarChart = D3BarChart.extend({
   },
 
   getBarWidth: function(){
-    var len_series = this._data.length; // m, i, rows
-    var len_x = this._data[0].length;   // n, j, cols
+    // TODO replace with super
+    var len_x = this.x_scale.range().length;
     var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
-    bar_width = bar_width / len_series;
-    return bar_width;
+
+    var len_series = this._data.length;  // m, i, rows
+    return bar_width / len_series;  // sub-divide
   }
 });
 
