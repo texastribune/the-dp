@@ -1,7 +1,7 @@
 (function() {
   // Global settings
   var el = "#admissions .d3-viz";
-  var w = $('#admissions .d3-viz').width(),
+  var w = $(el).removeClass('loading').width(),  // HAHAHAHAHAHA
       h = 300,
       xPadding = 50,
       yPadding = 30
