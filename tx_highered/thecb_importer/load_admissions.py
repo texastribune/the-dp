@@ -14,6 +14,8 @@ import sys
 from collections import defaultdict
 from pprint import pprint
 
+from tx_highered.thecb_importer.utils import InstitutionFuzzyMatcher
+
 
 class Node(object):
     html_parser = HTMLParser.HTMLParser()
@@ -110,11 +112,11 @@ class Parser(object):
         if not self.institution:
             return
         if node.data == 'Total Applicants':
-            self.expected_field = 'total_applied'
-        elif node.data == 'Total Enrolled':
-            self.expected_field = 'total_enrolled'
+            self.expected_field = 'applied'
         elif node.data == 'Total Accepted':
-            self.expected_field = 'total_accepted'
+            self.expected_field = 'accepted'
+        elif node.data == 'Total Enrolled':
+            self.expected_field = 'enrolled'
 
     def parse(self):
         for line in open(self.path):
@@ -125,8 +127,31 @@ def main(root):
     for path in glob.glob(os.path.join(root, '*.pdf.html')):
         parser = Parser(path)
         parser.parse()
+        matcher = InstitutionFuzzyMatcher()
         for institution, data in parser.data.iteritems():
-            pprint(dict(institution=institution, year=parser.year, **data))
+            attrs = dict(institution=institution, year=parser.year, **data)
+
+            # Derive acceptance and enrollment rates
+            try:
+                acceptance_rate = 100.0 * data['accepted'] / data['applied']
+            except ZeroDivisionError:
+                acceptance_rate = None
+            try:
+                enrollment_rate = 100.0 * data['enrolled'] / data['accepted']
+            except ZeroDivisionError:
+                acceptance_rate = None
+
+            # Build attributes for model save
+            attrs = {
+                'year': parser.year,
+                'institution': matcher.match(institution),
+                'number_of_applicants': data['applied'],
+                'number_admitted': data['accepted'],
+                'number_admitted_who_enrolled': data['enrolled'],
+                'percent_of_applicants_admitted': acceptance_rate,
+                'percent_of_admitted_who_enrolled': enrollment_rate
+            }
+            pprint(attrs)
 
 
 if __name__ == '__main__':
