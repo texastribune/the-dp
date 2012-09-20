@@ -16,7 +16,7 @@
           <span class="caret" style="vertical-align: middle;"></span>
         </a>
         <ul class="dropdown-menu">
-          {% for inst in object.system.institution_set.all %}
+          {% for inst in object.system.institution_set.published %}
             <li {% if inst == object %}class="active"{% endif %}><a tabindex="-1" href="{{ inst.get_absolute_url }}">{{ inst.name }}</a></li>
           {% endfor %}
         </ul>

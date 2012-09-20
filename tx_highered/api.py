@@ -67,10 +67,11 @@ class ReportView(SingleObjectMixin, ApiView):
 class InstitutionApiView(ApiView):
     available_fields = ['is_private', 'number_of_full_time_students',
                         'city', 'geojson']
+    queryset = Institution.objects.published()
 
     def get_content_data(self):
         data = []
-        for i in Institution.objects.all():
+        for i in self.queryset:
             object_data = {'uri': i.get_absolute_url(), 'name': i.name}
             for field in self.request.GET.get('fields', '').split(','):
                 if field in self.available_fields:

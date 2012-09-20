@@ -41,7 +41,7 @@ class HomeView(TemplateView):
         """ list of high enrollment schools to make getting to UT one click """
         queryset = cache.get(__name__ + ".shortlist")
         if queryset is None:
-            queryset = Institution.objects.all().annotate(
+            queryset = Institution.objects.published().annotate(
                 enr=Max('enrollment__total')).filter(enr__isnull=False).order_by('-enr')
             cache.set(__name__ + ".shortlist", queryset, 3600 * 24 * 7)
         return queryset
