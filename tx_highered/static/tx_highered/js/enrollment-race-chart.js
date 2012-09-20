@@ -179,7 +179,7 @@
   });
 
   var options = {
-    'color': d3.interpolateRgb("#445", "#ccd"),
+    'color': d3.interpolateRgb("#001", "#eef"),  // does not actually reach maxima
     // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
     'tooltip': function() { return this.__data__.y + " " + this.__data__.race; },
     'legendElem': $("#enrollment .legend")
