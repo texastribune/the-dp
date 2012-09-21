@@ -1,6 +1,8 @@
 from distutils.core import setup
 import os.path
 
+import tx_highered
+
 
 def is_package(path):
     return (
@@ -25,7 +27,7 @@ def find_packages(path, base=""):
 
 setup(
     name='tx_highered',
-    version='0.1.0alpha',
+    version=tx_highered.__version__,
     description='Django app for Texas higher education data',
     author='Texas Tribune',
     author_email='tech@texastribune.org',
