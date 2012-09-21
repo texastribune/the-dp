@@ -431,8 +431,10 @@
       </p>
     </div>
 
-    {% if object.graduationrates.all.exists %}
-      {% instachart object.graduationrates.all "gradrates" %}
+    {% if object.graduationrates_buckets.years|length %}
+      {% with object_list=object.get_graduation_rates %}
+        {% include "instachart/simplechart/gradrates.html" %}
+      {% endwith %}
 
       {% with b=object.graduationrates_buckets %}
         <table class="chart-data table table-striped table-condensed">

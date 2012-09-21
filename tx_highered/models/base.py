@@ -166,6 +166,15 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.admissions.all()
 
+    def get_graduation_rates(self):
+        """
+        Public institutions use THECB graduation rates; others use IPEDS.
+        """
+        if not self.is_private:
+            return self.publicgraduationrates.all()
+        else:
+            return self.graduationrates.all()
+
     @models.permalink
     def get_absolute_url(self):
         return ('tx_highered:institution_detail', (), {'slug': self.slug})
@@ -312,7 +321,10 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def graduationrates_buckets(self):
-        return self.get_buckets("graduationrates")
+        if self.is_private:
+            return self.get_buckets("graduationrates")
+        else:
+            return self.get_buckets("publicgraduationrates")
 
     @property
     def sentence_institution_type(self):
