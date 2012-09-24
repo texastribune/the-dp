@@ -18,6 +18,28 @@ setup(
     package_data={
         'tx_highered': [
             'tx_highered/fixtures/*.json',
+            'templates/*.html',
+            'templates/*/*.html',
+            'templates/*/*/*.html',
+            'static/*.css',
+            'static/*/*.css',
+            'static/*/*/*.css',
+            'static/*.js',
+            'static/*/*.js',
+            'static/*/*/*.js',
+            'static/*.png',
+            'static/*/*.png',
+            'static/*/*/*.png',
+            'static/*.jpg',
+            'static/*/*.jpg',
+            'static/*/*/*.jpg',
+            'static/*.jpeg',
+            'static/*/*.jpeg',
+            'static/*/*/*.jpeg',
+            'static/*.gif',
+            'static/*/*.gif',
+            'static/*/*/*.gif',
+            '*.exe',  # WHATEVER I DON'T CARE I HATE PYTHON
         ]
     },
     classifiers=[
