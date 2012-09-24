@@ -21,6 +21,7 @@ setup(
             'templates/*.html',
             'templates/*/*.html',
             'templates/*/*/*.html',
+            'templates/*/*/*/*.html',
             'static/*.css',
             'static/*/*.css',
             'static/*/*/*.css',
