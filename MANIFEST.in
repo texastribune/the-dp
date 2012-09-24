@@ -1,1 +1,0 @@
-recursive-include tx_highered *.py *.html *.js *.css *.png *.jpg
