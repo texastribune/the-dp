@@ -24,7 +24,8 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
 .shadow { -moz-box-shadow: 2px 2px 5px 1px #444444; -webkit-box-shadow: 2px 2px 5px 1px #444444; box-shadow: 1px 1px 4px 1px #444444; }
 
-@media print { #site_roofline, #greeting { display: none; } }
+@media print { #site_roofline, #greeting { display: none; }
+  .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
 #intro p { font-size: 1.25em; }
 
 #pricetrends .chart-data tbody td { text-align: right; }
