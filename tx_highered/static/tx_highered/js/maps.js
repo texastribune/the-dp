@@ -1,4 +1,8 @@
 var static_url = tt.media_url || '';
+if (static_url[static_url.length - 1] !== "/") {
+  // always make sure static_url ends with "/"
+  static_url = static_url + "/";
+}
 
 var map_institutions = function(data) {
   var template = Handlebars.compile($("#mapPopup").html()),
@@ -14,7 +18,7 @@ var map_institutions = function(data) {
         subdomains: ["a", "b", "c", "d"]
       }).addTo(map),
       capIcon = L.icon({
-        iconUrl: static_url + '/tx_highered/images/icon-cap.png',
+        iconUrl: static_url + 'tx_highered/images/icon-cap.png',
         iconSize: [28, 21],
         iconAnchor: [14, 11.5],
         popupAnchor: [14, 11.5]
