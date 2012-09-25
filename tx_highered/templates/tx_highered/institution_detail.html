@@ -350,25 +350,49 @@
           <tr>
             <th>In-State Tuition</th>
             {% for a in object.tuition_buckets.in_state.values %}
-              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
             {% endfor %}
           </tr>
           <tr>
             <th>Out-Of-State Tuition</th>
             {% for a in object.tuition_buckets.out_of_state.values %}
-              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
             {% endfor %}
           </tr>
           <tr>
             <th>Books &amp; Supplies</th>
             {% for a in object.tuition_buckets.books_and_supplies.values %}
-              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
             {% endfor %}
           </tr>
           <tr>
             <th>Room &amp; Board</th>
             {% for a in object.tuition_buckets.room_and_board_on_campus.values %}
-              <td><span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span></td>
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
             {% endfor %}
           </tr>
         </tbody>
