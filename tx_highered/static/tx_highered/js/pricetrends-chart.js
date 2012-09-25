@@ -41,6 +41,7 @@
                 'color': price_colors
               });
 
+/* disabled
   var normData = normalizeFirst([data[0], data[1]], 0);
   var chart3 = new D3GroupedBarChart($section.find(".chart:eq(2)"),
         normData,
@@ -81,5 +82,6 @@
         .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
         .attr('stroke-opacity', 100);
   });
+*/
 
 })();
