@@ -185,9 +185,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def sentences(self):
-        if not hasattr(self, '_sentences'):
-            self._sentences = SummarySentences(self)
-        return self._sentences
+        # TODO use cache backend (was caching in memory)
+        return SummarySentences(self)
 
     @staticmethod
     def get_unique_name(name):
