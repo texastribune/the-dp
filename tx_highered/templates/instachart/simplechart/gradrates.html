@@ -15,13 +15,13 @@
     {% for object in object_list %}
       <tr>
         <th data-value="{{ object.year }}">{{ object.display_year }}</th>
-        <td data-value="{{ object.bachelor_4yr }}">
+        <td data-value="{{ object.bachelor_4yr|default:"0" }}">
           {{ object.bachelor_4yr }}%
         </td>
-        <td data-value="{{ object.bachelor_5yr }}">
+        <td data-value="{{ object.bachelor_5yr|default:"0" }}">
           {{ object.bachelor_5yr }}%
         </td>
-        <td data-value="{{ object.bachelor_6yr }}">
+        <td data-value="{{ object.bachelor_6yr|default:"0" }}">
           {{ object.bachelor_6yr }}%
         </td>
       </tr>
