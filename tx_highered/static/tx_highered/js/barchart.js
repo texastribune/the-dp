@@ -79,6 +79,10 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     } else {
       this.elem = el;
     }
+    if (!this.elem){
+      // console.warn("missing element")
+      return false;
+    }
     if (typeof data == "string"){  // if data is url
       d3.json(data, function(new_data) {
         self._data = self.initData(new_data);
