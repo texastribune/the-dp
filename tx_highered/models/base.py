@@ -156,6 +156,11 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('tx_highered:institution_detail', (), {'slug': self.slug})
+
+    #################### THECB / IPEDS ROUTERS #################
     def get_admissions(self):
         """
         Public universities admissions data comes from the THECB.
@@ -175,25 +180,25 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.graduationrates.all()
 
-    @models.permalink
-    def get_absolute_url(self):
-        return ('tx_highered:institution_detail', (), {'slug': self.slug})
-
     @property
     def type(self):
+        """ Get human readable version of `institution_type` """
         return dict(INSTITUTION_CHOICES).get(self.institution_type)
 
     @property
     def sentences(self):
+        """ Get a generated sentence about the `Institution` """
         # TODO use cache backend (was caching in memory)
         return SummarySentences(self)
 
+    # DELETEME replace with fuzzy matcher or can just delete
     @staticmethod
     def get_unique_name(name):
         ignored = ('st', 'saint', 'college', 'university', 'county', 'district', 'the', 'of', 'at')
         filtered_bits = [x for x in slugify(name).split('-') if x not in ignored]
         return ''.join(filtered_bits)
 
+    # DELETEME replace with fuzzy matcher or can just delete
     @property
     def unique_name(self):
         return Institution.get_unique_name(self.name)
@@ -224,6 +229,23 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.name
 
+    @property
+    def sentence_institution_type(self):
+        institution_type = self.get_institution_type_display().lower()
+        if self.is_private:
+            return u'private %s' % institution_type
+        else:
+            return u'public %s' % institution_type
+
+    @property
+    def geojson(self):
+        from tx_highered.api import JSON
+        if self.location:
+            return JSON(self.location.geojson)
+        else:
+            return None
+
+    ############################## BUCKETS ##############################
     @property
     def tuition_buckets(self):
         fields = ("in_state", "out_of_state", "books_and_supplies", "room_and_board_on_campus")
@@ -324,19 +346,3 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             return self.get_buckets("graduationrates")
         else:
             return self.get_buckets("publicgraduationrates")
-
-    @property
-    def sentence_institution_type(self):
-        institution_type = self.get_institution_type_display().lower()
-        if self.is_private:
-            return u'private %s' % institution_type
-        else:
-            return u'public %s' % institution_type
-
-    @property
-    def geojson(self):
-        from tx_highered.api import JSON
-        if self.location:
-            return JSON(self.location.geojson)
-        else:
-            return None
