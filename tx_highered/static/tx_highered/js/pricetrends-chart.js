@@ -37,7 +37,17 @@
     chart.data(copy);
   });
 
-  var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
+  // hack that allows you to pass series titles in as an option
+  var SeriesGroupedBarChart = D3GroupedBarChart.extend({
+        postRenderLegend: function(el){
+          var self = this;
+          $(el).find('span.legend-value').each(function(idx){
+            this.innerHTML = self.options.series[idx];
+          });
+        }
+      });
+
+  var chart2 = new SeriesGroupedBarChart($section.find(".chart:eq(1)"),
               [data[0], data[1]],
               {
                 color: price_colors,
@@ -45,7 +55,10 @@
                 tooltip: function() {
                   var d = this.__data__;
                   return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
-                }
+                },
+                'legendStackOrder': 'ttb',
+                'legendElem': $section.find(".chart2 .legend"),
+                'series': ["In-State", "Out-of-State"]
               });
 
 /* disabled
