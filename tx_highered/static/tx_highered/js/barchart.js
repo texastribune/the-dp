@@ -354,6 +354,11 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         self.legendActivateSeries(i, this);
       }
     });
+    self.postRenderLegend(el);
+  },
+
+  postRenderLegend: function(el){
+    // PASS
   }
 });
 

@@ -102,6 +102,10 @@
             .attr("height", self.h);
     },
 
+    postRenderLegend: function(el){
+      var poop= $(el).find("li.inactive").removeClass('inactive');
+    },
+
     legendActivateSeries: function(idx, targetElem){
       var self = this, filtered, targeted,
           $target = $(targetElem).parent(),
