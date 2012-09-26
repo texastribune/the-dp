@@ -77,3 +77,5 @@ th aside { display: inline-block !important; width: 10%; }
 .bootstrap .breadcrumb .dropdown-menu .active a { color: white; }
 .bootstrap .breadcrumb .dropdown-menu li { display: block; }
 .bootstrap .breadcrumb .navbar-search { margin-top: -1px; }
+
+.bootstrap .nav-pills > li > a { padding: 6px 12px; }
