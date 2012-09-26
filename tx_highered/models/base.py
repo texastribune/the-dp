@@ -21,6 +21,7 @@ class SummarySentences(object):
         self.cache = {}
 
     def __getattr__(self, key):
+        return self.generate_sentence(key)  # XXX
         if not key in self.cache:
             self.cache[key] = self.generate_sentence(key)
         return self.cache[key]
