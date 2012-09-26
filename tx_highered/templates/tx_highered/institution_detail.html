@@ -65,7 +65,7 @@
     <h2>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h2>
     <div class="chart-help">
       <p>
-        Total number of applications, percent of applicants who were admitted, and percent of those admitted who ultimately enrolled
+        Number of students who applied, were admitted, and enrolled
       </p>
     </div>
 
@@ -101,18 +101,38 @@
       </table>
 
       <div class="row">
-        <div class="span10">
+        <div class="span12">
           <div class="well well-small chart-help">
-            This visualization shows the number of applicants,
-            those admitted, and the number of students that are
-            enrolled.
+            Applicants, Admitted and Enrolled Students by Year
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span10">
           <div class="d3-viz chart-viz loading" style="height: 300px"></div>
         </div>
 
         <div class="span2">
           <div class="chart-help">
-            <div class="legend chart-legend"></div>
+            <div class="legend chart-legend">
+              <ul class="nav nav-pills nav-stacked">
+                <li>
+                  <span class="legend-key" style="color:#9CF;">█</span>
+                  <span class="legend-value">Applicants</span>
+                </li>
+
+                <li>
+                  <span class="legend-key" style="color:#39C;">█</span>
+                  <span class="legend-value">Admitted</span>
+                </li>
+
+                <li>
+                  <span class="legend-key" style="color:#036;">█</span>
+                  <span class="legend-value">Enrolled</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
