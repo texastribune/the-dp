@@ -201,7 +201,9 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     if (self.options.legendElem) {
       // only one chart has a legend, as we add more, this will naturally
       // get refactored into something that makes sense
+      // self.preRenderLegend(self.options.legendElem);
       self.renderLegend(self.options.legendElem);
+      self.postRenderLegend(self.options.legendElem);
     }
   },
 
@@ -354,7 +356,6 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         self.legendActivateSeries(i, this);
       }
     });
-    self.postRenderLegend(el);
   },
 
   postRenderLegend: function(el){
