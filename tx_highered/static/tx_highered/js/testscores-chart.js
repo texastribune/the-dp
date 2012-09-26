@@ -23,17 +23,20 @@ TestScoresChart.prototype.initData = function(new_data){
     processed_data.verbal.push({
       x: datum.year,
       y: datum.sat.verbal[0],
-      y_max: datum.sat.verbal[1]
+      y_max: datum.sat.verbal[1],
+      n: 2 + !!datum.sat.writing[0]
     });
     processed_data.math.push({
       x: datum.year,
       y: datum.sat.math[0],
-      y_max: datum.sat.math[1]
+      y_max: datum.sat.math[1],
+      n: 2 + !!datum.sat.writing[0]
     });
     processed_data.writing.push({
       x: datum.year,
       y: datum.sat.writing[0],
-      y_max: datum.sat.writing[1]
+      y_max: datum.sat.writing[1],
+      n: 2 + !!datum.sat.writing[0]
     });
   }
   var data = [processed_data.verbal, processed_data.math, processed_data.writing];
@@ -69,7 +72,7 @@ TestScoresChart.prototype.getBars = function(){
     .enter().append("rect")
       .attr("class", "bar")
       .attr("width", function(d, i){
-        var f = d.x < 2006 ? 1.5 : 1;
+        var f = d.n == 2 ? 1.5 : 1;
         return f * self.bar_width * 0.9; })
       .attr("x", self.x)
       .attr("y", self.options.plot_box.h)
@@ -81,7 +84,7 @@ TestScoresChart.prototype.getBars = function(){
   // now shift second series's bars to the right
   d3.select(self._layers[0][1]).selectAll("rect.bar")
       .attr("transform", function(d, i){
-        var dx = d.x < 2006 ? self.bar_width / 2 * 0.9 : 0;
+        var dx = d.n == 2 ? self.bar_width / 2 * 0.9 : 0;
         return "translate(" + dx + ", 0)";
       });
   return bars;
