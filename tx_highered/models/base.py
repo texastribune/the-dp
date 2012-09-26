@@ -4,6 +4,7 @@ from collections import defaultdict
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
@@ -153,7 +154,7 @@ class InstitutionManager(models.GeoManager):
     def published(self):
         """ only return institutions ready to be shown """
         qs = self.get_query_set()
-        return qs.filter(ipeds_id__isnull=False, institution_type='uni')
+        return qs.filter(ipeds_id__isnull=False).exclude(Q(institution_type='med') | Q(institution_type='pri_chi'))
 
 
 class Institution(ContactFieldsMixin, WikipediaFields):
