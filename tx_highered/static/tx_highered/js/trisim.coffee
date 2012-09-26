@@ -27,6 +27,8 @@ class Trie
         return results
 
     searchRecursive: (head, tail, results, clusters, cluster) ->
+        head = head.toLowerCase() unless not head
+        tail = tail.toLowerCase() unless not tail
         for item, node of @children
             if not tail and node.data
                 results.push

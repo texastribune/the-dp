@@ -48,6 +48,12 @@
 
     Trie.prototype.searchRecursive = function(head, tail, results, clusters, cluster) {
       var item, newCluster, newClusters, newHead, newTail, node, _ref, _ref1;
+      if (!!head) {
+        head = head.toLowerCase();
+      }
+      if (!!tail) {
+        tail = tail.toLowerCase();
+      }
       _ref = this.children;
       for (item in _ref) {
         node = _ref[item];
