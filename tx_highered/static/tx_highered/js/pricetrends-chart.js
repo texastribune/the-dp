@@ -38,7 +38,11 @@
   var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
               [data[0], data[1]],
               {
-                'color': price_colors
+                color: price_colors,
+                tooltip: function() {
+                  var d = this.__data__;
+                  return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
+                }
               });
 
 /* disabled
