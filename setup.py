@@ -13,6 +13,7 @@ setup(
     license='Apache Software License',
     install_requires=[
         'geopy',
+        'tx_lege_districts>=0.4.0',
     ],
     packages=find_packages('.', exclude=('exampleproject*',)),
     package_data={
