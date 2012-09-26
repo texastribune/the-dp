@@ -32,7 +32,7 @@
         'tooltip': function() {
           // TODO: replace with Handlebars
           return this.__data__.series + " bachelor's graduation rate<br><b>" +
-            d3.format(",.2f")(this.__data__.y) + "%</b>";
+            d3.format(",.1f")(this.__data__.y) + "%</b>";
         },
         'yAxisTickFormat': function(a){ return a + '%'; },
         legendElem: $section.find('.legend')

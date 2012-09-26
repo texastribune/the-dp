@@ -102,6 +102,10 @@
             .attr("height", self.h);
     },
 
+    postRenderLegend: function(el){
+      var poop= $(el).find("li.inactive").removeClass('inactive');
+    },
+
     legendActivateSeries: function(idx, targetElem){
       var self = this, filtered, targeted,
           $target = $(targetElem).parent(),
@@ -112,6 +116,8 @@
               .transition()
                 .attr("y", self.y)
                 .attr("height", self.h);
+            var $resetCtl = $set.next('.reset');
+            $resetCtl.hide(500, function(){ $resetCtl.remove(); });
           },
           addResetCtl = function(){
             if ($target.parent().children('.reset').length) { return; }
@@ -120,7 +126,7 @@
               $set.filter('.active').removeClass('active');
               self._layers.attr("display", null);  // XXX
               reset();
-              $resetCtl.hide(500, function(){ $resetCtl.remove(); });
+              // $resetCtl.hide(500, function(){ $resetCtl.remove(); });  // do not delete
             });
             $resetCtl.find('a').click(function(e){ e.preventDefault(); });
             $target.parent().append($resetCtl);

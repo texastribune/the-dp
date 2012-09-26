@@ -3,8 +3,9 @@
 
 {% block opengraph_meta %}
   {{ block.super }}
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="http://static.texastribune.org.s3.amazonaws.com/common/tx_highered/icon-opengraph.png" />
+  <meta property="og:type" content="website">
+  {# TODO <meta property="og:image" content="http://static.texastribune.org.s3.amazonaws.com/common/tx_highered/icon-opengraph.png"> #}
+  <meta property="og:image" content="http://s3.amazonaws.com/static.texastribune.org/common/tx_highered/css/icon.png">
 {% endblock %}
 
 

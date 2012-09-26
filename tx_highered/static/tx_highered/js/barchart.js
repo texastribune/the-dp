@@ -336,8 +336,10 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
       .selectAll("li")
         .data(this._data)
         // bars are built bottom-up, so build the legend the same way
-        .enter().insert("li", legendStackOrder)
-          .append('a').attr("href", "#");
+        .enter()
+          .insert("li", legendStackOrder)
+            .attr('class', 'inactive')
+            .append('a').attr("href", "#");
     items
       .append("span").attr("class", "legend-key")
       // TODO use an element that can be controlled with CSS better but is also printable
@@ -352,6 +354,11 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         self.legendActivateSeries(i, this);
       }
     });
+    self.postRenderLegend(el);
+  },
+
+  postRenderLegend: function(el){
+    // PASS
   }
 });
 
