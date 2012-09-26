@@ -6,7 +6,7 @@
 
 @import "variables";
 
-@import "svg";
+@import "chart";
 @import "map";
 
 @import "detail";
@@ -160,8 +160,4 @@ th {
   .navbar-search {
     margin-top: -1px;
   }
-}
-
-.bootstrap .nav-pills > li > a {
-  padding: 6px 12px;
 }

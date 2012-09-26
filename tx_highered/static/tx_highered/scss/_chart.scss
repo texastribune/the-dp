@@ -46,3 +46,12 @@ svg {
     margin-right: 5px;
   }
 }
+
+// override .bootstrap .nav > li > a:hover
+.bootstrap .legend li.inactive > a:hover { background-color: transparent; }
+
+// override .bootstrap .nav-pills > li > a
+.bootstrap .legend .nav-pills > li > a { padding: 6px 12px; }
+
+// override .bootstrap a, .bootstrap a:hover;
+.legend a, legend a:hover { color: inherit; }
