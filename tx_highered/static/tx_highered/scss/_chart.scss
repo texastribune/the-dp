@@ -47,6 +47,9 @@ svg {
   }
 }
 
+// inactive links shouldn't get interactive pointer
+.legend li.inactive > a { cursor: inherit; }
+
 // override .bootstrap .nav > li > a:hover
 .bootstrap .legend li.inactive > a:hover { background-color: transparent; }
 
