@@ -264,7 +264,7 @@
             </tr>
             {% if b.multiracial_percent %}
               <tr>
-                <th>Multiracial<aside><sup>2</sup></aside></th>
+                <th>Multiracial</th>
                 {% for a in b.multiracial_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
@@ -300,9 +300,8 @@
         {# TODO: if ever there were a usecase for an unordered list #}
         <div class="footnotes">
           <p>
-            <small>* New classifications are added from time to time</small><br>
+            <small>* Classification did not exist </small><br>
             <small>1 Prior to 2011, Pacific Islander was included with Asian</small><br>
-            <small>2 Multiracial was introduced in 2010.</small><br>
           </p>
         </div>
       {% else %}
