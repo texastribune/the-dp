@@ -9,6 +9,10 @@ from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
 
 
+from tx_lege_districts.models import District
+from tx_lege_districts.constants import SBOE
+
+
 class SummarySentences(object):
     def __init__(self, obj):
         self.obj = obj
@@ -28,6 +32,29 @@ class SummarySentences(object):
             return t.render(c).strip()
         except TemplateDoesNotExist:
             return None
+
+
+class SentenceDistrict(object):
+    def __init__(self, district):
+        self.district = district
+        self.representative = district.representative
+
+    def __unicode__(self):
+        if hasattr(self.district, 'get_absolute_url'):
+            district_string = u'<a href="%s">%s</a>' % (
+                self.district.get_absolute_url(), self.district)
+        else:
+            district_string = unicode(self.district)
+
+        if not self.representative:
+            return district_string
+        elif hasattr(self.representative, 'get_absolute_url'):
+            representative_string = u'<a href="%s">%s</a>' % (
+                self.representative.get_absolute_url(), self.representative)
+        else:
+            representative_string = unicode(self.representative)
+
+        return u'%s in %s' % (representative_string, district_string)
 
 
 APP_LABEL = 'tx_highered'
@@ -242,6 +269,23 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         from tx_highered.api import JSON
         if self.location:
             return JSON(self.location.geojson)
+        else:
+            return None
+
+    @property
+    def lege_districts(self):
+        location = self.location
+        if not location:
+            return None
+
+        return (District.objects.filter(geometry__contains=location.wkt)
+                .exclude(type=SBOE))
+
+    @property
+    def sentence_districts(self):
+        districts = self.lege_districts
+        if districts:
+            return [SentenceDistrict(d) for d in districts]
         else:
             return None
 
