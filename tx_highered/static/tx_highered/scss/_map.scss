@@ -34,9 +34,3 @@
   -webkit-box-shadow: 2px 2px 5px 1px #444444;
   box-shadow:         1px 1px 4px 1px #444444;
 }
-
-// override .bootstrap .nav > li > a:hover
-.bootstrap .legend li.inactive > a:hover { background-color: transparent; }
-
-// override .bootstrap a, .bootstrap a:hover;
-.legend a, legend a:hover { color: inherit; }

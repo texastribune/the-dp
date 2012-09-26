@@ -14,6 +14,12 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 .chart-legend ul { list-style: none; margin: 0; }
 .chart-legend .legend-key { margin-right: 5px; }
 
+.bootstrap .legend li.inactive > a:hover { background-color: transparent; }
+
+.bootstrap .legend .nav-pills > li > a { padding: 6px 12px; }
+
+.legend a, legend a:hover { color: inherit; }
+
 #mapCanvas { width: 100%; height: 650px; }
 
 #mapPopupContainer { font-family: "Helvetica Neue", Arial, sans-serif; text-align: center; font-size: 14px; position: absolute; top: 10px; right: 10px; z-index: 1002; background-color: #FFFFFF; padding: 8px; display: none; }
@@ -23,10 +29,6 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 #mapPopupContainer h4 { font-size: .85em; margin: 0; padding: 0; }
 
 .shadow { -moz-box-shadow: 2px 2px 5px 1px #444444; -webkit-box-shadow: 2px 2px 5px 1px #444444; box-shadow: 1px 1px 4px 1px #444444; }
-
-.bootstrap .legend li.inactive > a:hover { background-color: transparent; }
-
-.legend a, legend a:hover { color: inherit; }
 
 @media print { #site_roofline, #greeting { display: none; }
   .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
@@ -77,5 +79,3 @@ th aside { display: inline-block !important; width: 10%; }
 .bootstrap .breadcrumb .dropdown-menu .active a { color: white; }
 .bootstrap .breadcrumb .dropdown-menu li { display: block; }
 .bootstrap .breadcrumb .navbar-search { margin-top: -1px; }
-
-.bootstrap .nav-pills > li > a { padding: 6px 12px; }
