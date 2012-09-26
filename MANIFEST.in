@@ -1,0 +1,3 @@
+include setup.py README.rst MANIFEST.in LICENSE VERSION
+recursive-include tx_highered/static *
+recursive-include tx_highered/templates *
