@@ -63,10 +63,8 @@
 {% block main %}
   <section id="admissions">
     <h2>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      <p>
+    <div class="well well-small chart-help">
         Number of students who applied, were admitted, and enrolled
-      </p>
     </div>
 
     {% if object.admission_buckets.years|length %}
@@ -143,9 +141,13 @@
 
   <section id="testing">
     <h2>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      <p>
-        Average SAT scores for entering students broken down by section
+
+    <div class="row">
+      <div class="span12">
+        <div class="well well-small chart-help">
+          Average SAT scores by section for enrolling students. Writing section of SAT introduced in 2006.
+        </div>
+      </div>
     </div>
 
     {% if object.testscores.all.exists %}
@@ -176,10 +178,15 @@
       </table>
 
       <div class="row">
-        <div class="span10">
+        <div class="span12">
           <div class="well well-small chart-help">
-            First and third quartile sat scores for entering students broken down by section
+            SAT Verbal, Math and Writing Scores by Year
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span10">
           <div class="chart d3-viz chart-viz loading"></div>
         </div>
         <div class="span2">
@@ -201,9 +208,15 @@
   <section id="enrollment">
     {% with b=object.enrollment_buckets %}
       <h2>Enrollment <small class="page-anchor"><a href="#enrollment"><i class="icon-share"></i></a></small></h2>
-      <div class="chart-help">
-        Total full-time equivalent students, the actual number of full-time and part-time students
+
+      <div class="row">
+        <div class="span12">
+          <div class="well well-small chart-help">
+            Number of full-time equivalent students
+          </div>
+        </div>
       </div>
+
       <table class="chart-data table table-striped table-condensed">
         <thead>
           <tr>
@@ -242,8 +255,16 @@
     {% with b=object.demographics_buckets %}
       <a name="demographics"></a>
       <h3>Demographics <small class="page-anchor"><a href="#demographics"><i class="icon-share"></i></a></small></h3>
-      <div class="chart-help">
-        Student body breakdown by ethnicity
+
+      <div class="row">
+        <div class="span12">
+          <div class="well well-small chart-help">
+            Percent of student body by ethnicity. (Reporting criteria changed
+            over reporting period. Specifically, prior to 2011, Pacific Islander
+            was bundled with Asian; Multiracial was introduced in 2010; and Not
+            Applicable Unknown was introduced in 2010.
+          </div>
+        </div>
       </div>
 
       {% if object.enrollment.all.exists %}
@@ -273,7 +294,7 @@
             </tr>
             {% if b.pacific_islander_percent %}
               <tr>
-                <th>Pacific Islander<aside><sup>1</sup></aside></th>
+                <th>Pacific Islander</th>
                 {% for a in b.pacific_islander_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
@@ -301,12 +322,18 @@
         </table>
 
         <div class="row">
-          <div class="span10">
+          <div class="span12">
             <div class="well well-small chart-help">
               Student body breakdown by ethnicity and total enrollment
             </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span10">
             <div class="chart d3-viz chart-viz loading"></div>
           </div>
+
           <div class="span2">
             <div class="chart-help">
               <div class="legend chart-legend">
@@ -315,13 +342,6 @@
           </div>
         </div>
 
-        {# TODO: if ever there were a usecase for an unordered list #}
-        <div class="footnotes">
-          <p>
-            <small>* Classification did not exist </small><br>
-            <small>1 Prior to 2011, Pacific Islander was included with Asian</small><br>
-          </p>
-        </div>
       {% else %}
         {% include "tx_highered/includes/no_data.html" %}
       {% endif %}
@@ -330,11 +350,14 @@
 
   <section id="pricetrends">
     <h2>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      <p>
-        Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
-      </p>
+    <div class="row">
+      <div class="span12">
+        <div class="well well-small chart-help">
+          Average total cost for in-state and out-of-state students by year
+        </div>
+      </div>
     </div>
+
     {% if object.pricetrends.all.exists %}
       {% instachart object.pricetrends.all "pricetrends" %}
 
@@ -398,12 +421,18 @@
       </table>
 
       <div class="row">
-        <div class="span10">
+        <div class="span12">
           <div class="well well-small chart-help">
-            Total Cost to Attend
+            Total costs for in-state and out-of-state students by year
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span10">
           <div class="chart d3-viz chart-viz loading"></div>
         </div>
+
         <div class="span2">
           <div class="chart-help">
             <h3>Total Costs</h3>
@@ -426,25 +455,40 @@
       </div>
 
       <div class="row">
+        <div class="span12">
+          <div class="well well-small chart-help">
+            Tuition for in-state and out-of-state students by year
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="span10">
-          <div class="well well-small chart-help">
-            In-State vs Out-of-State Tuition Costs
+          <div class="chart d3-viz chart-viz loading">
           </div>
-          <div class="chart d3-viz chart-viz loading"></div>
         </div>
+
         <div class="span2">
-          {# This space left intentionally blank #}
-        </div>
+          <div class="chart-help">
+            <div class="legend chart-legend">
+              <ul class="nav nav-pills nav-stacked">
+                <li>
+                  <a>
+                    <span class="legend-key" style="color: #39C;">&#9608;</span>
+                    <span class="legend-value">In-State</span>
+                  </a>
+                </li>
 
-
-        {% comment %}
-        <div class="span6">
-          <div class="well well-small chart-help">
-            Relative In-State vs Out-of-State Tuition Costs
+                <li class="inactive">
+                  <a>
+                    <span class="legend-key" style="color: #066;">&#9608;</span>
+                    <span class="legend-value">Out-of-State</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="chart d3-viz chart-viz loading"></div>
         </div>
-        {% endcomment %}
       </div>
     {% else %}
       {% include "tx_highered/includes/no_data.html" %}
@@ -453,10 +497,12 @@
 
   <section id="gradrates">
     <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
-    <div class="chart-help">
-      <p>
-        Percent of first-time, full-time students who graduated in a given number of years
-      </p>
+    <div class="row">
+      <div class="span12">
+        <div class="chart-help well well-small">
+          Percent of first-time, full-time students who graduated in four, five or six years
+        </div>
+      </div>
     </div>
 
     {% if object.graduationrates_buckets.years|length %}
@@ -490,12 +536,18 @@
       {% endwith %}
 
       <div class="row">
-        <div class="span10">
+        <div class="span12">
           <div class="well well-small chart-help">
-            Graduation Rates
+            Percent of first-time, full-time students who graduated in four, five or six years
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span10">
           <div class="chart d3-viz chart-viz loading"></div>
         </div>
+
         <div class="span2">
           <div class="chart-help">
             <div class="legend chart-legend">
