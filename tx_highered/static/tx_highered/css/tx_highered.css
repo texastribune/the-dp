@@ -38,6 +38,8 @@ h2:hover > .page-anchor, h3:hover > .page-anchor { visibility: visible; }
 td.align-right { text-align: right; }
 td.align-right .ui-tablebar { right: 0; }
 
+th aside { display: inline-block !important; width: 10%; }
+
 .ui-tablebar { color: #333; background: #dacd99; }
 
 .onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }

@@ -249,6 +249,7 @@
       <div class="chart-help">
         Student body breakdown by ethnicity
       </div>
+
       {% if object.enrollment.all.exists %}
         <table class="chart-data table table-striped table-condensed">
           <thead>
@@ -259,49 +260,50 @@
           </thead>
           <tbody>
             <tr>
-              <th>% White</th>
-              {% for a in b.total_percent_white.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              <th>White</th>
+              {% for a in b.total_percent_white.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
             <tr>
-              <th>% Black</th>
-              {% for a in b.total_percent_black.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              <th>Black</th>
+              {% for a in b.total_percent_black.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
             <tr>
-              <th>% Hispanic</th>
-              {% for a in b.total_percent_hispanic.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              <th>Hispanic</th>
+              {% for a in b.total_percent_hispanic.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
             <tr>
-              <th>% Asian</th>
-              {% for a in b.total_percent_asian.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              <th>Asian</th>
+              {% for a in b.total_percent_asian.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
             {% if b.pacific_islander_percent %}
               <tr>
-                <th>% Pacific Islander</th>
-                {% for a in b.pacific_islander_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+                <th>Pacific Islander<aside><sup>1</sup></aside></th>
+                {% for a in b.pacific_islander_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
             <tr>
-              <th>% Native</th>
-              {% for a in b.total_percent_native.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              <th>Native</th>
+              {% for a in b.total_percent_native.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
             {% if b.multiracial_percent %}
               <tr>
-                <th>% Multiracial</th>
-                {% for a in b.multiracial_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+                <th>Multiracial<aside><sup>2</sup></aside></th>
+                {% for a in b.multiracial_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
             {% if b.international_percent %}
               <tr>
-                <th>% International</th>
-                {% for a in b.international_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+                <th>International</th>
+                {% for a in b.international_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
             <tr>
-              <th>% Unknown</th>
-              {% for a in b.total_percent_unknown.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              <th>Unknown</th>
+              {% for a in b.total_percent_unknown.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
           </tbody>
         </table>
+
         <div class="row">
           {# use grid and span12 because we'll probably need the grid #}
           <div class="span10">
@@ -315,12 +317,13 @@
             </div>
           </div>
         </div>
+
+        {# TODO: if ever there were a usecase for an unordered list #}
         <div class="footnotes">
           <p>
-            <small>Reporting changes from year to year.</small><br>
-            <small>Not Applicable (N/A) was introduced in 2010.</small><br>
-            <small>Multiracial was introduced in 2010.</small><br>
-            <small>Prior to 2011, Pacific Islander was bundled with Asian</small>
+            <small>* New classifications are added from time to time</small><br>
+            <small>1 Prior to 2011, Pacific Islander was included with Asian</small><br>
+            <small>2 Multiracial was introduced in 2010.</small><br>
           </p>
         </div>
       {% else %}
