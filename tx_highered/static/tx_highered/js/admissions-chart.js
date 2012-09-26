@@ -137,7 +137,7 @@
   $('#admissions rect').tooltip({
     title: function(){
       var d = this.__data__;
-      return d.series + " (" + d.x + "):<br><strong>" + d.y + "</strong>";
+      return d.series + " (" + d.x + "):<br><strong>" + d3.format(",.0f")(d.y) + "</strong>";
     }
   });
 })();
