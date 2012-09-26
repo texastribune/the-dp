@@ -41,6 +41,13 @@ td.align-right {
   .ui-tablebar { right: 0 ; }
 }
 
+th {
+  aside {
+    display: inline-block !important;
+    width: 10%;
+  }
+}
+
 // UI
 .ui-tablebar { color: #333; background: $tan; }
 
