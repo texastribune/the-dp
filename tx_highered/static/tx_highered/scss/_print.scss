@@ -1,0 +1,13 @@
+@media print {
+  // hack to remove elements at the top so the map of texas doesn't get cut off
+  #site_roofline, #greeting {
+    display: none;
+  }
+
+  // hide interactive ui elements
+  .breadcrumb {
+    .caret, .navbar-search {
+      display: none;
+    }
+  }
+}

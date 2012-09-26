@@ -1,146 +1,547 @@
-{% extends "tx_highered/two_column_base.html" %}
+{% extends "tx_highered/detail_base.html" %}
 {% load layout_helpers humanize instachart %}
-{% load webdesign %}
+{% load url from future %}
 
 
 {% block head_title %}{{ object.name }}{% endblock %}
 {% block page_title %}{{ object.name }}{% endblock %}
 
 
-{% block page_top %}
-  <div class="row">
-    <div class="span9">
-      {% include "tx_highered/includes/sentences.html" %}
-    </div>
+{% block breadcrumb_items %}
+  {% if object.system %}
+    <li>
+      <div class="btn-group">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#{# object.system.get_absolute_url #}">
+          {{ object.system }}
+          <span class="caret" style="vertical-align: middle;"></span>
+        </a>
+        <ul class="dropdown-menu">
+          {% for inst in object.system.institution_set.published %}
+            <li {% if inst == object %}class="active"{% endif %}><a tabindex="-1" href="{{ inst.get_absolute_url }}">{{ inst.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
 
-    <div class="span3">
-      {% render_model object "quick-stats" %}
-    </div>
-  </div>
+    </li>
+  {% endif %}
+  <li class="active">
+    {% if object.system %}
+      <span class="divider">/</span>
+    {% endif %}
+    <a href="">{{ object.name }}</a>
+  </li>
 {% endblock %}
 
+
+{% block page_top %}
+  {% if institution.sentence_institution_type %}
+    <p class="rollup">
+        {{ institution.sentence_institution_type.title }}
+    </p>
+  {% endif %}
+
+  {% if institution.number_of_full_time_students %}
+    <p class="rollup">
+        {{ institution.number_of_full_time_students|intcomma }} students
+    </p>
+  {% endif %}
+
+  {% include "tx_highered/includes/sentences.html" %}
+{% endblock %}
+
+
+{% block rail %}
+  {% render_model object "quick-stats" %}
+  {% if object.location %}
+    <div class="well" style="padding: 0;">
+      {% include "tx_highered/includes/map_static_mapbox.html" with w=231 h=143 %}
+    </div>
+  {% endif %}
+{% endblock rail %}
+
+
 {% block main %}
-  <section id="pricetrends">
-    <h3>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h3>
-    <p>{% lorem 20 w %}</p>
-    {% instachart object.pricetrends.all "pricetrends" %}
-  </section>
-
-  <section id="testing">
-    <h3>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h3>
-    {% instachart object.testscores.all "testscores" %}
-  </section>
-
   <section id="admissions">
-    <h3>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h3>
-    {% if object.admissions.all.exists %}
-      {% with object_list=object.admissions.all %}
-        {% include "instachart/admissions/admissions.html" %}
+    <h2>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Total number of applications, percent of applicants who were admitted, and percent of those admitted who ultimately enrolled
+      </p>
+    </div>
+
+    {% if object.admission_buckets.years|length %}
+      {% with object_list=object.get_admissions %}
+        {% include "instachart/simplechart/admissions.html" %}
       {% endwith %}
+
+      <table class="chart-data table table-striped table-condensed admissions">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in object.admission_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <th>Applicants</th>
+            {% for a in object.admission_buckets.applicants.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+          </tr>
+
+          <tr>
+            <th>Admitted<br><small>(% of Applicants)</small></th>
+            {% for a in object.admission_buckets.admitted.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
+          </tr>
+
+          <tr>
+            <th>Enrolled<br><small>(% of Admitted)</small></th>
+            {% for a in object.admission_buckets.enrolled.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
+          </tr>
+        </tbody>
+      </table>
 
       <div class="row">
         <div class="span10">
-          <div class="d3-viz" style="height: 300px"></div>
+          <div class="d3-viz chart-viz loading" style="height: 300px"></div>
         </div>
 
         <div class="span2">
-          <div class="well well-condensed">
-            <p>
-              This visualization shows the number of applicants,
-              those admitted, and the number of students that are
-              enrolled.
-            </p>
+          <div class="well well-small">
+            This visualization shows the number of applicants,
+            those admitted, and the number of students that are
+            enrolled.
 
-            <a href="#" class="zoom">
+            <a href="#" class="btn zoom">
               <i class="icon-plus"></i>
               Toggle Applicants
             </a>
           </div>
         </div>
+      </div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
+
+    {% with b=object.admission_top10_buckets %}
+      {% if b.years|length %}
+        <table class="chart-data table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>First-Time Students in Top 10%</th>
+              {% for a in b.percent_top10rule.values %}<td>{{ a }}%</td>{% endfor %}
+            </tr>
+          </tbody>
+        </table>
+        <div class="footnotes">
+          <ul>
+            <li style="color: gray; font-size: 12px;">Data from 2001 not yet available through THECB Accountability System Website. To be added in the future.</li>
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+  </section>
+
+  <section id="testing">
+    <h2>Test Scores <small class="page-anchor"><a href="#testing"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Average SAT scores for entering students broken down by section
+    </div>
+
+    {% if object.testscores.all.exists %}
+      {% instachart object.testscores.all "testscores" %}
+
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in object.sat_score_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+
+        <tr>
+          <th>Verbal</th>
+          {% for a in object.sat_score_buckets.verbal_range.values %}<td>{{ a }}</td>{% endfor %}
+        </tr>
+
+        <tr>
+          <th>Math</th>
+          {% for a in object.sat_score_buckets.math_range.values %}<td>{{ a }}</td>{% endfor %}
+        </tr>
+
+        <tr>
+          <th>Writing</th>
+          {% for a in object.sat_score_buckets.writing_range.values %}<td>{{ a }}</td>{% endfor %}
+        </tr>
+      </table>
+
+      <div class="row">
+        <div class="span10">
+          <div class="chart d3-viz chart-viz loading"></div>
+        </div>
+        <div class="span2">
+          <div class="chart-help">
+            {# <h2>Legend</h2> #}
+            <div class="legend chart-legend">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>
+        <small>SAT Writing did not exist until 2006.</small><br>
+        <small>Schools may not have considered SAT Writing some years.</small>
+      </p>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
+  </section>
+
+  <section id="enrollment">
+    {% with b=object.enrollment_buckets %}
+      <h2>Enrollment <small class="page-anchor"><a href="#enrollment"><i class="icon-share"></i></a></small></h2>
+      <div class="chart-help">
+        Total full-time equivalent students, the actual number of full-time and part-time students
+      </div>
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% if b.total %}
+            <tr>
+              <th>Total</th>
+              {% for a in b.total.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.fulltime_equivalent %}
+            <tr>
+              <th>Full-Time Equivalent (FTE)</th>
+              {% for a in b.fulltime_equivalent.values %}<td>{{ a|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.fulltime %}
+            <tr>
+              <th>Full-Time</th>
+              {% for a in b.fulltime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+          {% if b.parttime %}
+            <tr>
+              <th>Part-Time</th>
+              {% for a in b.parttime.values %}<td>{{ a|default:""|intcomma }}</td>{% endfor %}
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    {% endwith %}
+    {% with b=object.demographics_buckets %}
+      <a name="demographics"></a>
+      <h3>Demographics <small class="page-anchor"><a href="#demographics"><i class="icon-share"></i></a></small></h3>
+      <div class="chart-help">
+        Student body breakdown by ethnicity
+      </div>
+      {% if object.enrollment.all.exists %}
+        <table class="chart-data table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>% White</th>
+              {% for a in b.total_percent_white.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>% Black</th>
+              {% for a in b.total_percent_black.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>% Hispanic</th>
+              {% for a in b.total_percent_hispanic.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>% Asian</th>
+              {% for a in b.total_percent_asian.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+            {% if b.pacific_islander_percent %}
+              <tr>
+                <th>% Pacific Islander</th>
+                {% for a in b.pacific_islander_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              </tr>
+            {% endif %}
+            <tr>
+              <th>% Native</th>
+              {% for a in b.total_percent_native.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+            {% if b.multiracial_percent %}
+              <tr>
+                <th>% Multiracial</th>
+                {% for a in b.multiracial_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              </tr>
+            {% endif %}
+            {% if b.international_percent %}
+              <tr>
+                <th>% International</th>
+                {% for a in b.international_percent.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+              </tr>
+            {% endif %}
+            <tr>
+              <th>% Unknown</th>
+              {% for a in b.total_percent_unknown.values %}<td>{{ a|default:"&ndash;" }}</td>{% endfor %}
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          {# use grid and span12 because we'll probably need the grid #}
+          <div class="span10">
+            <div class="chart d3-viz chart-viz loading"></div>
+          </div>
+          <div class="span2">
+            <div class="chart-help">
+              {# <h2>Legend</h2> #}
+              <div class="legend chart-legend">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footnotes">
+          <p>
+            <small>Reporting changes from year to year.</small><br>
+            <small>Not Applicable (N/A) was introduced in 2010.</small><br>
+            <small>Multiracial was introduced in 2010.</small><br>
+            <small>Prior to 2011, Pacific Islander was bundled with Asian</small>
+          </p>
+        </div>
       {% else %}
         {% include "tx_highered/includes/no_data.html" %}
       {% endif %}
+    {% endwith %}
   </section>
 
-  <h3>Enrollment</h3>
-  {% instachart object.enrollment.all %}
+  <section id="pricetrends">
+    <h2>Price Trends <small class="page-anchor"><a href="#pricetrends"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Average annual tuition and fees for both in-state and out-of-state students, plus the average cost of textbooks and room and board
+      </p>
+    </div>
+    {% if object.pricetrends.all.exists %}
+      {% instachart object.pricetrends.all "pricetrends" %}
 
-  <h3>Graduation Rates</h3>
-  {% instachart object.graduationrates.all "graduationrates" %}
+      <table class="chart-data table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+            {% for year in object.tuition_buckets.years %}<th>{{ year }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>In-State Tuition</th>
+            {% for a in object.tuition_buckets.in_state.values %}
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th>Out-Of-State Tuition</th>
+            {% for a in object.tuition_buckets.out_of_state.values %}
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th>Books &amp; Supplies</th>
+            {% for a in object.tuition_buckets.books_and_supplies.values %}
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+          <tr>
+            <th>Room &amp; Board</th>
+            {% for a in object.tuition_buckets.room_and_board_on_campus.values %}
+              <td>
+                {% if a %}
+                  <span class="dollar">$</span><span class="currency">{{ a|intcomma }}</span>
+                {% else %}
+                  <span class="nodata">N/A</span>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="span10 chart d3-viz chart-viz loading"></div>
+        <div class="span2">
+          <div class="chart-help">
+            <h3>Total Costs</h3>
+            <div class="chart-legend">
+              <ul class="nav nav-pills nav-stacked">
+                <li class="instate active">
+                  <a href="#" data-idx="1">
+                    <span class="legend-key" style="color: #39C;">&#9608;</span> In-State
+                  </a>
+                </li>
+                <li class="outofstate">
+                  <a href="#" data-idx="0">
+                    <span class="legend-key" style="color: #066;">&#9608;</span> Out-of-State
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span10">
+          <div class="well well-small chart-help">
+            In-State vs Out-of-State Tuition Costs
+          </div>
+          <div class="chart d3-viz chart-viz loading"></div>
+        </div>
+        <div class="span2">
+          {# This space left intentionally blank #}
+        </div>
+
+
+        {% comment %}
+        <div class="span6">
+          <div class="well well-small chart-help">
+            Relative In-State vs Out-of-State Tuition Costs
+          </div>
+          <div class="chart d3-viz chart-viz loading"></div>
+        </div>
+        {% endcomment %}
+      </div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
+  </section>
+
+  <section id="gradrates">
+    <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
+    <div class="chart-help">
+      <p>
+        Percent of first-time, full-time students who graduated in a given number of years
+      </p>
+    </div>
+
+    {% if object.graduationrates_buckets.years|length %}
+      {% with object_list=object.get_graduation_rates %}
+        {% include "instachart/simplechart/gradrates.html" %}
+      {% endwith %}
+
+      {% with b=object.graduationrates_buckets %}
+        <table class="chart-data table table-striped table-condensed">
+          <thead>
+            <tr>
+              <th></th>
+              {% for year in b.years %}<th>{{ year }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>4-Year</th>
+              {% for a in b.bachelor_4yr.values %}<td>{% if a %}{{ a }}%{% else %}N/A{% endif %}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>5-Year</th>
+              {% for a in b.bachelor_5yr.values %}<td>{% if a %}{{ a }}%{% else %}N/A{% endif %}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th>6-Year</th>
+              {% for a in b.bachelor_6yr.values %}<td>{% if a %}{{ a }}%{% else %}N/A{% endif %}</td>{% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      {% endwith %}
+
+      <div class="row">
+        <div class="span10">
+          <div class="chart d3-viz chart-viz loading"></div>
+        </div>
+        <div class="span2">
+          <div class="chart-help">
+            {# <h3>Legend</h3> #}
+            <div class="legend chart-legend">
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      {% include "tx_highered/includes/no_data.html" %}
+    {% endif %}
+  </section>
+{% endblock %}
+
+{% block attribution %}
+    {% include "tx_highered/includes/attribution.html" %}
 {% endblock %}
 
 {% block extra_script %}{{ block.super }}
+<script src="{{ STATIC_URL }}vendor/bootstrap/js/bootstrap{% if not debug %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/barchart.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
+<script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
 <script>
-  var $source = $('#pricetrends table');
-  var data = $source.tabulate();
-
-  // store
-
-  var chart = d3BarChart($('<div class="chart" />').insertAfter($source)[0],
-      [data[0], data[3], data[2]],
-      {
-        'style': 'stacked',
-        'tooltip': function(){
-          var d = this.__data__;
-          return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
-        }
-      });
-  $source.find('th:eq(1)').click(function(){
-    chart.data([data[0], data[3], data[2]]);
-  });
-  $source.find('th:eq(2)').click(function(){
-    chart.data([data[1], data[3], data[2]]);
-  });
-
-  var chart2 = d3BarChart($('<div class="chart" />').insertAfter(chart.elem)[0],
-              [data[0], data[1]], {
-                'style': 'grouped'
-              });
-  var x_array = data[0].map(function(a){ return a.x; });
-  var oldTooltip = chart2.option('tooltip');
-  var oldYFormat = chart2.yAxis.tickFormat();
-  var hoverTooltip = function(){
-        var d = this.__data__;
-        return d.series + " <b>" + d3.format(",.2f")(this.__data__.y - 100) + "%</b>";
-      };
-  chart2.plot.selectAll('rect.bar').on("click", function(){
-    var idx = x_array.indexOf(this.__data__.x);
-    if (idx === -1) { console.error("couldn't find index", x_array, this.__data__); return; }
-    var normData = normalizeFirst([data[0], data[1]], idx);
-    chart2.option('tooltip', hoverTooltip);
-    chart2.yAxis.tickFormat(function(a){ return a - 100 + '%'; });
-    chart2.data(normData);
-    // add sea-level line
-    var s = chart2.yAxis.scale();
-    chart2.plot.selectAll('line.sealevel')
-      .data([100, 200, 300, 400])
-        .enter().append('line').attr('class', 'sealevel')
-          .attr('x1', 0)
-          .attr('x2', '100%')
-          .attr('y1', 0)
-          .attr('y2', 0)
-          .attr('stroke-opacity', 0)
-          .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; });
-    chart2.plot.selectAll('line.sealevel')  // called after .enter() AND updates
-      .transition()
-        .attr("transform", function(d){ return "translate(0, " + s(d) + ")"; })
-        .attr('stroke-opacity', 100);
-  });
-  $(chart2.elem).on("dblclick", function(){
-    chart2.option('tooltip', oldTooltip);
-    chart2.yAxis.tickFormat(oldYFormat);
-    chart2.data([data[0], data[1]]);
-    // remove sea-level line
-    chart2.svg.selectAll('line.sealevel').data([]).exit()
-      .transition()
-        .attr('stroke-opacity', 0)
-        .remove();
-  });
-
   $(".onion").onionize();
+
+  // Enrollment chart
+  // init_enrollment_chart({
+  //   url: "{% url "tx_highered:enrollment_api" object.id %}"
+  // });
+
+  var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
+
+
+  var testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
+  var testchart = new TestScoresChart(
+        $('#testing .d3-viz'),
+        testchart_url,
+        {
+          color: ['#066', '#c93', '#339'],
+          tooltip: function(){
+            var d = this.__data__;
+            return d.title ||
+            "" + d.y + " - " + d.y_max + "";
+          },
+          legendElem: $('#testing .legend'),
+          legendStackOrder: "ttb"
+        }
+      );
 </script>
+<script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 {% endblock %}

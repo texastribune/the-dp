@@ -6,8 +6,8 @@ python exampleproject/manage.py migrate
 
 # add the user: admin/admin
 python exampleproject/manage.py loaddata ./exampleproject/fixtures/auth.json
-# for some reason syncdb doesn't pick this up
-python exampleproject/manage.py loaddata ./exampleproject/fixtures/initial_data.json
+# load intial data for institutions
+python exampleproject/manage.py loaddata highered_base.json
 
 # since this is a new database, delete any old log files if they exist
 # TODO don't setup examples here

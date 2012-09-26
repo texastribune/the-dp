@@ -1,7 +1,8 @@
+from django.db.models import Max
+from django.core.cache import cache
 from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
-from armstrong.core.arm_wells.models import Well
 
 from .models import Institution
 
@@ -15,6 +16,7 @@ class RenderModelDetailView(DetailView):
 
 
 class FunnelMixin(object):
+    """ Adds `funnels` property to an `Institution` for the Funnel viz """
     def annotate_funnels(self, inst):
         enterdata = inst.admissions.all()
 
@@ -35,6 +37,20 @@ class FunnelMixin(object):
 class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
 
+    def get_short_list_qs(self):
+        """ list of high enrollment schools to make getting to UT one click """
+        queryset = cache.get(__name__ + ".shortlist")
+        if queryset is None:
+            queryset = Institution.objects.published().annotate(
+                enr=Max('enrollment__total')).filter(enr__isnull=False).order_by('-enr')
+            cache.set(__name__ + ".shortlist", queryset, 3600 * 24 * 7)
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context['short_list'] = self.get_short_list_qs()[:15]
+        return context
+
 
 class InstitutionListView(ListView):
     queryset = Institution.objects.filter(ipeds_id__isnull=False).\
@@ -46,7 +62,8 @@ class InstitutionDetailView(DetailView, FunnelMixin):
 
     def get_context_data(self, *args, **kwargs):
         context = super(InstitutionDetailView, self).get_context_data(*args, **kwargs)
-        self.annotate_funnels(self.object)
+        context['prompt_for_chrome_frame'] = True
+        # self.annotate_funnels(self.object)
         return context
 
 

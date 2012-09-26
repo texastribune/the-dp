@@ -7,15 +7,33 @@
 @import "variables";
 
 @import "svg";
+@import "map";
+
+@import "detail";
+@import "rail";
+@import "print";
+
+#intro p { font-size: 1.25em; }
+
+
+// make sure currency is text-align right
+#pricetrends {
+  .chart-data {
+    tbody td { text-align: right; }
+    .dollar {
+      color: #666;
+    }
+    .currency {
+      margin-right: 14px;  // XXX using margin for position
+    }
+  }
+}
 
 
 // use visiblity because display:none affects box size calculations
-h3 > .page-anchor { visibility: hidden; }
-h3:hover > .page-anchor { visibility: visible; }
-
-// mimic h1 > small
-td small {
-  color: #999;
+h2, h3 {
+  > .page-anchor { visibility: hidden; }
+  &:hover > .page-anchor { visibility: visible; }
 }
 
 td.align-right {
@@ -32,3 +50,107 @@ td.align-right {
 .funnel .bar { background: $blue; margin: 0 auto; overflow: hidden; text-indent: 110%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
+
+.higher-ed {
+  .landing {
+    .map-container {
+      position: relative;
+
+      button {
+        position: absolute;
+        left: 33%;
+        width: 33%;
+        display: block;
+        z-index: 1000;
+      }
+    }
+  }
+
+  table.data-source {
+    display: none;
+  }
+
+  .admissions {
+    tbody td {
+      small { display: block; }
+    }
+  }
+}
+
+.data-app {
+    .app-header {
+        h1 {
+            font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif;
+            font-weight: 900;
+            font-size: 2.75em;
+            text-transform: uppercase;
+            height: 60px;
+
+            img {
+              margin-right: 5px;
+            }
+
+            a {
+              color: #222;
+              text-decoration: none;
+            }
+
+            small {
+                display: block;
+                font-size: 0.5em;
+                text-transform: none;
+            }
+        }
+    }
+
+  .page-header {
+    font-family: $sansFontFamily;
+  }
+
+  // section headings, h2 is reserved for future expansion (e.g. h2 enrollment,
+  // h3 by ethnicity, h3 by gender, h3 by age, h3 by geographic origin)
+  h2, h3 {
+    font-family: $sansFontFamily;
+  }
+
+  .rollup {
+    font-family: $sansFontFamily;
+    font-size: 150%;
+  }
+
+  .input-append .add-on:hover {
+    cursor: pointer;
+  }
+
+  #attribution {
+    margin-top: 2em;
+    margin-bottom: -2em;
+    i {
+      height: 1.2em;
+      vertical-align: middle;
+    }
+  }
+}
+
+// fixes for elements getting shoved into the breadcrumb
+.bootstrap .breadcrumb {
+  // assumes there's a .btn element, but there isn't
+  .btn-group > .dropdown-toggle {
+     padding-left: 0;
+     padding-right: 0;
+  }
+  .btn-group.open .dropdown-toggle { box-shadow: none; }
+
+  .dropdown-menu {
+    .active a {
+      color: white;
+    }
+    li {
+      display: block;
+    }
+  }
+
+  .navbar-search {
+    margin-top: -1px;
+  }
+}

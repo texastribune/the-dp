@@ -1,5 +1,19 @@
-.chart {
+.chart-viz {
   height: 300px;
+
+  &.loading {
+    background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eee;
+  }
+
+  .axis {
+    // copy .chart-data's style
+    font-family: sans-serif;  // TODO inherit sans-serif
+    font-size: 12px;
+
+    text {
+      fill: #333;
+    }
+  }
 }
 
 svg {
@@ -17,5 +31,18 @@ svg {
 
   .sealevel {
     stroke: rgba(30, 30, 80, 0.4);
+  }
+}
+
+.chart-legend {
+  font-family: sans-serif;
+  font-size: 12px;
+
+  ul {
+    list-style: none;
+    margin: 0;
+  }
+  .legend-key {
+    margin-right: 5px;
   }
 }

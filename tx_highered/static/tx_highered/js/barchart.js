@@ -1,5 +1,23 @@
+/*global $, d3, tt */
+(function($, d3, tt, exports){
+  "use strict";
+// begin file-iffy, unindent
+
+// CONFIGURATION
+var defaultOptions = {
+      color: d3.scale.category10(),
+      height: 300,
+      width: 940,
+      margin: [10, 0, 30, 50],
+      tooltip: function(){ return this.__data__.title || this.__data__.y; },
+      enable_axis_x: true,
+      enable_axis_y: true,
+      legendStackOrder: "btt"  // btt bottom-to-top or ttb top-to-bottom
+    };
+
+
 // data processor TODO move awaaaaay
-function normalizeFirst(data, idx){
+exports.normalizeFirst = function(data, idx){
   data = $.extend(true, [], data);  // make a deep copy of data
   idx = idx || 0;
   // var max_first = data
@@ -13,219 +31,393 @@ function normalizeFirst(data, idx){
     }
   }
   return data;
-}
+};
 
+/***************** CHART ******************/
+var D3Chart = exports.D3Chart = tt.Class.extend({
+  // override this if data needs to be scrubbed before getting charted
+  initData: function(data){ return data; },
 
-// inclusive range
-function irange(min, max){
-  var a = [];
-  for (var i = min; i <= max; i++){
-    a.push(i);
-  }
-  return a;
-}
-
-
-/*
-  Based on:
-  http://mbostock.github.com/d3/ex/stack.html
-*/
-var d3BarChart = function(el, data, options){
-  // merge user options and default options
-  var defaultOptions = {
-    color: d3.scale.category10(),
-    style: 'stacked',
-    tooltip: function(){ return this.__data__.title || this.__data__.y; }
-  };
-  var enable_axis_x = true;
-  var enable_axis_y = true;
-  var margin = [10, 50, 30, 50];
-  options = $.extend({}, defaultOptions, options);
-
-  // data pre-processor
-  if (options.style == "stacked"){
-    // transform data, pre-calculate y0 bar stack offset
-    data = d3.layout.stack()(data);
-  }
-
-  // configure svg box
-  var width = 940;
-  var height = 300;
-  // setup svg DOM
-  var svg = d3.select(el)
-              .append("svg")
-              .attr("width", "100%")
-              .attr("height", "100%")
-              .attr("viewBox", [0, 0, width, height].join(" "))
-              .attr("preserveAspectRatio", "xMinYMin meet");
-
-
-  // configure plot box
-  var plot_box = {
-        w: width - margin[1] - margin[3],
-        h: height - margin[0] - margin[2]
-      },
-      bar_width;
-  // setup plot DOM
-  var plot = svg
-            .append("g")
-            .attr("class", "plot")
-            .attr("width", plot_box.w)
-            .attr("height", plot_box.h)
-            .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")");
-
-  // d3 configuration
-  var len_series = data.length; // m, i, rows
-  var len_x = data[0].length,   // n, j, cols
-      min_x = data[0][0].x,
-      max_x = data[0][len_x - 1].x,
-      // TODO refactor to generate with or without d.y0 constant dyanamically
-      find_ceiling = function(data){
-        return d3.max(data, function(d) {
-          return d3.max(d, function(d) {
-            return d.y;
-          });
-        });
-      },
-      find_ceiling_stacked = function(data){
-        return d3.max(data, function(d) {
-          return d3.max(d, function(d) {
-            return d.y + d.y0;
-          });
-        });
-      },
-      x_scale = d3.scale.ordinal()
-                  .domain(irange(min_x, max_x))
-                  .rangeRoundBands([0, plot_box.w], 0.1, 0.1),
-      x_axis,
-      x = function(d) { return x_scale(d.x); },
-      height_scale_stack = d3.scale.linear().range([0, plot_box.h]),
-      y_scale = d3.scale.linear().range([plot_box.h, 0]),
-      y_axis,
-      y;
-
-  // sets global height and scales
-  function rescale(data_ceiling){
-    height_scale_stack.domain([0, data_ceiling]);
-    y_scale.domain([0, data_ceiling]);
-    if (y_axis){
-      svg.select('.y.axis').transition().call(y_axis);
-    }
-  }
-
-  bar_width = plot_box.w / len_x;  // bar_width is an outer width
-  if (options.style == "grouped") {
-    // subdivide bar_width further
-    bar_width = bar_width / len_series;
-  }
-
-  if (options.style == "stacked"){
-    find_ceiling = find_ceiling_stacked;
-    y = function(d) { return y_scale(d.y + d.y0); };
-  } else {
-    y = function(d) { return y_scale(d.y); };
-  }
-  rescale(find_ceiling(data));
-
-  // set up a layer for each series
-  var layers = plot.selectAll("g.layer")
-    .data(data)
-    .enter().append("g")
-      .attr("class", "layer")
-      .style("fill", function(d, i) { return options.color(i); });
-  // shift grouped bars so they're adjacent to each other
-  if (options.style == "grouped") {
-    layers
-      .attr("transform", function(d, i) {
-        var offset = bar_width * 0.9 * i;
-        return "translate(" + offset + ",0)";
-      });
-  }
-
-  // setup a bar for each point in a series
-  var bars = layers.selectAll("rect.bar")
-    .data(function(d) { return d; })
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("width", bar_width * 0.9)
-      .attr("x", x)
-      .attr("y", plot_box.h)
-      .attr("height", 0)
-      .transition()
-        .delay(function(d, i) { return i * 10; })
-        // .attr("y", function(d) { return height_scale_stack(d.y0); })  // inverse
-        .attr("y", y)
-        .attr("height", function(d) { return height_scale_stack(d.y); });
-
-  // tooltip
-  $('rect.bar', svg[0]).tooltip({
-    // manually call because options.tooltip can change
-    title: function(){ return options.tooltip.call(this); }
-  });
-
-  // draw axes
-  if (enable_axis_x) {
-    x_axis = d3.svg.axis()
-    .orient("bottom")
-             .scale(x_scale)
-             .tickSize(6, 1, 1)
-             .tickFormat(function(a){ return a; });
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(" + margin[3] + "," + (height - margin[2]) + ")")
-        .call(x_axis);
-  }
-  if (enable_axis_y) {
-    y_axis = d3.svg.axis()
-             .scale(y_scale)
-             .orient("left");
-    svg.append("g")
-        .attr("class", "y axis")
-        .attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
-        .call(y_axis);
-  }
-
-  // PUBLIC METHOD
-  function get_or_set_data(new_data){
+  // get or set data
+  data: function(new_data){
+    var data;
     if (typeof new_data === "undefined"){
-      return data;
+      return this._data;
     }
 
-    // process add stack offsets
-    data = d3.layout.stack()(new_data);
+    this._data = this.initData(new_data);
+    this.refresh();
+    return this;
+  },
+
+  // get or set data
+  refresh: function(){
+    return this;
+  },
+
+  // get or set option
+  option: function(name, newvalue){
+    if (typeof newvalue === "undefined"){
+      return this.options[name];
+    }
+    this.options[name] = newvalue;
+    return this;
+  }
+
+});
+
+
+/***************** BAR CHART ******************/
+var D3BarChart = exports.D3BarChart = D3Chart.extend({
+  init: function(el, data, options){
+    var self = this;
+    if (el.jquery) {  // todo what about things like zepto?
+      this.elem = el[0];
+      this.$elem = el;
+    } else if (typeof el == "string"){
+      this.elem = document.getElementById(el);
+    } else {
+      this.elem = el;
+    }
+    if (!this.elem){
+      // console.warn("missing element")
+      return false;
+    }
+    if (typeof data == "string"){  // if data is url
+      d3.json(data, function(new_data) {
+        self._data = self.initData(new_data);
+        self.setUp(options);
+        self.render();
+      });
+    } else {
+      this._data = this.initData(data);
+      this.setUp(options);
+      this.render();
+    }
+  },
+
+  setUp: function(options){
+    // merge user options and default options
+    var self = this,
+        data = this._data;
+
+    // set up box dimensions based on the parent element
+    if (!self.$elem) { self.$elem = $(self.elem); }
+    defaultOptions.height = self.$elem.height();
+    defaultOptions.width = self.$elem.width();
+
+    self.options = $.extend({}, defaultOptions, options);
+
+    // allow an array of hex values for convenience
+    if ($.isArray(self.options.color)) {
+      self.options.color = d3.scale.ordinal().range(self.options.color);
+    }
+
+    // pre-calculate plot box dimensions
+    var plot_box = {
+          w: self.options.width - self.options.margin[1] - self.options.margin[3],
+          h: self.options.height - self.options.margin[0] - self.options.margin[2]
+        };
+    self.options.plot_box = plot_box;
+
+    self.layerFillStyle = self.getLayerFillStyle();
+
+    // setup x scales
+    this.x_scale = self.getXScale();
+    self.x_axis = null;
+    self.x = self.getX();
+
+    // setup y scales
+    self.height_scale = d3.scale.linear().range([0, plot_box.h]);
+    self.y_scale = d3.scale.linear().range([plot_box.h, 0]);
+    self.y_axis = null;
+    self.y = self.getY();
+    self.h = self.getH();
+
+    // setup bar width
+    self.bar_width = this.getBarWidth();
+  },
+
+  render: function(){
+    var self = this, svg, plot, x_axis, y_axis;
+
+    this.$elem.removeClass('loading');
+
+    // setup svg DOM
+    svg = d3.select(this.elem)
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", [0, 0, this.options.width, this.options.height].join(" "))
+            .attr("preserveAspectRatio", "xMinYMin meet");
+    this.svg = svg;
+
+    // setup plot DOM
+    plot = svg
+             .append("g")
+             .attr("class", "plot")
+             .attr("width", this.options.plot_box.w)
+             .attr("height", this.options.plot_box.h)
+             .attr("transform", "translate(" + this.options.margin[3] + "," + this.options.margin[0] + ")");
+    this.plot = plot;
+
+    this.rescale(self.getYDomain());
+
+    this._layers = this.getLayers();
+    this.getBars();
+
+    // tooltip
+    $('rect.bar', svg[0]).tooltip({
+      // manually call because options.tooltip can change
+      title: function(){ return self.options.tooltip.call(this); }
+    });
+
+    // draw axes
+    if (self.options.enable_axis_x) {
+      x_axis = d3.svg.axis()
+        .orient("bottom")
+        .scale(self.x_scale)
+        .tickSize(6, 1, 1)
+        .tickFormat(function(a){ return a; });
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(" + self.options.margin[3] + "," + (self.options.height - self.options.margin[2]) + ")")
+        .call(x_axis);
+      self.xAxis = x_axis;
+    }
+    if (self.options.enable_axis_y) {
+      y_axis = d3.svg.axis()
+               .scale(self.y_scale)
+               .orient("left");
+      if (self.options.yAxisTickFormat) {
+        y_axis.tickFormat(self.options.yAxisTickFormat);
+      }
+      svg.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
+          .call(y_axis);
+      self.yAxis = y_axis;
+    }
+    if (self.options.legendElem) {
+      // only one chart has a legend, as we add more, this will naturally
+      // get refactored into something that makes sense
+      self.renderLegend(self.options.legendElem);
+    }
+  },
+
+  getXScale: function(){
+    // TODO this makes a lot of assumptions about how the input data is
+    // structured and ordered, replace with d3.extent
+    var self = this,
+        data = this._data;
+    var len_x = data[0].length,
+        min_x = data[0][0].x,
+        max_x = data[0][len_x - 1].x;
+    return d3.scale.ordinal()
+        .domain(d3.range(min_x, max_x + 1))
+        .rangeRoundBands([0, self.options.plot_box.w], 0.1, 0.1);
+  },
+
+  getYDomain: function(){
+     return [0, this.getMaxY(this._data)];
+  },
+
+  refresh: function(){
+    var self = this,
+        data = self._data;
 
     // reset height ceiling
-    rescale(find_ceiling(data));
+    self.rescale(self.getYDomain());
 
     // update layers data
-    layers.data(data);
+    self._layers.data(data);
     // update bars data :(
-    layers.selectAll("rect.bar")
+    self._layers.selectAll("rect.bar")
       .data(function(d) { return d; })
       .transition()
-        .attr("y", y)
-        .attr("height", function(d) { return height_scale_stack(d.y); });
-    return layers;
-  }
+        .attr("y", self.y)
+        .attr("height", self.h);
 
-  // PUBLIC METHOD
-  function get_or_set_option(name, newvalue){
-    if (typeof newvalue === "undefined"){
-      return options[name];
+    if (self.yAxis){
+      self.svg.select('.y.axis').transition().call(self.yAxis);
     }
-    options[name] = newvalue;
+    return this;
+  },
+
+  getMaxY: function(data){
+    return d3.max(data, function(d) {
+      return d3.max(d, function(d) {
+        return d.y;
+      });
+    });
+  },
+
+  getLayerFillStyle: function(){
+    var self = this;
+    return function(d, i) { return self.options.color(i); };
+  },
+
+  getX: function(){
+    var self = this;
+    return function(d) { return self.x_scale(d.x); };
+  },
+
+  getY: function(){
+    var self = this;
+    return function(d) { return self.y_scale(d.y); };
+  },
+
+  getH: function(){
+    var self = this;
+    return function(d) { return self.height_scale(d.y); };
+  },
+
+  rescale: function(extent){
+    // TODO get rid of this method
+    this.height_scale.domain([0, extent[1] - extent[0]]);
+    this.y_scale.domain(extent);
+    return this;
+  },
+
+  getLayers: function(){
+    // set up a layer for each series
+    var self = this;
+    var layers = self.plot.selectAll("g.layer")
+      .data(this._data)
+      .enter().append("g")
+        .attr("class", "layer")
+        .style("fill", self.layerFillStyle);
+    return layers;
+  },
+
+  // setup a bar for each point in a series
+  getBars: function(){
+    var self = this;
+    return this._layers.selectAll("rect.bar")
+      .data(function(d) { return d; })
+      .enter().append("rect")
+        .attr("class", "bar")
+        .attr("width", self.bar_width * 0.9)
+        .attr("x", self.x)
+        .attr("y", self.options.plot_box.h)
+        .attr("height", 0)
+        .transition()
+          .delay(function(d, i) { return i * 10; })
+          .attr("y", self.y)
+          .attr("height", self.h);
+  },
+
+  getBarWidth: function(){
+    var len_x = this.x_scale.range().length;
+    var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
+    return bar_width;
+  },
+
+  getLegendSeriesTitle: function(d, i){
+    return "lol";
+  },
+
+  renderLegend: function(el){
+    var self = this;
+    if (el.jquery) {  // todo what about things like zepto?
+      this.$legend = el;
+      this.legend = el[0];
+    } else if (typeof el == "string"){
+      this.legend = document.getElementById(el);
+    } else {
+      this.legend = el;
+    }
+    // use null to make insert behave like append
+    //   doc source: https://github.com/mbostock/d3/wiki/Selections#wiki-insert
+    //   null convention source: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-952280727
+    var legendStackOrder = self.options.legendStackOrder == "btt" ? ":first-child" : null;
+    var items = d3.select(this.legend).append("ul")
+      .attr("class", "nav nav-pills nav-stacked")
+      .selectAll("li")
+        .data(this._data)
+        // bars are built bottom-up, so build the legend the same way
+        .enter()
+          .insert("li", legendStackOrder)
+            .attr('class', 'inactive')
+            .append('a').attr("href", "#");
+    items
+      .append("span").attr("class", "legend-key")
+      // TODO use an element that can be controlled with CSS better but is also printable
+      .html("&#9608;").style("color", this.layerFillStyle);
+    items
+      .append("span").attr("class", "legend-value")
+      .text(self.getLegendSeriesTitle);
+    // events
+    items.on("click", function(d, i){
+      d3.event.preventDefault();
+      if (self.legendActivateSeries){
+        self.legendActivateSeries(i, this);
+      }
+    });
+    self.postRenderLegend(el);
+  },
+
+  postRenderLegend: function(el){
+    // PASS
   }
+});
 
-  return {
-    // properties
-    elem: el,
-    svg: svg,
-    plot: plot,
-    xAxis: x_axis,
-    yAxis: y_axis,
 
-    // methods
-    data: get_or_set_data,
-    option: get_or_set_option
-  };
-};
+/***************** STACKED BAR CHART ******************/
+var D3StackedBarChart = exports.D3StackedBarChart = D3BarChart.extend({
+
+  initData: function(new_data){
+    // process add stack offsets
+    return d3.layout.stack()(new_data);
+  },
+
+  getMaxY: function(data){
+    return d3.max(data, function(d) {
+      return d3.max(d, function(d) {
+        return d.y + d.y0;
+      });
+    });
+  },
+
+  getY: function(){
+    var self = this;
+    return function(d) { return self.y_scale(d.y + d.y0); };
+  }
+});
+
+
+/***************** GROUPED BAR CHART ******************/
+var D3GroupedBarChart = exports.D3GroupedBarChart = D3BarChart.extend({
+
+  getLayers: function(){
+    // set up a layer for each series
+    var self = this;
+    var layers = self.plot.selectAll("g.layer")
+      .data(this._data)
+      .enter().append("g")
+        .attr("class", "layer")
+        .style("fill", self.layerFillStyle);
+    // shift grouped bars so they're adjacent to each other
+    layers
+      .attr("transform", function(d, i) {
+        return "translate(" + self.getLayerOffset(i) + ",0)";
+      });
+    return layers;
+  },
+
+  getLayerOffset: function(i) {
+    return this.bar_width * 0.9 * i;
+  },
+
+  getBarWidth: function(){
+    // TODO replace with super
+    var len_x = this.x_scale.range().length;
+    var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
+
+    var len_series = this._data.length;  // m, i, rows
+    return bar_width / len_series;  // sub-divide
+  }
+});
+
+// end file iffy
+})(jQuery, d3, tt, window);

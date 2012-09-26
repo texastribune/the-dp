@@ -1,0 +1,64 @@
+{% extends "tx_highered/app_base.html" %}
+{% load url from future %}
+{% comment %}
+{% endcomment %}
+
+
+{% block main_base %}
+  <header class="page-header">
+    <h1>{% block page_title %}{% endblock %}</h1>
+  </header>
+
+  <div class="row">
+    <div class="span12">
+      {% block page_top_base %}
+        <div class="row">
+          <div class="span9">
+            {% block page_top %}{% endblock %}
+          </div>
+
+          <div class="span3">
+            {% block rail %}{% endblock %}
+          </div>
+        </div>
+      {% endblock %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      {% block main %}{% endblock %}
+    </div>
+    <div class="span12" id="attribution">
+      {% block attribution %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block breadcrumb_items_after %}
+  <li class="pull-right">
+    <form class="navbar-search">
+      <input type="text" class="search-query q" placeholder="College or university name">
+    </form>
+  </li>
+{% endblock %}
+
+
+{% block extra_script %}{{ block.super }}
+<script>
+  // enable autocomplete
+  // get geojson too because it should be in cache and doen't make response
+  // much larger
+
+  // $(window).load(function(){  // <-- switch to this to get autocomplete earlier
+  $("input.q").one("click", function() {
+    // Go to the server for institution API data
+    $.get("{% url 'tx_highered:institution_api' %}?fields=city,geojson,is_private",
+      function(data) {
+        autocomplete_institutions(data);
+      }
+    );
+  });
+</script>
+{% endblock %}

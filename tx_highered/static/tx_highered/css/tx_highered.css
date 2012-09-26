@@ -1,17 +1,43 @@
 /* Texas Higher Ed App CSS assumes bootstrap
 */
-.chart { height: 300px; }
+.chart-viz { height: 300px; }
+.chart-viz.loading { background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eeeeee; }
+.chart-viz .axis { font-family: sans-serif; font-size: 12px; }
+.chart-viz .axis text { fill: #333; }
 
 svg .axis { shape-rendering: crispEdges; }
 svg .axis .domain { display: none; }
 svg .y.axis line { stroke: #000; }
 svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
-h3 > .page-anchor { visibility: hidden; }
+.chart-legend { font-family: sans-serif; font-size: 12px; }
+.chart-legend ul { list-style: none; margin: 0; }
+.chart-legend .legend-key { margin-right: 5px; }
 
-h3:hover > .page-anchor { visibility: visible; }
+#mapCanvas { width: 100%; height: 650px; }
 
-td small { color: #999; }
+#mapPopupContainer { font-family: "Helvetica Neue", Arial, sans-serif; text-align: center; font-size: 14px; position: absolute; top: 10px; right: 10px; z-index: 1002; background-color: #FFFFFF; padding: 8px; display: none; }
+
+#mapPopupContainer h2 { font-size: 1em; margin: 0; padding: 0; }
+
+#mapPopupContainer h4 { font-size: .85em; margin: 0; padding: 0; }
+
+.shadow { -moz-box-shadow: 2px 2px 5px 1px #444444; -webkit-box-shadow: 2px 2px 5px 1px #444444; box-shadow: 1px 1px 4px 1px #444444; }
+
+.bootstrap .legend li.inactive > a:hover { background-color: transparent; }
+
+.legend a, legend a:hover { color: inherit; }
+
+@media print { #site_roofline, #greeting { display: none; }
+  .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
+#intro p { font-size: 1.25em; }
+
+#pricetrends .chart-data tbody td { text-align: right; }
+#pricetrends .chart-data .dollar { color: #666; }
+#pricetrends .chart-data .currency { margin-right: 14px; }
+
+h2 > .page-anchor, h3 > .page-anchor { visibility: hidden; }
+h2:hover > .page-anchor, h3:hover > .page-anchor { visibility: visible; }
 
 td.align-right { text-align: right; }
 td.align-right .ui-tablebar { right: 0; }
@@ -28,4 +54,24 @@ td.align-right .ui-tablebar { right: 0; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
-#intro p { font-size: 1.25em; }
+.higher-ed .landing .map-container { position: relative; }
+.higher-ed .landing .map-container button { position: absolute; left: 33%; width: 33%; display: block; z-index: 1000; }
+.higher-ed table.data-source { display: none; }
+.higher-ed .admissions tbody td small { display: block; }
+
+.data-app .app-header h1 { font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif; font-weight: 900; font-size: 2.75em; text-transform: uppercase; height: 60px; }
+.data-app .app-header h1 img { margin-right: 5px; }
+.data-app .app-header h1 a { color: #222; text-decoration: none; }
+.data-app .app-header h1 small { display: block; font-size: 0.5em; text-transform: none; }
+.data-app .page-header { font-family: Helvetica, Arial, sans-serif; }
+.data-app h2, .data-app h3 { font-family: Helvetica, Arial, sans-serif; }
+.data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 150%; }
+.data-app .input-append .add-on:hover { cursor: pointer; }
+.data-app #attribution { margin-top: 2em; margin-bottom: -2em; }
+.data-app #attribution i { height: 1.2em; vertical-align: middle; }
+
+.bootstrap .breadcrumb .btn-group > .dropdown-toggle { padding-left: 0; padding-right: 0; }
+.bootstrap .breadcrumb .btn-group.open .dropdown-toggle { box-shadow: none; }
+.bootstrap .breadcrumb .dropdown-menu .active a { color: white; }
+.bootstrap .breadcrumb .dropdown-menu li { display: block; }
+.bootstrap .breadcrumb .navbar-search { margin-top: -1px; }

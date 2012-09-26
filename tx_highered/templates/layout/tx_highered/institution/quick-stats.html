@@ -1,7 +1,9 @@
+{% if object.address or object.city or object.zip_code or object.phone or object.url %}
 <div class="well well-small">
   <div>
-    {{ object.address }}<br>
-    {{ object.city }}, Texas {{ object.zip_code }}
+    {% if object.address %}{{ object.address }}<br>{% endif %}
+    {% if object.city %}{{ object.city }}, Texas{% endif %}
+    {{ object.zip_code }}
   </div>
 
   <div class="phone">
@@ -15,3 +17,4 @@
   {% endif %}
 
 </div>
+{% endif %}

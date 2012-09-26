@@ -1,8 +1,9 @@
 import logging
+from collections import defaultdict
 
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
-# from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
@@ -39,8 +40,12 @@ INSTITUTION_CHOICES = (
         ("pub_tech", "Technical College System"),
         ("pub_state", "State Colleges"),
         ("pri_jr", "Junior College"),
-        ("pri_chi", "Chiropractic"),
+        ("pri_chi", "Chiropractic Institution"),
     )
+
+
+from geopy import geocoders
+from urllib2 import URLError
 
 
 class ContactFieldsMixin(models.Model):
@@ -57,24 +62,33 @@ class ContactFieldsMixin(models.Model):
         abstract = True
         app_label = APP_LABEL
 
-    def guess_location(self):
-        from geopy import geocoders
-        from urllib2 import URLError
+    def _guess_location(self, address_array):
+        g = geocoders.Google()
+        address = ", ".join(address_array)
+        _, latlng = g.geocode(address)
+        self.location = geos.fromstr("POINT({1} {0})".format(*latlng))
+        self.save()
+        return self.location
 
+    def guess_location(self):
         logger = logging.getLogger('tx_highered.models.geolocate')
 
-        g = geocoders.Google()
         # TODO better logging messages
         try:
-            address = ", ".join([self.address, self.city, self.zip_code])
-            _, latlng = g.geocode(address)
-            self.location = geos.fromstr("POINT({0} {1})".format(*latlng))
+            guess1 = [self.address, self.city, self.zip_code]
+            self._guess_location(guess1)
             logger.debug(self.location)
-            self.save()
         except (ValueError, URLError, geocoders.google.GQueryError) as e:
-            logger.error("%s %s", (e, address))
+            logger.error("%s %s" % (e.message, ", ".join(guess1)))
+            # try again
+            try:
+                guess2 = [self.name, self.zip_code]
+                self._guess_location(guess2)
+                logger.debug(self.location)
+            except (ValueError, URLError, geocoders.google.GQueryError) as e:
+                logger.error("%s %s" % (e.message, ", ".join(guess2)))
         except geocoders.google.GTooManyQueriesError as e:
-            logger.critical("%s %s", (e, address))
+            logger.error("%s %s" % (e.message, ", ".join(guess1)))
 
 
 class System(ContactFieldsMixin):
@@ -86,7 +100,7 @@ class System(ContactFieldsMixin):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('system_detail', (), {'slug': self.slug})
+        return ('tx_highered:system_detail', (), {'slug': self.slug})
 
 
 class WikipediaFields(models.Model):
@@ -108,6 +122,13 @@ class WikipediaFields(models.Model):
         abstract = True
 
 
+class InstitutionManager(models.GeoManager):
+    def published(self):
+        """ only return institutions ready to be shown """
+        qs = self.get_query_set()
+        return qs.filter(ipeds_id__isnull=False, institution_type='uni')
+
+
 class Institution(ContactFieldsMixin, WikipediaFields):
     name = models.CharField(max_length=60)
     slug = models.SlugField(max_length=60, unique=True)
@@ -127,6 +148,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     # a two digit suffix for each location/branch
     ope_id = models.IntegerField(null=True, blank=True)
 
+    objects = InstitutionManager()
+
     def __unicode__(self):
         if self.system:
             return u"%s - %s" % (self.system, self.name)
@@ -135,31 +158,55 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('institution_detail', (), {'slug': self.slug})
+        return ('tx_highered:institution_detail', (), {'slug': self.slug})
+
+    #################### THECB / IPEDS ROUTERS #################
+    def get_admissions(self):
+        """
+        Public universities admissions data comes from the THECB.
+        All others use data from IPEDS.
+        """
+        if not self.is_private and self.institution_type == 'uni':
+            return self.publicadmissions.all()
+        else:
+            return self.admissions.all()
+
+    def get_graduation_rates(self):
+        """
+        Public institutions use THECB graduation rates; others use IPEDS.
+        """
+        if not self.is_private:
+            return self.publicgraduationrates.all()
+        else:
+            return self.graduationrates.all()
 
     @property
     def type(self):
+        """ Get human readable version of `institution_type` """
         return dict(INSTITUTION_CHOICES).get(self.institution_type)
 
     @property
     def sentences(self):
-        if not hasattr(self, '_sentences'):
-            self._sentences = SummarySentences(self)
-        return self._sentences
+        """ Get a generated sentence about the `Institution` """
+        # TODO use cache backend (was caching in memory)
+        return SummarySentences(self)
 
+    # DELETEME replace with fuzzy matcher or can just delete
     @staticmethod
     def get_unique_name(name):
         ignored = ('st', 'saint', 'college', 'university', 'county', 'district', 'the', 'of', 'at')
         filtered_bits = [x for x in slugify(name).split('-') if x not in ignored]
         return ''.join(filtered_bits)
 
+    # DELETEME replace with fuzzy matcher or can just delete
     @property
     def unique_name(self):
         return Institution.get_unique_name(self.name)
 
     @property
     def number_of_full_time_students(self):
-        return self.enrollment.latest('year').fulltime
+        enrollment = self.latest_enrollment
+        return enrollment.total if enrollment else None
 
     @property
     def latest_tuition(self):
@@ -167,4 +214,135 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def latest_enrollment(self):
-        return self.enrollment.latest('year')
+        try:
+            if self.publicenrollment.exists():
+                return self.publicenrollment.latest('year')
+            else:
+                return self.enrollment.latest('year')
+        except ObjectDoesNotExist:
+            return None
+
+    @property
+    def sentence_name(self):
+        if self.name.startswith('University'):
+            return u'The %s' % self.name
+        else:
+            return self.name
+
+    @property
+    def sentence_institution_type(self):
+        institution_type = self.get_institution_type_display().lower()
+        if self.is_private:
+            return u'private %s' % institution_type
+        else:
+            return u'public %s' % institution_type
+
+    @property
+    def geojson(self):
+        from tx_highered.api import JSON
+        if self.location:
+            return JSON(self.location.geojson)
+        else:
+            return None
+
+    ############################## BUCKETS ##############################
+    @property
+    def tuition_buckets(self):
+        fields = ("in_state", "out_of_state", "books_and_supplies", "room_and_board_on_campus")
+        return self.get_buckets('pricetrends', fields=fields)
+
+    @property
+    def sat_score_buckets(self):
+        if not hasattr(self, '_sat_score_buckets'):
+            b = {
+                'years': [],
+                'verbal_range': {},
+                'math_range': {},
+                'writing_range': {},
+            }
+            for a in self.testscores.all():
+                b['years'].append(a.year)
+                b['verbal_range'][a.year] = (a.sat_verbal_range
+                        if a.sat_verbal_25th_percentile else 'N/A')
+                b['math_range'][a.year] = (a.sat_math_range
+                        if a.sat_math_25th_percentile else 'N/A')
+                b['writing_range'][a.year] = (a.sat_writing_range
+                        if a.sat_writing_25th_percentile else 'N/A')
+            self._sat_score_buckets = b
+        return self._sat_score_buckets
+
+    @property
+    def admission_buckets(self):
+        if not hasattr(self, '_admission_buckets'):
+            b = {
+                'years': [],
+                'applicants': {},
+                'admitted': {},
+                'enrolled': {},
+            }
+            for a in self.get_admissions():
+                if not a.number_admitted:
+                    continue
+                b['years'].append(a.year)
+                b['applicants'][a.year] = a.number_of_applicants
+                b['admitted'][a.year] = (a.number_admitted,
+                        a.percent_of_applicants_admitted)
+                b['enrolled'][a.year] = (a.number_admitted_who_enrolled,
+                        a.percent_of_admitted_who_enrolled)
+            self._admission_buckets = b
+        return self._admission_buckets
+
+    @property
+    def admission_top10_buckets(self):
+        return self.get_buckets('admissions', fields=['percent_top10rule'],
+                                 filter_on_field='percent_top10rule')
+
+    def get_buckets(self, relation_name, pivot_on_field="year",
+                    filter_on_field=None, fields=None):
+        """ pivot a related report model about the year field """
+        cache_key = "_%s%s" % (relation_name, len(fields) if fields else "")
+        if not hasattr(self, cache_key):
+            b = defaultdict(dict)
+            pivot_axis = []
+            relation = getattr(self, relation_name)
+            if fields is None:
+                # XXX requires instacharts
+                fields = [x[0] for x in relation.model.get_chart_series() if x[0] != pivot_on_field]
+            for report_obj in relation.all():
+                if filter_on_field is not None:
+                    # make sure we want this data
+                    filter_value = getattr(report_obj, filter_on_field)
+                    if filter_value is None or filter_value is '':
+                        # null or blank
+                        continue
+                pivot = getattr(report_obj, pivot_on_field)
+                pivot_axis.append(pivot)
+                for field in fields:
+                    b[field][pivot] = getattr(report_obj, field)
+            b[pivot_on_field + "s"] = pivot_axis  # poor man's `pluralize()`
+            setattr(self, cache_key, b)
+            return b
+        return getattr(self, cache_key)
+
+    @property
+    def enrollment_buckets(self):
+        if self.is_private:  # if not self.has_thecb_data
+            fields = ("fulltime_equivalent", "fulltime", "parttime")
+            return self.get_buckets("enrollment", fields=fields)
+        fields = ("total",)
+        return self.get_buckets("publicenrollment", fields=fields)
+
+    @property
+    def demographics_buckets(self):
+        if self.is_private:  # if not self.has_thecb_data
+            # hack to hide empty column
+            # FIXME assumes white is > 0
+            return self.get_buckets("enrollment", filter_on_field="total_percent_white")
+        return self.get_buckets("publicenrollment")
+
+    @property
+    def graduationrates_buckets(self):
+        if self.is_private:
+            return self.get_buckets("graduationrates")
+        else:
+            return self.get_buckets("publicgraduationrates")

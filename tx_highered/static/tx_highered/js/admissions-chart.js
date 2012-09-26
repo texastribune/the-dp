@@ -1,10 +1,10 @@
 (function() {
   // Global settings
   var el = "#admissions .d3-viz";
-  var w = $('#admissions .d3-viz').width(),
+  var w = $(el).removeClass('loading').width(),  // HAHAHAHAHAHA
       h = 300,
       xPadding = 50,
-      yPadding = 20
+      yPadding = 30
       ;
 
   // Initialize SVG
@@ -31,7 +31,7 @@
   var rScale = d3.scale.linear().domain([0, maxAdmissions]).range([h - yPadding, yPadding]);
   var xScale = d3.scale.linear().domain([minYear, maxYear]).range([xPadding, w]);
   var yScale = d3.scale.linear().domain([0, maxApplicants]).range([h - yPadding, yPadding]);
-  var barWidth = w / (applicants.length + 1) - 10;
+  var barWidth = w / (maxYear - minYear) - 30;
 
   // Axes,
   var yearFormat = d3.format("4d");
@@ -77,7 +77,7 @@
     .data(applicants)
     .enter()
     .append("rect")
-    .attr("fill", "lightgray")
+    .attr("fill", "#99CCFF")
     .attr("width", barWidth)
     .attr("height", height)
     .attr("x", function(d, i) { return xN(d, i, 0); })
@@ -90,7 +90,7 @@
     .data(admissions)
     .enter()
     .append("rect")
-    .attr("fill", "darkgray")
+    .attr("fill", "#3399CC")
     .attr("width", barWidth)
     .attr("height", height)
     .attr("x", function(d, i) { return xN(d, i, 1); })
@@ -103,7 +103,7 @@
     .data(enrollment)
     .enter()
     .append("rect")
-    .attr("fill", "gray")
+    .attr("fill", "#003366")
     .attr("width", barWidth)
     .attr("height", height)
     .attr("x", function(d, i) { return xN(d, i, 2); })
@@ -136,7 +136,8 @@
   // Tooltip
   $('#admissions rect').tooltip({
     title: function(){
-      return this.__data__.title;
+      var d = this.__data__;
+      return d.series + " (" + d.x + "):<br><strong>" + d3.format(",.0f")(d.y) + "</strong>";
     }
   });
 })();

@@ -49,6 +49,7 @@ class YearBasedInstitutionStatModel(models.Model):
         ('academic', 'Academic'),  # 2003-2004
         ('calendar', 'Calendar'),  # 2004
         ('fall', 'Fall'),          # F04
+        ('fiscal', 'FY'),          # FY 2010
         ('aug', 'August 31st'))    # August
     year = models.IntegerField(default=1970, verbose_name=u'Year')
     year_type = models.CharField(max_length=10, choices=YEAR_TYPE_CHOICES, null=True)
@@ -74,6 +75,8 @@ class YearBasedInstitutionStatModel(models.Model):
         elif self.year_type == 'fall':
             # return "F%02d" % (int(self.year) % 100)
             return "Fall %s" % self.year
+        elif self.year_type == 'fiscal':
+            return "FY %s" % self.year
         elif self.year_type == 'aug':
             return "August 31st, %s" % self.year
         return "%d %s" % (self.year, self.year_type)
@@ -190,6 +193,26 @@ class TestScores(YearBasedInstitutionStatModel):
     def __unicode__(self):
         return "Test Scores %s %s" % (self.display_year, self.institution)
 
+    def __json__(self):
+        return {
+            'year': self.year,
+            'sat': {
+                'verbal': [self.sat_verbal_25th_percentile, self.sat_verbal_75th_percentile],
+                'math': [self.sat_math_25th_percentile, self.sat_math_75th_percentile],
+                'writing': [self.sat_writing_25th_percentile, self.sat_writing_75th_percentile],
+                'submitted_number': self.sat_submitted_number,
+                'submitted_percent': self.sat_submitted_percent,
+            },
+            'act': {
+                'verbal': [self.act_english_25th_percentile, self.act_english_75th_percentile],
+                'math': [self.act_math_25th_percentile, self.act_math_75th_percentile],
+                'writing': [self.act_writing_25th_percentile, self.act_writing_75th_percentile],
+                'composite': [self.act_composite_25th_percentile, self.act_composite_75th_percentile],
+                'submitted_number': self.act_submitted_number,
+                'submitted_percent': self.act_submitted_percent,
+            },
+        }
+
     @property
     def sat_verbal_range(self):
         return "%s - %s" % (self.sat_verbal_25th_percentile,
@@ -202,8 +225,11 @@ class TestScores(YearBasedInstitutionStatModel):
 
     @property
     def sat_writing_range(self):
-        return "%s - %s" % (self.sat_writing_25th_percentile,
-                self.sat_writing_75th_percentile)
+        if self.sat_writing_25th_percentile:
+            return "%s - %s" % (self.sat_writing_25th_percentile,
+                    self.sat_writing_75th_percentile)
+        else:
+            return ""
 
     @property
     def bar(self):
@@ -275,37 +301,49 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
 
 class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total = models.IntegerField(null=True)
-    fulltime_equivalent = models.IntegerField(null=True)
-    fulltime = models.IntegerField(null=True)
-    parttime = models.IntegerField(null=True)
+    fulltime_equivalent = models.IntegerField(null=True,
+        verbose_name='Full-time Equivalent')
+    fulltime = models.IntegerField(null=True, verbose_name='Full-time')
+    parttime = models.IntegerField(null=True, verbose_name='Part-time')
     # TODO better list that works with IPEDS and THECB
-    total_percent_white = models.IntegerField(null=True)
-    total_percent_black = models.IntegerField(null=True)
-    total_percent_hispanic = models.IntegerField(null=True)
-    total_percent_native = models.IntegerField(null=True)
-    total_percent_asian = models.IntegerField(null=True)
-    total_percent_unknown = models.IntegerField(null=True)
+    total_percent_white = models.IntegerField(null=True,
+        verbose_name='% White')
+    total_percent_black = models.IntegerField(null=True,
+        verbose_name='% Black')
+    total_percent_hispanic = models.IntegerField(null=True,
+        verbose_name='% Hispanic')
+    total_percent_native = models.IntegerField(null=True,
+        verbose_name='% Native Am.')
+    total_percent_asian = models.IntegerField(null=True,
+        verbose_name='% Asian')
+    total_percent_unknown = models.IntegerField(null=True,
+        verbose_name='% N/A')
 
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
 
-    def race_pie(self):
-        return ('<img src="http://chart.apis.google.com/chart?chs=400x225&cht=p'
-            '&chd=t:%d,%d,%d,%d,%d,%d'
-            '&chl=White|Black|Hispanic|Native American|Asian|Unknown" width="400" height="225" alt="" >') % (
-            self.total_percent_white or 0,
-            self.total_percent_black or 0,
-            self.total_percent_hispanic or 0,
-            self.total_percent_native or 0,
-            self.total_percent_asian or 0,
-            self.total_percent_unknown or 0)
-    race_pie.verbose_name = "Race Pie"
+    race_attrs = ['total_percent_%s' % race for race in
+            ('white', 'black', 'hispanic', 'native', 'asian', 'unknown')]
+
+    def race_data(self):
+        data = []
+        for race_attr in self.race_attrs:
+            value = getattr(self, race_attr, None)
+            if value is not None:
+                data.append({
+                    'year': self.year,
+                    'metric': race_attr,
+                    'race': self._meta.get_field(race_attr).verbose_name,
+                    'enrollment': self.total,
+                    'value': value,
+                })
+
+        return data
 
     chart_series = ('year',
                     'fulltime_equivalent',
                     'fulltime',
-                    'parttime',
-                    'race_pie')
+                    'parttime',) + tuple(race_attrs)
 
 
 class GraduationRates(YearBasedInstitutionStatModel, SimpleChart):
