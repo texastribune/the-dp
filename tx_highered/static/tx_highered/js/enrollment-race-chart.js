@@ -184,12 +184,16 @@
     }
   });
 
-  var options = {
-    'color': d3.interpolateRgb("#001", "#eef"),  // does not actually reach maxima
-    // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
-    'tooltip': function() { return this.__data__.y + " " + this.__data__.race; },
-    'legendElem': $("#enrollment .legend")
-  };
+  var tooltipFmt = function(d){
+        var guess = d3.format(",d")(Math.round(d.y * d.enrollment / 100));
+        return guess + " (" + d.y + "%) " + d.race.substr(2);
+      },
+      options = {
+        'color': d3.interpolateRgb("#001", "#eef"),  // does not actually reach maxima
+        // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
+        'tooltip': function() { return tooltipFmt(this.__data__); },
+        'legendElem': $("#enrollment .legend")
+      };
 
   new Chart($("#enrollment .chart"), enrollment_chart_url, options);
 })();

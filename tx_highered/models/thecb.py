@@ -52,7 +52,7 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     pacific_islander_percent = models.FloatField(null=True,
         verbose_name='% Pacific Islander')
     unknown_percent = models.FloatField(null=True,
-        verbose_name='% N/A')
+        verbose_name='% Unknown')
     white_percent = models.FloatField(null=True,
         verbose_name='% White')
 

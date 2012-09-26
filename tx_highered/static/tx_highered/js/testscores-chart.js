@@ -58,7 +58,7 @@ TestScoresChart.prototype.getH = function(){
   return function(d) { return self.height_scale(d.y_max - d.y); };
 };
 
-var series = ["verbal", "math", "writing"];
+var series = ["Critical Reading", "Math", "Writing"];
 
 TestScoresChart.prototype.getLegendSeriesTitle = function(d, i){
   return series[i];

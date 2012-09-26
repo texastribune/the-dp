@@ -117,4 +117,27 @@
       return d.series + " (" + d.x + "):<br><strong>" + d3.format(",.0f")(d.y) + "</strong>";
     }
   });
+
+  // Render legend
+  var legend = $('#admissions .legend')[0],
+      series = [
+          { name: "Applications", color: "#99CCFF" },
+          { name: "Admissions", color: "#3399CC" },
+          { name: "Enrollment", color: "#003366" }
+      ];
+
+  var items = d3.select(legend).append("ul")
+        .attr("class", "nav nav-pills nav-stacked")
+        .selectAll("li")
+        .data(series)
+        .enter()
+          .insert("li")
+            .attr('class', 'inactive')
+            .append('a');
+    items
+      .append("span").attr("class", "legend-key")
+        .html("&#9608;").style("color", function(d) { return d.color; });
+    items
+      .append("span").attr("class", "legend-value")
+        .text(function(d) { return d.name; });
 })();
