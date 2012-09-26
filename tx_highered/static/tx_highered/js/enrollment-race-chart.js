@@ -103,7 +103,7 @@
     },
 
     postRenderLegend: function(el){
-      var poop= $(el).find("li.inactive").removeClass('inactive');
+      $(el).find("li.inactive").removeClass('inactive');
     },
 
     legendActivateSeries: function(idx, targetElem){
