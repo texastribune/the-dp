@@ -110,29 +110,6 @@
     .attr("y", y)
     ;
 
-  // Toggle zoom
-  $("#admissions a.zoom").toggle(function(e) {
-    e.preventDefault();
-    svg.selectAll("rect")
-      .transition()
-      .attr("y", rY)
-      .attr("height", rHeight);
-    svg.select("g.y.axis")
-      .transition()
-      .call(yAxis.scale(rScale));
-    $(this).children("i").attr("class", "icon-minus");
-  }, function(e) {
-    e.preventDefault();
-    svg.selectAll("rect")
-      .transition()
-      .attr("y", y)
-      .attr("height", height);
-    svg.select("g.y.axis")
-      .transition()
-      .call(yAxis.scale(yScale));
-    $(this).children("i").attr("class", "icon-plus");
-  });
-
   // Tooltip
   $('#admissions rect').tooltip({
     title: function(){
