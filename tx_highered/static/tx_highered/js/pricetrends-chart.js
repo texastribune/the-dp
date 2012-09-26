@@ -11,11 +11,13 @@
 
                    // instate, outstate, roomboard, books
   var price_colors = ['#39c', '#066', '#9c6', '#E63'];
-  var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; });
+  var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; }),
+      dollarFmt = function(a){ return "$" + d3.format(",f")(a / 1000) + "k"; };
   var chart = new D3StackedBarChart($section.find(".chart:eq(0)"),
       [data[0], zeroes, data[2], data[3]],
       {
         'color': price_colors,
+        'yAxisTickFormat': dollarFmt,
         'tooltip': function(){
           var d = this.__data__;
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
@@ -39,6 +41,7 @@
               [data[0], data[1]],
               {
                 color: price_colors,
+                'yAxisTickFormat': dollarFmt,
                 tooltip: function() {
                   var d = this.__data__;
                   return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
