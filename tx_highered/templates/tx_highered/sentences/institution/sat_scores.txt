@@ -1,4 +1,5 @@
 {% load humanize %}
 {% if obj.testscores.latest %}
-For students admitted in 2011, SAT scores ranged from {{ obj.testscores.latest.sat_verbal_range }} on verbal, {{ obj.testscores.latest.sat_math_range }} on math, and {{ obj.testscores.latest.sat_writing_range }} on writing.
+For students admitted in 2011, SAT scores ranged from
+{{ obj.testscores.latest.sat_verbal_range_english }} on critical reading{% if obj.testscores.latest.sat_writing_range_english%},{% else %} and{% endif %} {{ obj.testscores.latest.sat_math_range_english }} on math{% if obj.testscores.latest.sat_writing_range_english %}, and {{ obj.testscores.latest.sat_writing_range_english }} on writing{% endif %}.
 {% endif %}
