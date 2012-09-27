@@ -546,7 +546,6 @@
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
-<script src="{{ STATIC_URL }}vendor/tipsy/javascripts/jquery.tipsy.js"></script>
 <script>
   // $(".onion").onionize();
 
@@ -586,7 +585,9 @@
       );
 
     $(function() {
-      $('dfn[data-defintion]').tipsy();
+      $('dfn[data-definition]').tooltip({
+        title: function(){ return $(this).data('definition'); }
+      });
     });
 </script>
 <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
