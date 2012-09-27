@@ -1,4 +1,4 @@
 {% load humanize %}
 {% if obj.admissions.latest %}
-{{ obj.admissions.latest.number_of_applicants|intcomma }} prospective students applied in {{ obj.admissions.latest.year }}.  {{ obj.admissions.latest.number_admitted|intcomma }} ({{ obj.admissions.latest.percent_of_applicants_admitted }} percent) of those students were admitted and {{ obj.admissions.latest.number_admitted_who_enrolled|intcomma }} ({{ obj.admissions.latest.percent_of_admitted_who_enrolled }} percent) enrolled in classes.
+{{ obj.admissions.latest.number_of_applicants|intcomma }} prospective students applied in {{ obj.admissions.latest.year }}.  {{ obj.admissions.latest.number_admitted|intcomma }} ({{ obj.admissions.latest.percent_of_applicants_admitted|floatformat:0 }} percent) of those students were admitted and {{ obj.admissions.latest.number_admitted_who_enrolled|intcomma }} ({{ obj.admissions.latest.percent_of_admitted_who_enrolled|floatformat:0 }} percent) enrolled in classes.
 {% endif %}
