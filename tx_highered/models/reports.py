@@ -219,9 +219,17 @@ class TestScores(YearBasedInstitutionStatModel):
                 self.sat_verbal_75th_percentile)
 
     @property
+    def sat_verbal_range_english(self):
+        return self.sat_verbal_range.replace(' - ', ' to ')
+
+    @property
     def sat_math_range(self):
         return "%s - %s" % (self.sat_math_25th_percentile,
                 self.sat_math_75th_percentile)
+
+    @property
+    def sat_math_range_english(self):
+        return self.sat_math_range.replace(' - ', ' to ')
 
     @property
     def sat_writing_range(self):
@@ -230,6 +238,10 @@ class TestScores(YearBasedInstitutionStatModel):
                     self.sat_writing_75th_percentile)
         else:
             return ""
+
+    @property
+    def sat_writing_range_english(self):
+        return self.sat_writing_range.replace(' - ', ' to ')
 
     @property
     def bar(self):
