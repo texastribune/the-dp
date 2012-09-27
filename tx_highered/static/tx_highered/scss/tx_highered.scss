@@ -109,9 +109,11 @@ th {
             }
 
             small {
+                font-family: Helvetica;
                 display: block;
-                font-size: 0.5em;
+                font-size: 0.45em;
                 text-transform: none;
+                margin-left: 3.5em + 0.15em; // 3.5em is the width of the icon
             }
         }
     }
