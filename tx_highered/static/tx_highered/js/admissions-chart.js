@@ -121,9 +121,9 @@
   // Render legend
   var legend = $('#admissions .legend')[0],
       series = [
-          { name: "Applications", color: "#99CCFF" },
-          { name: "Admissions", color: "#3399CC" },
-          { name: "Enrollment", color: "#003366" }
+          { name: "Applied", color: "#99CCFF" },
+          { name: "Admitted", color: "#3399CC" },
+          { name: "Enrolled", color: "#003366" }
       ];
 
   var items = d3.select(legend).append("ul")
