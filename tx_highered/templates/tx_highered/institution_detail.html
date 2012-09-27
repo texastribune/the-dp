@@ -563,10 +563,16 @@
             return d.title ||
             "" + d.y + " - " + d.y_max + "";
           },
+          xAxis: {
+            enabled: true,
+            title: "Year"
+          },
+          yAxis: {
+            enabled: true,
+            title: "SAT Score"
+          },
           legendElem: $('#testing .legend'),
-          legendStackOrder: "ttb",
-          'yAxis_title': "SAT Score",
-          'xAxis_title': "Year"
+          legendStackOrder: "ttb"
         }
       );
 </script>

@@ -21,10 +21,16 @@
           var d = this.__data__;
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
         },
-        legendElem: $section.find(".chart1 .legend"),
-        yAxisTickFormat: dollarFmt,
-        'yAxis_title': "Price (Thousands of Dollars)",
-        'xAxis_title': "Year"
+        xAxis: {
+          enabled: true,
+          title: "Year"
+        },
+        yAxis: {
+          enabled: true,
+          title: "Price (Thousands of Dollars)",
+          tickFormat: dollarFmt
+        },
+        legendElem: $section.find(".chart1 .legend")
       });
   // so hacky. put labels on series in the legend
   var series = data.map(function(x){ return x[0].series; }).reverse();
@@ -65,15 +71,21 @@
               [data[0], data[1]],
               {
                 color: price_colors,
-                'yAxisTickFormat': dollarFmt,
                 tooltip: function() {
                   var d = this.__data__;
                   return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
                 },
+                xAxis:{
+                  enabled: true,
+                  title: "Year"
+                },
+                yAxis:{
+                  enabled: true,
+                  title: "Price (Thousands of Dollars)",
+                  tickFormat: dollarFmt
+                },
                 'legendStackOrder': 'ttb',
                 'legendElem': $section.find(".chart2 .legend"),
-                'yAxis_title': "Price (Thousands of Dollars)",
-                'xAxis_title': "Year",
                 'series': ["In-State", "Out-of-State"]
               });
 

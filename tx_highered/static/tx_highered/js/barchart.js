@@ -10,17 +10,16 @@ var defaultOptions = {
       width: 940,
       margin: [10, 0, 30, 50],
       tooltip: function(){ return this.__data__.title || this.__data__.y; },
-      enable_axis_x: true,
-      enable_axis_y: true,
-      // TODO
-      // yAxis: {
-      //   enabled: true,
-      //   title
-      //   ...
-      // }
-      xAxis_title: "",
-      yAxis_title: "",
-      // yAxisTickFormat: function(a){ return a; },
+      xAxis: {
+        enabled: true,
+        title: "",
+        // tickFormat: function(a){ return a; },
+      },
+      yAxis: {
+        enabled: true,
+        title: "",
+        // tickFormat: function(a){ return a; },
+      },
       // legendElem: $('#legend') or document.getElementById('legend'),
       legendStackOrder: "btt"  // btt bottom-to-top or ttb top-to-bottom
     };
@@ -116,7 +115,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     defaultOptions.height = self.$elem.height();
     defaultOptions.width = self.$elem.width();
 
-    self.options = $.extend({}, defaultOptions, options);
+    self.options = $.extend(true, {}, defaultOptions, options);
 
     // allow an array of hex values for convenience
     if ($.isArray(self.options.color)) {
@@ -183,7 +182,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     });
 
     // draw axes
-    if (self.options.enable_axis_x) {
+    if (self.options.xAxis.enabled) {
       x_axis = d3.svg.axis()
         .orient("bottom")
         .scale(self.x_scale)
@@ -191,21 +190,21 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         .tickFormat(function(a){ return a; });
       svg.append("g")
         .attr("class", "x axis")
-        .attr("title", self.options.xAxis_title)  // TODO render this title
+        .attr("title", self.options.xAxis.title)  // TODO render this title
         .attr("transform", "translate(" + self.options.margin[3] + "," + (self.options.height - self.options.margin[2]) + ")")
         .call(x_axis);
       self.xAxis = x_axis;
     }
-    if (self.options.enable_axis_y) {
+    if (self.options.yAxis.enabled) {
       y_axis = d3.svg.axis()
                .scale(self.y_scale)
                .orient("left");
-      if (self.options.yAxisTickFormat) {
-        y_axis.tickFormat(self.options.yAxisTickFormat);
+      if (self.options.yAxis.tickFormat) {
+        y_axis.tickFormat(self.options.yAxis.tickFormat);
       }
       svg.append("g")
         .attr("class", "y axis")
-        .attr("title", self.options.yAxis_title)  // TODO render this title
+        .attr("title", self.options.yAxis.title)  // TODO render this title
         .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
         .call(y_axis);
       self.yAxis = y_axis;
