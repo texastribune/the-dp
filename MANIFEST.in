@@ -1,2 +1,2 @@
 include setup.py README.* MANIFEST.in LICENSE
-recursive-include tx_highered *.py *.html *.txt *.css *.js *.png *.jpg
+recursive-include tx_highered *
