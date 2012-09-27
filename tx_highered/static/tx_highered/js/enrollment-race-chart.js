@@ -2,6 +2,18 @@
 (function() {
   "use strict";
 
+  var COLORS = {
+        "white_percent": "#F2841C",
+        "hispanic_percent": "#C3E683",
+        "asian_percent": "##8986C2",
+        "african_american_percent": "#FDFF81",
+        "international_percent": "#F28386",
+        "multiracial_percent": "#F7C184",
+        "native_american_percent": "#91C1FF",
+        "pacific_islander_percent": "#8FC2C1",
+        "unknown_percent": "#CC0024"
+      };
+
   // private functions from
   // https://raw.github.com/mbostock/d3/master/src/layout/stack.js
   // for re-ordering data
@@ -192,17 +204,7 @@
       options = {
         // 'color': d3.interpolateRgb("#001", "#eef"),  // does not actually reach maxima
         // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
-        'color': {
-          "white_percent": "#F2841C",
-          "hispanic_percent": "#C3E683",
-          "asian_percent": "##8986C2",
-          "african_american_percent": "#FDFF81",
-          "international_percent": "#F28386",
-          "multiracial_percent": "#F7C184",
-          "native_american_percent": "#91C1FF",
-          "pacific_islander_percent": "#8FC2C1",
-          "unknown_percent": "#CC0024"
-        },
+        'color': COLORS,
         'tooltip': function() { return tooltipFmt(this.__data__); },
         'legendElem': $("#enrollment .legend")
       };
