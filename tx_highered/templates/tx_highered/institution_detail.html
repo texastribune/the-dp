@@ -438,7 +438,11 @@
       <div class="row">
         <div class="span12">
           <div class="well well-small chart-help">
-            Tuition for in-state and out-of-state students by year
+            {% if object.is_private %}
+              Tuition and Fees for students by year
+            {% else %}
+              Tuition and Fees for in-state and out-of-state students by year
+            {% endif %}
           </div>
         </div>
       </div>

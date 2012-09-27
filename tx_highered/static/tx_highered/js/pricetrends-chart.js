@@ -60,6 +60,8 @@
     });
   }).parent().removeClass('inactive');
 
+
+  //************************** chart 2 *****************************************
   // hack that allows you to pass series titles in as an option
   var SeriesGroupedBarChart = D3GroupedBarChart.extend({
         postRenderLegend: function(el){
@@ -68,10 +70,28 @@
             this.innerHTML = self.options.series[idx];
           });
         }
-      });
+      }),
+      isPublic = function(series){
+        var instate = series[0], outofstate = series[1];
+        for (var i = 0; i < instate.length; i++){
+          if (instate[i].y != outofstate[i].y) {
+            return true;
+          }
+        }
+        return false;
+      },
+      chart2Data, chart2Series;
+
+  if (isPublic(data)){
+    chart2Data = [data[0], data[1]];
+    chart2Series = ["In-State", "Out-of-State"];
+  } else {
+    chart2Data = [data[0]];
+    chart2Series = ["Tuition & Fees"];
+  }
 
   var chart2 = new SeriesGroupedBarChart($section.find(".chart:eq(1)"),
-              [data[0], data[1]],
+              chart2Data,
               {
                 color: price_colors,
                 tooltip: function() {
@@ -92,7 +112,7 @@
                   elem: $section.find(".chart2 .legend"),
                   stackOrder: 'ttb'
                 },
-                'series': ["In-State", "Out-of-State"]
+                'series': chart2Series
               });
 
 /* disabled
