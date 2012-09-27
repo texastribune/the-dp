@@ -10,9 +10,21 @@ var defaultOptions = {
       width: 940,
       margin: [10, 0, 30, 50],
       tooltip: function(){ return this.__data__.title || this.__data__.y; },
-      enable_axis_x: true,
-      enable_axis_y: true,
-      legendStackOrder: "btt"  // btt bottom-to-top or ttb top-to-bottom
+      xAxis: {
+        enabled: true,
+        title: "",
+        // tickFormat: function(a){ return a; },
+      },
+      yAxis: {
+        enabled: true,
+        title: "",
+        // tickFormat: function(a){ return a; },
+      },
+      legend: {
+        enabled: false,
+        element: undefined,  // required an existing DOM element
+        stackOrder: "btt"  // bottom to top (btt), or top to bottom (ttb)
+      }
     };
 
 
@@ -106,7 +118,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     defaultOptions.height = self.$elem.height();
     defaultOptions.width = self.$elem.width();
 
-    self.options = $.extend({}, defaultOptions, options);
+    self.options = $.extend(true, {}, defaultOptions, options);
 
     // allow an array of hex values for convenience
     if ($.isArray(self.options.color)) {
@@ -173,7 +185,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     });
 
     // draw axes
-    if (self.options.enable_axis_x) {
+    if (self.options.xAxis.enabled) {
       x_axis = d3.svg.axis()
         .orient("bottom")
         .scale(self.x_scale)
@@ -181,29 +193,31 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         .tickFormat(function(a){ return a; });
       svg.append("g")
         .attr("class", "x axis")
+        .attr("title", self.options.xAxis.title)  // TODO render this title
         .attr("transform", "translate(" + self.options.margin[3] + "," + (self.options.height - self.options.margin[2]) + ")")
         .call(x_axis);
       self.xAxis = x_axis;
     }
-    if (self.options.enable_axis_y) {
+    if (self.options.yAxis.enabled) {
       y_axis = d3.svg.axis()
                .scale(self.y_scale)
                .orient("left");
-      if (self.options.yAxisTickFormat) {
-        y_axis.tickFormat(self.options.yAxisTickFormat);
+      if (self.options.yAxis.tickFormat) {
+        y_axis.tickFormat(self.options.yAxis.tickFormat);
       }
       svg.append("g")
-          .attr("class", "y axis")
-          .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
-          .call(y_axis);
+        .attr("class", "y axis")
+        .attr("title", self.options.yAxis.title)  // TODO render this title
+        .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
+        .call(y_axis);
       self.yAxis = y_axis;
     }
-    if (self.options.legendElem) {
+    if (self.options.legend.enabled) {
       // only one chart has a legend, as we add more, this will naturally
       // get refactored into something that makes sense
       // self.preRenderLegend(self.options.legendElem);
-      self.renderLegend(self.options.legendElem);
-      self.postRenderLegend(self.options.legendElem);
+      self.renderLegend(self.options.legend.elem);
+      self.postRenderLegend(self.options.legend.elem);
     }
   },
 
@@ -332,7 +346,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     // use null to make insert behave like append
     //   doc source: https://github.com/mbostock/d3/wiki/Selections#wiki-insert
     //   null convention source: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-952280727
-    var legendStackOrder = self.options.legendStackOrder == "btt" ? ":first-child" : null;
+    var legendStackOrder = self.options.legend.stackOrder == "btt" ? ":first-child" : null;
     var items = d3.select(this.legend).append("ul")
       .attr("class", "nav nav-pills nav-stacked")
       .selectAll("li")

@@ -542,7 +542,7 @@
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
 <script>
-  $(".onion").onionize();
+  // $(".onion").onionize();
 
   // Enrollment chart
   // init_enrollment_chart({
@@ -563,8 +563,19 @@
             return d.title ||
             "" + d.y + " - " + d.y_max + "";
           },
-          legendElem: $('#testing .legend'),
-          legendStackOrder: "ttb"
+          xAxis: {
+            enabled: true,
+            title: "Year"
+          },
+          yAxis: {
+            enabled: true,
+            title: "SAT Score"
+          },
+          legend: {
+            enabled: true,
+            elem: $('#testing .legend'),
+            stackOrder: "ttb"
+          }
         }
       );
 </script>

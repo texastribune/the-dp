@@ -210,9 +210,20 @@
       options = {
         // 'color': d3.interpolateRgb("#001", "#eef"),  // does not actually reach maxima
         // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
-        'color': COLORS,
-        'tooltip': function() { return tooltipFmt(this.__data__); },
-        'legendElem': $("#enrollment .legend")
+        color: COLORS,
+        tooltip: function() { return tooltipFmt(this.__data__); },
+        xAxis: {
+          enabled: true,
+          title: "Year"
+        },
+        yAxis: {
+          enabled: true,
+          title: "Enrollment"
+        },
+        legend: {
+          enabled: true,
+          elem: $("#enrollment .legend")
+        }
       };
 
   new Chart($("#enrollment .chart"), enrollment_chart_url, options);

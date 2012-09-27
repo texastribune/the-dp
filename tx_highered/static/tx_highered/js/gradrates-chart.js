@@ -28,14 +28,25 @@
   var $section = $('#gradrates'),
       data = $section.find('table.data-source').tabulate().toArray().reverse(),
       options = {
-        'color': ['#99c', '#639', '#306'],
-        'tooltip': function() {
+        color: ['#99c', '#639', '#306'],
+        tooltip: function() {
           // TODO: replace with Handlebars
           return this.__data__.series + " bachelor's graduation rate<br><b>" +
             d3.format(",.1f")(this.__data__.y) + "%</b>";
         },
-        'yAxisTickFormat': function(a){ return a + '%'; },
-        legendElem: $section.find('.legend')
+        xAxis: {
+          enabled: true,
+          title: "Year"
+        },
+        yAxis: {
+          enabled: true,
+          title: "Percent",
+          tickFormat: function(a){ return a + '%'; }
+        },
+        legend: {
+          enabled: true,
+          elem: $section.find('.legend')
+        }
       };
 
   new Chart($section.find('.d3-viz'), data, options);

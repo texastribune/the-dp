@@ -16,13 +16,24 @@
   var chart = new D3StackedBarChart($section.find(".chart1 .chart"),
       [data[0], zeroes, data[2], data[3]],
       {
-        'color': price_colors,
-        'yAxisTickFormat': dollarFmt,
-        'tooltip': function(){
+        color: price_colors,
+        tooltip: function(){
           var d = this.__data__;
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
         },
-        'legendElem': $section.find(".chart1 .legend")
+        xAxis: {
+          enabled: true,
+          title: "Year"
+        },
+        yAxis: {
+          enabled: true,
+          title: "Price (Thousands of Dollars)",
+          tickFormat: dollarFmt
+        },
+        legend: {
+          enabled: true,
+          elem: $section.find(".chart1 .legend")
+        }
       });
   // so hacky. put labels on series in the legend
   var series = data.map(function(x){ return x[0].series; }).reverse();
@@ -63,13 +74,24 @@
               [data[0], data[1]],
               {
                 color: price_colors,
-                'yAxisTickFormat': dollarFmt,
                 tooltip: function() {
                   var d = this.__data__;
                   return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
                 },
-                'legendStackOrder': 'ttb',
-                'legendElem': $section.find(".chart2 .legend"),
+                xAxis: {
+                  enabled: true,
+                  title: "Year"
+                },
+                yAxis: {
+                  enabled: true,
+                  title: "Price (Thousands of Dollars)",
+                  tickFormat: dollarFmt
+                },
+                legend: {
+                  enabled: true,
+                  elem: $section.find(".chart2 .legend"),
+                  stackOrder: 'ttb'
+                },
                 'series': ["In-State", "Out-of-State"]
               });
 
