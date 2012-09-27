@@ -5,7 +5,7 @@
   var COLORS = {
         "white_percent": "#F2841C",
         "hispanic_percent": "#C3E683",
-        "asian_percent": "##8986C2",
+        "asian_percent": "#333333",
         "african_american_percent": "#FDFF81",
         "international_percent": "#F28386",
         "multiracial_percent": "#F7C184",
