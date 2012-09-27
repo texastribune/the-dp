@@ -21,21 +21,33 @@
         'tooltip': function(){
           var d = this.__data__;
           return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
-        }
+        },
+        'legendElem': $section.find(".chart1 .legend")
       });
-  $section.find('.chart1 .chart-help a').click(function(e){
-    e.preventDefault();
-    var $this = $(this);
-    $this.parent().parent().find('.active').removeClass('active');
-    $this.parent().addClass('active');
-    var idx = $(this).data('idx');
-    var copy = $.extend([], data);  // shallow copy, passing true/false won't
-                                    // work because jquery is too smart for
-                                    // itself and starts copying prototypes so
-                                    // Arrays turn into Objects
-    copy[idx] = zeroes;
-    chart.data(copy);
+  // so hacky. put labels on series in the legend
+  var series = data.map(function(x){ return x[0].series; }).reverse();
+  $section.find('.chart1 .legend span.legend-value').each(function(idx){
+    this.innerHTML = series[idx];
   });
+  $section.find('.chart1 .legend a:gt(1)').each(function(idx, a){
+    var $a = $(a);
+    if (idx == 1) {
+      // this is the default state
+      $a.parent().addClass('active');
+    }
+    $a.click(function(e){
+      e.preventDefault();
+      var $this = $(this);
+      $this.parent().parent().find('.active').removeClass('active');
+      $this.parent().addClass('active');
+      var copy = $.extend([], data);  // shallow copy, passing true/false won't
+                                      // work because jquery is too smart for
+                                      // itself and starts copying prototypes so
+                                      // Arrays turn into Objects
+      copy[idx] = zeroes;
+      chart.data(copy);
+    });
+  }).parent().removeClass('inactive');
 
   // hack that allows you to pass series titles in as an option
   var SeriesGroupedBarChart = D3GroupedBarChart.extend({
