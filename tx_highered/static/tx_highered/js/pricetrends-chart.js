@@ -30,7 +30,10 @@
           title: "Price (Thousands of Dollars)",
           tickFormat: dollarFmt
         },
-        legendElem: $section.find(".chart1 .legend")
+        legend: {
+          enabled: true,
+          elem: $section.find(".chart1 .legend")
+        }
       });
   // so hacky. put labels on series in the legend
   var series = data.map(function(x){ return x[0].series; }).reverse();
@@ -75,17 +78,20 @@
                   var d = this.__data__;
                   return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
                 },
-                xAxis:{
+                xAxis: {
                   enabled: true,
                   title: "Year"
                 },
-                yAxis:{
+                yAxis: {
                   enabled: true,
                   title: "Price (Thousands of Dollars)",
                   tickFormat: dollarFmt
                 },
-                'legendStackOrder': 'ttb',
-                'legendElem': $section.find(".chart2 .legend"),
+                legend: {
+                  enabled: true,
+                  elem: $section.find(".chart2 .legend"),
+                  stackOrder: 'ttb'
+                },
                 'series': ["In-State", "Out-of-State"]
               });
 

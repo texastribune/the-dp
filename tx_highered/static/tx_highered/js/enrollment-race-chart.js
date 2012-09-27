@@ -220,7 +220,10 @@
           enabled: true,
           title: "Enrollment"
         },
-        'legendElem': $("#enrollment .legend")
+        legend: {
+          enabled: true,
+          elem: $("#enrollment .legend")
+        }
       };
 
   new Chart($("#enrollment .chart"), enrollment_chart_url, options);

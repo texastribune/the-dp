@@ -43,7 +43,10 @@
           title: "Percent",
           tickFormat: function(a){ return a + '%'; }
         },
-        legendElem: $section.find('.legend')
+        legend: {
+          enabled: true,
+          elem: $section.find('.legend')
+        }
       };
 
   new Chart($section.find('.d3-viz'), data, options);

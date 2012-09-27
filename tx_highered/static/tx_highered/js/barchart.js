@@ -20,8 +20,11 @@ var defaultOptions = {
         title: "",
         // tickFormat: function(a){ return a; },
       },
-      // legendElem: $('#legend') or document.getElementById('legend'),
-      legendStackOrder: "btt"  // btt bottom-to-top or ttb top-to-bottom
+      legend: {
+        enabled: false,
+        element: undefined,  // required an existing DOM element
+        stackOrder: "btt"  // bottom to top (btt), or top to bottom (ttb)
+      }
     };
 
 
@@ -209,12 +212,12 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         .call(y_axis);
       self.yAxis = y_axis;
     }
-    if (self.options.legendElem) {
+    if (self.options.legend.enabled) {
       // only one chart has a legend, as we add more, this will naturally
       // get refactored into something that makes sense
       // self.preRenderLegend(self.options.legendElem);
-      self.renderLegend(self.options.legendElem);
-      self.postRenderLegend(self.options.legendElem);
+      self.renderLegend(self.options.legend.elem);
+      self.postRenderLegend(self.options.legend.elem);
     }
   },
 
@@ -343,7 +346,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     // use null to make insert behave like append
     //   doc source: https://github.com/mbostock/d3/wiki/Selections#wiki-insert
     //   null convention source: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-952280727
-    var legendStackOrder = self.options.legendStackOrder == "btt" ? ":first-child" : null;
+    var legendStackOrder = self.options.legend.stackOrder == "btt" ? ":first-child" : null;
     var items = d3.select(this.legend).append("ul")
       .attr("class", "nav nav-pills nav-stacked")
       .selectAll("li")

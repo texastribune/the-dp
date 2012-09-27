@@ -571,8 +571,11 @@
             enabled: true,
             title: "SAT Score"
           },
-          legendElem: $('#testing .legend'),
-          legendStackOrder: "ttb"
+          legend: {
+            enabled: true,
+            elem: $('#testing .legend'),
+            stackOrder: "ttb"
+          }
         }
       );
 </script>
