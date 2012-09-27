@@ -1,3 +1,2 @@
-include setup.py README.rst MANIFEST.in LICENSE VERSION
-recursive-include tx_highered/static *
-recursive-include tx_highered/templates *
+include setup.py README.* MANIFEST.in LICENSE
+recursive-include tx_highered *.py *.html *.txt *.css *.js *.png *.jpg
