@@ -34,7 +34,7 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
 @media print { #site_roofline, #greeting { display: none; }
   .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
-#intro p { font-size: 1.25em; }
+#intro p { font-size: 0.95rem; line-height: 1.3; }
 
 #pricetrends .chart-data tbody td { text-align: right; }
 #pricetrends .chart-data .dollar { color: #666; }
@@ -60,6 +60,7 @@ th aside { display: inline-block !important; width: 10%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
+.higher-ed p { font-family: Helvetica; font-size: 0.9em; }
 .higher-ed .landing .map-container { position: relative; }
 .higher-ed .landing .map-container button { position: absolute; left: 33%; width: 33%; display: block; z-index: 1000; }
 .higher-ed table.data-source { display: none; }
