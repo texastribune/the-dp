@@ -4,14 +4,20 @@
 
   var COLORS = {
         "white_percent": "#F2841C",
+        "total_percent_white": "#F2841C",
         "hispanic_percent": "#C3E683",
+        "total_percent_hispanic": "#C3E683",
         "asian_percent": "#333333",
+        "total_percent_asian": "#333333",
         "african_american_percent": "#FDFF81",
+        "total_percent_black": "#FDFF81",
         "international_percent": "#F28386",
         "multiracial_percent": "#F7C184",
         "native_american_percent": "#91C1FF",
+        "total_percent_native": "#91C1FF",
         "pacific_islander_percent": "#8FC2C1",
-        "unknown_percent": "#CC0024"
+        "unknown_percent": "#CC0024",
+        "total_percent_unknown": "#CC0024"
       };
 
   // private functions from
