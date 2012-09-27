@@ -194,7 +194,11 @@
       <div class="row">
         <div class="span12">
           <div class="well well-small chart-help">
-            Number of full-time equivalent students
+            {% if b.data_source == "IPEDS" %}
+              Number of full-time equivalent students enrolled
+            {% else %}
+              Number of students enrolled
+            {% endif %}
           </div>
         </div>
       </div>

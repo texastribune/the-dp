@@ -334,6 +334,12 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
 
+    data_source = "IPEDS"
+    # @property
+    # def data_source(self):
+    #     if ... return THECB
+    #     else ... return IPEDS
+
     race_attrs = ['total_percent_%s' % race for race in
             ('white', 'black', 'hispanic', 'native', 'asian', 'unknown')]
 

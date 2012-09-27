@@ -349,6 +349,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         cache_key = "_%s%s" % (relation_name, len(fields) if fields else "")
         if not hasattr(self, cache_key):
             b = defaultdict(dict)
+            b['data_source'] = ""
             pivot_axis = []
             relation = getattr(self, relation_name)
             if fields is None:
@@ -374,9 +375,13 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     def enrollment_buckets(self):
         if self.is_private:  # if not self.has_thecb_data
             fields = ("fulltime_equivalent", "fulltime", "parttime")
-            return self.get_buckets("enrollment", fields=fields)
+            b = self.get_buckets("enrollment", fields=fields)
+            b['data_source'] = "IPEDS"
+            return b
         fields = ("total",)
-        return self.get_buckets("publicenrollment", fields=fields)
+        b = self.get_buckets("publicenrollment", fields=fields)
+        b['data_source'] = "THECB"
+        return b
 
     @property
     def demographics_buckets(self):

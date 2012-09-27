@@ -56,6 +56,8 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     white_percent = models.FloatField(null=True,
         verbose_name='% White')
 
+    data_source = "THECB"
+
     @property
     def total_percent_white(self):
         return self.white_percent
