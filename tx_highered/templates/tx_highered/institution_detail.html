@@ -1,11 +1,12 @@
 {% extends "tx_highered/detail_base.html" %}
 {% load layout_helpers humanize instachart %}
 {% load url from future %}
-
+{% load glossary %}
 
 {% block head_title %}{{ object.name }}{% endblock %}
 {% block page_title %}{{ object.name }}{% endblock %}
 
+{% block body_base %}{% load_glossary "Higher Ed" %}{{ block.super }}{% endblock %}
 
 {% block breadcrumb_items %}
   {% if object.system %}
@@ -36,7 +37,7 @@
 {% block page_top %}
   {% if institution.sentence_institution_type %}
     <p class="rollup">
-        {{ institution.sentence_institution_type.title }}
+        {% gloss institution.sentence_institution_type.title %}
     </p>
   {% endif %}
 
@@ -82,17 +83,17 @@
 
         <tbody>
           <tr>
-            <th>Applicants</th>
+            <th>{% gloss "Applicants" %}</th>
             {% for a in object.admission_buckets.applicants.values %}<td>{{ a|intcomma }}</td>{% endfor %}
           </tr>
 
           <tr>
-            <th>Admitted<br><small>(% of Applicants)</small></th>
+            <th>{% gloss "Admitted" %}<br><small>(% of Applicants)</small></th>
             {% for a in object.admission_buckets.admitted.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
           </tr>
 
           <tr>
-            <th>Enrolled<br><small>(% of Admitted)</small></th>
+            <th>{% gloss "Enrolled" %}<br><small>(% of Admitted)</small></th>
             {% for a in object.admission_buckets.enrolled.values %}<td>{{ a.0|intcomma }} <small>({{ a.1 }}%)</small></td>{% endfor %}
           </tr>
         </tbody>
@@ -130,7 +131,7 @@
     <div class="row">
       <div class="span12">
         <div class="well well-small chart-help">
-          Average SAT scores by section for enrolling students (writing section not introduced until 2006 and still not reported by some institutions)
+          Average {% gloss "SAT" %} scores by section for enrolling students (writing section not introduced until 2006 and still not reported by some institutions)
         </div>
       </div>
     </div>
@@ -284,23 +285,23 @@
             </tr>
             {% if b.pacific_islander_percent %}
               <tr>
-                <th>Pacific Islander</th>
+                <th>{% gloss "Pacific Islander" %}</th>
                 {% for a in b.pacific_islander_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
             <tr>
-              <th>Native</th>
+              <th>{% gloss "Native" %}</th>
               {% for a in b.total_percent_native.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
             </tr>
             {% if b.multiracial_percent %}
               <tr>
-                <th>Multiracial</th>
+                <th>{% gloss "Multiracial" %}</th>
                 {% for a in b.multiracial_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
             {% if b.international_percent %}
               <tr>
-                <th>International</th>
+                <th>{% gloss "International" %}</th>
                 {% for a in b.international_percent.values %}<td>{% if a %}{{ a }}%{% else %}*{% endif %}</td>{% endfor %}
               </tr>
             {% endif %}
@@ -344,7 +345,7 @@
     <div class="row">
       <div class="span12">
         <div class="well well-small chart-help">
-          Average total cost for in-state and out-of-state students by year
+          Average total cost for {% gloss "in-state" %} and {% gloss "out-of-state" %} students by year
         </div>
       </div>
     </div>
@@ -361,7 +362,7 @@
         </thead>
         <tbody>
           <tr>
-            <th>In-State Tuition</th>
+            <th>{% gloss "In-State" %} Tuition</th>
             {% for a in object.tuition_buckets.in_state.values %}
               <td>
                 {% if a %}
@@ -373,7 +374,7 @@
             {% endfor %}
           </tr>
           <tr>
-            <th>Out-Of-State Tuition</th>
+            <th>{% gloss "Out-Of-State" %} Tuition</th>
             {% for a in object.tuition_buckets.out_of_state.values %}
               <td>
                 {% if a %}
@@ -470,7 +471,7 @@
       <div class="span12">
         <div class="chart-help well well-small">
           <!-- mentally remove the inline comment if you prefer proper English -->
-          Percent of first-time, full-time students who graduated in four, five<!--, --> or six years
+          Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
         </div>
       </div>
     </div>
@@ -508,7 +509,7 @@
       <div class="row">
         <div class="span12">
           <div class="well well-small chart-help">
-            Percent of first-time, full-time students who graduated in four, five<!--, --> or six years
+            Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
           </div>
         </div>
       </div>

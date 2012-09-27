@@ -147,6 +147,14 @@ th {
   }
 }
 
+dfn {
+  font-weight: inherit;
+  border-bottom: 1px dotted #222;
+  &:hover {
+    cursor: help;
+  }
+}
+
 // fixes for elements getting shoved into the breadcrumb
 .bootstrap .breadcrumb {
   // assumes there's a .btn element, but there isn't
