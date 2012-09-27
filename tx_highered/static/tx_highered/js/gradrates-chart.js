@@ -34,6 +34,8 @@
           return this.__data__.series + " bachelor's graduation rate<br><b>" +
             d3.format(",.1f")(this.__data__.y) + "%</b>";
         },
+        'xAxis_title': 'Year',
+        'yAxis_title': 'Percent',
         'yAxisTickFormat': function(a){ return a + '%'; },
         legendElem: $section.find('.legend')
       };

@@ -12,6 +12,16 @@ var defaultOptions = {
       tooltip: function(){ return this.__data__.title || this.__data__.y; },
       enable_axis_x: true,
       enable_axis_y: true,
+      // TODO
+      // yAxis: {
+      //   enabled: true,
+      //   title
+      //   ...
+      // }
+      xAxis_title: "",
+      yAxis_title: "",
+      // yAxisTickFormat: function(a){ return a; },
+      // legendElem: $('#legend') or document.getElementById('legend'),
       legendStackOrder: "btt"  // btt bottom-to-top or ttb top-to-bottom
     };
 
@@ -181,6 +191,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         .tickFormat(function(a){ return a; });
       svg.append("g")
         .attr("class", "x axis")
+        .attr("title", self.options.xAxis_title)  // TODO render this title
         .attr("transform", "translate(" + self.options.margin[3] + "," + (self.options.height - self.options.margin[2]) + ")")
         .call(x_axis);
       self.xAxis = x_axis;
@@ -193,9 +204,10 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         y_axis.tickFormat(self.options.yAxisTickFormat);
       }
       svg.append("g")
-          .attr("class", "y axis")
-          .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
-          .call(y_axis);
+        .attr("class", "y axis")
+        .attr("title", self.options.yAxis_title)  // TODO render this title
+        .attr("transform", "translate(" + self.options.margin[3] + "," + self.options.margin[0] + ")")
+        .call(y_axis);
       self.yAxis = y_axis;
     }
     if (self.options.legendElem) {

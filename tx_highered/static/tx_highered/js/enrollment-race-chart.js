@@ -212,6 +212,8 @@
         // 'color': d3.scale.pow().exponent(0.75).range(["#445", "#ccd"]),
         'color': COLORS,
         'tooltip': function() { return tooltipFmt(this.__data__); },
+        'yAxis_title': "Enrollment",
+        'xAxis_title': "Year",
         'legendElem': $("#enrollment .legend")
       };
 
