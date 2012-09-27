@@ -1,19 +1,20 @@
+{% load glossary %}
 <p>
   <i class="icon-info-sign"></i> Data from the
   {% if object.is_private %}
-    <abbr title="Integrated Postsecondary Education Data System">IPEDS</abbr>
+    {% gloss "IPEDS" %}
     <a href="http://nces.ed.gov/ipeds/datacenter/">Data Center</a>
     and the
-    <abbr title="Texas Higher Education Coordinating Board">THECB</abbr>
+    {% gloss "THECB" %}
     <a href="http://www.txhighereddata.org/approot/dwprodrpt/enrmenu.htm">
       <abbr title="Profile Reports Electronically Produced">PREP</abbr>
       enrollment report
     </a>.
   {% else %}
-    <abbr title="Integrated Postsecondary Education Data System">IPEDS</abbr>
+    {% gloss "IPEDS" %}
     <a href="http://nces.ed.gov/ipeds/datacenter/">Data Center</a>
     and the
-    <abbr title="Texas Higher Education Coordinating Board">THECB</abbr>
+    {% gloss "THECB" %}
     <a href="http://www.txhighereddata.org/approot/dwprodrpt/enrmenu.htm">
       <abbr title="Profile Reports Electronically Produced">PREP</abbr>
       enrollment report
