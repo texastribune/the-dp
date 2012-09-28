@@ -12,12 +12,12 @@ var defaultOptions = {
       tooltip: function(){ return this.__data__.title || this.__data__.y; },
       xAxis: {
         enabled: true,
-        title: "",
+        title: ""
         // tickFormat: function(a){ return a; },
       },
       yAxis: {
         enabled: true,
-        title: "",
+        title: ""
         // tickFormat: function(a){ return a; },
       },
       legend: {
@@ -100,11 +100,13 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         self._data = self.initData(new_data);
         self.setUp(options);
         self.render();
+        self.postRender();
       });
     } else {
       this._data = this.initData(data);
       this.setUp(options);
       this.render();
+      self.postRender();
     }
   },
 
@@ -218,6 +220,12 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
       // self.preRenderLegend(self.options.legendElem);
       self.renderLegend(self.options.legend.elem);
       self.postRenderLegend(self.options.legend.elem);
+    }
+  },
+
+  postRender: function(){
+    if (this.options.postRender) {
+      this.options.postRender.call(this);
     }
   },
 
