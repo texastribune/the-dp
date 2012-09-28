@@ -16,6 +16,13 @@
   }
 }
 
+.chart-help {
+  // chart help items should be spaced apart
+  .item + .item {
+    margin-top: 0.3em;
+  }
+}
+
 svg {
   .axis {
     shape-rendering: crispEdges;

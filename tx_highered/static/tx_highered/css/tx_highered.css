@@ -5,6 +5,8 @@
 .chart-viz .axis { font-family: sans-serif; font-size: 12px; }
 .chart-viz .axis text { fill: #333; }
 
+.chart-help .item + .item { margin-top: 0.3em; }
+
 svg .axis { shape-rendering: crispEdges; }
 svg .axis .domain { display: none; }
 svg .y.axis line { stroke: #000; }
