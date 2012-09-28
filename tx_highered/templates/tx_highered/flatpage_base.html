@@ -1,0 +1,28 @@
+{% extends "tx_highered/app_base.html" %}
+{% comment %}
+Flatpage Template Name: tx_highered/flatpage_base.html
+{% endcomment %}
+
+
+{% block page_title %}{{ flatpage.title }} | {{ block.super }}{% endblock %}
+
+
+{% block main %}{{ flatpage.content }}{% endblock %}
+
+
+{% block breadcrumb_items %}
+  <li class="active">
+    <a href="">{{ flatpage.title }}</a>
+  </li>
+{% endblock %}
+
+
+{% block extra_style %}{{ block.super }}
+  {{ flatpage.extra_head|safe }}
+{% endblock %}
+
+
+{% block extra_script %}{{ block.super }}
+  {{ flatpage.extra_js|safe }}
+{% endblock %}
+
