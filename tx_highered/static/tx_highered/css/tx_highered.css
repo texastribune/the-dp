@@ -80,6 +80,8 @@ th aside { display: inline-block !important; width: 10%; }
 .data-app #attribution { margin-top: 2em; margin-bottom: -2em; }
 .data-app #attribution i { height: 1.2em; vertical-align: middle; }
 
+.bootstrap .well { background-color: whiteSmoke; }
+
 dfn { font-weight: inherit; border-bottom: 1px dotted #222; }
 dfn:hover { cursor: help; }
 
