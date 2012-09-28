@@ -32,46 +32,41 @@
         },
         legend: {
           enabled: true,
-          elem: $section.find(".chart1 .legend")
+          elem: $section.find(".chart1 .legend"),
+          postRenderLegend: function(el){
+            // put labels on series in the legend
+            var series = data.map(function(x){ return x[0].series; }).reverse(),
+                $container = $(el);
+            $container.find('span.legend-value').each(function(idx){
+              this.innerHTML = series[idx];
+            });
+            $container.find('a:gt(1)').each(function(idx, a){
+              var $a = $(a);
+              if (idx == 1) {
+                // this is the default state
+                $a.parent().addClass('active');
+              }
+              $a.click(function(e){
+                e.preventDefault();
+                var $this = $(this);
+                $this.parent().parent().find('.active').removeClass('active');
+                $this.parent().addClass('active');
+                var copy = $.extend([], data);  // shallow copy, passing true/false won't
+                                                // work because jquery is too smart for
+                                                // itself and starts copying prototypes so
+                                                // Arrays turn into Objects
+                copy[idx] = zeroes;
+                chart.data(copy);
+              });
+            }).parent().removeClass('inactive');
+          }
         }
       });
-  // so hacky. put labels on series in the legend
-  var series = data.map(function(x){ return x[0].series; }).reverse();
-  $section.find('.chart1 .legend span.legend-value').each(function(idx){
-    this.innerHTML = series[idx];
-  });
-  $section.find('.chart1 .legend a:gt(1)').each(function(idx, a){
-    var $a = $(a);
-    if (idx == 1) {
-      // this is the default state
-      $a.parent().addClass('active');
-    }
-    $a.click(function(e){
-      e.preventDefault();
-      var $this = $(this);
-      $this.parent().parent().find('.active').removeClass('active');
-      $this.parent().addClass('active');
-      var copy = $.extend([], data);  // shallow copy, passing true/false won't
-                                      // work because jquery is too smart for
-                                      // itself and starts copying prototypes so
-                                      // Arrays turn into Objects
-      copy[idx] = zeroes;
-      chart.data(copy);
-    });
-  }).parent().removeClass('inactive');
 
 
   //************************** chart 2 *****************************************
   // hack that allows you to pass series titles in as an option
-  var SeriesGroupedBarChart = D3GroupedBarChart.extend({
-        postRenderLegend: function(el){
-          var self = this;
-          $(el).find('span.legend-value').each(function(idx){
-            this.innerHTML = self.options.series[idx];
-          });
-        }
-      }),
-      isPublic = function(series){
+  var isPublic = function(series){
         var instate = series[0], outofstate = series[1];
         for (var i = 0; i < instate.length; i++){
           if (instate[i].y != outofstate[i].y) {
@@ -90,30 +85,36 @@
     chart2Series = ["Tuition & Fees"];
   }
 
-  var chart2 = new SeriesGroupedBarChart($section.find(".chart:eq(1)"),
-              chart2Data,
-              {
-                color: price_colors,
-                tooltip: function() {
-                  var d = this.__data__;
-                  return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
-                },
-                xAxis: {
-                  enabled: true,
-                  title: "Year"
-                },
-                yAxis: {
-                  enabled: true,
-                  title: "Price (Thousands of Dollars)",
-                  tickFormat: dollarFmt
-                },
-                legend: {
-                  enabled: true,
-                  elem: $section.find(".chart2 .legend"),
-                  stackOrder: 'ttb'
-                },
-                'series': chart2Series
+  var chart2 = new D3GroupedBarChart($section.find(".chart:eq(1)"),
+        chart2Data,
+        {
+          color: price_colors,
+          tooltip: function() {
+            var d = this.__data__;
+            return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
+          },
+          xAxis: {
+            enabled: true,
+            title: "Year"
+          },
+          yAxis: {
+            enabled: true,
+            title: "Price (Thousands of Dollars)",
+            tickFormat: dollarFmt
+          },
+          legend: {
+            enabled: true,
+            elem: $section.find(".chart2 .legend"),
+            stackOrder: 'ttb',
+            postRenderLegend: function(el){
+              var self = this;
+              $(el).find('span.legend-value').each(function(idx){
+                this.innerHTML = self.options.series[idx];
               });
+            }
+          },
+          'series': chart2Series
+        });
 
 /* disabled
   var normData = normalizeFirst([data[0], data[1]], 0);
