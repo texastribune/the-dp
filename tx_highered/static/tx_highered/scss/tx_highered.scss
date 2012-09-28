@@ -168,7 +168,7 @@ th {
 
   .rollup {
     font-family: $sansFontFamily;
-    font-size: 150%;
+    font-size: 20px;  // consistent with Public Ed
   }
 
   .input-append .add-on:hover {
@@ -176,6 +176,8 @@ th {
   }
 
   #attribution {
+    font-family: $sansFontFamily;
+    font-size: 90%;
     margin-top: 2em;
     margin-bottom: -2em;
     i {

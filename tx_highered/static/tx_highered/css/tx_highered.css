@@ -86,9 +86,9 @@ th aside { display: inline-block !important; width: 10%; }
 .data-app .app-header h1 small { font-family: Helvetica; display: block; font-size: 0.45em; text-transform: none; margin-left: 3.65em; }
 .data-app .page-header { font-family: Helvetica, Arial, sans-serif; border-bottom-color: #eee; }
 .data-app h1, .data-app h2, .data-app h3 { font-family: Helvetica, Arial, sans-serif; }
-.data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 150%; }
+.data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 20px; }
 .data-app .input-append .add-on:hover { cursor: pointer; }
-.data-app #attribution { margin-top: 2em; margin-bottom: -2em; }
+.data-app #attribution { font-family: Helvetica, Arial, sans-serif; font-size: 90%; margin-top: 2em; margin-bottom: -2em; }
 .data-app #attribution i { height: 1.2em; vertical-align: middle; }
 
 .bootstrap .well { background-color: whiteSmoke; }
