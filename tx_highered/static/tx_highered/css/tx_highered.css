@@ -36,7 +36,7 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
 
 @media print { #site_roofline, #greeting { display: none; }
   .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
-#intro p { line-height: 1.5; margin: 0.5em 0; }
+#intro p { line-height: 1.35; margin: 0.5em 0; }
 
 .brought-to-you-by { font-size: 0.85em; text-align: center; }
 .higher-ed .brought-to-you-by p { font-family: Georgia, "Times New Roman", Times, serif; }
