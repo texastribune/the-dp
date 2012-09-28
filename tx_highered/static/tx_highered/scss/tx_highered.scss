@@ -69,6 +69,8 @@ th {
   }
 
   .landing {
+    padding-top: 0.75em;
+
     .map-container {
       position: relative;
 
@@ -123,6 +125,7 @@ th {
 
   .page-header {
     font-family: $sansFontFamily;
+    border-bottom-color: #eee;
   }
 
   // section headings, h2 is reserved for future expansion (e.g. h2 enrollment,

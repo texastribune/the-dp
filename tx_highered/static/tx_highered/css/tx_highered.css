@@ -63,6 +63,7 @@ th aside { display: inline-block !important; width: 10%; }
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
 .higher-ed p { font-family: Helvetica; font-size: 0.9em; }
+.higher-ed .landing { padding-top: 0.75em; }
 .higher-ed .landing .map-container { position: relative; }
 .higher-ed .landing .map-container button { position: absolute; left: 33%; width: 33%; display: block; z-index: 1000; }
 .higher-ed table.data-source { display: none; }
@@ -72,7 +73,7 @@ th aside { display: inline-block !important; width: 10%; }
 .data-app .app-header h1 img { margin-right: 5px; }
 .data-app .app-header h1 a { color: #222; text-decoration: none; }
 .data-app .app-header h1 small { font-family: Helvetica; display: block; font-size: 0.45em; text-transform: none; margin-left: 3.65em; }
-.data-app .page-header { font-family: Helvetica, Arial, sans-serif; }
+.data-app .page-header { font-family: Helvetica, Arial, sans-serif; border-bottom-color: #eee; }
 .data-app h1, .data-app h2, .data-app h3 { font-family: Helvetica, Arial, sans-serif; }
 .data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 150%; }
 .data-app .input-append .add-on:hover { cursor: pointer; }
