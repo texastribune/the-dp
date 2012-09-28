@@ -19,6 +19,31 @@
 }
 
 
+.presented_by {
+  font-size: 0.85em;
+  text-align: center;
+
+  p {
+    .higher-ed & {
+      font-family: $serifFontFamily;
+    }
+  }
+
+  div {
+    border-width: 1px 0px;
+    border-style: solid;
+    padding: 20px 0 20px;
+    border-color: rgba(0, 0, 0, 0.1);
+    margin: 1em 0px;
+  }
+
+  img {
+    display: block;
+    width: 202px;
+    margin: 0 auto;
+  }
+}
+
 // make sure currency is text-align right
 #pricetrends {
   .chart-data {
