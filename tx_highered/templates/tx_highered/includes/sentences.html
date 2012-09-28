@@ -1,19 +1,21 @@
-<p>
-  {{ object.sentences.introductory|safe }}
-  {{ object.sentences.admissions|safe }}
-  {{ object.sentences.cost|safe }}
-</p>
+<div class="sentences">
+  <p>
+    {{ object.sentences.introductory|safe }}
+    {{ object.sentences.admissions|safe }}
+    {{ object.sentences.cost|safe }}
+  </p>
 
-<p>
-  {{ object.sentences.sat_scores|safe }}
-</p>
+  <p>
+    {{ object.sentences.sat_scores|safe }}
+  </p>
 
-{% if object.description %}
-  <div class="editorial">
-    {{ object.description|safe }}
-  </div>
-{% endif %}
+  {% if object.description %}
+    <div class="editorial">
+      {{ object.description|safe }}
+    </div>
+  {% endif %}
 
-<p>
-  {{ object.sentences.representatives|safe }}
-</p>
+  <p>
+    {{ object.sentences.representatives|safe }}
+  </p>
+</div>

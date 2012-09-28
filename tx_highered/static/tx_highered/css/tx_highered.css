@@ -68,8 +68,13 @@ th aside { display: inline-block !important; width: 10%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
+<<<<<<< HEAD
 .higher-ed p { font-family: Helvetica; font-size: 0.9em; }
 .higher-ed .landing { padding-top: 0.75em; }
+=======
+.sentences { font-family: Helvetica, Arial, sans-serif; font-size: 0.9em; }
+
+>>>>>>> refactor: it's generally a bad idea to style p tags
 .higher-ed .landing .map-container { position: relative; }
 .higher-ed .landing .map-container button { position: absolute; left: 33%; width: 33%; display: block; z-index: 1000; }
 .higher-ed table.data-source { display: none; }

@@ -88,12 +88,16 @@ th {
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
-.higher-ed {
-  p {
-    font-family: Helvetica;
-    font-size: 0.9em;
+.sentences {
+  font-family: $sansFontFamily;
+  font-size: 0.9em;
+}
 
-  }
+.higher-ed {
+  // p {
+  //   font-family: Helvetica;
+  //   font-size: 0.9em;
+  // }
 
   .landing {
     padding-top: 0.75em;
