@@ -21,20 +21,19 @@
     </div>
 
     <div class="span4">
-      <div class="well brought-to-you-by">
+      <div class="well presented_by">
         <p>
-          The <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
-          was created with support from the Greater Texas Foundation.
+          The <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a> was created with<br>
+          support from the Greater Texas Foundation.
         </p>
 
-        <div>
+        <div class="logo">
           <a class="external" target="_blank" href="http://greatertexasfoundation.org/">
-            <img src="{{ STATIC_URL }}tx_highered/images/greater-texas-foundation.png" alt="">
-
+            <img src="{{ STATIC_URL }}tx_highered/images/greater-texas-foundation.png" alt="Greater Texas Foundation">
           </a>
         </div>
 
-        <p class="learn-more">
+        <p>
           <a href="{% url 'tx_highered:home' %}about/">
             Learn more about the<br> Higher Education Explorer
           </a>

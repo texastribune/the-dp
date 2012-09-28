@@ -38,12 +38,6 @@ svg .sealevel { stroke: rgba(30, 30, 80, 0.4); }
   .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
 #intro p { line-height: 1.35; margin: 0.5em 0; }
 
-.brought-to-you-by { font-size: 0.85em; text-align: center; }
-.higher-ed .brought-to-you-by p { font-family: Georgia, "Times New Roman", Times, serif; }
-.brought-to-you-by .learn-more { margin-bottom: 0; }
-.brought-to-you-by div { border-width: 1px 0px; border-style: solid; padding: 20px 0 20px; border-color: rgba(0, 0, 0, 0.1); margin: 1em 0px; }
-.brought-to-you-by img { display: block; width: 202px; margin: 0 auto; }
-
 #pricetrends .chart-data tbody td { text-align: right; }
 #pricetrends .chart-data .dollar { color: #666; }
 #pricetrends .chart-data .currency { margin-right: 14px; }
@@ -73,7 +67,10 @@ th aside { display: inline-block !important; width: 10%; }
 .higher-ed .landing { padding-top: 0.75em; font-family: Helvetica, Arial, sans-serif; }
 .higher-ed .landing .map-container { position: relative; }
 .higher-ed .landing .map-container button { position: absolute; left: 33%; width: 33%; display: block; z-index: 1000; }
-.higher-ed .presented_by { font-family: Georgia, "Times New Roman", Times, serif; }
+.higher-ed .presented_by { font-family: Georgia, "Times New Roman", Times, serif; font-size: 12.75px; text-align: center; }
+.higher-ed .presented_by p { margin-bottom: 0; white-space: nowrap; }
+.higher-ed .presented_by .logo { border-width: 1px 0px; border-style: solid; padding: 20px 0 20px; border-color: rgba(0, 0, 0, 0.1); margin: 1em 0; }
+.higher-ed .presented_by img { display: block; margin: 0 auto; width: 202px; }
 .higher-ed table.data-source { display: none; }
 .higher-ed .admissions tbody td small { display: block; }
 

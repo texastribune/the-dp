@@ -19,33 +19,6 @@
 }
 
 
-.brought-to-you-by {
-  font-size: 0.85em;
-  text-align: center;
-
-  .higher-ed & p {
-    font-family: $serifFontFamily;
-  }
-
-  .learn-more {
-    margin-bottom: 0;
-  }
-
-  div {
-    border-width: 1px 0px;
-    border-style: solid;
-    padding: 20px 0 20px;
-    border-color: rgba(0, 0, 0, 0.1);
-    margin: 1em 0px;
-  }
-
-  img {
-    display: block;
-    width: 202px;
-    margin: 0 auto;
-  }
-}
-
 // make sure currency is text-align right
 #pricetrends {
   .chart-data {
@@ -117,6 +90,30 @@ th {
 
   .presented_by {
     font-family: $serifFontFamily;
+    font-size: 12.75px;  // match the public schools explorer
+    text-align: center;
+
+    p {
+      // override .bootstrap p
+      margin-bottom: 0;  // margin does not play well with wells
+
+      white-space: nowrap;  // don't let browsers create widows
+    }
+
+    .logo {
+      border-width: 1px 0px;
+      border-style: solid;
+      padding: 20px 0 20px;
+      border-color: rgba(0, 0, 0, 0.1);
+      margin: 1em 0;
+    }
+
+    // shrink and center .logo img
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 202px;
+    }
   }
 
   table.data-source {
