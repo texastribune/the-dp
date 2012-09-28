@@ -101,7 +101,7 @@ th {
 
   .landing {
     padding-top: 0.75em;
-
+    font-family: $sansFontFamily;
     .map-container {
       position: relative;
 
@@ -113,6 +113,10 @@ th {
         z-index: 1000;
       }
     }
+  }
+
+  .presented_by {
+    font-family: $serifFontFamily;
   }
 
   table.data-source {
