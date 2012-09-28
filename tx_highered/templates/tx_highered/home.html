@@ -1,103 +1,75 @@
-{% extends "tx_highered/app_base.html" %}
+{% extends "tx_highered/twocolumn_base.html" %}
 {% load chunks %}{# FIXME chunks is not a requirement for the app #}
 {% load url from future %}
 
 
-{% block opengraph_meta %}{{ block.super }}
-  <meta property="og:title" content="The Texas Tribune Higher Education Explorer">
-  <meta property="og:description" content="The Texas Tribune Higher Education Explorer captures data on all 148 public and private colleges and universities in the state. Combining key academic, enrollment and financial records, this database collects and presents statistics about Texas’ institutions of higher learning in a way that is easy to understand and simple to navigate.">
-{% endblock %}
-
-
-{% block adsense_slots %}{{ block.super }}
-  {% include "tx_highered/includes/app_meta.html" %}
-{% endblock %}
-
-
-{% block breadcrumb_base %}{% endblock %}
+{% block breadcrumb_base %}{# DISABLE #}{% endblock %}
 
 
 {% block main %}
-  <div class="row landing">
-    <div class="span8">
-      <section id="intro">
-        {% chunk "higher-ed/explorer#intro" %}
-      </section>
+  <section id="intro">
+    {% chunk "higher-ed/explorer#intro" %}
+  </section>
 
-      <hr>
+  <hr>
 
-      <section class="row-fluid">
-        <div class="graphic pull-right">
-          <img src="http://s3.amazonaws.com/static.texastribune.org/common/tx_schools/statewide-search-icon.png" />
-        </div>
-
-        <div>
-          <h2>Search Colleges and Universities</h2>
-          {% chunk "higher-ed/explorer#search" %}
-          <div class="input-append">{% spaceless %}
-            <input type="text" class="q span7" placeholder="College or university name">
-            <span class="add-on active" data-action="reset">All</span>
-            <span class="add-on" data-action="public">Public</span>
-            <span class="add-on" data-action="private">Private</span>
-          {% endspaceless %}</div>
-        </div>
-
-        <hr>
-
-        {% if short_list %}
-          <div class="well well-small sans-serif">
-            <h4>Top {{ short_list|length }} Higher Education Institutions by Enrollment:</h4>
-            {% for object in short_list %}
-              <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
-              {% if not forloop.last %}
-                <span class="divider">&bull;</span>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
-      </section>
-
-      <section id="view-map" class="row-fluid map-container">
-        <div>
-          <h2>
-            View All Institutions Statewide
-            <small class="btn-group" style="display: inline-block; vertical-align: middle;">
-              <a href="#" class="btn btn-mini reset active" data-action="reset">All</a>
-              <a href="#" class="btn btn-mini public" data-action="public">Public</a>
-              <a href="#" class="btn btn-mini private" data-action="private">Private</a>
-            </small>
-          </h2>
-
-          <button id="statewideZoom" class="btn" style="position:absolute; display:block; margin: 0 auto -40px;">
-            Return to statewide view
-          </button>
-
-          <div id="mapCanvas"></div>
-        </div>
-      </section>
+  <section class="row-fluid">
+    <div class="graphic pull-right">
+      <img src="http://s3.amazonaws.com/static.texastribune.org/common/tx_schools/statewide-search-icon.png" />
     </div>
 
-    <div class="span4">
-      <div class="well well-small" style="font-size: 85%; padding: 1em;">
-        The <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
-        was created with support from the Greater Texas Foundation.
-        <div style="border-width: 1px 0px; border-style: solid; padding: 0.5em 0px; border-color: rgb(204, 204, 204); margin: 1em 0px;">
-          <img src="//s3.amazonaws.com/static.texastribune.org/apps/highered/greater-texas-foundation-276x168.png" alt="">
-        </div>
-        <a href="about/">Learn more about the Higher Education Explorer</a>
+    <div>
+      <h2>Search Colleges and Universities</h2>
+      {% chunk "higher-ed/explorer#search" %}
+      <div class="input-append">{% spaceless %}
+        <input type="text" class="q span7" placeholder="College or university name">
+        <span class="add-on active" data-action="reset">All</span>
+        <span class="add-on" data-action="public">Public</span>
+        <span class="add-on" data-action="private">Private</span>
+      {% endspaceless %}</div>
+    </div>
+
+    <hr>
+
+    {% if short_list %}
+      <div class="well well-small sans-serif">
+        <h4>Top {{ short_list|length }} Higher Education Institutions by Enrollment:</h4>
+        {% for object in short_list %}
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+          {% if not forloop.last %}
+            <span class="divider">&bull;</span>
+          {% endif %}
+        {% endfor %}
       </div>
+    {% endif %}
+  </section>
 
-      {% include "tx_highered/includes/home_rail.html" %}
+  <section id="view-map" class="row-fluid map-container">
+    <div>
+      <h2>
+        View All Institutions Statewide
+        <small class="btn-group" style="display: inline-block; vertical-align: middle;">
+          <a href="#" class="btn btn-mini reset active" data-action="reset">All</a>
+          <a href="#" class="btn btn-mini public" data-action="public">Public</a>
+          <a href="#" class="btn btn-mini private" data-action="private">Private</a>
+        </small>
+      </h2>
+
+      <button id="statewideZoom" class="btn" style="position:absolute; display:block; margin: 0 auto -40px;">
+        Return to statewide view
+      </button>
+
+      <div id="mapCanvas"></div>
     </div>
-  </div>
+  </section>
 
-<div id="mapPopupContainer" class="shadow"><h4>Hover over a campus</h4></div>
+  <div id="mapPopupContainer" class="shadow"><h4>Hover over a campus</h4></div>
 
-{# TODO associate with maps.js #}
-<script id="mapPopup" type="text/x-handlebars-template">
-  <h2>{% templatetag openvariable %}name{% templatetag closevariable %}</h2>
-  <h4>{% templatetag openvariable %}city{% templatetag closevariable %}, TX</h4>
-</script>
+  {# TODO associate with maps.js #}
+  <script id="mapPopup" type="text/x-handlebars-template">
+    <h2>{% templatetag openvariable %}name{% templatetag closevariable %}</h2>
+    <h4>{% templatetag openvariable %}city{% templatetag closevariable %}, TX</h4>
+  </script>
 {% endblock %}
 
 
