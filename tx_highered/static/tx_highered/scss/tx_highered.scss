@@ -23,10 +23,8 @@
   font-size: 0.85em;
   text-align: center;
 
-  p {
-    .higher-ed & {
-      font-family: $serifFontFamily;
-    }
+  .higher-ed & p {
+    font-family: $serifFontFamily;
   }
 
   div {
