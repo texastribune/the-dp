@@ -8,6 +8,12 @@
   {{ object.sentences.sat_scores|safe }}
 </p>
 
+{% if object.description %}
+  <div class="editorial">
+    {{ object.description|safe }}
+  </div>
+{% endif %}
+
 <p>
   {{ object.sentences.representatives|safe }}
 </p>
