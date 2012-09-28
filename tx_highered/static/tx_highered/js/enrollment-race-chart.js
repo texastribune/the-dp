@@ -223,8 +223,12 @@
         legend: {
           enabled: true,
           elem: $("#enrollment .legend")
+        },
+        postRender: function(){
+          this.addDemarcationY(2001, "Closing the Gap by 2015.");
         }
       };
 
-  new Chart($("#enrollment .chart"), enrollment_chart_url, options);
+  var c = new Chart($("#enrollment .chart"), enrollment_chart_url, options);
+  window.c = c;
 })();

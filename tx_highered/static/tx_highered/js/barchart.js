@@ -382,6 +382,19 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
 
   postRenderLegend: function(el){
     // PASS
+  },
+
+  addDemarcationY: function(a, text){
+    var self = this;
+    self.plot.append("line")
+      .attr('class', 'demarcation')
+        .attr('x1', self.x_scale(a))
+        .attr('x2', self.x_scale(a))
+        .attr('y1', 0)
+        .attr('y2', self.options.height)
+        .attr("transform", "translate(" + (-self.bar_width / 10 / 2) + ",0)")
+        .attr('stroke-width', self.bar_width / 10 / 2)
+        .attr("title", text);
   }
 });
 
