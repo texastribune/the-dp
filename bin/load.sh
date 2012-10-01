@@ -20,5 +20,7 @@ python tx_highered/scripts/import_thecb_report.py $HIGHER_ED_DATA/THECB/custom_r
 python tx_highered/thecb_importer/load_enrollment.py &&
 python tx_highered/thecb_importer/load_graduation_rates.py $HIGHER_ED_DATA/THECB/custom_reports/university_graduation_rates.xls.html &&
 python tx_highered/thecb_importer/load_graduation_rates.py $HIGHER_ED_DATA/THECB/custom_reports/community_graduation_rates.xls.html &&
+python tx_highered/thecb_importer/load_graduation_rates.py $HIGHER_ED_DATA/THECB/custom_reports/state_graduation_rates.xls.html &&
 python tx_highered/thecb_importer/load_almanac_graduation_rates.py $HIGHER_ED_DATA/THECB/Almanac/almanac_p21.pdf.json &&
-python tx_highered/thecb_importer/load_admissions.py $HIGHER_ED_DATA/THECB/Admissions/
+python tx_highered/thecb_importer/load_admissions.py $HIGHER_ED_DATA/THECB/Admissions/ &&
+echo "Done!"
