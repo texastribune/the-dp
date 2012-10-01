@@ -95,3 +95,5 @@ dfn:hover { cursor: help; }
 .bootstrap .breadcrumb .dropdown-menu .active a { color: white; }
 .bootstrap .breadcrumb .dropdown-menu li { display: block; }
 .bootstrap .breadcrumb .navbar-search { margin-top: -1px; }
+
+.tooltip-inner { line-height: 20px; }
