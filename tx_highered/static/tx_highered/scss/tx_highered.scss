@@ -228,3 +228,11 @@ dfn {
 .tooltip-inner {
   line-height: 20px;
 }
+
+.no-js .requires-js {
+  display: none !important;
+}
+
+.no-svg .requires-svg {
+  display: none;
+}
