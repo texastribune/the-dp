@@ -5,8 +5,8 @@ from pyquery import PyQuery as pq
 import requests
 
 from tx_highered.models import Institution, PublicEnrollment
-
 from tx_highered.thecb_importer.utils import create_or_update
+
 
 REPORT_URL = "http://reports.thecb.state.tx.us/ibi_apps/WFServlet?"
 
