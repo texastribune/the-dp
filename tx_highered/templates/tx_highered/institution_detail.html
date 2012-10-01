@@ -548,48 +548,47 @@
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
 <script>
-  // $(".onion").onionize();
-
-  // Enrollment chart
-  // init_enrollment_chart({
-  //   url: "{% url "tx_highered:enrollment_api" object.id %}"
-  // });
-
   var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
+  var testchart, testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
 
-
-  var testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
-  var testchart = new TestScoresChart(
-        $('#testing .d3-viz'),
-        testchart_url,
-        {
-          color: ['#066', '#c93', '#339'],
-          tooltip: function(){
-            var d = this.__data__;
-            return d.title ||
-            "" + d.y + " - " + d.y_max + "";
-          },
-          xAxis: {
-            enabled: true,
-            title: "Year"
-          },
-          yAxis: {
-            enabled: true,
-            title: "SAT Score"
-          },
-          legend: {
-            enabled: true,
-            elem: $('#testing .legend'),
-            stackOrder: "ttb"
+  var loadCharts = function(){
+        testchart = new TestScoresChart(
+          $('#testing .d3-viz'),
+          testchart_url,
+          {
+            color: ['#066', '#c93', '#339'],
+            tooltip: function(){
+              var d = this.__data__;
+              return d.title ||
+              "" + d.y + " - " + d.y_max + "";
+            },
+            xAxis: {
+              enabled: true,
+              title: "Year"
+            },
+            yAxis: {
+              enabled: true,
+              title: "SAT Score"
+            },
+            legend: {
+              enabled: true,
+              elem: $('#testing .legend'),
+              stackOrder: "ttb"
+            }
           }
-        }
-      );
+        );
+      };
 
-    $(function() {
-      $('dfn[data-definition]').tooltip({
-        title: function(){ return $(this).data('definition'); }
-      });
+  // if Modernizr is missing or Modernizr is loaded and says we have svg
+  if (typeof(Modernizr) === "undefined" || Modernizr.svg){
+    loadCharts();
+  }
+
+  $(function() {
+    $('dfn[data-definition]').tooltip({
+      title: function(){ return $(this).data('definition'); }
     });
+  });
 </script>
 <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 {% endblock %}
