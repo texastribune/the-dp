@@ -6,7 +6,7 @@ from django.db import models
 
 from ..instachart.models import SimpleChart
 
-from .base import APP_LABEL
+from .base import APP_LABEL, Institution
 
 """
 field names are slugified().replace('-', '_') versions of the labels given
@@ -41,6 +41,24 @@ __all__ = ['PriceTrends', 'TestScores', 'Admissions',
 #     ('native', 'American Indian or Alaska Native'),
 #     ('asian', 'Asian or Pacific Islander'),
 #     ('unknown', 'Race/ethnicity unknown'))
+
+
+class InstitutionValueManager(models.Manager):
+    def by_year(self, year, **attrs):
+        table = self.model._meta.db_table
+        institution_table = Institution._meta.db_table
+
+        select = {'year': '%s.year' % table}
+        for attr, column in attrs.items():
+            select[attr] = '%s.%s' % (table, column)
+
+        return Institution.objects.published().extra(
+            tables=[table],
+            select=select,
+            where=['%s.institution_id = %s.id' % (table, institution_table),
+                   '%s.year = %%s' % table],
+            params=[year],
+        )
 
 
 class YearBasedInstitutionStatModel(models.Model):
@@ -312,6 +330,8 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
 
 
 class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
+    institution_values = InstitutionValueManager()
+
     total = models.IntegerField(null=True)
     fulltime_equivalent = models.IntegerField(null=True,
         verbose_name='Full-time Equivalent')

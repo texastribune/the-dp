@@ -2,7 +2,8 @@ from __future__ import division
 
 from django.db import models
 
-from .reports import YearBasedInstitutionStatModel, AdmissionsManager
+from .reports import (YearBasedInstitutionStatModel, AdmissionsManager,
+        InstitutionValueManager)
 from ..instachart.models import SimpleChart
 
 
@@ -25,7 +26,9 @@ RACES = [
 
 
 class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
-    total = models.IntegerField(null=True)
+    institution_values = InstitutionValueManager()
+
+    total = models.IntegerField(null=True, help_text='Total full-time students')
 
     african_american_count = models.IntegerField(null=True)
     asian_count = models.IntegerField(null=True)
