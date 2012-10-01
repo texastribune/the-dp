@@ -545,39 +545,74 @@
 <script src="{{ STATIC_URL }}tx_highered/js/d3chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
+{# <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script> #}
 <script>
   var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
   var testchart, testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
+  var makeGradRatesChart = function(){
+    var $section = $('#gradrates'),
+        data = $section.find('table.data-source').tabulate().toArray().reverse(),
+        options = {
+          color: ['#99c', '#639', '#306'],
+          tooltip: {
+            enabled: true,
+            format: function() {
+              return this.__data__.series + " bachelor's graduation rate<br><b>" +
+                d3.format(",.1f")(this.__data__.y) + "%</b>";
+            }
+          },
+          xAxis: {
+            enabled: true,
+            title: "Year"
+          },
+          yAxis: {
+            enabled: true,
+            title: "Percent",
+            format: function(a){ return a + '%'; },
+            max: 100
+          },
+          legend: {
+            enabled: true,
+            elem: $section.find('.legend'),
+            reversed: true,
+            titleAccessor: function(d, i){ return d[0].series; }
+          },
+          barSpacing: "-10%"
+        };
+
+    g = new D3StaggeredBarChart($section.find('.d3-viz'), data, options);
+  };
 
   var loadCharts = function(){
-        testchart = new TestScoresChart(
-          $('#testing .d3-viz'),
-          testchart_url,
-          {
-            color: ['#066', '#c93', '#339'],
-            tooltip: function(){
-              var d = this.__data__;
-              return d.title ||
-              "" + d.y + " - " + d.y_max + "";
-            },
-            xAxis: {
-              enabled: true,
-              title: "Year"
-            },
-            yAxis: {
-              enabled: true,
-              title: "SAT Score"
-            },
-            legend: {
-              enabled: true,
-              elem: $('#testing .legend'),
-              stackOrder: "ttb"
-            }
-          }
-        );
-      };
+    /*
+    testchart = new TestScoresChart(
+      $('#testing .d3-viz'),
+      testchart_url,
+      {
+        color: ['#066', '#c93', '#339'],
+        tooltip: function(){
+          var d = this.__data__;
+          return d.title ||
+          "" + d.y + " - " + d.y_max + "";
+        },
+        xAxis: {
+          enabled: true,
+          title: "Year"
+        },
+        yAxis: {
+          enabled: true,
+          title: "SAT Score"
+        },
+        legend: {
+          enabled: true,
+          elem: $('#testing .legend'),
+          stackOrder: "ttb"
+        }
+      }
+    );
+    */
+    makeGradRatesChart();
+  };
 
   // if Modernizr is missing or Modernizr is loaded and says we have svg
   if (typeof(Modernizr) === "undefined" || Modernizr.svg){
@@ -590,5 +625,5 @@
     });
   });
 </script>
-<script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
+{# <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script> #}
 {% endblock %}
