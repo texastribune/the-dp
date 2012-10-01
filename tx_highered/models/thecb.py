@@ -27,6 +27,7 @@ RACES = [
 
 class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     institution_values = InstitutionValueManager()
+    objects = models.Manager()
 
     total = models.IntegerField(null=True, help_text='Total full-time students')
 

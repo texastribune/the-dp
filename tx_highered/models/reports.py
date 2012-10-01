@@ -331,6 +331,7 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
 
 class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     institution_values = InstitutionValueManager()
+    objects = models.Manager()
 
     total = models.IntegerField(null=True)
     fulltime_equivalent = models.IntegerField(null=True,
