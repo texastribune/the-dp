@@ -387,11 +387,17 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
   },
 
   addDemarcationY: function(a, text){
+    var extent = d3.extent(this.x_scale.domain()),
+        scaledA = this.x_scale(a);
+    if (a < extent[0] || a > extent[1]) {
+      return;
+    }
+
     var self = this;
     self.plot.append("line")
       .attr('class', 'demarcation')
-        .attr('x1', self.x_scale(a))
-        .attr('x2', self.x_scale(a))
+        .attr('x1', scaledA)
+        .attr('x2', scaledA)
         .attr('y1', -self.options.margin[2])
         // Not sure why scaling requires this "+1" to flush the bottom
         // line with the bottom of the bars, but it does
