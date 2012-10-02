@@ -546,7 +546,7 @@
 <script src="//texastribune.github.com/d3chart/d3chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
-{# <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script> #}
+<script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 <script>
   var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
@@ -585,17 +585,19 @@
     g = new D3StaggeredBarChart($section.find('.d3-viz'), data, options);
   };
 
-  var loadCharts = function(){
-    /*
-    testchart = new TestScoresChart(
+  var makeTestScoresChart = function(){
+    var series = ["Critical Reading", "Math", "Writing"];  // HACK
+    window.z = new TestScoresChart(
       $('#testing .d3-viz'),
       testchart_url,
       {
         colors: ['#066', '#c93', '#339'],
-        tooltip: function(){
-          var d = this.__data__;
-          return d.title ||
-          "" + d.y + " - " + d.y_max + "";
+        tooltip: {
+          enabled: true,
+          format: function(){
+            var d = this.__data__;
+            return d.title || "" + d.y + " - " + d.y_max + "";
+          }
         },
         xAxis: {
           enabled: true,
@@ -603,16 +605,21 @@
         },
         yAxis: {
           enabled: true,
-          title: "SAT Score"
+          title: "SAT Score",
+          min: 200,
+          max: 800
         },
         legend: {
           enabled: true,
           elem: $('#testing .legend'),
-          stackOrder: "ttb"
+          titleAccessor: function(d, i) { return series[i]; }
         }
       }
     );
-    */
+  };
+
+  var loadCharts = function(){
+    makeTestScoresChart();
     makePriceTrendsCharts();
     makeEnrollmentRaceChart();
     makeGradRatesChart();

@@ -190,5 +190,5 @@ var makeEnrollmentRaceChart = function() {
         stackOrder: "big-bottom"
       };
 
-  window.z = new CustomChart($("#enrollment .chart"), enrollment_chart_url, options);
+  new CustomChart($("#enrollment .chart"), enrollment_chart_url, options);
 };

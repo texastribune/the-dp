@@ -1,13 +1,18 @@
-(function(exports, d3, D3GroupedBarChart){
+(function(exports, d3, D3GroupedBarChart, __extends){
   "use strict";
 // begin file-iffy, unindent
 
 
 /***************** TEST SCORES BAR CHART ******************/
-var series = ["Critical Reading", "Math", "Writing"];
+exports.TestScoresChart = (function() {
 
-var TestScoresChart = exports.TestScoresChart = D3GroupedBarChart.extend({
-  initData: function(new_data){
+  __extends(C, D3GroupedBarChart);
+
+  function C(){
+    return C.__super__.constructor.apply(this, arguments);
+  }
+
+  C.prototype.getCleanData = function(new_data){
     // only do SAT
     /*
       from:
@@ -41,30 +46,20 @@ var TestScoresChart = exports.TestScoresChart = D3GroupedBarChart.extend({
     var data = [processed_data.verbal, processed_data.math, processed_data.writing];
     this._data = data;
     return data;
-  },
+  };
 
-  // set to the range of valid SAT scores
-  getYDomain: function(){
-    return [200, 800];
-  },
-
-  getY: function(){
+  C.prototype.getY = function(){
     var self = this;
-    return function(d) { return self.y_scale(d.y_max); };
-  },
+    return function(d) { return self.yScale(d.y_max); };
+  };
 
-  getH: function(){
+  C.prototype.getH = function(){
     var self = this;
-    return function(d) { return self.height_scale(d.y_max - d.y); };
-  },
-
-  // series data isn't in the data, grab it externally
-  getLegendSeriesTitle: function(d, i){
-    return series[i];
-  },
+    return function(d) { return self.hScale(d.y_max - d.y); };
+  };
 
   // hack so we can conditionally set bar width
-  getBars: function(){
+  C.prototype.getBars = function(){
     var self = this;
     var bars = this._layers.selectAll("rect.bar")
       .data(function(d) { return d; })
@@ -74,7 +69,7 @@ var TestScoresChart = exports.TestScoresChart = D3GroupedBarChart.extend({
           var f = d.n == 2 ? 1.5 : 1;
           return f * self.bar_width * 0.9; })
         .attr("x", self.x)
-        .attr("y", self.options.plot_box.h)
+        .attr("y", self._options.plotBox.height)
         .attr("height", 0)
         .transition()
           .delay(function(d, i) { return i * 10; })
@@ -87,9 +82,10 @@ var TestScoresChart = exports.TestScoresChart = D3GroupedBarChart.extend({
           return "translate(" + dx + ", 0)";
         });
     return bars;
-  }
+  };
 
-});
+  return C;
+})();
 
 // end file iffy
-})(window, d3, D3GroupedBarChart);
+})(window, d3, D3GroupedBarChart, __extends);
