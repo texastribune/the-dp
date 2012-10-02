@@ -392,11 +392,22 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
       .attr('class', 'demarcation')
         .attr('x1', self.x_scale(a))
         .attr('x2', self.x_scale(a))
-        .attr('y1', 0)
-        .attr('y2', self.options.height)
+        .attr('y1', -self.options.margin[0])
+        // Not sure why scaling requires this "+1" to flush the bottom
+        // line with the bottom of the bars, but it does
+        .attr('y2', self.y_scale(self.options.height) + 1)
+        .attr("transform", "translate(" + (-self.bar_width / 10 / 2) + ",0)")
+        .attr('stroke-width', self.bar_width / 10 / 2);
+    self.plot.append("text")
+      .attr('class', 'demarcation-label')
+        .attr('x', self.x_scale(a) + 5)
+        .attr('y', -self.options.margin[0] + 10)
         .attr("transform", "translate(" + (-self.bar_width / 10 / 2) + ",0)")
         .attr('stroke-width', self.bar_width / 10 / 2)
-        .attr("title", text);
+        .text(text)
+        .style('font-family', 'sans-serif')
+        .style('font-size', '12px')
+        ;
   }
 });
 
