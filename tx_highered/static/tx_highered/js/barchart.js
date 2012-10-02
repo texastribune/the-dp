@@ -399,8 +399,6 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         .attr('x1', scaledA)
         .attr('x2', scaledA)
         .attr('y1', -self.options.margin[2])
-        // Not sure why scaling requires this "+1" to flush the bottom
-        // line with the bottom of the bars, but it does
         .attr('y2', self.options.height - self.options.margin[0] - self.options.margin[2])
         .attr("transform", "translate(" + (-self.bar_width / 10 / 2) + ",0)")
         .attr('stroke-width', 2);
