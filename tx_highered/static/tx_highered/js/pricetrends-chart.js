@@ -102,6 +102,9 @@
             title: "Price (Thousands of Dollars)",
             tickFormat: dollarFmt
           },
+          postRender: function(){
+            this.addDemarcationY(2004, "Public University Tuition Deregulation");
+          },
           legend: {
             enabled: true,
             elem: $section.find(".chart2 .legend"),
