@@ -1,5 +1,5 @@
 /*globals $, d3, D3StackedBarChart, enrollment_chart_url, __extends */
-(function() {
+var makeEnrollmentRaceChart = function() {
   "use strict";
 
   var COLORS = {
@@ -33,13 +33,13 @@
       return C.__super__.constructor.apply(this, arguments);
     }
 
-    C.prototype.initData = function(new_data){
+    C.prototype.getCleanData = function(new_data){
       // override to process data differently
       this.originalData = new_data;  // hold onto this
       var nested_dataset = d3.nest()
           .key(function(d) { return d.metric; })
           .entries(new_data);
-      return C.__super__.initData.call(this, nested_dataset);
+      return C.__super__.getCleanData.call(this, nested_dataset);
     };
 
     C.prototype.getXScale = function(){
@@ -49,7 +49,7 @@
       var yearRange = d3.extent(data, function(d) { return d.year; });
       return d3.scale.ordinal()
           .domain(d3.range(yearRange[0], yearRange[1] + 1))
-          .rangeRoundBands([0, self.options.plotBox.width], 0.1, 0.1);
+          .rangeRoundBands([0, self._options.plotBox.width], 0.1, 0.1);
     };
 
     C.prototype.getMaxY = function(data){
@@ -148,7 +148,7 @@
             .transition()
               .attr("y", function(d, i){
                 // send thee to the bottom of the sea!
-                return self.options.plotBox.height - self.h(d, i);
+                return self._options.plotBox.height - self.h(d, i);
               })
               .attr("height", self.h);
         }
@@ -191,4 +191,4 @@
       };
 
   window.z = new CustomChart($("#enrollment .chart"), enrollment_chart_url, options);
-})();
+};

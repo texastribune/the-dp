@@ -547,6 +547,7 @@
 <script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 {# <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script> #}
+<script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 <script>
   var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
   var testchart, testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
@@ -612,6 +613,8 @@
       }
     );
     */
+    makePriceTrendsCharts();
+    makeEnrollmentRaceChart();
     makeGradRatesChart();
   };
 
@@ -626,5 +629,4 @@
     });
   });
 </script>
-<script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 {% endblock %}

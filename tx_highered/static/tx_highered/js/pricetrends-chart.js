@@ -1,5 +1,5 @@
 /*global $, d3, normalizeFirst, D3StackedBarChart, D3GroupedBarChart */
-(function(){
+var makePriceTrendsCharts = function(){
   "use strict";
 
   var $section = $('#pricetrends');
@@ -159,4 +159,4 @@
   });
 */
 
-})();
+};
