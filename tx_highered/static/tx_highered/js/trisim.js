@@ -47,7 +47,7 @@
     };
 
     Trie.prototype.searchRecursive = function(head, tail, results, clusters, cluster) {
-      var item, newCluster, newClusters, newHead, newTail, node, _ref, _ref1;
+      var item, newCluster, newClusters, newHead, newTail, node, _ref, _ref1, _ref2, _ref3;
       if (!!head) {
         head = head.toLowerCase();
       }
@@ -57,12 +57,6 @@
       _ref = this.children;
       for (item in _ref) {
         node = _ref[item];
-        if (!tail && node.data) {
-          results.push({
-            data: node.data,
-            similarity: clusters.length
-          });
-        }
         if (item === head) {
           newCluster = (cluster.slice(0).concat(head)).slice(-this.clusterSize);
           if (node.cluster.join() === newCluster.join()) {
@@ -71,10 +65,17 @@
             newClusters = clusters;
           }
           _ref1 = [tail[0], tail.slice(1)], newHead = _ref1[0], newTail = _ref1[1];
-          node.searchRecursive(newHead, newTail, results, newClusters, newCluster);
         } else {
-          node.searchRecursive(head, tail, results, clusters, cluster);
+          _ref2 = [head, tail], newHead = _ref2[0], newTail = _ref2[1];
+          _ref3 = [clusters, cluster], newClusters = _ref3[0], newCluster = _ref3[1];
         }
+        if (!newHead && !newTail && node.data) {
+          results.push({
+            data: node.data,
+            similarity: clusters.length
+          });
+        }
+        node.searchRecursive(newHead, newTail, results, newClusters, newCluster);
       }
       return results;
     };
