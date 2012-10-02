@@ -99,7 +99,7 @@
         </tbody>
       </table>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span12">
           <div class="well well-small chart-help">
             Applicants, admitted and enrolled students by year
@@ -107,7 +107,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span10">
           <div class="d3-viz chart-viz loading" style="height: 300px"></div>
         </div>
@@ -163,7 +163,7 @@
         </tr>
       </table>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span12">
           <div class="well well-small chart-help">
             Critical reading, math<!--, --> and writing SAT scores by year (writing section not introduced until 2006 and still not reported by some institutions)
@@ -171,7 +171,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span10">
           <div class="chart d3-viz chart-viz loading"></div>
         </div>
@@ -313,7 +313,7 @@
           </tbody>
         </table>
 
-        <div class="row">
+        <div class="row requires-svg">
           <div class="span12">
             <div class="well well-small chart-help">
               Student body breakdown by ethnicity and total enrollment
@@ -321,7 +321,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row requires-svg">
           <div class="span10">
             <div class="chart d3-viz chart-viz loading"></div>
           </div>
@@ -413,7 +413,7 @@
         </tbody>
       </table>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span12">
           <div class="well well-small chart-help">
             Total costs for in-state and out-of-state students by year
@@ -421,7 +421,7 @@
         </div>
       </div>
 
-      <div class="row chart1">
+      <div class="row chart1 requires-svg">
         <div class="span10">
           <div class="chart d3-viz chart-viz loading"></div>
         </div>
@@ -437,7 +437,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span12">
           <div class="well well-small chart-help">
             {% if object.is_private %}
@@ -449,7 +449,7 @@
         </div>
       </div>
 
-      <div class="row chart2">
+      <div class="row chart2 requires-svg">
         <div class="span10">
           <div class="chart d3-viz chart-viz loading"><!-- GENERATED CHART --></div>
         </div>
@@ -507,7 +507,7 @@
         </table>
       {% endwith %}
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span12">
           <div class="well well-small chart-help">
             Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
@@ -515,7 +515,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row requires-svg">
         <div class="span10">
           <div class="chart d3-viz chart-viz loading"></div>
         </div>
@@ -548,48 +548,47 @@
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/gradrates-chart.js"></script>
 <script>
-  // $(".onion").onionize();
-
-  // Enrollment chart
-  // init_enrollment_chart({
-  //   url: "{% url "tx_highered:enrollment_api" object.id %}"
-  // });
-
   var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
+  var testchart, testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
 
-
-  var testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
-  var testchart = new TestScoresChart(
-        $('#testing .d3-viz'),
-        testchart_url,
-        {
-          color: ['#066', '#c93', '#339'],
-          tooltip: function(){
-            var d = this.__data__;
-            return d.title ||
-            "" + d.y + " - " + d.y_max + "";
-          },
-          xAxis: {
-            enabled: true,
-            title: "Year"
-          },
-          yAxis: {
-            enabled: true,
-            title: "SAT Score"
-          },
-          legend: {
-            enabled: true,
-            elem: $('#testing .legend'),
-            stackOrder: "ttb"
+  var loadCharts = function(){
+        testchart = new TestScoresChart(
+          $('#testing .d3-viz'),
+          testchart_url,
+          {
+            color: ['#066', '#c93', '#339'],
+            tooltip: function(){
+              var d = this.__data__;
+              return d.title ||
+              "" + d.y + " - " + d.y_max + "";
+            },
+            xAxis: {
+              enabled: true,
+              title: "Year"
+            },
+            yAxis: {
+              enabled: true,
+              title: "SAT Score"
+            },
+            legend: {
+              enabled: true,
+              elem: $('#testing .legend'),
+              stackOrder: "ttb"
+            }
           }
-        }
-      );
+        );
+      };
 
-    $(function() {
-      $('dfn[data-definition]').tooltip({
-        title: function(){ return $(this).data('definition'); }
-      });
+  // if Modernizr is missing or Modernizr is loaded and says we have svg
+  if (typeof(Modernizr) === "undefined" || Modernizr.svg){
+    loadCharts();
+  }
+
+  $(function() {
+    $('dfn[data-definition]').tooltip({
+      title: function(){ return $(this).data('definition'); }
     });
+  });
 </script>
 <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 {% endblock %}

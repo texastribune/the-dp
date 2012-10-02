@@ -5,6 +5,8 @@ from pyquery import PyQuery as pq
 import requests
 
 from tx_highered.models import Institution, PublicEnrollment
+from tx_highered.thecb_importer.utils import create_or_update
+
 
 REPORT_URL = "http://reports.thecb.state.tx.us/ibi_apps/WFServlet?"
 
@@ -136,7 +138,10 @@ def main():
     for category in ('public', 'public 2-year'):
         for institution in get_institutions(category):
             for cleaned_data in clean_institution_data(institution):
-                PublicEnrollment.objects.create(**cleaned_data)
+                inst = cleaned_data.pop('institution')
+                year = cleaned_data.pop('year')
+                create_or_update(PublicEnrollment.objects, institution=inst,
+                    year=year, defaults=cleaned_data)
 
 
 if __name__ == '__main__':

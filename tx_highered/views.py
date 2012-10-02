@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
 
-from .models import Institution
+from .models import Institution, Enrollment, PublicEnrollment
 
 
 class RenderModelDetailView(DetailView):
@@ -37,18 +37,33 @@ class FunnelMixin(object):
 class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
 
-    def get_short_list_qs(self):
+    def get_short_list(self):
         """ list of high enrollment schools to make getting to UT one click """
-        queryset = cache.get(__name__ + ".shortlist")
-        if queryset is None:
-            queryset = Institution.objects.published().annotate(
-                enr=Max('enrollment__total')).filter(enr__isnull=False).order_by('-enr')
-            cache.set(__name__ + ".shortlist", queryset, 3600 * 24 * 7)
-        return queryset
+        ipeds_queryset = (Enrollment.institution_values
+                    .by_year(2010, enrollment_total='total')
+                    .order_by('-enrollment_total')
+                    .exclude(fice_id=None, ipeds_id=None))[:15]
+        thecb_queryset = (PublicEnrollment.institution_values
+                          .by_year(2010, enrollment_total='total')
+                          .order_by('-enrollment_total')
+                          .exclude(fice_id=None, ipeds_id=None))[:15]
+
+        # Join the data with THECB taking priority
+        joined_enrollment = {}
+        for o in ipeds_queryset:
+            joined_enrollment[o.id] = o
+        for o in thecb_queryset:
+            joined_enrollment[o.id] = o
+
+        # Take the top schools by joined enrollment
+        short_list = sorted(joined_enrollment.values(), reverse=True,
+                            key=lambda o: o.enrollment_total)[:15]
+
+        return short_list
 
     def get_context_data(self, *args, **kwargs):
         context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context['short_list'] = self.get_short_list_qs()[:15]
+        context['short_list'] = self.get_short_list()
         return context
 
 

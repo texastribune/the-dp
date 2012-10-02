@@ -13,7 +13,10 @@
 @import "rail";
 @import "print";
 
-#intro p { font-size: 0.95rem; line-height: 1.3; }
+#intro p {
+  line-height: 1.35;
+  margin: 0.5em 0;
+}
 
 
 // make sure currency is text-align right
@@ -58,14 +61,20 @@ th {
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
-.higher-ed {
-  p {
-    font-family: Helvetica;
-    font-size: 0.9em;
+.sentences {
+  font-family: $sansFontFamily;
+  font-size: 0.9em;
+}
 
-  }
+.higher-ed {
+  // p {
+  //   font-family: Helvetica;
+  //   font-size: 0.9em;
+  // }
 
   .landing {
+    padding-top: 0.75em;
+    font-family: $sansFontFamily;
     .map-container {
       position: relative;
 
@@ -76,6 +85,34 @@ th {
         display: block;
         z-index: 1000;
       }
+    }
+  }
+
+  .presented_by {
+    font-family: $serifFontFamily;
+    font-size: 12.75px;  // match the public schools explorer
+    text-align: center;
+
+    p {
+      // override .bootstrap p
+      margin-bottom: 0;  // margin does not play well with wells
+
+      white-space: nowrap;  // don't let browsers create widows
+    }
+
+    .logo {
+      border-width: 1px 0px;
+      border-style: solid;
+      padding: 20px 0 20px;
+      border-color: rgba(0, 0, 0, 0.1);
+      margin: 1em 0;
+    }
+
+    // shrink and center .logo img
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 202px;
     }
   }
 
@@ -120,6 +157,7 @@ th {
 
   .page-header {
     font-family: $sansFontFamily;
+    border-bottom-color: #eee;
   }
 
   // section headings, h2 is reserved for future expansion (e.g. h2 enrollment,
@@ -131,7 +169,7 @@ th {
 
   .rollup {
     font-family: $sansFontFamily;
-    font-size: 150%;
+    font-size: 20px;  // consistent with Public Ed
   }
 
   .input-append .add-on:hover {
@@ -139,12 +177,20 @@ th {
   }
 
   #attribution {
+    font-family: $sansFontFamily;
+    font-size: 90%;
     margin-top: 2em;
     margin-bottom: -2em;
     i {
       height: 1.2em;
       vertical-align: middle;
     }
+  }
+}
+
+.bootstrap {
+  .well {
+    background-color: whiteSmoke;
   }
 }
 
@@ -177,4 +223,16 @@ dfn {
   .navbar-search {
     margin-top: -1px;
   }
+}
+
+.tooltip-inner {
+  line-height: 20px;
+}
+
+.no-js .requires-js {
+  display: none !important;
+}
+
+.no-svg .requires-svg {
+  display: none;
 }

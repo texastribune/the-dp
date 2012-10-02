@@ -1,4 +1,8 @@
 {% load humanize %}
 {% if obj.latest_tuition %}
-It costs ${{ obj.latest_tuition.in_state|intcomma }} per semester for in-state students, compared to ${{ obj.latest_tuition.out_of_state|intcomma }} for out-of-state students.
+  {% if obj.latest_tuition.in_state == obj.latest_tuition.out_of_state %}
+    It costs ${{ obj.latest_tuition.in_state|intcomma }} per year for in-state and out-of-state students.
+  {% else %}
+    It costs ${{ obj.latest_tuition.in_state|intcomma }} per year for in-state students, compared to ${{ obj.latest_tuition.out_of_state|intcomma }} for out-of-state students.
+  {% endif %}
 {% endif %}

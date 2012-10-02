@@ -25,7 +25,7 @@ svg .demarcation { stroke: #444; }
 
 .legend a, legend a:hover { color: inherit; }
 
-#mapCanvas { width: 100%; height: 650px; }
+#mapCanvas { background-color: #C2D8D1; height: 650px; width: 100%; }
 
 #mapPopupContainer { font-family: "Helvetica Neue", Arial, sans-serif; text-align: center; font-size: 14px; position: absolute; top: 10px; right: 10px; z-index: 1002; background-color: #FFFFFF; padding: 8px; display: none; }
 
@@ -37,7 +37,7 @@ svg .demarcation { stroke: #444; }
 
 @media print { #site_roofline, #greeting { display: none; }
   .breadcrumb .caret, .breadcrumb .navbar-search { display: none; } }
-#intro p { font-size: 0.95rem; line-height: 1.3; }
+#intro p { line-height: 1.35; margin: 0.5em 0; }
 
 #pricetrends .chart-data tbody td { text-align: right; }
 #pricetrends .chart-data .dollar { color: #666; }
@@ -63,9 +63,15 @@ th aside { display: inline-block !important; width: 10%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
-.higher-ed p { font-family: Helvetica; font-size: 0.9em; }
+.sentences { font-family: Helvetica, Arial, sans-serif; font-size: 0.9em; }
+
+.higher-ed .landing { padding-top: 0.75em; font-family: Helvetica, Arial, sans-serif; }
 .higher-ed .landing .map-container { position: relative; }
 .higher-ed .landing .map-container button { position: absolute; left: 33%; width: 33%; display: block; z-index: 1000; }
+.higher-ed .presented_by { font-family: Georgia, "Times New Roman", Times, serif; font-size: 12.75px; text-align: center; }
+.higher-ed .presented_by p { margin-bottom: 0; white-space: nowrap; }
+.higher-ed .presented_by .logo { border-width: 1px 0px; border-style: solid; padding: 20px 0 20px; border-color: rgba(0, 0, 0, 0.1); margin: 1em 0; }
+.higher-ed .presented_by img { display: block; margin: 0 auto; width: 202px; }
 .higher-ed table.data-source { display: none; }
 .higher-ed .admissions tbody td small { display: block; }
 
@@ -73,12 +79,14 @@ th aside { display: inline-block !important; width: 10%; }
 .data-app .app-header h1 img { margin-right: 5px; }
 .data-app .app-header h1 a { color: #222; text-decoration: none; }
 .data-app .app-header h1 small { font-family: Helvetica; display: block; font-size: 0.45em; text-transform: none; margin-left: 3.65em; }
-.data-app .page-header { font-family: Helvetica, Arial, sans-serif; }
+.data-app .page-header { font-family: Helvetica, Arial, sans-serif; border-bottom-color: #eee; }
 .data-app h1, .data-app h2, .data-app h3 { font-family: Helvetica, Arial, sans-serif; }
-.data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 150%; }
+.data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 20px; }
 .data-app .input-append .add-on:hover { cursor: pointer; }
-.data-app #attribution { margin-top: 2em; margin-bottom: -2em; }
+.data-app #attribution { font-family: Helvetica, Arial, sans-serif; font-size: 90%; margin-top: 2em; margin-bottom: -2em; }
 .data-app #attribution i { height: 1.2em; vertical-align: middle; }
+
+.bootstrap .well { background-color: whiteSmoke; }
 
 dfn { font-weight: inherit; border-bottom: 1px dotted #222; }
 dfn:hover { cursor: help; }
@@ -88,3 +96,9 @@ dfn:hover { cursor: help; }
 .bootstrap .breadcrumb .dropdown-menu .active a { color: white; }
 .bootstrap .breadcrumb .dropdown-menu li { display: block; }
 .bootstrap .breadcrumb .navbar-search { margin-top: -1px; }
+
+.tooltip-inner { line-height: 20px; }
+
+.no-js .requires-js { display: none !important; }
+
+.no-svg .requires-svg { display: none; }

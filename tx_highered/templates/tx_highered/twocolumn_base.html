@@ -21,15 +21,23 @@
     </div>
 
     <div class="span4">
-      <div class="well well-small presented_by" style="font-size: 85%; padding: 1em;">
-        The <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
-        was created with support from the Greater Texas Foundation.
-        <div style="border-width: 1px 0px; border-style: solid; padding: 0.5em 0px; border-color: rgb(204, 204, 204); margin: 1em 0px;">
+      <div class="well presented_by">
+        <p>
+          The <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a> was created with<br>
+          support from the Greater Texas Foundation.
+        </p>
+
+        <div class="logo">
           <a class="external" target="_blank" href="http://greatertexasfoundation.org/">
-            <img src="//s3.amazonaws.com/static.texastribune.org/apps/highered/greater-texas-foundation-276x168.png" alt="">
+            <img src="{{ STATIC_URL }}tx_highered/images/greater-texas-foundation.png" alt="Greater Texas Foundation">
           </a>
         </div>
-        <a href="{% url 'tx_highered:home' %}about/">Learn more about the Higher Education Explorer</a>
+
+        <p>
+          <a href="{% url 'tx_highered:home' %}about/">
+            Learn more about the<br> Higher Education Explorer
+          </a>
+        </p>
       </div>
 
       {% include "tx_highered/includes/home_rail.html" %}

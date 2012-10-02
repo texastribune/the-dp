@@ -7,6 +7,7 @@ from lxml import html as etree
 
 from tx_highered.models import Institution
 from tx_highered.models import PublicGraduationRates
+from tx_highered.thecb_importer.utils import create_or_update
 
 
 def parse_year(s):
@@ -93,7 +94,10 @@ def load_graduation_rates(path):
     # Save the graduation rates
     for obj_data in obj_data_by_institution_year.itervalues():
         print obj_data['institution']
-        PublicGraduationRates.objects.create(**obj_data)
+        inst = obj_data.pop('institution')
+        year = obj_data.pop('year')
+        create_or_update(PublicGraduationRates.objects, institution=inst,
+            year=year, defaults=obj_data)
 
 
 if __name__ == '__main__':

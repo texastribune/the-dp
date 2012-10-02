@@ -8,7 +8,7 @@
 
     getBarWidth: function(){
       var len_series = this._data.length; // m, i, rows
-      var len_x = this._data[0].length;   // n, j, cols
+      var len_x = this.x_scale.domain().length;   // n, j, cols
       var bar_width = this.options.plot_box.w / len_x;  // bar_width is an outer width
       bar_width = bar_width - 20 - 10;
       return bar_width;

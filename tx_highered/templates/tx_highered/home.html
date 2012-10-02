@@ -3,6 +3,9 @@
 {% load url from future %}
 
 
+{% block page_title %}Higher Education Explorer | The Texas Tribune{% endblock %}
+
+
 {% block breadcrumb_base %}{# DISABLE #}{% endblock %}
 
 
@@ -33,9 +36,9 @@
 
     {% if short_list %}
       <div class="well well-small sans-serif">
-        <h4>Top {{ short_list|length }} Higher Education Institutions by Enrollment:</h4>
+        <h4>{{ short_list|length }} Featured Higher Education Institutions:</h4>
         {% for object in short_list %}
-          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+          <a data-enrollment="{{ object.enrollment_total }}" data-year="{{ object.year }}" href="{{ object.get_absolute_url }}">{{ object.name }}</a>
           {% if not forloop.last %}
             <span class="divider">&bull;</span>
           {% endif %}
