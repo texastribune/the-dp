@@ -397,7 +397,7 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
         // line with the bottom of the bars, but it does
         .attr('y2', self.y_scale(self.options.height) + 1)
         .attr("transform", "translate(" + (-self.bar_width / 10 / 2) + ",0)")
-        .attr('stroke-width', self.bar_width / 10 / 2);
+        .attr('stroke-width', 2);
     self.plot.append("text")
       .attr('class', 'demarcation-label')
         .attr('x', self.x_scale(a) + 5)
