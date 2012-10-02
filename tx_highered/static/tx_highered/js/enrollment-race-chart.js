@@ -230,6 +230,5 @@
         margin: [20, 0, 30, 50] // Needs extra top margin for the demarcation
       };
 
-  var c = new Chart($("#enrollment .chart"), enrollment_chart_url, options);
-  window.c = c;
+  new Chart($("#enrollment .chart"), enrollment_chart_url, options);
 })();
