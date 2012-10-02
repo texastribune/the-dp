@@ -20,6 +20,11 @@
         "total_percent_unknown": "#CC0024"
       };
 
+  // similar to python's any
+  function any(arr){
+    return arr.reduce(function(a, b){ return a || b; });
+  }
+
   var CustomChart = (function() {
 
     __extends(C, D3StackedBarChart);
@@ -70,89 +75,86 @@
       return function(d) { return self.hScale(d.y * d.enrollment / 100.0); };
     };
 
-    C.prototype.legendActivateSeries = function(idx, targetElem){
-      var self = this, filtered, targeted,
-          $target = $(targetElem).parent(),
-          $set = $target.parent().children(':not(.reset)'),
-          reset = function(){
-            self.rescale(self.getYDomain());  // TODO cache original outside this method
-            self._layers.selectAll("rect.bar")
-              .transition()
-                .attr("y", self.y)
-                .attr("height", self.h);
-            var $resetCtl = $set.next('.reset');
-            $resetCtl.hide(500, function(){ $resetCtl.remove(); });
-          },
-          addResetCtl = function(){
-            if ($target.parent().children('.reset').length) { return; }
-            var $resetCtl = $('<li class="reset"><a href="#">&times; Reset</a></li>');
-            $resetCtl.click(function(){
-              $set.filter('.active').removeClass('active');
-              self._layers.attr("display", null);  // XXX
-              reset();
-              // $resetCtl.hide(500, function(){ $resetCtl.remove(); });  // do not delete
-            });
-            $resetCtl.find('a').click(function(e){ e.preventDefault(); });
-            $target.parent().append($resetCtl);
-          };
-
-      // Interaction and UI
-      // TODO allow multiple elements to be active
-      var MODE; // DELETEME
-      if ($target.hasClass('active')){
-        $set.filter('.active').removeClass('active');
-        MODE = "blur";
-      } else {
-        $set.filter('.active').removeClass('active');
-        $target.addClass('active');
-        addResetCtl();
-        MODE = "focus";
-      }
-
-      // determine which layers to show
-      // activeMask is the mask of what series are active: [true, false, false, ...]
-      var activeMask = $set.map(function(i, x){ return $(x).hasClass('active'); }).toArray().reverse();
-      if (!any(activeMask)){
-        activeMask = activeMask.map(function(){ return true; });
-      }
-
-      // sort layers into two groups and toggle visiblity
-      targeted = this._layers.filter(function(d, i){ return activeMask[i]; });
-      targeted.attr("display", null);
-      filtered = this._layers.filter(function(d, i){ return !activeMask[i]; });
-      filtered.attr("display", "none");
-
-      // redraw
-      // TODO show multiple layers, this involves re-calculating everything
-      // which is expensive
-      if (MODE == "blur"){
-        reset();
-      } else {
-        var max = d3.max(targeted.data()[0].values.map(function(a){ return a.value * a.enrollment / 100; }));
-        self.rescale([0, max]);
-        targeted.selectAll("rect.bar")
-          .transition()
-            .attr("y", function(d, i){
-              // send thee to the bottom of the sea!
-              return self.options.plot_box.h - self.h(d, i);
-            })
-            .attr("height", self.h);
-      }
-      if (self.yAxis){
-        self.svg.select('.y.axis').transition().call(self.yAxis);
-      }
-    };
-
-    C.prototype.postRender = function(el){
-      $(el).find("li.inactive").removeClass('inactive');
-    };
-
     return C;
   })();
 
   var tooltipFmt = function(d){
         var guess = d3.format(",d")(Math.round(d.y * d.enrollment / 100));
         return guess + " (" + d.y + "%) " + d.race.substr(2);
+      },
+      _click = function(d, i, targetElem){
+        // MAD HAXX AHEAD
+        var self = this, filtered, targeted,
+            evt = d3.event,
+            $target = $(targetElem).parent(),
+            $set = $target.parent().children(':not(.reset)'),
+            reset = function(){
+              self.rescale(self.getYDomain());  // TODO cache original outside this method
+              self._layers.selectAll("rect.bar")
+                .transition()
+                  .attr("y", self.y)
+                  .attr("height", self.h);
+              var $resetCtl = $set.next('.reset');
+              $resetCtl.hide(500, function(){ $resetCtl.remove(); });
+            },
+            addResetCtl = function(){
+              if ($target.parent().children('.reset').length) { return; }
+              var $resetCtl = $('<li class="reset"><a href="#">&times; Reset</a></li>');
+              $resetCtl.click(function(){
+                $set.filter('.active').removeClass('active');
+                self._layers.attr("display", null);  // XXX
+                reset();
+                // $resetCtl.hide(500, function(){ $resetCtl.remove(); });  // do not delete
+              });
+              $resetCtl.find('a').click(function(e){ e.preventDefault(); });
+              $target.parent().append($resetCtl);
+            };
+
+        // Interaction and UI
+        // TODO allow multiple elements to be active
+        var MODE; // DELETEME
+        if ($target.hasClass('active')){
+          $set.filter('.active').removeClass('active');
+          MODE = "blur";
+        } else {
+          $set.filter('.active').removeClass('active');
+          $target.addClass('active');
+          addResetCtl();
+          MODE = "focus";
+        }
+
+        // determine which layers to show
+        // activeMask is the mask of what series are active: [true, false, false, ...]
+        var activeMask = $set.map(function(i, x){ return $(x).hasClass('active'); }).toArray().reverse();
+        if (!any(activeMask)){
+          activeMask = activeMask.map(function(){ return true; });
+        }
+
+        // sort layers into two groups and toggle visiblity
+        targeted = this._layers.filter(function(d, i){ return activeMask[i]; });
+        targeted.attr("display", null);
+        filtered = this._layers.filter(function(d, i){ return !activeMask[i]; });
+        filtered.attr("display", "none");
+
+        // redraw
+        // TODO show multiple layers, this involves re-calculating everything
+        // which is expensive
+        if (MODE == "blur"){
+          reset();
+        } else {
+          var max = d3.max(targeted.data()[0].values.map(function(a){ return a.value * a.enrollment / 100; }));
+          self.rescale([0, max]);
+          targeted.selectAll("rect.bar")
+            .transition()
+              .attr("y", function(d, i){
+                // send thee to the bottom of the sea!
+                return self.options.plotBox.height - self.h(d, i);
+              })
+              .attr("height", self.h);
+        }
+        if (self.yAxis){
+          self.svg.select('.y.axis').transition().call(self.yAxis);
+        }
       },
       options = {
         // 'color': d3.interpolateRgb("#001", "#eef"),  // does not actually reach maxima
@@ -178,7 +180,12 @@
         legend: {
           enabled: true,
           elem: $("#enrollment .legend"),
-          titleAccessor: function(d){ return d.values[0].race.substr(2); }
+          reversed: true,
+          click: _click,
+          titleAccessor: function(d){ return d.values[0].race.substr(2); },
+          postRender: function(el){
+            $(el).find("li.inactive").removeClass('inactive');
+          }
         },
         stackOrder: "big-bottom"
       };
