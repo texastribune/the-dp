@@ -545,12 +545,45 @@
 {# <script src="{{ STATIC_URL }}tx_highered/js/d3chart.js"></script> #}
 <script src="//texastribune.github.com/d3chart/d3chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/admissions-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 <script>
   var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
   var testchart, testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
+  var makeAdmissionsChart = function(){
+    var $section = $('#admissions'),
+        data = $section.find('table.data-source').tabulate().toArray(),
+        options = {
+          colors: ['#9CF', '#39C', '#036'],
+          tooltip: {
+            enabled: true,
+            format: function() {
+              var d = this.__data__;
+              return d.title;
+              // return this.__data__.series + " bachelor's graduation rate<br><b>" +
+              //   d3.format(",.1f")(this.__data__.y) + "%</b>";
+            }
+          },
+          xAxis: {
+            enabled: true,
+            title: "Year"
+          },
+          yAxis: {
+            enabled: true,
+            title: "Number of Students",
+            // format: function(a){ return a + '%'; },
+          },
+          legend: {
+            enabled: true,
+            elem: $section.find('.legend'),
+            titleAccessor: function(d, i){ return d[0].series; }
+          },
+          barSpacing: "15%"
+        };
+
+    new D3StaggeredBarChart($section.find('.d3-viz'), data, options);
+  };
+
   var makeGradRatesChart = function(){
     var $section = $('#gradrates'),
         data = $section.find('table.data-source').tabulate().toArray().reverse(),
@@ -582,12 +615,12 @@
           barSpacing: "-10%"
         };
 
-    g = new D3StaggeredBarChart($section.find('.d3-viz'), data, options);
+    new D3StaggeredBarChart($section.find('.d3-viz'), data, options);
   };
 
   var makeTestScoresChart = function(){
     var series = ["Critical Reading", "Math", "Writing"];  // HACK
-    window.z = new TestScoresChart(
+    new TestScoresChart(
       $('#testing .d3-viz'),
       testchart_url,
       {
@@ -619,6 +652,7 @@
   };
 
   var loadCharts = function(){
+    makeAdmissionsChart();
     makeTestScoresChart();
     makePriceTrendsCharts();
     makeEnrollmentRaceChart();
