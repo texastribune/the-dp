@@ -554,7 +554,7 @@
     var $section = $('#gradrates'),
         data = $section.find('table.data-source').tabulate().toArray().reverse(),
         options = {
-          color: ['#99c', '#639', '#306'],
+          colors: ['#99c', '#639', '#306'],
           tooltip: {
             enabled: true,
             format: function() {
@@ -590,7 +590,7 @@
       $('#testing .d3-viz'),
       testchart_url,
       {
-        color: ['#066', '#c93', '#339'],
+        colors: ['#066', '#c93', '#339'],
         tooltip: function(){
           var d = this.__data__;
           return d.title ||

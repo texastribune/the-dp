@@ -17,7 +17,7 @@
   var chart = new D3StackedBarChart($section.find(".chart1 .chart"),
       [data[0], zeroes, data[2], data[3]],
       {
-        color: price_colors,
+        colors: price_colors,
         tooltip: {
           enabled: true,
           format: function(){
@@ -39,7 +39,7 @@
           elem: $section.find(".chart1 .legend"),
           titleAccessor: function(d, i){ return chart1Series[i]; },
           reversed: true,
-          postRenderLegend: function(el){
+          postRender: function(el){
             // put labels on series in the legend
             var $container = $(el);
             $container.find('a:gt(1)').each(function(idx, a){
