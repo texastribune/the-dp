@@ -13,13 +13,17 @@
   var price_colors = ['#39c', '#066', '#9c6', '#E63'];
   var zeroes = data[0].map(function(a){ return {x: a.x, y: 0}; }),
       dollarFmt = function(a){ return "$" + d3.format(",f")(a / 1000) + "k"; };
+  var chart1Series = data.map(function(x){ return x[0].series; });
   var chart = new D3StackedBarChart($section.find(".chart1 .chart"),
       [data[0], zeroes, data[2], data[3]],
       {
         color: price_colors,
-        tooltip: function(){
-          var d = this.__data__;
-          return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
+        tooltip: {
+          enabled: true,
+          format: function(){
+            var d = this.__data__;
+            return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
+          }
         },
         xAxis: {
           enabled: true,
@@ -28,18 +32,16 @@
         yAxis: {
           enabled: true,
           title: "Price (Thousands of Dollars)",
-          tickFormat: dollarFmt
+          format: dollarFmt
         },
         legend: {
           enabled: true,
           elem: $section.find(".chart1 .legend"),
+          titleAccessor: function(d, i){ return chart1Series[i]; },
+          reversed: true,
           postRenderLegend: function(el){
             // put labels on series in the legend
-            var series = data.map(function(x){ return x[0].series; }).reverse(),
-                $container = $(el);
-            $container.find('span.legend-value').each(function(idx){
-              this.innerHTML = series[idx];
-            });
+            var $container = $(el);
             $container.find('a:gt(1)').each(function(idx, a){
               var $a = $(a);
               if (idx == 1) {
@@ -89,9 +91,12 @@
         chart2Data,
         {
           color: price_colors,
-          tooltip: function() {
-            var d = this.__data__;
-            return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
+          tooltip: {
+            enabled: true,
+            format: function(){
+              var d = this.__data__;
+              return d.series + " " + d.x + " <b>$" + d3.format(",.0f")(d.y) + "</b>";
+            }
           },
           xAxis: {
             enabled: true,
@@ -100,20 +105,15 @@
           yAxis: {
             enabled: true,
             title: "Price (Thousands of Dollars)",
-            tickFormat: dollarFmt
+            format: dollarFmt
           },
           legend: {
             enabled: true,
             elem: $section.find(".chart2 .legend"),
-            stackOrder: 'ttb',
-            postRenderLegend: function(el){
-              var self = this;
-              $(el).find('span.legend-value').each(function(idx){
-                this.innerHTML = self.options.series[idx];
-              });
+            titleAccessor: function(d, i){
+              return chart2Series[i];
             }
-          },
-          'series': chart2Series
+          }
         });
 
 /* disabled
