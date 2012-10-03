@@ -196,9 +196,9 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         All others use data from IPEDS.
         """
         if not self.is_private and self.institution_type == 'uni':
-            return self.publicadmissions.all()
+            return self.publicadmissions
         else:
-            return self.admissions.all()
+            return self.admissions
 
     def get_graduation_rates(self):
         """
@@ -326,7 +326,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 'admitted': {},
                 'enrolled': {},
             }
-            for a in self.get_admissions():
+            for a in self.get_admissions().all():
                 if not a.number_admitted:
                     continue
                 b['years'].append(a.year)

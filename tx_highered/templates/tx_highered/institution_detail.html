@@ -78,7 +78,7 @@
     </div>
 
     {% if object.admission_buckets.years|length %}
-      {% with object_list=object.get_admissions %}
+      {% with object_list=object.get_admissions.all %}
         {% include "instachart/simplechart/admissions.html" %}
       {% endwith %}
 
