@@ -35,6 +35,15 @@
 
 
 {% block page_top %}
+  <div id="object-meta" class="hidden"
+       data-name="{{ institution.name }}"
+       data-slug="{{ institution.slug }}"
+       data-pk="{{ institution.pk }}"
+       data-ipedsid="{{ institution.ipeds_id }}"
+       data-ficeid="{{ institution.fice_id }}"
+       data-isprivate="{% if institution.is_private %}true{% else %}false{% endif %}">
+  </div>
+
   {% if institution.sentence_institution_type %}
     <p class="rollup">
         {% gloss institution.sentence_institution_type.title %}
