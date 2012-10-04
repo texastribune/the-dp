@@ -570,7 +570,7 @@
             enabled: true,
             format: function() {
               var d = this.__data__;
-              return d.series + " in " + d.x + ":<br><b>" + d3.format(",f")(d.y) + "</b>";
+              return d.series + " (" + d.x + "):<br><b>" + d3.format(",f")(d.y) + "</b>";
             }
           },
           xAxis: {
