@@ -233,6 +233,16 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         return Institution.get_unique_name(self.name)
 
     @property
+    def logo(self):
+        """ return the `Image` that represents the logo or `None` """
+        return self.wikipedia_logo
+
+    @property
+    def seal(self):
+        """ return the `Image` that represents the seal or `None` """
+        return self.wikipedia_seal
+
+    @property
     def number_of_full_time_students(self):
         enrollment = self.latest_enrollment
         return enrollment.total if enrollment else None
