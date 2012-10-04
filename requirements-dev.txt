@@ -1,6 +1,7 @@
 -r requirements.txt
 -r exampleproject/requirements.txt
 
+csvkit
 django-debug-toolbar
 Werkzeug
 South==0.7.3

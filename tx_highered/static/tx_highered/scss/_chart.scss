@@ -39,6 +39,11 @@ svg {
   .sealevel {
     stroke: rgba(30, 30, 80, 0.4);
   }
+
+  .demarcation {
+    stroke: #444;
+    // stroke-width: 3px;
+  }
 }
 
 .chart-legend {

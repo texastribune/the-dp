@@ -27,14 +27,7 @@ class Trie
         return results
 
     searchRecursive: (head, tail, results, clusters, cluster) ->
-        head = head.toLowerCase() unless not head
-        tail = tail.toLowerCase() unless not tail
         for item, node of @children
-            if not tail and node.data
-                results.push
-                    data: node.data
-                    similarity: clusters.length
-
             if item == head
                 newCluster = (cluster[..].concat head)[-@clusterSize..]
                 if node.cluster.join() == newCluster.join()
@@ -42,9 +35,16 @@ class Trie
                 else
                     newClusters = clusters
                 [newHead, newTail] = [tail[0], tail[1..]]
-                node.searchRecursive newHead, newTail, results, newClusters, newCluster
             else
-                node.searchRecursive head, tail, results, clusters, cluster
+                [newHead, newTail] = [head, tail]
+                [newClusters, newCluster] = [clusters, cluster]
+
+            if not newHead and not newTail and node.data
+                results.push
+                    data: node.data
+                    similarity: clusters.length
+
+            node.searchRecursive newHead, newTail, results, newClusters, newCluster
 
         return results
 

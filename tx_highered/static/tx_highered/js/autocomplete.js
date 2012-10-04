@@ -55,7 +55,7 @@ var autocomplete_institutions = function(data) {
 
 // Patch jQuery autocomplete to filter using fuzzy matching
 $.ui.autocomplete.filter = function(array, term) {
-  var results = autocomplete_trie.search(term);
+  var results = autocomplete_trie.search(term.toLowerCase());
   if (activeIdx == 1) {
     results = $.map(results, function(r, i) { return r.data.is_private ? null: r; });
   } else if (activeIdx == 2) {
