@@ -5,6 +5,9 @@
   var $section = $('#pricetrends');
   var $source = $section.find('table.data-source');
   var data = $source.tabulate();
+  var addDemarcation = function(chart) {
+    chart.addDemarcationY(2004, "Public University Tuition Deregulation");
+  };
   data = [data[0], data[1], data[3], data[2]];  // make sure books is last
 
   // store
@@ -29,6 +32,9 @@
           enabled: true,
           title: "Price (Thousands of Dollars)",
           tickFormat: dollarFmt
+        },
+        postRender: function(){
+          addDemarcation(this);
         },
         legend: {
           enabled: true,
@@ -101,6 +107,9 @@
             enabled: true,
             title: "Price (Thousands of Dollars)",
             tickFormat: dollarFmt
+          },
+          postRender: function(){
+            addDemarcation(this);
           },
           legend: {
             enabled: true,

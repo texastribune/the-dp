@@ -384,6 +384,34 @@ var D3BarChart = exports.D3BarChart = D3Chart.extend({
     if (this.options.legend.postRenderLegend) {
       this.options.legend.postRenderLegend.call(this, el);
     }
+  },
+
+  addDemarcationY: function(a, text){
+    var extent = d3.extent(this.x_scale.domain()),
+        scaledA = this.x_scale(a);
+    if (a < extent[0] || a > extent[1]) {
+      return false;
+    }
+
+    var self = this, demarcation;
+    demarcation = self.plot.append('g')
+      .attr('class', 'demarcation')
+      .attr("transform", "translate(" + (-self.bar_width / 10 / 2) + ",0)");
+    demarcation.append("line")
+        .attr('x1', scaledA)
+        .attr('x2', scaledA)
+        .attr('y1', -self.options.margin[2])
+        .attr('y2', self.options.height - self.options.margin[0] - self.options.margin[2])
+        .attr('stroke-width', 2);
+    demarcation.append("text")
+      .attr('class', 'demarcation-label')
+        .attr('x', self.x_scale(a) + 5)
+        .attr('y', -self.options.margin[0] + 10)
+        .text(text)
+        .attr('stroke-width', 0)
+        .style('font-family', 'sans-serif')
+        .style('font-size', '12px');
+    return demarcation;
   }
 });
 
