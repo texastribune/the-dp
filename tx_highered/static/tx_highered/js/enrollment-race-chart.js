@@ -187,6 +187,7 @@ var makeEnrollmentRaceChart = function() {
             $(el).find("li.inactive").removeClass('inactive');
           }
         },
+        stackOrder: "big-bottom",
         postRender: function(){
           this.addDemarcationY(2001, "Closing the Gap by 2015");
         },
