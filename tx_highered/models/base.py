@@ -35,25 +35,37 @@ class SummarySentences(object):
             return None
 
 
-class SentenceDistrict(object):
-    def __init__(self, district):
-        self.district = district
-        self.representative = district.representative
+class DistrictsSentence(object):
+    def __init__(self, obj, *districts):
+        self.obj = obj
+        self.districts = districts
 
     def __unicode__(self):
-        if hasattr(self.district, 'get_absolute_url'):
-            district_string = u'<a href="%s">%s</a>' % (
-                self.district.get_absolute_url(), self.district)
+        clauses = map(self.make_clause, self.districts)
+        if len(clauses) <= 2:
+            joined_clauses = u' and '.join(clauses)
         else:
-            district_string = unicode(self.district)
+            clauses[-1] = u'and %s' % (clauses[-1])
+            joined_clauses = ', '.join(clauses)
 
-        if not self.representative:
-            return district_string
-        elif hasattr(self.representative, 'get_absolute_url'):
-            representative_string = u'<a href="%s">%s</a>' % (
-                self.representative.get_absolute_url(), self.representative)
+        return u'%s is represented by %s' % (
+            self.obj.sentence_name, joined_clauses)
+
+    def make_clause(self, district):
+        representative = district.representative
+        if hasattr(district, 'get_absolute_url'):
+            district_string = u'<a href="%s">%s</a>' % (
+                district.get_absolute_url(), district)
         else:
-            representative_string = unicode(self.representative)
+            district_string = unicode(district)
+
+        if not representative:
+            return district_string
+        elif hasattr(representative, 'get_absolute_url'):
+            representative_string = u'<a href="%s">%s</a>' % (
+                representative.get_absolute_url(), representative)
+        else:
+            representative_string = unicode(representative)
 
         return u'%s in %s' % (representative_string, district_string)
 
@@ -296,10 +308,10 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 .exclude(type=SBOE))
 
     @property
-    def sentence_districts(self):
+    def districts_sentence(self):
         districts = self.lege_districts
         if districts:
-            return [SentenceDistrict(d) for d in districts]
+            return DistrictsSentence(self, *districts)
         else:
             return None
 

@@ -1,8 +1,1 @@
-{% with districts=obj.sentence_districts %}
-    {% if districts %}
-        {{ obj.sentence_name }} is represented by
-        {{ districts.0|safe }}{% if not districts.1 %}.{% else %}
-            and {{ districts.1|safe }}.
-        {% endif %}
-    {% endif %}
-{% endwith %}
+{{ obj.districts_sentence|default:""|safe }}
