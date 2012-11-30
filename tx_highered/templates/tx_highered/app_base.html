@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "layouts/base.html" %}
 
 
 {% block opengraph_meta %}
@@ -26,9 +26,11 @@
 {% block body_class %}data-app higher-ed{% endblock %}
 
 
-{% block body_base %}
-  <div class="bootstrap">
-    {% block body %}
+{# UGH #}
+{% block content_class %}{{ block.super }} bootstrap{% endblock %}
+
+
+{% block site_content %}
       <div id="highered-header" class="page-header app-header">
         {% block facebook_recommend %}
           {% comment %}
@@ -60,9 +62,7 @@
       {% block main_base %}
         {% block main %}{% endblock %}
       {% endblock %}
-    {% endblock body %}
-  </div>
-{% endblock body_base %}
+{% endblock site_content %}
 
 
 {% block extra_script %}{{ block.super }}
