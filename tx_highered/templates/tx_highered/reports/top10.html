@@ -17,7 +17,7 @@
         {% for object in object_list %}
           <th data-tablebars=1><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></th>
         {% endfor %}
-      </td>
+      </tr>
     </thead>
     <tbody>
       {% for year in year_range %}
