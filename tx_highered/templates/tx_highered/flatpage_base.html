@@ -4,7 +4,7 @@ Flatpage Template Name: tx_highered/flatpage_base.html
 {% endcomment %}
 
 
-{% block page_title %}{{ flatpage.title }} | {{ block.super }}{% endblock %}
+{% block head_title %}{{ flatpage.title }}{% endblock %}
 
 
 {% block main %}{{ flatpage.content }}{% endblock %}
