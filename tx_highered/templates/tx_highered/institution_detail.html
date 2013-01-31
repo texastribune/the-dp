@@ -4,7 +4,7 @@
 {% load glossary %}
 
 {% block head_title %}{{ object.name }}{% endblock %}
-{% block page_header %}{{ object.name }}{% endblock %}
+{% block page_title %}{{ object.name }}{% endblock %}
 
 {% block body_base %}{% load_glossary "Higher Ed" %}{{ block.super }}{% endblock %}
 
