@@ -1,11 +1,9 @@
 from setuptools import find_packages
 from distutils.core import setup
 
-import tx_highered
-
 setup(
     name='tx_highered',
-    version=tx_highered.__version__,
+    version='0.2alpha.0',
     description='Django app for Texas higher education data',
     author='Texas Tribune',
     author_email='tech@texastribune.org',
