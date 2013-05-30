@@ -18,7 +18,7 @@
 
   <section class="row-fluid">
     <div class="graphic pull-right">
-      <img src="http://s3.amazonaws.com/static.texastribune.org/common/tx_schools/statewide-search-icon.png" />
+      <img src="//s3.amazonaws.com/static.texastribune.org/common/tx_schools/statewide-search-icon.png" />
     </div>
 
     <div>
@@ -77,14 +77,14 @@
 
 
 {% block extra_style %}{{ block.super }}
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
-  <!--[if lte IE 8]><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.ie.css" /><![endif]-->
+  <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/leaflet/leaflet.css" />
+  <!--[if lte IE 8]><link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/vendor/leaflet/leaflet.ie.css" /><![endif]-->
 {% endblock %}
 
 
 {% block extra_script %}{{ block.super }}
-  <script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet-src.js"></script>
-  <script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
+  <script src="{{ STATIC_URL }}tx_highered/vendor/leaflet/leaflet-src.js"></script>
+  <script src="{{ STATIC_URL }}tx_highered/vendor/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
   <script src="{{ STATIC_URL }}tx_highered/js/maps.js"></script>
   <script>
     $(function() {

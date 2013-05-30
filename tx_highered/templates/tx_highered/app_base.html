@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load url from future %}
 
 
 {% block opengraph_meta %}
@@ -16,9 +17,6 @@
 
 
 {% block extra_head %}{{ block.super }}
-  <!-- Tribune Data Apps TypeKit -->
-  <script src="//use.typekit.com/rbc7eex.js"></script>
-  <script>try{Typekit.load();}catch(e){}</script>
   <script src="{{ STATIC_URL }}vendor/modernizr/modernizr.min.js"></script>
 {% endblock %}
 
@@ -43,7 +41,7 @@
 
         <h1>
           <img class="pull-left" src="{{ STATIC_URL }}tx_highered/css/icon.png" alt="">
-          <a href="{% url tx_highered:home %}">Higher Education Explorer</a>
+          <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
           <small>The Texas Tribune's go-to source for higher education data</small>
         </h1>
       </div>
@@ -51,7 +49,7 @@
       {% block breadcrumb_base %}
         <ul class="breadcrumb">
           <li>
-            <a href="{% url tx_highered:home %}">Home</a>
+            <a href="{% url 'tx_highered:home' %}">Home</a>
             <span class="divider">/</span>
           </li>
           {% block breadcrumb_items %}{% endblock %}
