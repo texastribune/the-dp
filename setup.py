@@ -1,4 +1,3 @@
-from setuptools import find_packages
 from distutils.core import setup
 
 import tx_highered
@@ -15,7 +14,7 @@ setup(
         'geopy',
         'tx_lege_districts>=0.4.0',
     ],
-    packages=find_packages('.', exclude=('exampleproject*',)),
+    packages=['tx_highered'],
     include_package_data=True,  # automatically include things from MANIFEST
     classifiers=[
         'Development Status :: 4 - Beta',
