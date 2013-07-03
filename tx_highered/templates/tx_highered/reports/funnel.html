@@ -1,6 +1,5 @@
 {% extends "tx_highered/app_base.html" %}
 {% load layout_helpers humanize instachart %}
-{% load webdesign %}
 
 
 {% block head_title %}The Funnel{% endblock %}
@@ -8,8 +7,6 @@
 
 
 {% block main %}
-  {% lorem 4 p %}
-
   {% for object in object_list %}{% if object.funnels %}
     <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
     {% render_model object "funnels" %}
