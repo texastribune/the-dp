@@ -7,6 +7,14 @@ from armstrong.core.arm_layout.utils import get_layout_template_name
 from .models import Institution, Enrollment, PublicEnrollment
 
 
+# TODO: Find a better location for this
+class TestVideoMixin(object):
+    def get_context_data(self, *args, **kwargs):
+        context = super(TestVideoMixin, self).get_context_data(*args, **kwargs)
+        context['show_video'] = 'show_video' in self.request.GET
+        return context
+
+
 class RenderModelDetailView(DetailView):
     """ shortcut to rendering an object using render_model """
     layout = None
@@ -72,7 +80,7 @@ class InstitutionListView(ListView):
         order_by('name')
 
 
-class InstitutionDetailView(DetailView, FunnelMixin):
+class InstitutionDetailView(TestVideoMixin, DetailView, FunnelMixin):
     model = Institution
 
     def get_context_data(self, *args, **kwargs):
