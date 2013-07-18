@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='tx_highered',
-    version='0.2.0',
+    version='0.3alpha.0',
     description='Django app for Texas higher education data',
     author='Texas Tribune',
     author_email='tech@texastribune.org',
