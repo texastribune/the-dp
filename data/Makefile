@@ -21,17 +21,21 @@ top_10_percent.xls.html:
 	curl -X POST ${URL} --data-binary "@top_10_percent.POST" > $@
 
 # Participation / Key Measures / Full-Time Equivalent Enrollment / Total FTE
+.PHONY: total_fte.xls.html
 total_fte.xls.html:
 	curl -X POST ${URL} --data-binary "@total_fte.POST" > $@
 
 # Success / Key Measures / Four-Year Graduation Rate / Percent Total
+.PHONY: graduation_rate_four.xls.html
 graduation_rate_four.xls.html:
 	curl -X POST ${URL} --data-binary "@graduation_rate_four.POST" > $@
 
 # Success / Key Measures / Five-Year Graduation Rate / Percent Total
+.PHONY: graduation_rate_five.xls.html
 graduation_rate_five.xls.html:
 	curl -X POST ${URL} --data-binary "@graduation_rate_five.POST" > $@
 
 # Success / Key Measures / Six-Year Graduation Rate / Percent Total
+.PHONY: graduation_rate_six.xls.html
 graduation_rate_six.xls.html:
 	curl -X POST ${URL} --data-binary "@graduation_rate_six.POST" > $@
