@@ -5,6 +5,8 @@
 db.sqlite
 .sass-cache
 
+data/*.html
+
 logs
 
 exampleproject/settings/local.py

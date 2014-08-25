@@ -71,6 +71,10 @@
 
 
 {% block main %}
+  {% if show_video %}{% if object.pk == 11 or object.pk == 27 %}{# 11 == TAMU, 27 == UT Austin #}
+    {% include "tx_highered/includes/sponsor_message.html" %}
+  {% endif %}{% endif %}
+
   <section id="admissions">
     <h2>Admissions <small class="page-anchor"><a href="#admissions"><i class="icon-share"></i></a></small></h2>
     <div class="well well-small chart-help">
@@ -553,13 +557,14 @@
 <script src="{{ STATIC_URL }}vendor/bootstrap/js/bootstrap{% if not debug %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/vendor/d3chart/d3chart.js"></script>
+{# <script src="{{ STATIC_URL }}tx_highered/js/d3chart.js"></script> #}
+<script src="//texastribune.github.com/d3chart/d3chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
 <script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
 <script>
-  var enrollment_chart_url = "{% url "tx_highered:enrollment_api" object.id %}";
-  var testchart, testchart_url = "{% url "tx_highered:institution_api" object.id "testscores" %}";
+  var enrollment_chart_url = "{% url 'tx_highered:enrollment_api' object.id %}";
+  var testchart, testchart_url = "{% url 'tx_highered:institution_api' object.id "testscores" %}";
   var makeAdmissionsChart = function(){
     var $section = $('#admissions'),
         data = $section.find('table.data-source').tabulate().toArray(),

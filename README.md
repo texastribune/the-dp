@@ -2,6 +2,8 @@ The Texas Higher Education Data Project
 ---------------------------------------
 
 A Very Rough guide to starting devlopment:
+
+```bash
 # install postgresql libpq-dev
 
 git checkout $REPOSITORY && cd $PATH
@@ -18,6 +20,7 @@ pip install -r requirements-dev.txt
 
 # load raw data
 ./bin/load.sh
+```
 
 
 Getting Data from the IPEDS Data Center
