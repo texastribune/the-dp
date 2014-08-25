@@ -1,5 +1,4 @@
 -r requirements.txt
--r exampleproject/requirements.txt
 
 csvkit
 django-debug-toolbar

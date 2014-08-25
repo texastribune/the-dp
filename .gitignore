@@ -4,6 +4,7 @@
 *.sublime-*
 db.sqlite
 .sass-cache
+.env
 
 data/*.html
 
