@@ -3,14 +3,22 @@ The Texas Higher Education Data Project
 
 A Very Rough guide to starting devlopment:
 
+Your `.env` file:
+
+```
+DJANGO_SETTINGS_MODULE=exampleproject.settings.dev
+DATABASE_URL=postgis:///tx_highered
+HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
+```
+
+Getting started:
+
 ```bash
 # install postgresql libpq-dev
 
-git checkout $REPOSITORY && cd $PATH
-mkvirtualenv $ENVNAME
+git clone $REPOSITORY && cd $PATH
+mkvirtualenv tx_higher_ed
 setvirtualenvproject
-export DJANGO_SETTINGS_MODULE=exampleproject.settings
-export HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
 add2virtualenv .
 add2virtualenv exampleproject
 pip install -r requirements-dev.txt
