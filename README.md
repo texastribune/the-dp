@@ -30,6 +30,17 @@ pip install -r requirements-dev.txt
 ./bin/load.sh
 ```
 
+Database:
+
+This project currently requires a PostGIS database (hopefully not for long):
+
+```bash
+$ phd createdb
+$ phd psql
+
+CREATE EXTENSION postgis;
+CREATE EXTENSION postgis_topology;
+```
 
 Getting Data from the IPEDS Data Center
 -----------------
