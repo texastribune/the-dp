@@ -25,7 +25,7 @@ test:
 # requires `postdoc`:
 # pip install postdoc
 dumpdb:
-	phd pg_dump > $$(basename $$DATABASE_URL)_$$(date +"%Y-%m-%d").sql
+	phd pg_dump -Fc > $$(basename $$DATABASE_URL)_$$(date +"%Y-%m-%d").dump
 
 # this doesn't work quite right because syncdb tries to load fixtures
 resetdb:

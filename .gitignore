@@ -5,6 +5,9 @@
 db.sqlite
 .sass-cache
 .env
+
+# local backup data
+*.dump
 *.sql
 
 data/*.html
