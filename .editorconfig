@@ -1,0 +1,32 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
+#
+# Find and install the plugin for your editor at
+# http://editorconfig.org/#download
+#
+# Add this to your projects with:
+#
+#   wget https://raw.githubusercontent.com/texastribune/styleguides/gh-pages/.editorconfig
+#
+# Any changes to this file should be pushed back into the master in the
+# texastribune/styleguides repo.
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4
+
+[Makefile]
+indent_style = tab
