@@ -1,6 +1,6 @@
 from .base import *
 
 INSTALLED_APPS.extend([
-    # 'south',
+    'south',
     'django_extensions',
 ])

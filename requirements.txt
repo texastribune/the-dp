@@ -1,13 +1,16 @@
 #example project
--r exampleproject/requirements.txt
-Django==1.4
+Django==1.5.8
+project-runpy==0.3.1
 psycopg2
 armstrong.core.arm-layout==1.1.1
-armstrong.core.arm-wells==1.9.0
+armstrong.core.arm-wells==1.10.0
+django-object-actions==0.5.0
 django-extensions
 -e git://github.com/crccheck/pinax-theme-bootstrap.git@167a4a9d94#egg=pinax_theme_bootstrap-dev
-PIL==1.1.7
+Pillow==2.5.3
 geopy
+# DELETEME make this an api call instead of a database integration
+tx-lege-districts==0.4.0
 
 # heroku
-dj-database-url==0.2.1
+dj-database-url==0.3.0

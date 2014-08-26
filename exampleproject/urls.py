@@ -16,16 +16,12 @@ class Http500View(View):
 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'tx_highered.views.home', name='home'),
-    url(r'', include('tx_highered.urls', namespace='tx_highered')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /",
         mimetype="text/plain")),
     url(r'^500/$', Http500View.as_view()),
+
+    url(r'', include('tx_highered.urls', namespace='tx_highered')),
 )
 
 # serve media

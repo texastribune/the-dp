@@ -1,15 +1,16 @@
 import os
 
+from project_runpy import env
 import dj_database_url
+
+
 # From armstrong.cli. This function will eventually be in an armstrong
 # utils package, at which point we should stop duplicating it here.
-
-
 def project_dir(*paths):
     base = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
     return os.path.join(base, *paths)
 
-DEBUG = True
+DEBUG = env.get('DEBUG', True)  # example project, so assume you're debugging
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -115,7 +116,6 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = [
-    'django_nose',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -128,18 +128,20 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.gis',
 
-    'tx_highered',
-
+    'django_object_actions',
     'armstrong.core.arm_layout',
     'reversion',  # required for arm_wells
     'armstrong.hatband',  # required for arm_wells
     'armstrong.core.arm_wells',
+
+    # app
+    'tx_highered',
     'tx_highered.instachart',
 
     # dev
     'tx_highered.ipeds_importer',
     # Here for loading the test data
-    'tx_highered_test',
+    'test_tx_highered',
 
 
     # pinax theme bootstrap
@@ -157,7 +159,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "pinax_theme_bootstrap.context_processors.theme_context")
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # heroku hacks
 s = os.environ.get('GEOS_LIBRARY_PATH')

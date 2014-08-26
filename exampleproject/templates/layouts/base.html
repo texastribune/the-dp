@@ -1,0 +1,119 @@
+{% extends "site_base.html" %}
+{% load static from staticfiles %}
+
+
+{% block head %}
+  {% block webfonts %}
+    {# Typekit #}
+    <script type="text/javascript" src="//use.typekit.com/brb4jmm.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  {% endblock %}
+
+  {% block style_base %}
+
+    <!--[if lt IE 9]>
+      {# This needs to load after all other stylesheets so it overrides them. #}
+      <link rel="stylesheet" type="text/css" href="{% static 'tt_layouts/css/ie_responsive.css' %}" />
+    <![endif]-->
+
+    {% block extra_style %}{% endblock %}
+  {% endblock %}
+
+  {% block analytics_head %}
+    {% comment %}
+      This is for third-party analytics setup code that should be in HEAD.
+    {% endcomment %}
+    {% block analytics_post_pageview %}{% endblock %}
+  {% endblock analytics_head %}
+
+  {% block head_script %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+  {% endblock %}
+{% endblock head %}
+
+
+{% block body %}
+  {% block body_start %}
+    {# This block is for scripts that need to be initialized at the very beginning, but outside HEAD #}
+  {% endblock %}
+
+  {% block topbar_base %}
+    <div class="wrapper-r">
+      {% block topbar %}{# Not Currently Used #}{% endblock %}
+
+      {% block roofline_base %}
+        {% block roofline %}
+          <section id="site_roofline" style="position:relative;">
+            <div class="hide-for-mobile large_ad_container">
+              {% block roofile_hide_for_mobile %}
+                {# {% adsense fill_slot 'site' roofline %} #}
+              {% endblock %}
+            </div>
+
+            {# This is temporary #}
+            <div class="mobile-only">
+              {% block roofile_mobile_only %}
+                {# {% adsense fill_slot 'site' roofline_mobile %} #}
+              {% endblock %}
+            </div>
+          </section>
+        {% endblock %}
+
+        {% block account_bar %}{% endblock %}
+      {% endblock %}
+
+      {% block site_header %}
+        <header id="site_header">
+          {% block header %}
+            {% block nav %}{# TODO #}{% endblock %}
+
+            {% block site_header_ad %}{# CONTRIBUTE TODAY #}{% endblock %}
+
+            <div class="below_nav">
+              {% block site_brand %}{# LOGO #}{% endblock %}
+             </div>
+          {% endblock header %}
+        </header>
+      {% endblock site_header %}
+    </div>
+  {% endblock topbar_base %}
+
+  {% block site_content_container %}
+    <div class="wrapper content-wrapper">
+      <section id="site_content" class="{% block content_container_class %}content{% endblock %}{% block content_class %}{% endblock %}">
+        {% block site_content %}{% block content %}{% block main %}{% endblock %}{% endblock %}{% endblock %}
+      </section>
+    </div>
+  {% endblock %}
+
+  {% block footer_base %}
+    <div class="wrapper-r">
+      <footer id="site_footer" class="wrapper-r">
+        {% block footer %}
+          <div class="hide-for-medium-down">
+            {% block footer_ad_space %}{% endblock %}
+          </div>
+          {# {% esi esi_footer %} #}
+        {% endblock %}
+      </footer>
+    </div>
+  {% endblock %}
+  <div class="hide-for-medium-down">
+    {% block pixels %}{% endblock %}
+  </div>
+{% endblock body %}
+
+
+{% block script_base %}
+  {% block dfp_meta %}
+    {% comment %}
+      Doubleclick For Publishers meta. Needs to come after `shared/tt_context.js`
+    {% endcomment %}
+    <script>
+      {% block dfp_targeting_js %}{% endblock %}
+    </script>
+  {% endblock %}
+  {% block analytics %}{% endblock %}
+  {% block extra_script %}{% endblock %}
+{% endblock script_base %}

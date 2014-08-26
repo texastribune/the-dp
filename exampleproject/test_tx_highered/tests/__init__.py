@@ -1,7 +1,9 @@
+# TODO switch from relying on initial_data to factories
 from django.utils import unittest
 
+from .test_models_base import *
+from .test_models_reports import *
 
-from .models import *
 
 class ImportReport(unittest.TestCase):
     def test_name_extractor_regexp(self):
