@@ -20,7 +20,7 @@ clean:
 
 
 test:
-	ENVIRONMENT=test $(MANAGE) test
+	nosetests
 
 # requires `postdoc`:
 # pip install postdoc
@@ -28,8 +28,8 @@ dumpdb:
 	phd pg_dump -Fc > $$(basename $$DATABASE_URL)_$$(date +"%Y-%m-%d").dump
 
 # this doesn't work quite right because syncdb tries to load fixtures
+# also see bin/migrate.sh
 resetdb:
 	$(MANAGE) reset_db --noinput
 	$(MANAGE) syncdb --noinput
 	$(MANAGE) migrate --noinput
-
