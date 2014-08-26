@@ -6,10 +6,6 @@ Werkzeug
 South==0.7.3
 
 
-ipython
-ipdb
-
-
 # app requirements
 lxml
 

@@ -1,4 +1,4 @@
-MANAGE=python manage.py
+MANAGE=python exampleproject/manage.py
 
 
 help:
@@ -20,7 +20,7 @@ clean:
 
 
 test:
-	nosetests
+	ENVIRONMENT=test $(MANAGE) test tx_highered_test
 
 # requires `postdoc`:
 # pip install postdoc
