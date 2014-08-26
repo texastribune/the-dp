@@ -4,8 +4,6 @@ export PYTHONPATH=.
 python exampleproject/manage.py syncdb --noinput
 python exampleproject/manage.py migrate
 
-# add the user: admin/admin
-python exampleproject/manage.py loaddata ./exampleproject/fixtures/auth.json
 # load intial data for institutions
 python exampleproject/manage.py loaddata highered_base.json
 
