@@ -1,4 +1,5 @@
-MANAGE=python exampleproject/manage.py
+# ignore warnings because they just fill the console with junk we don't care about
+MANAGE=python -W ignore exampleproject/manage.py
 
 
 help:
@@ -20,7 +21,7 @@ clean:
 
 
 test:
-	ENVIRONMENT=test $(MANAGE) test tx_highered_test
+	ENVIRONMENT=test $(MANAGE) test test_tx_highered
 
 # requires `postdoc`:
 # pip install postdoc

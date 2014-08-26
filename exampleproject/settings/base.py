@@ -138,7 +138,7 @@ INSTALLED_APPS = [
     # dev
     'tx_highered.ipeds_importer',
     # Here for loading the test data
-    'tx_highered_test',
+    'test_tx_highered',
 
 
     # pinax theme bootstrap
