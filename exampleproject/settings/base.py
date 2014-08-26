@@ -128,12 +128,14 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.gis',
 
-    'tx_highered',
-
+    'django_object_actions',
     'armstrong.core.arm_layout',
     'reversion',  # required for arm_wells
     'armstrong.hatband',  # required for arm_wells
     'armstrong.core.arm_wells',
+
+    # app
+    'tx_highered',
     'tx_highered.instachart',
 
     # dev
