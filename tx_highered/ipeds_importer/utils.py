@@ -5,7 +5,9 @@ import os
 import re
 from collections import defaultdict
 
-from ..utils.handlers import ColorizingStreamHandler, JSONFileHandler
+from project_runpy import ColorizingStreamHandler
+
+from ..utils.handlers import JSONFileHandler
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

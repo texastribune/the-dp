@@ -1,15 +1,16 @@
 import os
 
+from project_runpy import env
 import dj_database_url
+
+
 # From armstrong.cli. This function will eventually be in an armstrong
 # utils package, at which point we should stop duplicating it here.
-
-
 def project_dir(*paths):
     base = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
     return os.path.join(base, *paths)
 
-DEBUG = True
+DEBUG = env.get('DEBUG', True)  # example project, so assume you're debugging
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
