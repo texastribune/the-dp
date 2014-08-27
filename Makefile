@@ -35,3 +35,4 @@ resetdb:
 	$(MANAGE) syncdb --noinput --no-initial-data
 	$(MANAGE) migrate --noinput
 	$(MANAGE) syncdb --noinput
+	$(MANAGE) loaddata tx_highered_2012
