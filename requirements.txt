@@ -4,9 +4,11 @@ project-runpy==0.3.1
 psycopg2
 armstrong.core.arm-layout==1.1.1
 armstrong.core.arm-wells==1.10.0
+# reversion required for arm-wells. great.
+django-reversion==1.7
 django-object-actions==0.5.0
 django-extensions
--e git://github.com/crccheck/pinax-theme-bootstrap.git@167a4a9d94#egg=pinax_theme_bootstrap-dev
+https://github.com/texastribune/tt-glossary/archive/master.tar.gz
 Pillow==2.5.3
 geopy
 # DELETEME make this an api call instead of a database integration
@@ -14,3 +16,18 @@ tx-lege-districts==0.4.0
 
 # heroku
 dj-database-url==0.3.0
+
+# dev requirements
+csvkit
+South==0.7.3
+
+# app requirements
+lxml
+
+# for the initial population of institutions
+# requests
+# text processing
+# nltk
+# numpy
+# pyquery
+requests

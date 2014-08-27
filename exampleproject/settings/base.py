@@ -135,18 +135,14 @@ INSTALLED_APPS = [
     'armstrong.core.arm_wells',
 
     # app
+    'glossary',
     'tx_highered',
     'tx_highered.instachart',
 
     # dev
     'tx_highered.ipeds_importer',
     # Here for loading the test data
-    'test_tx_highered',
-
-
-    # pinax theme bootstrap
-    'pinax_theme_bootstrap',
-    'django_forms_bootstrap',
+    'exampleproject.test_tx_highered',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -157,7 +153,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    "pinax_theme_bootstrap.context_processors.theme_context")
+)
 
 
 # heroku hacks

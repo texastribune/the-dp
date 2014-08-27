@@ -32,5 +32,6 @@ dumpdb:
 # also see bin/migrate.sh
 resetdb:
 	$(MANAGE) reset_db --noinput
-	$(MANAGE) syncdb --noinput
+	$(MANAGE) syncdb --noinput --no-initial-data
 	$(MANAGE) migrate --noinput
+	$(MANAGE) syncdb --noinput

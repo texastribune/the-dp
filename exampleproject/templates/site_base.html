@@ -1,1 +1,43 @@
-{% extends "theme_bootstrap/base.html" %}
+{% load static from staticfiles %}<!DOCTYPE html>
+{% block html %}
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+{% endblock %}
+
+{% block head_container %}
+  <head>
+    {% block title_container %}
+      <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+
+    {% block favicon_container %}
+      <link rel="shortcut icon" type="{% block favicon_type %}image/png{% endblock %}"
+        href="{% block favicon %}{% static 'images/favicon.png' %}{% endblock %}">
+    {% endblock %}
+
+    {% block viewport_container %}
+      <meta name="viewport" content="{% block viewport %}width=device-width, initial-scale=1.0{% endblock %}">
+    {% endblock %}
+
+    <meta charset="utf-8">
+
+    {% block meta %}{% endblock %}
+
+    {% block opengraph_meta %}{% endblock %}
+
+    {% block head %}{% endblock %}
+    {% block extra_head %}{% endblock %}
+  </head>
+{% endblock head_container %}
+
+{% block body_container %}
+  <body class="{% block body_class %}{% endblock %}">
+
+    {% block body %}{% endblock %}
+    {% block extra_body %}{% endblock %}
+
+  </body>
+{% endblock %}
+</html>

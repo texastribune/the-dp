@@ -20,7 +20,6 @@ git clone $REPOSITORY && cd $PATH
 mkvirtualenv tx_higher_ed
 setvirtualenvproject
 add2virtualenv .
-add2virtualenv exampleproject
 pip install -r requirements-dev.txt
 
 # syncdb and load fixtures

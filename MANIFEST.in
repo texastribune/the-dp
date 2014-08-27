@@ -1,3 +1,4 @@
 include setup.py README.* MANIFEST.in LICENSE
 recursive-include tx_highered *
 global-exclude *.pyc
+global-exclude *.scss

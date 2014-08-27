@@ -1,23 +1,22 @@
 {% extends "layouts/base.html" %}
-{% load url from future %}
+{% load static from staticfiles %}
 
 
-{% block opengraph_meta %}
-  {{ block.super }}
+{% block opengraph_meta %}{{ block.super }}
   <meta property="og:type" content="website">
-  <meta property="og:image" content="{{ STATIC_URL }}tx_highered/images/icon-opengraph.png">
+  <meta property="og:image" content="{% static 'tx_highered/images/icon-opengraph.png' %}">
 {% endblock %}
 
 
 {% block extra_style %}{{ block.super }}
-  <link rel="stylesheet" href="/common/vendor/bootstrap/css/ttstrap.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}tx_highered/css/tx_highered.css" type="text/css">
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tx_highered/css/jquery-ui-custom.css">
+  <link rel="stylesheet" href="{% static 'tx_highered/vendor/bootstrap/css/ttstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'tx_highered/css/tx_highered.css' %}">
+  <link rel="stylesheet" href="{% static 'tx_highered/css/jquery-ui-custom.css' %}">
 {% endblock %}
 
 
 {% block extra_head %}{{ block.super }}
-  <script src="{{ STATIC_URL }}vendor/modernizr/modernizr.min.js"></script>
+  <script src="{% static 'vendor/modernizr/modernizr.min.js' %}"></script>
 {% endblock %}
 
 
@@ -29,42 +28,42 @@
 
 
 {% block site_content %}
-      <div id="highered-header" class="page-header app-header">
-        {% block facebook_recommend %}
-          {% comment %}
-          TODO: Enable once on the Tribune
-          <div class="pull-right fb-recommend">
-            {% include "includes/facebook_like_sidebar.html" %}
-          </div>
-          {% endcomment %}
-        {% endblock %}
-
-        <h1>
-          <img class="pull-left" src="{{ STATIC_URL }}tx_highered/css/icon.png" alt="">
-          <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
-          <small>The Texas Tribune's go-to source for higher education data</small>
-        </h1>
+  <div id="highered-header" class="page-header app-header">
+    {% block facebook_recommend %}
+      {% comment %}
+      TODO: Enable once on the Tribune
+      <div class="pull-right fb-recommend">
+        {% include "includes/facebook_like_sidebar.html" %}
       </div>
+      {% endcomment %}
+    {% endblock %}
 
-      {% block breadcrumb_base %}
-        <ul class="breadcrumb">
-          <li>
-            <a href="{% url 'tx_highered:home' %}">Home</a>
-            <span class="divider">/</span>
-          </li>
-          {% block breadcrumb_items %}{% endblock %}
-          {% block breadcrumb_items_after %}{% endblock %}
-        </ul>
-      {% endblock %}
+    <h1>
+      <img class="pull-left" src="{% static 'tx_highered/css/icon.png' %}" alt="">
+      <a href="{% url 'tx_highered:home' %}">Higher Education Explorer</a>
+      <small>The Texas Tribune's go-to source for higher education data</small>
+    </h1>
+  </div>
 
-      {% block main_base %}
-        {% block main %}{% endblock %}
-      {% endblock %}
+  {% block breadcrumb_base %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="{% url 'tx_highered:home' %}">Home</a>
+        <span class="divider">/</span>
+      </li>
+      {% block breadcrumb_items %}{% endblock %}
+      {% block breadcrumb_items_after %}{% endblock %}
+    </ul>
+  {% endblock %}
+
+  {% block main_base %}
+    {% block main %}{% endblock %}
+  {% endblock %}
 {% endblock site_content %}
 
 
 {% block extra_script %}{{ block.super }}
-  <script src="{{ STATIC_URL }}tx_highered/js/trisim.js"></script>
-  <script src="{{ STATIC_URL }}tx_highered/js/autocomplete.js"></script>
-  <script src="{{ STATIC_URL }}d3/js/d3.v2{% if not debug %}.min{% endif %}.js"></script>
+  <script src="{% static 'tx_highered/js/trisim.js' %}"></script>
+  <script src="{% static 'tx_highered/js/autocomplete.js' %}"></script>
+  <script src="{% static 'd3/js/d3.v2.min.js' %}"></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "tx_highered/detail_base.html" %}
-{% load layout_helpers humanize instachart %}
-{% load url from future %}
 {% load glossary %}
+{% load layout_helpers humanize instachart %}
+{% load static from staticfiles %}
 
 {% block head_title %}{{ object.name }}{% endblock %}
 {% block page_title %}{{ object.name }}{% endblock %}
@@ -554,14 +554,14 @@
 {% endblock %}
 
 {% block extra_script %}{{ block.super }}
-<script src="{{ STATIC_URL }}vendor/bootstrap/js/bootstrap{% if not debug %}.min{% endif %}.js"></script>
-<script src="{{ STATIC_URL }}js/bootstrap-tooltip-d3.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/tabbouleh.js"></script>
-{# <script src="{{ STATIC_URL }}tx_highered/js/d3chart.js"></script> #}
-<script src="//texastribune.github.com/d3chart/d3chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/pricetrends-chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/testscores-chart.js"></script>
-<script src="{{ STATIC_URL }}tx_highered/js/enrollment-race-chart.js"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-tooltip-d3.js' %}"></script>
+<script src="{% static 'tx_highered/js/tabbouleh.js' %}"></script>
+{# <script src="{% static 'tx_highered/js/d3chart.js"><' %}/script> #}
+<script src="//texastribune.github.io/d3chart/d3chart.js"></script>
+<script src="{% static 'tx_highered/js/pricetrends-chart.js' %}"></script>
+<script src="{% static 'tx_highered/js/testscores-chart.js' %}"></script>
+<script src="{% static 'tx_highered/js/enrollment-race-chart.js' %}"></script>
 <script>
   var enrollment_chart_url = "{% url 'tx_highered:enrollment_api' object.id %}";
   var testchart, testchart_url = "{% url 'tx_highered:institution_api' object.id "testscores" %}";
