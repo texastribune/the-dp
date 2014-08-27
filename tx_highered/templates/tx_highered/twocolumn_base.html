@@ -1,5 +1,5 @@
 {% extends "tx_highered/app_base.html" %}
-{% load url from future %}
+{% load static from staticfiles %}
 
 
 {% block opengraph_meta %}{{ block.super }}
@@ -16,8 +16,7 @@
 {% block main_base %}
   <div class="row landing">
     <div class="span8">
-      {% block main %}
-      {% endblock %}
+      {% block main %}{% endblock %}
     </div>
 
     <div class="span4">
@@ -29,7 +28,7 @@
 
         <div class="logo">
           <a class="external" target="_blank" href="http://greatertexasfoundation.org/">
-            <img src="{{ STATIC_URL }}tx_highered/images/greater-texas-foundation.png" alt="Greater Texas Foundation">
+            <img src="{% static 'tx_highered/images/greater-texas-foundation.png' %}" alt="Greater Texas Foundation">
           </a>
         </div>
 
