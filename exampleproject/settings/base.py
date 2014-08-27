@@ -135,6 +135,7 @@ INSTALLED_APPS = [
     'armstrong.core.arm_wells',
 
     # app
+    'glossary',
     'tx_highered',
     'tx_highered.instachart',
 
