@@ -9,8 +9,6 @@ django-reversion==1.7
 django-object-actions==0.5.0
 django-extensions
 https://github.com/texastribune/tt-glossary/archive/master.tar.gz
-# DELETEME I don't think we're even using this
-https://github.com/crccheck/pinax-theme-bootstrap/archive/master.tar.gz
 Pillow==2.5.3
 geopy
 # DELETEME make this an api call instead of a database integration

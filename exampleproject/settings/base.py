@@ -143,11 +143,6 @@ INSTALLED_APPS = [
     'tx_highered.ipeds_importer',
     # Here for loading the test data
     'exampleproject.test_tx_highered',
-
-
-    # pinax theme bootstrap
-    'pinax_theme_bootstrap',
-    'django_forms_bootstrap',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
