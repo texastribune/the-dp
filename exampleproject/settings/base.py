@@ -136,6 +136,7 @@ INSTALLED_APPS = [
 
     # app
     'glossary',
+    'tx_lege_districts',
     'tx_highered',
     'tx_highered.instachart',
 
