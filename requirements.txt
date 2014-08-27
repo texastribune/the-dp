@@ -4,6 +4,8 @@ project-runpy==0.3.1
 psycopg2
 armstrong.core.arm-layout==1.1.1
 armstrong.core.arm-wells==1.10.0
+# reversion required for arm-wells. great.
+django-reversion==1.7
 django-object-actions==0.5.0
 django-extensions
 https://github.com/crccheck/pinax-theme-bootstrap/archive/master.tar.gz
