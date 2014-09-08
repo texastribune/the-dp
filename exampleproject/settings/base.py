@@ -130,12 +130,10 @@ INSTALLED_APPS = [
 
     'django_object_actions',
     'armstrong.core.arm_layout',
-    'reversion',  # required for arm_wells
-    'armstrong.hatband',  # required for arm_wells
-    'armstrong.core.arm_wells',
 
     # app
     'glossary',
+    'tx_lege_districts',
     'tx_highered',
     'tx_highered.instachart',
 

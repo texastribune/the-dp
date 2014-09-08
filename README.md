@@ -20,10 +20,10 @@ git clone $REPOSITORY && cd $PATH
 mkvirtualenv tx_higher_ed
 setvirtualenvproject
 add2virtualenv .
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 
 # syncdb and load fixtures
-./bin/migrate.sh
+make resetdb
 
 # load raw data
 ./bin/load.sh
