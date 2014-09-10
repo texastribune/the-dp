@@ -36,3 +36,8 @@ resetdb:
 	$(MANAGE) migrate --noinput
 	$(MANAGE) syncdb --noinput
 	$(MANAGE) loaddata tx_highered_2012
+
+# Dump current system and institution data into a fixture
+.PHONY: tx_highered/fixtures/highered_base.json
+tx_highered/fixtures/highered_base.json:
+	$(MANAGE) dumpdata tx_highered.system tx_highered.institution > $@
