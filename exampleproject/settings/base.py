@@ -137,8 +137,6 @@ INSTALLED_APPS = [
     'tx_highered',
     'tx_highered.instachart',
 
-    # dev
-    'tx_highered.ipeds_importer',
     # Here for loading the test data
     'exampleproject.test_tx_highered',
 ]
@@ -159,31 +157,55 @@ s = os.environ.get('GEOS_LIBRARY_PATH')
 if s:
     GEOS_LIBRARY_PATH = s
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'filters': {
-#         'require_debug_false': {
-#             '()': 'django.utils.log.RequireDebugFalse'
-#         }
-#     },
-#     'handlers': {
-#         'mail_admins': {
-#             'level': 'ERROR',
-#             'filters': ['require_debug_false'],
-#             'class': 'django.utils.log.AdminEmailHandler'
-#         }
-#     },
-#     'loggers': {
-#         'django.request': {
-#             'handlers': ['mail_admins'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#     }
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'root': {
+        'level': os.environ.get('LOGGING_LEVEL', 'WARNING'),
+        'handlers': ['console'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': ' '.join([
+                '%(levelname)s',
+                '%(asctime)s',
+                '%(name)s',
+                '%(module)s',
+                '%(process)d',
+                '%(thread)d',
+                '%(message)s']),
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'readable_sql': {
+            '()': 'project_runpy.ReadableSqlFilter',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'project_runpy.ColorizingStreamHandler',
+        },
+    },
+    'loggers': {
+        'py.warnings': {
+            # how do i get colored warnings without duplicates?
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'level': 'DEBUG' if env.get('SQL') else 'INFO',
+            'filters': ['require_debug_true', 'readable_sql'],
+            'propagate': False,
+        },
+        'factory': {
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+}
