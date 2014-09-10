@@ -1,5 +1,12 @@
+"""
+Import IPEDS Custom Reports.
+
+Usage:
+  ./import_customreport <csv1> <csv2> ...
+"""
 from collections import namedtuple
 import logging
+import os
 import sys
 
 # FIXME ipeds_reporter isn't normally importable
@@ -92,5 +99,6 @@ def generic(path):
 
 
 if __name__ == '__main__':
-    path = sys.argv[-1]
-    generic(path)
+    for path in sys.argv[1:]:
+        if os.path.isfile(path):
+            generic(path)
