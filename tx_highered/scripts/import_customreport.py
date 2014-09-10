@@ -6,15 +6,61 @@ UnitID,Institution Name,CINSON(DRVIC2011),COTSON(DRVIC2011),CINSON(DRVIC2010_RV)
 
 """
 
+from collections import namedtuple
+import logging
 import os
 import sys
 
 from tx_highered.ipeds_importer.utils import IpedsCsvReader
-from tx_highered.models import Institution
+# FIXME ipeds_reporter isn't normally importable
+from ipeds_reporter.utils import IpedsCSVReader
+from tx_highered.models import Institution, PriceTrends
+
 
 PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
+ReportDatum = namedtuple('ReportDatum', ['model', 'field', 'year_type'])
+FIELD_MAPPINGS = {
+    'chg2ay3': ReportDatum(PriceTrends, 'tuition_fees_in_state', 'fall'),
+    'chg3ay3': ReportDatum(PriceTrends, 'tuition_fees_outof_state', 'fall'),
+    'chg4ay3': ReportDatum(PriceTrends, 'books_and_supplies', 'fall'),
+    'chg5ay3': ReportDatum(PriceTrends, 'room_and_board_on_campus', 'fall'),
+}
 
 
+def generic(path):
+    """Read the CSV and import into the appropriate model."""
+    logger = logging.getLogger(__name__)
+    reader = IpedsCSVReader(open(path, 'rb'))
+    for row in reader:
+        unit_id, ipeds_id = row[0]
+        assert unit_id == 'UnitID'
+        institution = Institution.objects.get(ipeds_id=ipeds_id)
+        for key, value in row[2:]:
+            logger.debug(u'{} {}'.format(key, value))
+            if key is None or value is '':
+                # skip cells with no data, CSVs will give empty strings for
+                # missing values
+                continue
+            try:
+                finder = FIELD_MAPPINGS[key.short_name]
+            except KeyError:
+                logger.error('MISSING: cannot interpret {}'
+                    .format(key.short_name))
+                continue
+            defaults = {
+                finder.field: value,
+                'year_type': finder.year_type,
+            }
+            instance, created = finder.model.objects.get_or_create(
+                institution=institution, year=key.year,
+                defaults=defaults)
+            if not created:
+                instance.__dict__.update(defaults)
+                instance.save()
+            logger.debug(u'{} {}'.format(instance, created))
+
+
+# DEPRECATED
 def prices(path):
     from tx_highered.models import PriceTrends
     # configuration
@@ -112,5 +158,6 @@ elif report == 'enrollment':
 elif report == 'grad_rates':
     graduation_rates(path)
 else:
-    reader = IpedsCsvReader(open(path, "rb"))
-    reader.explain_header()
+    generic(path)
+    # reader = IpedsCsvReader(open(path, "rb"))
+    # reader.explain_header()
