@@ -89,13 +89,18 @@ def generic(path):
                 finder.field: value,
                 'year_type': finder.year_type,
             }
+            logging_state = 'CREATED'
             instance, created = finder.model.objects.get_or_create(
                 institution=institution, year=key.year,
                 defaults=defaults)
             if not created:
-                instance.__dict__.update(defaults)
-                instance.save()
-            logger.debug(u'{} {}'.format(instance, created))
+                if unicode(getattr(instance, finder.field)) != value:
+                    logging_state = 'UPDATED'
+                    instance.__dict__.update(defaults)
+                    instance.save()
+                else:
+                    logging_state = 'SKIP'
+            logger.info(u'{} {}'.format(instance, logging_state))
 
 
 if __name__ == '__main__':
