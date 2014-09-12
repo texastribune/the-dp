@@ -99,7 +99,8 @@ def generic(path):
                     instance.save()
                 else:
                     logging_state = 'SKIP'
-            logger.info(u'{} {}'.format(instance, logging_state))
+            logger.info(u'{} {} {}'
+                .format(instance, key.short_name, logging_state))
 
 
 if __name__ == '__main__':
