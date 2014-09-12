@@ -41,3 +41,11 @@ resetdb:
 .PHONY: tx_highered/fixtures/highered_base.json
 tx_highered/fixtures/highered_base.json:
 	$(MANAGE) dumpdata tx_highered.system tx_highered.institution > $@
+
+# Load all the data
+#
+# This functionality could all just live in this makefile, but make does not
+# like file names containing spaces, and browsers will create files names with
+# spaces. So :shrug:
+load:
+	bin/load.sh
