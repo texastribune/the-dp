@@ -8,6 +8,15 @@ DRVEF2010_RV|EnrFt|Fall enrollment/retention rates|Full-time enrollment|||||||||
 DRVEF2010|EnrFt|Fall enrollment/retention rates|Full-time enrollment|||||||||||||10.23805|.|Cont|TN|N||745|||||
 DRVEF2011_RV|EnrFt|Fall enrollment/retention rates|Full-time enrollment|||||||||||||11.23805|.|Cont|TN|N||745|||||
 DRVEF2012|EnrFt|Fall enrollment/retention rates|Full-time enrollment|||||||||||||12.23805|.|Cont|TN|N||745|||||
+DFR2004|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||04.23810|xEnrPT.DFR2004|Cont|TN|N||745|||||
+DFR2005|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||05.23810|xEnrPT.DFR2005|Cont|TN|N||745|||||
+DRVEF2006|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||06.23810|.|Cont|TN|N||745|||||
+DRVEF2007|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||07.23810|.|Cont|TN|N||745|||||
+DRVEF2008|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||08.23810|.|Cont|TN|N||745|||||
+DRVEF2009_RV|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||09.23810|.|Cont|TN|N||745|||||
+DRVEF2010|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||10.23810|.|Cont|TN|N||745|||||
+DRVEF2011|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||11.23810|.|Cont|TN|N||745|||||
+DRVEF2012|EnrPt|Fall enrollment/retention rates|Part-time enrollment|||||||||||||12.23810|.|Cont|TN|N||745|||||
 HD2004|ENRTOT|Fall enrollment/retention rates|Total  enrollment|||||||||||||04.23355|.|Cont|TN|N||745|||||
 HD2005|ENRTOT|Fall enrollment/retention rates|Total  enrollment|||||||||||||05.23355|.|Cont|TN|N||745|||||
 DRVEF2006|ENRTOT|Fall enrollment/retention rates|Total  enrollment|||||||||||||06.23355|.|Cont|TN|N||745|||||

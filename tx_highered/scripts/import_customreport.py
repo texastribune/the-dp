@@ -55,7 +55,7 @@ FIELD_MAPPINGS = {
     'ENRTOT': ReportDatum(Enrollment, 'total', 'fall'),
     'FTE': ReportDatum(Enrollment, 'fulltime_equivalent', 'fall'),
     'EnrFt': ReportDatum(Enrollment, 'fulltime', 'fall'),
-    # 'EnrPt': ReportDatum(Enrollment, 'parttime', 'fall'),
+    'EnrPt': ReportDatum(Enrollment, 'parttime', 'fall'),
 
     # GraduationRates
     'GBA4RTT': ReportDatum(GraduationRates, 'bachelor_4yr', 'aug'),
