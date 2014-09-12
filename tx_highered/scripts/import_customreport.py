@@ -9,8 +9,7 @@ import logging
 import os
 import sys
 
-# FIXME ipeds_reporter isn't normally importable
-from ipeds_reporter.utils import IpedsCSVReader
+from tx_highered.ipeds_csv_reader import IpedsCSVReader
 from tx_highered.models import (
     Institution, PriceTrends, TestScores, Enrollment, GraduationRates,
 )
