@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
-
+from django.utils.functional import cached_property
 
 from tx_lege_districts.models import District
 from tx_lege_districts.constants import SBOE
@@ -321,46 +321,42 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         fields = ("in_state", "out_of_state", "books_and_supplies", "room_and_board_on_campus")
         return self.get_buckets('pricetrends', fields=fields)
 
-    @property
+    @cached_property
     def sat_score_buckets(self):
-        if not hasattr(self, '_sat_score_buckets'):
-            b = {
-                'years': [],
-                'verbal_range': {},
-                'math_range': {},
-                'writing_range': {},
-            }
-            for a in self.testscores.all():
-                b['years'].append(a.year)
-                b['verbal_range'][a.year] = (a.sat_verbal_range
-                        if a.sat_verbal_25th_percentile else 'N/A')
-                b['math_range'][a.year] = (a.sat_math_range
-                        if a.sat_math_25th_percentile else 'N/A')
-                b['writing_range'][a.year] = (a.sat_writing_range
-                        if a.sat_writing_25th_percentile else 'N/A')
-            self._sat_score_buckets = b
-        return self._sat_score_buckets
+        b = {
+            'years': [],
+            'verbal_range': {},
+            'math_range': {},
+            'writing_range': {},
+        }
+        for a in self.testscores.all():
+            b['years'].append(a.year)
+            b['verbal_range'][a.year] = (a.sat_verbal_range
+                    if a.sat_verbal_25th_percentile else 'N/A')
+            b['math_range'][a.year] = (a.sat_math_range
+                    if a.sat_math_25th_percentile else 'N/A')
+            b['writing_range'][a.year] = (a.sat_writing_range
+                    if a.sat_writing_25th_percentile else 'N/A')
+        return b
 
-    @property
+    @cached_property
     def admission_buckets(self):
-        if not hasattr(self, '_admission_buckets'):
-            b = {
-                'years': [],
-                'applicants': {},
-                'admitted': {},
-                'enrolled': {},
-            }
-            for a in self.get_admissions().all():
-                if not a.number_admitted:
-                    continue
-                b['years'].append(a.year)
-                b['applicants'][a.year] = a.number_of_applicants
-                b['admitted'][a.year] = (a.number_admitted,
-                        a.percent_of_applicants_admitted)
-                b['enrolled'][a.year] = (a.number_admitted_who_enrolled,
-                        a.percent_of_admitted_who_enrolled)
-            self._admission_buckets = b
-        return self._admission_buckets
+        b = {
+            'years': [],
+            'applicants': {},
+            'admitted': {},
+            'enrolled': {},
+        }
+        for a in self.get_admissions().all():
+            if not a.number_admitted:
+                continue
+            b['years'].append(a.year)
+            b['applicants'][a.year] = a.number_of_applicants
+            b['admitted'][a.year] = (a.number_admitted,
+                    a.percent_of_applicants_admitted)
+            b['enrolled'][a.year] = (a.number_admitted_who_enrolled,
+                    a.percent_of_admitted_who_enrolled)
+        return b
 
     @property
     def admission_top10_buckets(self):
