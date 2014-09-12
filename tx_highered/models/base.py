@@ -361,7 +361,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     @property
     def admission_top10_buckets(self):
         return self.get_buckets('admissions', fields=['percent_top10rule'],
-                                 filter_on_field='percent_top10rule')
+                                filter_on_field='percent_top10rule')
 
     def get_buckets(self, relation_name, pivot_on_field="year",
                     filter_on_field=None, fields=None):
@@ -393,14 +393,19 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def enrollment_buckets(self):
-        if self.is_private:  # if not self.has_thecb_data
-            fields = ("fulltime_equivalent", "fulltime", "parttime")
-            b = self.get_buckets("enrollment", fields=fields)
-            b['data_source'] = "IPEDS"
-            return b
-        fields = ("total",)
-        b = self.get_buckets("publicenrollment", fields=fields)
-        b['data_source'] = "THECB"
+        """Get enrollment data from IPEDS and THECB."""
+        b = self.get_buckets("enrollment",
+            fields=("fulltime_equivalent", "fulltime", "parttime"))
+        b['data_source'] = "IPEDS"
+
+        b2 = self.get_buckets("publicenrollment", fields=("total",))
+        b2['data_source'] = "THECB"
+
+        # merge
+        b1_years = b['years'] or []
+        b.update(b2)
+        if b2['years']:
+            b['years'] = set(b1_years.extend(b2['years']))
         return b
 
     @property
