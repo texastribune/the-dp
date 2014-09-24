@@ -1,115 +1,109 @@
 """
+Import IPEDS Custom Reports.
 
-Sample CSV structure:
-UnitID,Institution Name,CINSON(DRVIC2011),COTSON(DRVIC2011),CINSON(DRVIC2010_RV),COTSON(DRVIC2010_RV),CINSON(DRVIC2009_RV),COTSON(DRVIC2009_RV),CINSON(DRVIC2008),COTSON(DRVIC2008),CINSON(DRVIC2007),COTSON(DRVIC2007),CINSON(DRVIC2006),COTSON(DRVIC2006),CINSON(IC2005_AY),COTSON(IC2005_AY),chg1ay3(IC2005_AY),chg2ay3(IC2005_AY),chg3ay3(IC2005_AY),chg4ay3(IC2005_AY),chg5ay3(IC2005_AY),chg7ay3(IC2005_AY),chg9ay3(IC2005_AY),CINSON(IC2004_AY),COTSON(IC2004_AY),chg1ay3(IC2004_AY),chg2ay3(IC2004_AY),chg3ay3(IC2004_AY),chg4ay3(IC2004_AY),chg5ay3(IC2004_AY),chg7ay3(IC2004_AY),chg9ay3(IC2004_AY),CINSON(IC2003_AY),COTSON(IC2003_AY),chg1ay3(IC2003_AY),chg2ay3(IC2003_AY),chg3ay3(IC2003_AY),chg4ay3(IC2003_AY),chg5ay3(IC2003_AY),chg7ay3(IC2003_AY),chg9ay3(IC2003_AY),chg1ay3(IC2011_AY),chg2ay3(IC2011_AY),chg3ay3(IC2011_AY),chg4ay3(IC2011_AY),chg5ay3(IC2011_AY),chg7ay3(IC2011_AY),chg9ay3(IC2011_AY),chg1ay3(IC2010_AY_RV),chg2ay3(IC2010_AY_RV),chg3ay3(IC2010_AY_RV),chg4ay3(IC2010_AY_RV),chg5ay3(IC2010_AY_RV),chg7ay3(IC2010_AY_RV),chg9ay3(IC2010_AY_RV),chg1ay3(IC2009_AY_RV),chg2ay3(IC2009_AY_RV),chg3ay3(IC2009_AY_RV),chg4ay3(IC2009_AY_RV),chg5ay3(IC2009_AY_RV),chg7ay3(IC2009_AY_RV),chg9ay3(IC2009_AY_RV),chg1ay3(IC2008_AY),chg2ay3(IC2008_AY),chg3ay3(IC2008_AY),chg4ay3(IC2008_AY),chg5ay3(IC2008_AY),chg7ay3(IC2008_AY),chg9ay3(IC2008_AY),chg1ay3(IC2007_AY),chg2ay3(IC2007_AY),chg3ay3(IC2007_AY),chg4ay3(IC2007_AY),chg5ay3(IC2007_AY),chg7ay3(IC2007_AY),chg9ay3(IC2007_AY),chg1ay3(IC2006_AY),chg2ay3(IC2006_AY),chg3ay3(IC2006_AY),chg4ay3(IC2006_AY),chg5ay3(IC2006_AY),chg7ay3(IC2006_AY),chg9ay3(IC2006_AY),chg1ay3(IC2002_AY),chg2ay3(IC2002_AY),chg3ay3(IC2002_AY),chg4ay3(IC2002_AY),chg5ay3(IC2002_AY),chg7ay3(IC2002_AY),chg9ay3(IC2002_AY),chg1ay3(IC2001_AY),chg2ay3(IC2001_AY),chg3ay3(IC2001_AY),chg4ay3(IC2001_AY),chg5ay3(IC2001_AY),chg7ay3(IC2001_AY),chg9ay3(IC2001_AY),chg1ay3(IC2000_AY),chg2ay3(IC2000_AY),chg3ay3(IC2000_AY),chg4ay3(IC2000_AY),chg5ay3(IC2000_AY),chg7ay3(IC2000_AY),chg9ay3(IC2000_AY),
-222178,Abilene Christian University,38250,38250,35300,35300,32300,32300,30500,30500,27950,27950,26502,26502,24475,24475,14610,14610,14610,1195,5670,,,23420,23420,14200,14200,14200,1000,5270,5270,2950,22050,22050,13290,13290,13290,800,5080,5080,2880,25270,25270,25270,1250,8316,,,22760,22760,22760,1250,7884,,,20290,20290,20290,1200,7510,,,18930,18930,18930,1150,7236,,,17410,17410,17410,1100,6350,,,16330,16330,16330,1050,6120,,,12430,12430,12430,560,4830,4830,2830,11650,11650,11650,540,4650,4650,2800,10910,10910,10910,540,4420,4420,2730,
-
+Usage:
+  ./import_customreport <csv1> <csv2> ...
 """
-
+from collections import namedtuple
+import logging
 import os
 import sys
 
-from tx_highered.ipeds_importer.utils import IpedsCsvReader
-from tx_highered.models import Institution
-
-PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
-
-
-def prices(path):
-    from tx_highered.models import PriceTrends
-    # configuration
-    FIELD_MAPPING = (
-        ('chg2ay3', 'tuition_fees_in_state'),
-        ('chg3ay3', 'tuition_fees_outof_state'),
-        ('chg4ay3', 'books_and_supplies'),
-        ('chg5ay3', 'room_and_board_on_campus'),
-        ('chg7ay3', 'room_and_board_off_campus'),
-        ('chg9ay3', 'room_and_board_off_campus_w_family'))
-    PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
-    YEAR_TYPE = 'fall'
-    reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,
-                            primary_mapping=PRIMARY_MAPPING, year_type=YEAR_TYPE)
-    # reader.explain_header()
-    reader.parse_rows(institution_model=Institution, report_model=PriceTrends)
+from tx_highered.ipeds_csv_reader import IpedsCSVReader
+from tx_highered.models import (
+    Institution, PriceTrends, TestScores, Enrollment, GraduationRates,
+)
 
 
-def testscores(path):
-    from tx_highered.models import TestScores
-    # configuration
-    FIELD_MAPPING = (
-        ('SATNUM', 'sat_submitted_number'),
-        ('SATPCT', 'sat_submitted_percent'),
-        ('ACTNUM', 'act_submitted_number'),
-        ('ACTPCT', 'act_submitted_percent'),
-        ('SATVR25', 'sat_verbal_25th_percentile'),
-        ('SATVR75', 'sat_verbal_75th_percentile'),
-        ('SATMT25', 'sat_math_25th_percentile'),
-        ('SATMT75', 'sat_math_75th_percentile'),
-        ('SATWR25', 'sat_writing_25th_percentile'),
-        ('SATWR75', 'sat_writing_75th_percentile'),
-        ('ACTCM25', 'act_composite_25th_percentile'),
-        ('ACTCM75', 'act_composite_75th_percentile'),
-        ('ACTEN25', 'act_english_25th_percentile'),
-        ('ACTEN75', 'act_english_75th_percentile'),
-        ('ACTMT25', 'act_math_25th_percentile'),
-        ('ACTMT75', 'act_math_75th_percentile'),
-        ('ACTWR25', 'act_writing_25th_percentile'),
-        ('ACTWR75', 'act_writing_75th_percentile'))
-    PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
-    YEAR_TYPE = 'fall'
-    reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,
-                            primary_mapping=PRIMARY_MAPPING, year_type=YEAR_TYPE)
-    reader.parse_rows(institution_model=Institution, report_model=TestScores)
+# This tells the importer how to interpret IPEDS short variables for import
+# into a Django model and field
+ReportDatum = namedtuple('ReportDatum', ['model', 'field', 'year_type'])
+FIELD_MAPPINGS = {
+    # Price Trends
+    'chg2ay3': ReportDatum(PriceTrends, 'tuition_fees_in_state', 'fall'),
+    'chg3ay3': ReportDatum(PriceTrends, 'tuition_fees_outof_state', 'fall'),
+    'chg4ay3': ReportDatum(PriceTrends, 'books_and_supplies', 'fall'),
+    'chg5ay3': ReportDatum(PriceTrends, 'room_and_board_on_campus', 'fall'),
+
+    # Test Scores
+    'SATNUM': ReportDatum(TestScores, 'sat_submitted_number', 'fall'),
+    'SATPCT': ReportDatum(TestScores, 'sat_submitted_percent', 'fall'),
+    'ACTNUM': ReportDatum(TestScores, 'act_submitted_number', 'fall'),
+    'ACTPCT': ReportDatum(TestScores, 'act_submitted_percent', 'fall'),
+    'SATVR25': ReportDatum(TestScores, 'sat_verbal_25th_percentile', 'fall'),
+    'SATVR75': ReportDatum(TestScores, 'sat_verbal_75th_percentile', 'fall'),
+    'SATMT25': ReportDatum(TestScores, 'sat_math_25th_percentile', 'fall'),
+    'SATMT75': ReportDatum(TestScores, 'sat_math_75th_percentile', 'fall'),
+    'SATWR25': ReportDatum(TestScores, 'sat_writing_25th_percentile', 'fall'),
+    'SATWR75': ReportDatum(TestScores, 'sat_writing_75th_percentile', 'fall'),
+    'ACTCM25': ReportDatum(TestScores, 'act_composite_25th_percentile', 'fall'),
+    'ACTCM75': ReportDatum(TestScores, 'act_composite_75th_percentile', 'fall'),
+    'ACTEN25': ReportDatum(TestScores, 'act_english_25th_percentile', 'fall'),
+    'ACTEN75': ReportDatum(TestScores, 'act_english_75th_percentile', 'fall'),
+    'ACTMT25': ReportDatum(TestScores, 'act_math_25th_percentile', 'fall'),
+    'ACTMT75': ReportDatum(TestScores, 'act_math_75th_percentile', 'fall'),
+    'ACTWR25': ReportDatum(TestScores, 'act_writing_25th_percentile', 'fall'),
+    'ACTWR75': ReportDatum(TestScores, 'act_writing_75th_percentile', 'fall'),
+
+    # Enrollment
+    'PctEnrWh': ReportDatum(Enrollment, 'total_percent_white', 'fall'),
+    'PctEnrBK': ReportDatum(Enrollment, 'total_percent_black', 'fall'),
+    'PctEnrHS': ReportDatum(Enrollment, 'total_percent_hispanic', 'fall'),
+    'PctEnrAP': ReportDatum(Enrollment, 'total_percent_asian', 'fall'),
+    'PctEnrAN': ReportDatum(Enrollment, 'total_percent_native', 'fall'),
+    'PctEnrUn': ReportDatum(Enrollment, 'total_percent_unknown', 'fall'),
+    'ENRTOT': ReportDatum(Enrollment, 'total', 'fall'),
+    'FTE': ReportDatum(Enrollment, 'fulltime_equivalent', 'fall'),
+    'EnrFt': ReportDatum(Enrollment, 'fulltime', 'fall'),
+    'EnrPt': ReportDatum(Enrollment, 'parttime', 'fall'),
+
+    # GraduationRates
+    'GBA4RTT': ReportDatum(GraduationRates, 'bachelor_4yr', 'aug'),
+    'GBA5RTT': ReportDatum(GraduationRates, 'bachelor_5yr', 'aug'),
+    'GBA6RTT': ReportDatum(GraduationRates, 'bachelor_6yr', 'aug'),
+}
 
 
-def enrollment(path):
-    from tx_highered.models import Enrollment
-    # configuration
-    FIELD_MAPPING = (
-        ('PctEnrWh', 'total_percent_white'),
-        ('PctEnrBK', 'total_percent_black'),
-        ('PctEnrHS', 'total_percent_hispanic'),
-        ('PctEnrAP', 'total_percent_asian'),
-        ('PctEnrAN', 'total_percent_native'),
-        ('PctEnrUn', 'total_percent_unknown'),
-        ('ENRTOT', 'total'),
-        ('FTE', 'fulltime_equivalent'),
-        ('EnrFt', 'fulltime'),
-        ('EnrPt', 'parttime'))
-    PRIMARY_MAPPING = ('UnitID', 'ipeds_id')
-    YEAR_TYPE = 'fall'
-    reader = IpedsCsvReader(open(path, "rb"), field_mapping=FIELD_MAPPING,
-                            primary_mapping=PRIMARY_MAPPING, year_type=YEAR_TYPE)
-    reader.parse_rows(institution_model=Institution, report_model=Enrollment)
+def generic(path):
+    """Read the CSV and import into the appropriate model."""
+    logger = logging.getLogger(__name__)
+    reader = IpedsCSVReader(open(path, 'rb'))
+    for row in reader:
+        unit_id, ipeds_id = row[0]
+        assert unit_id == 'UnitID'
+        institution = Institution.objects.get(ipeds_id=ipeds_id)
+        for key, value in row[2:]:
+            logger.debug(u'{} {}'.format(key, value))
+            if key is None or value is '':
+                # skip cells with no data, CSVs will give empty strings for
+                # missing values
+                continue
+            try:
+                finder = FIELD_MAPPINGS[key.short_name]
+            except KeyError:
+                logger.error('MISSING: cannot interpret {}'
+                    .format(key.short_name))
+                continue
+            defaults = {
+                finder.field: value,
+                'year_type': finder.year_type,
+            }
+            logging_state = 'CREATED'
+            instance, created = finder.model.objects.get_or_create(
+                institution=institution, year=key.year,
+                defaults=defaults)
+            if not created:
+                if unicode(getattr(instance, finder.field)) != value:
+                    logging_state = 'UPDATED'
+                    instance.__dict__.update(defaults)
+                    instance.save()
+                else:
+                    logging_state = 'SKIP'
+            logger.info(u'{} {} {}'
+                .format(instance, key.short_name, logging_state))
 
 
-def graduation_rates(path):
-    from tx_highered.models import GraduationRates as report_model
-    field_mapping = (
-        ('GBA4RTT', 'bachelor_4yr'),
-        ('GBA5RTT', 'bachelor_5yr'),
-        ('GBA6RTT', 'bachelor_6yr'))
-    year_type = 'aug'
-    reader = IpedsCsvReader(open(path, "rb"), field_mapping=field_mapping,
-                            primary_mapping=PRIMARY_MAPPING, year_type=year_type)
-    reader.parse_rows(institution_model=Institution, report_model=report_model)
-
-
-report = sys.argv[-2]
-path = sys.argv[-1]
-
-if len(sys.argv) == 2:
-    # no report given, guess it
-    report = os.path.splitext(os.path.basename(sys.argv[1]))[0]
-
-if report == 'prices':
-    prices(path)
-elif report == 'testscores':
-    testscores(path)
-elif report == 'enrollment':
-    enrollment(path)
-elif report == 'grad_rates':
-    graduation_rates(path)
-else:
-    reader = IpedsCsvReader(open(path, "rb"))
-    reader.explain_header()
+if __name__ == '__main__':
+    for path in sys.argv[1:]:
+        if os.path.isfile(path):
+            generic(path)

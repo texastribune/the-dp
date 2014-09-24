@@ -36,3 +36,16 @@ resetdb:
 	$(MANAGE) migrate --noinput
 	$(MANAGE) syncdb --noinput
 	$(MANAGE) loaddata tx_highered_2012
+
+# Dump current system and institution data into a fixture
+.PHONY: tx_highered/fixtures/highered_base.json
+tx_highered/fixtures/highered_base.json:
+	$(MANAGE) dumpdata tx_highered.system tx_highered.institution > $@
+
+# Load all the data
+#
+# This functionality could all just live in this makefile, but make does not
+# like file names containing spaces, and browsers will create files names with
+# spaces. So :shrug:
+load:
+	bin/load.sh

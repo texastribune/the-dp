@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
-
+from django.utils.functional import cached_property
 
 from tx_lege_districts.models import District
 from tx_lege_districts.constants import SBOE
@@ -321,51 +321,47 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         fields = ("in_state", "out_of_state", "books_and_supplies", "room_and_board_on_campus")
         return self.get_buckets('pricetrends', fields=fields)
 
-    @property
+    @cached_property
     def sat_score_buckets(self):
-        if not hasattr(self, '_sat_score_buckets'):
-            b = {
-                'years': [],
-                'verbal_range': {},
-                'math_range': {},
-                'writing_range': {},
-            }
-            for a in self.testscores.all():
-                b['years'].append(a.year)
-                b['verbal_range'][a.year] = (a.sat_verbal_range
-                        if a.sat_verbal_25th_percentile else 'N/A')
-                b['math_range'][a.year] = (a.sat_math_range
-                        if a.sat_math_25th_percentile else 'N/A')
-                b['writing_range'][a.year] = (a.sat_writing_range
-                        if a.sat_writing_25th_percentile else 'N/A')
-            self._sat_score_buckets = b
-        return self._sat_score_buckets
+        b = {
+            'years': [],
+            'verbal_range': {},
+            'math_range': {},
+            'writing_range': {},
+        }
+        for a in self.testscores.all():
+            b['years'].append(a.year)
+            b['verbal_range'][a.year] = (a.sat_verbal_range
+                    if a.sat_verbal_25th_percentile else 'N/A')
+            b['math_range'][a.year] = (a.sat_math_range
+                    if a.sat_math_25th_percentile else 'N/A')
+            b['writing_range'][a.year] = (a.sat_writing_range
+                    if a.sat_writing_25th_percentile else 'N/A')
+        return b
 
-    @property
+    @cached_property
     def admission_buckets(self):
-        if not hasattr(self, '_admission_buckets'):
-            b = {
-                'years': [],
-                'applicants': {},
-                'admitted': {},
-                'enrolled': {},
-            }
-            for a in self.get_admissions().all():
-                if not a.number_admitted:
-                    continue
-                b['years'].append(a.year)
-                b['applicants'][a.year] = a.number_of_applicants
-                b['admitted'][a.year] = (a.number_admitted,
-                        a.percent_of_applicants_admitted)
-                b['enrolled'][a.year] = (a.number_admitted_who_enrolled,
-                        a.percent_of_admitted_who_enrolled)
-            self._admission_buckets = b
-        return self._admission_buckets
+        b = {
+            'years': [],
+            'applicants': {},
+            'admitted': {},
+            'enrolled': {},
+        }
+        for a in self.get_admissions().all():
+            if not a.number_admitted:
+                continue
+            b['years'].append(a.year)
+            b['applicants'][a.year] = a.number_of_applicants
+            b['admitted'][a.year] = (a.number_admitted,
+                    a.percent_of_applicants_admitted)
+            b['enrolled'][a.year] = (a.number_admitted_who_enrolled,
+                    a.percent_of_admitted_who_enrolled)
+        return b
 
     @property
     def admission_top10_buckets(self):
         return self.get_buckets('admissions', fields=['percent_top10rule'],
-                                 filter_on_field='percent_top10rule')
+                                filter_on_field='percent_top10rule')
 
     def get_buckets(self, relation_name, pivot_on_field="year",
                     filter_on_field=None, fields=None):
@@ -397,14 +393,19 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @property
     def enrollment_buckets(self):
-        if self.is_private:  # if not self.has_thecb_data
-            fields = ("fulltime_equivalent", "fulltime", "parttime")
-            b = self.get_buckets("enrollment", fields=fields)
-            b['data_source'] = "IPEDS"
-            return b
-        fields = ("total",)
-        b = self.get_buckets("publicenrollment", fields=fields)
-        b['data_source'] = "THECB"
+        """Get enrollment data from IPEDS and THECB."""
+        b = self.get_buckets("enrollment",
+            fields=("fulltime_equivalent", "fulltime", "parttime"))
+        b['data_source'] = "IPEDS"
+
+        b2 = self.get_buckets("publicenrollment", fields=("total",))
+        b2['data_source'] = "THECB"
+
+        # merge
+        b1_years = b['years'] or []
+        b.update(b2)
+        if b2['years']:
+            b['years'] = set(b1_years.extend(b2['years']))
         return b
 
     @property
