@@ -1,3 +1,5 @@
+# To generate the POST data, manually go to the $URL and make each of these
+# reports. Then, using the network inspector, copy the POST data.
 URL=http://www.txhighereddata.org/Interactive/Accountability/InteractiveGenerate.cfm
 
 all: top_10_percent.xls.html total_fte.xls.html graduation_rate_four.xls.html \
