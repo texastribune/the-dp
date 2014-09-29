@@ -1,7 +1,20 @@
 #! /usr/bin/env python
+# -*- coding: UTF-8 -*-
+"""
+Usage: html_to_csv.py FILE
+
+Convert an excel html file to csv on stdout. Similar to "in2csv", except in2csv
+does not support this format.
+
+Arguments:
+  FILE  one *.xls.html file from THECB
+"""
+
+import os
 import sys
 
 from csvkit import CSVKitDictWriter
+from docopt import docopt
 from lxml import html as etree
 
 
@@ -54,4 +67,7 @@ def html_to_csv(path):
 
 
 if __name__ == '__main__':
-    html_to_csv(sys.argv[1])
+    arguments = docopt(__doc__)
+    if not os.path.exists(arguments['FILE']):
+        exit("File does not exist")
+    html_to_csv(arguments['FILE'])
