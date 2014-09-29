@@ -1,8 +1,12 @@
 #! /usr/bin/env python
+# -*- coding: UTF-8 -*-
 """
-Import from the Accountability report system
+Import from the Accountability report system.
 
-TODO what is this for? How come this only does top 10 percent?
+Usage:
+    ./import_thecb_report.py CSV1 CSV2 ...
+
+Modeled after import_customreport.py, but written lazier.
 """
 from collections import namedtuple
 from csv import reader
@@ -24,27 +28,27 @@ FIELD_MAPPINGS = {
     u'First-Time Students in Top 10% (Percent)':
     ReportDatum(Admissions, 'percent_top10rule'),
 }
+# based on reports.YearBasedInstitutionStatsModel.YEAR_TYPE_CHOICES
+YEAR_TYPES = {
+    'Fall': 'fall',
+    'FY': 'fiscal',
+    # academic
+    # calendar
+    # aug
+}
 
 
 def parse_header_cell(text):
     """Get details needed for THECBCell out of the text."""
-    search = re.match(r'(.+)\s\((\w+)\s(\d{4})\)', text)
+    search = re.match(r'(.+)\((\w+)\s(\d{4})\)', text)
     if search:
-        name, year_type_raw, year_raw = search.groups()
-        year_type = year_type_raw.lower()
-        # based on reports.YearBasedInstitutionStatsModel.YEAR_TYPE_CHOICES
-        assert year_type in (
-            'academic',
-            'calendar',
-            'fall',
-            'fiscal',
-            'aug',
-        )
-        return THECBCell(name, int(year_raw), year_type)
+        name_raw, year_type_raw, year_raw = search.groups()
+        year_type = YEAR_TYPES[year_type_raw]
+        return THECBCell(name_raw.strip(), int(year_raw), year_type)
     return text
 
 
-def top_10_percent(path):
+def generic(path):
     report = reader(open(path))
     original_header = report.next()
     header = map(parse_header_cell, original_header)
@@ -85,13 +89,7 @@ def top_10_percent(path):
                 .format(instance, key.long_name, logging_state))
 
 
-report = sys.argv[-2]
-path = sys.argv[-1]
-
-if len(sys.argv) == 2:
-    # no report given, guess it
-    report = os.path.splitext(os.path.basename(sys.argv[1]))[0]
-
-
-if report == 'top_10_percent':
-    top_10_percent(path)
+if __name__ == '__main__':
+    for path in sys.argv[1:]:
+        if os.path.isfile(path):
+            generic(path)

@@ -16,3 +16,10 @@ class Testparse_header_cell(TestCase):
             'First-Time Students in Top 10% (Percent)')
         self.assertEqual(cell.year, 2000)
         self.assertEqual(cell.year_type, 'fall')
+        # data cell
+        cell = parse_header_cell(
+            'Four-Year Graduation Rate - Percent Total (Rate)(FY 2000)')
+        self.assertEqual(
+            cell.long_name, 'Four-Year Graduation Rate - Percent Total (Rate)')
+        self.assertEqual(cell.year, 2000)
+        self.assertEqual(cell.year_type, 'fiscal')
