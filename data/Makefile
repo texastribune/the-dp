@@ -8,11 +8,6 @@ all: top_10_percent.xls.html total_fte.xls.html \
 	graduation_rate_six
 
 
-.PHONY: community_graduation_rates.xls.html
-community_graduation_rates.xls.html:
-	curl -X POST ${URL} --data-binary "@community_graduation_rates.POST" > $@
-
-
 # Participation / Key Measures / Contextual Measures / First-Time Students in Top 10%
 #
 # THECB is missing 2001 because they didn't start doing data entry until 2004
@@ -38,5 +33,21 @@ graduation_rate_five:
 
 # Success / Key Measures / Six-Year Graduation Rate / Percent Total
 graduation_rate_six:
+	curl -X POST ${URL} --data-binary "@$@.POST" > $@.xls.html
+	../tx_highered/thecb_importer/html_to_csv.py $@.xls.html > $@.csv
+
+
+# Community Colleges
+
+# Success / Key Measures / Three-Year Graduation Rate / Associates
+# Success / Key Measures / Three-Year Graduation Rate / Bachelors
+# Success / Key Measures / Four-Year Graduation Rate / Associates
+# Success / Key Measures / Four-Year Graduation Rate / Bachelors
+# Success / Key Measures / Six-Year Graduation Rate / Associates
+# Success / Key Measures / Six-Year Graduation Rate / Bachelors
+#
+# No Five-Year data from Accountability reports for Community colleges
+# Years 2001 to 2003 are missing
+community_graduation_rates:
 	curl -X POST ${URL} --data-binary "@$@.POST" > $@.xls.html
 	../tx_highered/thecb_importer/html_to_csv.py $@.xls.html > $@.csv

@@ -24,16 +24,34 @@ logger = logging.getLogger(__name__)
 THECBCell = namedtuple('THECBCell', 'long_name, year, year_type')
 
 ReportDatum = namedtuple('ReportDatum', ['model', 'field'])
+# Field mappings, formatting is funny but PEP8. Not how I would have liked to
+# have done it but oh well.
 FIELD_MAPPINGS = {
     # Not used
     # u'First-Time Students in Top 10% (Percent)':
     # ReportDatum(Admissions, 'percent_top10rule'),
-    u'Four-Year Graduation Rate - Percent Total (Rate)':
-    ReportDatum(PublicGraduationRates, 'bachelor_4yr'),
-    u'Five-Year Graduation Rate - Percent Total (Rate)':
-    ReportDatum(PublicGraduationRates, 'bachelor_5yr'),
-    u'Six-Year Graduation Rate - Percent Total (Rate)':
-    ReportDatum(PublicGraduationRates, 'bachelor_6yr'),
+
+    # Graduation Rates - Universities
+    u'Four-Year Graduation Rate - Percent Total (Rate)': ReportDatum(
+        PublicGraduationRates, 'bachelor_4yr'),
+    u'Five-Year Graduation Rate - Percent Total (Rate)': ReportDatum(
+        PublicGraduationRates, 'bachelor_5yr'),
+    u'Six-Year Graduation Rate - Percent Total (Rate)': ReportDatum(
+        PublicGraduationRates, 'bachelor_6yr'),
+    # Graduation Rates - Community College
+    u'Three-Year Graduation Rate - Associates': ReportDatum(
+        PublicGraduationRates, 'associate_3yr'),
+    u'Three-Year Graduation Rate - Bachelors': ReportDatum(
+        PublicGraduationRates, 'bachelor_3yr'),
+    u'Four-Year Graduation Rate - Associates': ReportDatum(
+        PublicGraduationRates, 'associate_4yr'),
+    u'Four-Year Graduation Rate - Bachelors': ReportDatum(
+        PublicGraduationRates, 'bachelor_4yr'),
+    u'Six-Year Graduation Rate - Bachelors': ReportDatum(
+        PublicGraduationRates, 'bachelor_6yr'),
+    u'Six-Year Graduation Rate - Associates': ReportDatum(
+        PublicGraduationRates, 'associate_6yr'),
+
 }
 # based on reports.YearBasedInstitutionStatsModel.YEAR_TYPE_CHOICES
 YEAR_TYPES = {
@@ -63,7 +81,14 @@ def generic(path):
     for row in report:
         data = zip(header, row)
         fice_id = row[1]
-        institution = Institution.objects.get(fice_id=fice_id)
+        try:
+            institution = Institution.objects.get(fice_id=fice_id)
+        except Institution.DoesNotExist:
+            logger.error('MISSING Institution: {} fice: {}'.format(
+                row[0], fice_id,
+            ))
+            continue
+
         for key, value in data[3:]:
             if value.upper() in ('', 'NA'):
                 # HACK so bad values get stored as NULL. NULl means we tried to

@@ -71,7 +71,12 @@ def generic(path):
     for row in reader:
         unit_id, ipeds_id = row[0]
         assert unit_id == 'UnitID'
-        institution = Institution.objects.get(ipeds_id=ipeds_id)
+        try:
+            institution = Institution.objects.get(ipeds_id=ipeds_id)
+        except Institution.DoesNotExist:
+            # TODO echo the name too
+            logger.error('MISSING Institution: {}'.format(ipeds_id))
+            continue
         for key, value in row[2:]:
             logger.debug(u'{} {}'.format(key, value))
             if key is None or value is '':
