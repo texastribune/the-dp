@@ -15,7 +15,7 @@ import os
 import re
 import sys
 
-from tx_highered.models import Institution, Admissions
+from tx_highered.models import Institution, Admissions, PublicGraduationRates
 
 
 logger = logging.getLogger(__name__)
@@ -25,8 +25,15 @@ THECBCell = namedtuple('THECBCell', 'long_name, year, year_type')
 
 ReportDatum = namedtuple('ReportDatum', ['model', 'field'])
 FIELD_MAPPINGS = {
-    u'First-Time Students in Top 10% (Percent)':
-    ReportDatum(Admissions, 'percent_top10rule'),
+    # Not used
+    # u'First-Time Students in Top 10% (Percent)':
+    # ReportDatum(Admissions, 'percent_top10rule'),
+    u'Four-Year Graduation Rate - Percent Total (Rate)':
+    ReportDatum(PublicGraduationRates, 'bachelor_4yr'),
+    u'Five-Year Graduation Rate - Percent Total (Rate)':
+    ReportDatum(PublicGraduationRates, 'bachelor_5yr'),
+    u'Six-Year Graduation Rate - Percent Total (Rate)':
+    ReportDatum(PublicGraduationRates, 'bachelor_6yr'),
 }
 # based on reports.YearBasedInstitutionStatsModel.YEAR_TYPE_CHOICES
 YEAR_TYPES = {
@@ -52,7 +59,6 @@ def generic(path):
     report = reader(open(path))
     original_header = report.next()
     header = map(parse_header_cell, original_header)
-    print header
 
     for row in report:
         data = zip(header, row)
