@@ -6,17 +6,24 @@ TODO what is this for? How come this only does top 10 percent?
 """
 from collections import namedtuple
 from csv import reader
+import logging
 import os
 import re
 import sys
 
-from lxml import html as etree
+from tx_highered.models import Institution, Admissions
 
-from tx_highered.models import Institution
 
+logger = logging.getLogger(__name__)
 
 # Similar to IPEDSCell
 THECBCell = namedtuple('THECBCell', 'long_name, year, year_type')
+
+ReportDatum = namedtuple('ReportDatum', ['model', 'field'])
+FIELD_MAPPINGS = {
+    u'First-Time Students in Top 10% (Percent)':
+    ReportDatum(Admissions, 'percent_top10rule'),
+}
 
 
 def parse_header_cell(text):
@@ -24,45 +31,58 @@ def parse_header_cell(text):
     search = re.match(r'(.+)\s\((\w+)\s(\d{4})\)', text)
     if search:
         name, year_type_raw, year_raw = search.groups()
-        return THECBCell(name, int(year_raw), year_type_raw.lower())
+        year_type = year_type_raw.lower()
+        # based on reports.YearBasedInstitutionStatsModel.YEAR_TYPE_CHOICES
+        assert year_type in (
+            'academic',
+            'calendar',
+            'fall',
+            'fiscal',
+            'aug',
+        )
+        return THECBCell(name, int(year_raw), year_type)
     return text
 
 
 def top_10_percent(path):
-    from tx_highered.models import Admissions as Model
-
-    year_type = "fall"
-
     report = reader(open(path))
     original_header = report.next()
     header = map(parse_header_cell, original_header)
     print header
 
     for row in report:
-        print row
-    return
-    doc = etree.parse(path)
-    rows = doc.xpath('//tr')
-    header = [x.text_content() for x in rows[1]]
-    for row in rows[2:]:
-        fice_id = row[1].text
-        if not fice_id:
-            continue
-        inst = Institution.objects.get(fice_id=fice_id)
-        print "top 10 percent: %s" % inst.name
-        for i, col in enumerate(row[2:], 2):
-            value = col.text.strip().lower()
-            if value == "":
+        data = zip(header, row)
+        fice_id = row[1]
+        institution = Institution.objects.get(fice_id=fice_id)
+        for key, value in data[3:]:
+            if value.upper() in ('', 'NA'):
+                # HACK so bad values get stored as NULL. NULl means we tried to
+                # get data but got nothing or bad data.
                 value = None
-            elif value == "n/a" or value == "na":
-                value = None
-            else:
-                value = value.rstrip("%")
-            year = get_year(header[i])
-            report, _ = Model.objects.get_or_create(institution=inst, year=year,
-                defaults=dict(year_type=year_type))
-            report.percent_top10rule = value
-            report.save()
+            logger.debug(u'{} {}'.format(key, value))
+            try:
+                finder = FIELD_MAPPINGS[key.long_name]
+            except KeyError:
+                logger.error('MISSING: cannot interpret {}'
+                    .format(key.long_name))
+                continue
+            defaults = {
+                finder.field: value,
+                'year_type': key.year_type,
+            }
+            logging_state = 'CREATED'
+            instance, created = finder.model.objects.get_or_create(
+                institution=institution, year=key.year,
+                defaults=defaults)
+            if not created:
+                if unicode(getattr(instance, finder.field)) != value:
+                    logging_state = 'UPDATED'
+                    instance.__dict__.update(defaults)
+                    instance.save()
+                else:
+                    logging_state = 'SKIP'
+            logger.info(u'{} {} {}'
+                .format(instance, key.long_name, logging_state))
 
 
 report = sys.argv[-2]
