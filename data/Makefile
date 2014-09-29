@@ -17,9 +17,9 @@ community_graduation_rates.xls.html:
 #
 # THECB is missing 2001 because they didn't start doing data entry until 2004
 # and they haven't gotten around to importing all old data
-.PHONY: top_10_percent.xls.html
-top_10_percent.xls.html:
-	curl -X POST ${URL} --data-binary "@top_10_percent.POST" > $@
+top_10_percent:
+	curl -X POST ${URL} --data-binary "@$@.POST" > $@.xls.html
+	../tx_highered/thecb_importer/html_to_csv.py $@.xls.html > $@.csv
 
 # Participation / Key Measures / Full-Time Equivalent Enrollment / Total FTE
 .PHONY: total_fte.xls.html

@@ -2,7 +2,10 @@
 """
 Import from the Accountability report system
 
+TODO what is this for? How come this only does top 10 percent?
 """
+from collections import namedtuple
+from csv import reader
 import os
 import re
 import sys
@@ -12,11 +15,17 @@ from lxml import html as etree
 from tx_highered.models import Institution
 
 
-def get_year(s):
-    search = re.search("\d{4}", s)
+# Similar to IPEDSCell
+THECBCell = namedtuple('THECBCell', 'long_name, year, year_type')
+
+
+def parse_header_cell(text):
+    """Get details needed for THECBCell out of the text."""
+    search = re.match(r'(.+)\s\((\w+)\s(\d{4})\)', text)
     if search:
-        return search.group()
-    return None
+        name, year_type_raw, year_raw = search.groups()
+        return THECBCell(name, int(year_raw), year_type_raw.lower())
+    return text
 
 
 def top_10_percent(path):
@@ -24,6 +33,14 @@ def top_10_percent(path):
 
     year_type = "fall"
 
+    report = reader(open(path))
+    original_header = report.next()
+    header = map(parse_header_cell, original_header)
+    print header
+
+    for row in report:
+        print row
+    return
     doc = etree.parse(path)
     rows = doc.xpath('//tr')
     header = [x.text_content() for x in rows[1]]
