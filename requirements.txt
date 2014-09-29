@@ -16,6 +16,7 @@ dj-database-url==0.3.0
 
 # dev requirements
 csvkit
+docopt==0.6.2
 South==0.7.3
 
 # app requirements
