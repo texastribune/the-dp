@@ -34,7 +34,8 @@ resetdb:
 	$(MANAGE) reset_db --noinput
 	$(MANAGE) syncdb --noinput --no-initial-data
 	$(MANAGE) migrate --noinput
-	$(MANAGE) syncdb --noinput
+	# don't need initial data because it's in the tx_highered_2012 fixture
+	# $(MANAGE) syncdb --noinput
 	$(MANAGE) loaddata tx_highered_2012
 
 # Dump current system and institution data into a fixture
