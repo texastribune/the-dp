@@ -326,7 +326,7 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
         return "Admissions Data %s %s" % (self.display_year, self.institution)
 
     class Meta(YearBasedInstitutionStatModel.Meta):
-        unique_together = ('year', 'institution')
+        get_latest_by = 'year'
 
 
 class Enrollment(YearBasedInstitutionStatModel, SimpleChart):

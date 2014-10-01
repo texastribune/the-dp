@@ -157,3 +157,6 @@ class PublicAdmissions(YearBasedInstitutionStatModel, SimpleChart):
     percent_of_admitted_who_enrolled = models.DecimalField(max_digits=4, decimal_places=1, null=True, blank=True, verbose_name=u"%admitted who enrolled")
 
     objects = AdmissionsManager()
+
+    class Meta(YearBasedInstitutionStatModel.Meta):
+        get_latest_by = 'year'
