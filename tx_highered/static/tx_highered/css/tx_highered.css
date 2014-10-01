@@ -1,7 +1,9 @@
 /* Texas Higher Ed App CSS assumes bootstrap
 */
+.chart-data { font-family: sans-serif; font-size: 12px; }
+
 .chart-viz { height: 300px; }
-.chart-viz.loading { background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eeeeee; }
+.chart-viz.loading { background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eee; }
 .chart-viz .axis { font-family: sans-serif; font-size: 12px; }
 .chart-viz .axis text { fill: #333; }
 
@@ -51,7 +53,7 @@ td.align-right .ui-tablebar { right: 0; }
 
 th aside { display: inline-block !important; width: 10%; }
 
-.ui-tablebar { color: #333; background: #dacd99; }
+.ui-tablebar { color: #333; background: #DACD99; }
 
 .onion-item, .onion-legend-item { display: inline-block; text-align: center; width: 100px; }
 
@@ -59,7 +61,7 @@ th aside { display: inline-block !important; width: 10%; }
 
 .funnel { width: 100%; }
 
-.funnel .bar { background: #0074cc; margin: 0 auto; overflow: hidden; text-indent: 110%; }
+.funnel .bar { background: #0074CC; margin: 0 auto; overflow: hidden; text-indent: 110%; }
 
 .ui-onion-item-active .bar { outline: 1px solid black; background: transparent; }
 
@@ -100,3 +102,5 @@ dfn:hover { cursor: help; }
 .no-js .requires-js { display: none !important; }
 
 .no-svg .requires-svg { display: none; }
+
+/*# sourceMappingURL=tx_highered.css.map */
