@@ -1,6 +1,17 @@
 # To generate the POST data, manually go to the $URL and make each of these
 # reports. Then, using the network inspector, copy the POST data.
 URL=http://www.txhighereddata.org/Interactive/Accountability/InteractiveGenerate.cfm
+#
+# Other potential data sources:
+#
+# PREP: http://www.txhighereddata.org/Interactive/PREP_New/
+# Has enrollment, degrees awarded, declared majors, semester credit hours,
+# and contact hours
+#
+# txhigherdata.org Has Admissions data in PDF. Click the
+# "Applicants/Acceptance/Enrollment" link to go to
+# http://www.txhighereddata.org/index.cfm?objectId=27282A55-A77E-2A0D-87B58BE320C6B099
+# which lets you download a pdf by year, starting from 1998
 
 all: top_10_percent.xls.html total_fte.xls.html \
 	graduation_rate_four \
