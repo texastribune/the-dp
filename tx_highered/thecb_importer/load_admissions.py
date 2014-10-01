@@ -1,5 +1,9 @@
 #! /usr/bin/env python
 #
+# DEPRECATED in favor of just using the IPEDS data to avoid having to deal with
+# scraping PDFs. We can't automate this, and it's costing us too much time to
+# wrangle with this data source.
+#
 # The admissions data is loaded from PDF reports on the THECB website.
 #
 # Use pdftohtml to preprocess:

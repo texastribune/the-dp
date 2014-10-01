@@ -19,4 +19,3 @@ done
 # TODO make it so the directory structure doesn't matter for ipeds/thecb csvs
 # python tx_highered/scripts/import_thecb_report.py $HIGHER_ED_DATA/THECB/custom_reports/top_10_percent.html
 # python tx_highered/thecb_importer/load_enrollment.py
-# python tx_highered/thecb_importer/load_admissions.py $HIGHER_ED_DATA/THECB/Admissions/
