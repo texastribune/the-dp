@@ -43,6 +43,12 @@ resetdb:
 tx_highered/fixtures/highered_base.json:
 	$(MANAGE) dumpdata tx_highered.system tx_highered.institution > $@
 
+# This is how I dumped old data to a fixture so I could work with the current
+# data locally
+.PHONY: tx_highered/fixtures/tx_highered_2012.json.gz
+tx_highered/fixtures/tx_highered_2012.json.gz:
+	$(MANAGE) dumpdata tx_highered | gzip > $@
+
 # Load all the data
 load: load_ipeds load_thecb
 
