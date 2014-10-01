@@ -11,7 +11,7 @@ db.sqlite
 *.sql
 
 data/*.html
-data/*.csv
+data/**/*.csv
 
 logs
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# DEPRECATED for 'make load'
+
 set -e
 
 export PYTHONPATH=$(pwd)

@@ -44,9 +44,17 @@ tx_highered/fixtures/highered_base.json:
 	$(MANAGE) dumpdata tx_highered.system tx_highered.institution > $@
 
 # Load all the data
+load: load_ipeds load_thecb
+
+# Load IPEDS data
 #
-# This functionality could all just live in this makefile, but make does not
-# like file names containing spaces, and browsers will create files names with
-# spaces. So :shrug:
-load:
-	bin/load.sh
+# Assumes data is in data/ipeds/*.csv
+load_ipeds:
+	find data/ipeds -name "*.csv" -print0 -exec $(MANAGE) tx_highered_import {} \;
+
+
+# TODO make these all use management commands so can be done in integration project
+load_thecb:
+	@$(foreach file, $(wildcard data/*.csv), \
+		echo $(file) && \
+	  ./tx_highered/scripts/import_thecb_report.py $(file) && ) true
