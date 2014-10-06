@@ -34,7 +34,8 @@ resetdb:
 	$(MANAGE) reset_db --noinput
 	$(MANAGE) syncdb --noinput --no-initial-data
 	$(MANAGE) migrate --noinput
-	$(MANAGE) syncdb --noinput
+	# don't need initial data because it's in the tx_highered_2012 fixture
+	# $(MANAGE) syncdb --noinput
 	$(MANAGE) loaddata tx_highered_2012
 
 # Dump current system and institution data into a fixture
@@ -42,10 +43,26 @@ resetdb:
 tx_highered/fixtures/highered_base.json:
 	$(MANAGE) dumpdata tx_highered.system tx_highered.institution > $@
 
+# This is how I dumped old data to a fixture so I could work with the current
+# data locally
+.PHONY: tx_highered/fixtures/tx_highered_2012.json.gz
+tx_highered/fixtures/tx_highered_2012.json.gz:
+	$(MANAGE) dumpdata tx_highered | gzip > $@
+
 # Load all the data
+load: load_ipeds load_thecb
+
+# Load IPEDS data
 #
-# This functionality could all just live in this makefile, but make does not
-# like file names containing spaces, and browsers will create files names with
-# spaces. So :shrug:
-load:
-	bin/load.sh
+# Assumes data is in data/ipeds/*.csv
+load_ipeds:
+	find data/ipeds -name "*.csv" -print0 -exec $(MANAGE) tx_highered_import ipeds {} \;
+
+
+# Load THECB data
+#
+# Assumes data is in data/*.csv
+load_thecb:
+	@$(foreach file, $(wildcard data/*.csv), \
+		echo $(file) && \
+	  $(MANAGE) tx_highered_import thecb $(file) && ) true

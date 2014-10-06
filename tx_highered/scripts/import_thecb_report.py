@@ -1,60 +1,126 @@
 #! /usr/bin/env python
+# -*- coding: UTF-8 -*-
 """
-Import from the Accountability report system
+Import from the Accountability report system.
 
+Usage:
+    ./import_thecb_report.py CSV1 CSV2 ...
+
+Modeled after import_customreport.py, but written lazier.
 """
+from collections import namedtuple
+from csv import reader
+import logging
 import os
 import re
 import sys
 
-from lxml import html as etree
-
-from tx_highered.models import Institution
+from tx_highered.models import Institution, Admissions, PublicGraduationRates
 
 
-def get_year(s):
-    search = re.search("\d{4}", s)
+logger = logging.getLogger(__name__)
+
+# Similar to IPEDSCell
+THECBCell = namedtuple('THECBCell', 'long_name, year, year_type')
+
+ReportDatum = namedtuple('ReportDatum', ['model', 'field'])
+# Field mappings, formatting is funny but PEP8. Not how I would have liked to
+# have done it but oh well.
+FIELD_MAPPINGS = {
+    # Not used
+    # u'First-Time Students in Top 10% (Percent)':
+    # ReportDatum(Admissions, 'percent_top10rule'),
+
+    # Graduation Rates - Universities
+    u'Four-Year Graduation Rate - Percent Total (Rate)': ReportDatum(
+        PublicGraduationRates, 'bachelor_4yr'),
+    u'Five-Year Graduation Rate - Percent Total (Rate)': ReportDatum(
+        PublicGraduationRates, 'bachelor_5yr'),
+    u'Six-Year Graduation Rate - Percent Total (Rate)': ReportDatum(
+        PublicGraduationRates, 'bachelor_6yr'),
+    # Graduation Rates - Community College
+    u'Three-Year Graduation Rate - Associates': ReportDatum(
+        PublicGraduationRates, 'associate_3yr'),
+    u'Three-Year Graduation Rate - Bachelors': ReportDatum(
+        PublicGraduationRates, 'bachelor_3yr'),
+    u'Four-Year Graduation Rate - Associates': ReportDatum(
+        PublicGraduationRates, 'associate_4yr'),
+    u'Four-Year Graduation Rate - Bachelors': ReportDatum(
+        PublicGraduationRates, 'bachelor_4yr'),
+    u'Six-Year Graduation Rate - Bachelors': ReportDatum(
+        PublicGraduationRates, 'bachelor_6yr'),
+    u'Six-Year Graduation Rate - Associates': ReportDatum(
+        PublicGraduationRates, 'associate_6yr'),
+
+}
+# based on reports.YearBasedInstitutionStatsModel.YEAR_TYPE_CHOICES
+YEAR_TYPES = {
+    'Fall': 'fall',
+    'FY': 'fiscal',
+    # academic
+    # calendar
+    # aug
+}
+
+
+def parse_header_cell(text):
+    """Get details needed for THECBCell out of the text."""
+    search = re.match(r'(.+)\((\w+)\s(\d{4})\)', text)
     if search:
-        return search.group()
-    return None
+        name_raw, year_type_raw, year_raw = search.groups()
+        year_type = YEAR_TYPES[year_type_raw]
+        return THECBCell(name_raw.strip(), int(year_raw), year_type)
+    return text
 
 
-def top_10_percent(path):
-    from tx_highered.models import Admissions as Model
+def generic(path):
+    report = reader(open(path))
+    original_header = report.next()
+    header = map(parse_header_cell, original_header)
 
-    year_type = "fall"
-
-    doc = etree.parse(path)
-    rows = doc.xpath('//tr')
-    header = [x.text_content() for x in rows[1]]
-    for row in rows[2:]:
-        fice_id = row[1].text
-        if not fice_id:
+    for row in report:
+        data = zip(header, row)
+        fice_id = row[1]
+        try:
+            institution = Institution.objects.get(fice_id=fice_id)
+        except Institution.DoesNotExist:
+            logger.error('MISSING Institution: {} fice: {}'.format(
+                row[0], fice_id,
+            ))
             continue
-        inst = Institution.objects.get(fice_id=fice_id)
-        print "top 10 percent: %s" % inst.name
-        for i, col in enumerate(row[2:], 2):
-            value = col.text.strip().lower()
-            if value == "":
+
+        for key, value in data[3:]:
+            if value.upper() in ('', 'NA'):
+                # HACK so bad values get stored as NULL. NULl means we tried to
+                # get data but got nothing or bad data.
                 value = None
-            elif value == "n/a" or value == "na":
-                value = None
-            else:
-                value = value.rstrip("%")
-            year = get_year(header[i])
-            report, _ = Model.objects.get_or_create(institution=inst, year=year,
-                defaults=dict(year_type=year_type))
-            report.percent_top10rule = value
-            report.save()
+            logger.debug(u'{} {}'.format(key, value))
+            try:
+                finder = FIELD_MAPPINGS[key.long_name]
+            except KeyError:
+                logger.error('MISSING: cannot interpret {}'
+                    .format(key.long_name))
+                continue
+            defaults = {
+                finder.field: value,
+                'year_type': key.year_type,
+            }
+            logging_state = 'CREATED'
+            instance, created = finder.model.objects.get_or_create(
+                institution=institution, year=key.year,
+                defaults=defaults)
+            if not created:
+                if unicode(getattr(instance, finder.field)) != value:
+                    logging_state = 'UPDATED'
+                    instance.__dict__.update(defaults)
+                    instance.save()
+                else:
+                    logging_state = 'SKIP'
+            logger.info(u'{} {} {}'
+                .format(instance, key.long_name, logging_state))
 
 
-report = sys.argv[-2]
-path = sys.argv[-1]
-
-if len(sys.argv) == 2:
-    # no report given, guess it
-    report = os.path.splitext(os.path.basename(sys.argv[1]))[0]
-
-
-if report == 'top_10_percent':
-    top_10_percent(path)
+if __name__ == '__main__':
+    for path in sys.argv[1:]:
+        if os.path.isfile(path):
+            generic(path)

@@ -206,13 +206,11 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     #################### THECB / IPEDS ROUTERS #################
     def get_admissions(self):
         """
-        Public universities admissions data comes from the THECB.
-        All others use data from IPEDS.
+        Get admissions data. First, try IPEDS, then, try THECB.
         """
-        if not self.is_private and self.institution_type == 'uni':
-            return self.publicadmissions
-        else:
-            return self.admissions
+        # if not self.is_private and self.institution_type == 'uni':
+        #     return self.publicadmissions.all()
+        return self.admissions.all()
 
     def get_graduation_rates(self):
         """

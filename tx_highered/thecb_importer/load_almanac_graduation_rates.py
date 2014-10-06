@@ -1,5 +1,8 @@
 #! /usr/bin/env python
 #
+# DEPRECATED This logic is too difficult to maintain. Use the accountability
+# search data for graduation rates instead.
+#
 # Almanac graduation rates are on page 21 of the 2012 THECB Almanac.
 # We are only interested in the 2011 rates; the others are loaded from
 # the accountability reports.
