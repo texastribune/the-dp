@@ -56,11 +56,13 @@ load: load_ipeds load_thecb
 #
 # Assumes data is in data/ipeds/*.csv
 load_ipeds:
-	find data/ipeds -name "*.csv" -print0 -exec $(MANAGE) tx_highered_import {} \;
+	find data/ipeds -name "*.csv" -print0 -exec $(MANAGE) tx_highered_import ipeds {} \;
 
 
-# TODO make these all use management commands so can be done in integration project
+# Load THECB data
+#
+# Assumes data is in data/*.csv
 load_thecb:
 	@$(foreach file, $(wildcard data/*.csv), \
 		echo $(file) && \
-	  ./tx_highered/scripts/import_thecb_report.py $(file) && ) true
+	  $(MANAGE) tx_highered_import thecb $(file) && ) true
