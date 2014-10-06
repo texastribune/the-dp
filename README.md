@@ -25,8 +25,14 @@ pip install -r requirements.txt
 # syncdb and load fixtures
 make resetdb
 
-# load raw data
-./bin/load.sh
+# get ipeds data, requires https://github.com/texastribune/ipeds_reporter
+../ipeds_reporter/csv_downloader/csv_downloader.py \
+  --uid data/ipeds/ipeds_institutions.uid --mvl data/ipeds
+mv ~/Downloads/Data_*.csv data/ipeds
+# get thecb data
+cd data && make all
+# load data
+make load
 ```
 
 Database:
