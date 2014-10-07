@@ -1,5 +1,5 @@
 from collections import defaultdict
-import sys
+import logging
 
 from pyquery import PyQuery as pq
 import requests
@@ -29,6 +29,9 @@ TOTAL_CLASS = 'x15'
 KNOWN_CLASSES.append(TOTAL_CLASS)
 
 
+logger = logging.getLogger(__name__)
+
+
 def generate_payload(extra_data):
     return dict({
         'IBIC_server': 'EDASERVE',
@@ -43,6 +46,7 @@ def generate_payload(extra_data):
 
 
 def get_institutions(category):
+    logger.debug('get_institutions - {}'.format(category))
     institutions = []
 
     category_data = CATEGORY_DATA[category]
@@ -111,7 +115,7 @@ def clean_institution_data(data):
     try:
         institution = Institution.objects.get(fice_id=data['fice'])
     except Institution.DoesNotExist:
-        sys.stderr.write('missing FICE ID %(fice)s (%(name)s)\n' % data)
+        logger.warn('missing FICE ID %(fice)s (%(name)s)\n' % data)
         return
 
     # The data item looks like this (multiple ethnicities with a total):
@@ -140,6 +144,9 @@ def main():
             for cleaned_data in clean_institution_data(institution):
                 inst = cleaned_data.pop('institution')
                 year = cleaned_data.pop('year')
+                logger.info('Instutition: {}, Year: {}, data: {}'.format(
+                    inst, year, cleaned_data,
+                ))
                 create_or_update(PublicEnrollment.objects, institution=inst,
                     year=year, defaults=cleaned_data)
 
