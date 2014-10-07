@@ -1,3 +1,11 @@
+"""
+Usage:
+
+    python load_enrollment.py
+
+Loads enrollment data from THECB's PREP online site:
+http://reports.thecb.state.tx.us/approot/dwprodrpt/enrmenu.htm
+"""
 from collections import defaultdict
 import logging
 
