@@ -152,9 +152,8 @@ def main():
             for cleaned_data in clean_institution_data(institution):
                 inst = cleaned_data.pop('institution')
                 year = cleaned_data.pop('year')
-                logger.info('Instutition: {}, Year: {}, data: {}'.format(
-                    inst, year, cleaned_data,
-                ))
+                logger.info('Instutition: {}, Year: {}'.format(inst, year))
+                logger.debug('data: {}'.format(cleaned_data))
                 create_or_update(PublicEnrollment.objects, institution=inst,
                     year=year, defaults=cleaned_data)
 
