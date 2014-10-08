@@ -18,6 +18,8 @@ from tx_highered.thecb_importer.utils import create_or_update
 
 REPORT_URL = "http://reports.thecb.state.tx.us/ibi_apps/WFServlet?"
 
+CURRENT_YEAR = 2014  # TODO pull the current year directly from the data
+
 CATEGORY_DATA = {
     'public': {
         'instcateg': 'Public University',
@@ -68,7 +70,7 @@ def get_institutions(category):
     current_name = None
     for tr in doc.find('tr'):
         name = None
-        current_year = 2011
+        current_year = CURRENT_YEAR
         for td in tr.getchildren():
             td_class = td.attrib.get('class')
             if td_class not in KNOWN_CLASSES or 'colspan' in td.attrib:
