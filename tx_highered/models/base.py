@@ -394,10 +394,10 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         """Get enrollment data from IPEDS and THECB."""
         b = self.get_buckets("enrollment",
             fields=("fulltime_equivalent", "fulltime", "parttime"))
-        b['data_source'] = "IPEDS"
+        b['data_source'] = "IPEDS"  # FIXME inaccurate
 
         b2 = self.get_buckets("publicenrollment", fields=("total",))
-        b2['data_source'] = "THECB"
+        b2['data_source'] = "THECB"  # FIXME inaccurate
 
         # merge
         b1_years = b['years'] or []
