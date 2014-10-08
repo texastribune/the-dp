@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from tx_highered import models
 from tx_highered.factories import (InstitutionFactory, EnrollmentFactory,
-    PublicEnrollmentFactory)
+    )
 
 
 class InstitutionTestCase(TestCase):
@@ -59,5 +59,9 @@ class InstitutionTestCase(TestCase):
             fulltime_equivalent=100,
         )
 
+        # bust cache
+        institution = models.Institution.objects.get(pk=institution.pk)
         data = institution.enrollment_buckets
+        # assert year 2000 data appears
         self.assertEqual(data['years'], [2000])
+        self.assertEqual(data['fulltime_equivalent'][2000], 100)
