@@ -13,7 +13,7 @@ URL=http://www.txhighereddata.org/Interactive/Accountability/InteractiveGenerate
 # http://www.txhighereddata.org/index.cfm?objectId=27282A55-A77E-2A0D-87B58BE320C6B099
 # which lets you download a pdf by year, starting from 1998
 
-all: top_10_percent.xls.html total_fte.xls.html \
+all: top_10_percent \
 	graduation_rate_four \
 	graduation_rate_five \
 	graduation_rate_six
@@ -28,9 +28,9 @@ top_10_percent:
 	../tx_highered/thecb_importer/html_to_csv.py $@.xls.html > $@.csv
 
 # Participation / Key Measures / Full-Time Equivalent Enrollment / Total FTE
-.PHONY: total_fte.xls.html
-total_fte.xls.html:
-	curl -X POST ${URL} --data-binary "@total_fte.POST" > $@
+total_fte:
+	curl -X POST ${URL} --data-binary "@$@.POST" > $@.xls.html
+	../tx_highered/thecb_importer/html_to_csv.py $@.xls.html > $@.csv
 
 # Success / Key Measures / Four-Year Graduation Rate / Percent Total
 graduation_rate_four:
@@ -49,6 +49,12 @@ graduation_rate_six:
 
 
 # Community Colleges
+
+# Participation / Key Measures / Full-Time Equivalent Enrollment / Total FTE
+# TODO I can't find full time equivalent, only part time and full time
+community_total_fte:
+	curl -X POST ${URL} --data-binary "@$@.POST" > $@.xls.html
+	../tx_highered/thecb_importer/html_to_csv.py $@.xls.html > $@.csv
 
 # Success / Key Measures / Three-Year Graduation Rate / Associates
 # Success / Key Measures / Three-Year Graduation Rate / Bachelors
