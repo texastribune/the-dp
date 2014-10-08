@@ -43,8 +43,82 @@ reported in multiple formats across multiple systems:
 
 ### Accountability
 
+This data goes back to 2000, but gets spotty before 2004.
+
+> The data has not been added at this end.  When the accountability system was
+> first implemented in 04, we did not add all of the prior years for all of the
+> measures.
+
 ### PREP
+
+This data goes back to 1993, but gets spotty before 2004
+
+### Texas Higher Education Data
+
+http://www.txhighereddata.org Has a bunch of data designed for humans (PDF).
 
 
 Data
 ====
+
+Enrollment
+----------
+
+### Full-Time Equivalent
+
+When we talk about the size of a school, the Full-Time Equivalent (FTE) number
+will be quoted. It's a linear combination of the number of full time students
+and part time students. The problem is, it's a derived variable, and the
+formula changes from source to source. You're not going to get an apples to
+apples comparison unless you derive it yourself, and we're not at that point
+yet because it requires a better understanding of the data.
+
+Sources: IPEDS, THECB Accountability (only for 4-year)
+
+### Total
+
+This is just the summation of all the students, full-time and part-time. The
+problem with quoting this number is that it overcounts part-time students,
+which inflates 2-year and community colleges counts and dilutes their
+statistics.
+
+Sources: THECB Prep
+
+### Full-Time/Part-Time
+
+This is decided by how many credit hours a student is taking. There are a lot
+of different standards for different majors for how many credit hours it takes
+to be a full-time student.
+
+### Enrollment by Demographics
+
+IPEDS Ethnicities:
+* two or more races
+* American Indian or Alaska Native
+* Asian or Pacific Islander
+* Asian/Native Hawaiian/Pacific Islander
+* Asian
+* Black, non-Hispanic
+* Black or African American
+* Hispanic
+* Hispanic/Latino
+* Native Hawaiian or Other PAcific Islander
+* Non-resident Alien
+* Race/ethnicity unknown
+* White, non-Hispanic
+* White
+
+
+PREP Genders: Female, Male
+PREP Ethnicities:
+* White
+* African American
+* Hispanic
+* Asian
+* American Indian/Alaskan Native
+* International
+* Unknown or Not Reported (starts 2010)
+* Native Hawaiian/Pacific Island (starts 2012)
+* Multiracial (starts 2010)
+
+Sources: IPEDS, THECB Accountability (only for 2-year), THECB PREP
