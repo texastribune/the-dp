@@ -5,6 +5,10 @@ Usage:
 
 Loads enrollment data from THECB's PREP online site:
 http://reports.thecb.state.tx.us/approot/dwprodrpt/enrmenu.htm
+
+NOTE: the total enrollment number is not a meaningful figure except for
+boasting purposes. The full time equivalent figure is a better measure of
+student population, which comes from the Accountability system, not PREP.
 """
 from collections import defaultdict
 import logging
