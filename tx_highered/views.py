@@ -38,21 +38,21 @@ class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
 
     def get_short_list(self):
-        """ list of high enrollment schools to make getting to UT one click """
-        ipeds_queryset = (Enrollment.institution_values
-                    .by_year(2010, enrollment_total='total')
-                    .order_by('-enrollment_total')
-                    .exclude(fice_id=None, ipeds_id=None))[:15]
-        thecb_queryset = (PublicEnrollment.institution_values
-                          .by_year(2010, enrollment_total='total')
-                          .order_by('-enrollment_total')
-                          .exclude(fice_id=None, ipeds_id=None))[:15]
+        """
+        List of highest enrollment schools to make getting to UT one click.
 
-        # Join the data with THECB taking priority
+        Used full time equivalent, which means we can't use THECB data since
+        getting it from them is difficult.
+        """
+        # FIXME year is hard coded magic number
+        ipeds_queryset = (Enrollment.institution_values
+            .by_year(2012, enrollment_total='fulltime_equivalent')
+            .exclude(fice_id=None, ipeds_id=None)
+            .order_by('-enrollment_total')
+        )[:15]
+
         joined_enrollment = {}
         for o in ipeds_queryset:
-            joined_enrollment[o.id] = o
-        for o in thecb_queryset:
             joined_enrollment[o.id] = o
 
         # Take the top schools by joined enrollment
