@@ -45,21 +45,11 @@ class HomeView(TemplateView):
         getting it from them is difficult.
         """
         # FIXME year is hard coded magic number
-        ipeds_queryset = (Enrollment.institution_values
-            .by_year(2012, enrollment_total='fulltime_equivalent')
-            .exclude(fice_id=None, ipeds_id=None)
-            .order_by('-enrollment_total')
-        )[:15]
-
-        joined_enrollment = {}
-        for o in ipeds_queryset:
-            joined_enrollment[o.id] = o
-
-        # Take the top schools by joined enrollment
-        short_list = sorted(joined_enrollment.values(), reverse=True,
-                            key=lambda o: o.enrollment_total)[:15]
-
-        return short_list
+        year = 2012
+        queryset = (Enrollment.objects.filter(year=year)
+            .select_related('institution')
+            .order_by('-fulltime_equivalent')[:15])
+        return queryset
 
 
 class InstitutionListView(ListView):

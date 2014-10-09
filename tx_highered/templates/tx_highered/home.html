@@ -54,8 +54,12 @@
     {% with short_list=view.get_short_list %}{% if short_list %}
       <div class="well well-small sans-serif">
         <h4>{{ short_list|length }} Featured Higher Education Institutions:</h4>
-        {% for object in short_list %}
-          <a data-enrollment="{{ object.enrollment_total }}" data-year="{{ object.year }}" href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        {% for enrollment in short_list %}
+          <a data-enrollment="{{ enrollment.fulltime_equivalent }}"
+             data-year="{{ enrollment.year }}"
+             href="{{ enrollment.institution.get_absolute_url }}">
+            {{ enrollment.institution.name }}
+          </a>
           {% if not forloop.last %}
             <span class="divider">&bull;</span>
           {% endif %}
