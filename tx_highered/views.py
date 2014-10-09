@@ -61,11 +61,6 @@ class HomeView(TemplateView):
 
         return short_list
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context['short_list'] = self.get_short_list()
-        return context
-
 
 class InstitutionListView(ListView):
     queryset = Institution.objects.filter(ipeds_id__isnull=False).\

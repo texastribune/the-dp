@@ -51,7 +51,7 @@
 
     <hr>
 
-    {% if short_list %}
+    {% with short_list=view.get_short_list %}{% if short_list %}
       <div class="well well-small sans-serif">
         <h4>{{ short_list|length }} Featured Higher Education Institutions:</h4>
         {% for object in short_list %}
@@ -61,7 +61,7 @@
           {% endif %}
         {% endfor %}
       </div>
-    {% endif %}
+    {% endif %}{% endwith %}
   </section>
 
   <section id="view-map" class="row-fluid map-container">
