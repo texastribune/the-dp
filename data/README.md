@@ -57,6 +57,27 @@ This data goes back to 1993, but gets spotty before 2004
 
 http://www.txhighereddata.org Has a bunch of data designed for humans (PDF).
 
+### Categories
+
+THECB categorizes institutions into several categories, and provides different
+data for each category. This can make it difficult to do apples to apples
+comparisons (like what we're trying to do in this app). The categories we're
+concerned with are:
+
+Accountability:
+
+* Universities (Texas public)
+* Community Colleges
+
+PREP:
+
+* 2-Year College District (I think)
+* Public 2-Year College
+* Public University
+
+The rest are things like out-of-state MOOCs, grad schools, and technical
+schools.
+
 Caveats
 -------
 
