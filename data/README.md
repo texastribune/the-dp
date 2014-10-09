@@ -57,6 +57,27 @@ This data goes back to 1993, but gets spotty before 2004
 
 http://www.txhighereddata.org Has a bunch of data designed for humans (PDF).
 
+Caveats
+-------
+
+There are institutions in the database that report data by campus to THECB,
+but report by system to IPEDS:
+
+* Tarrant County College
+* San Jacinto College
+* Lone Star College
+
+There are some schools that you'll have trouble with:
+
+* Alamo Community College District - Northeast Lakeview College -- This one
+  campus is not in IPEDS, but their four campuses are
+* Lon Morris College - Private school that's having financial trouble
+* Texas Southmost College - Was lumped in with UT Brownsville until 2011
+* Texas A&M University System - Texas A&M University-Central Texas
+* Texas A&M University System - Texas A&M University-San Antonio
+* Texas State University System - Sul Ross State University
+* University of North Texas at Dallas
+
 
 Data
 ====
