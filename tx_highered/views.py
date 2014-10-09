@@ -43,6 +43,16 @@ class HomeView(TemplateView):
 
         Used full time equivalent, which means we can't use THECB data since
         getting it from them is difficult.
+
+        To see which institutions are missing data, and to see what the latest
+        safe year to use, run this command:
+
+            for x in Institution.objects.published():
+                try:
+                    e = x.enrollment.latest('year')
+                    print e.year, x, e.fulltime_equivalent
+                except Enrollment.DoesNotExist:
+                    print '!!!!', x, 'MISSING'
         """
         # FIXME year is hard coded magic number
         year = 2012
