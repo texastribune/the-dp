@@ -38,33 +38,28 @@ class HomeView(TemplateView):
     template_name = "tx_highered/home.html"
 
     def get_short_list(self):
-        """ list of high enrollment schools to make getting to UT one click """
-        ipeds_queryset = (Enrollment.institution_values
-                    .by_year(2010, enrollment_total='total')
-                    .order_by('-enrollment_total')
-                    .exclude(fice_id=None, ipeds_id=None))[:15]
-        thecb_queryset = (PublicEnrollment.institution_values
-                          .by_year(2010, enrollment_total='total')
-                          .order_by('-enrollment_total')
-                          .exclude(fice_id=None, ipeds_id=None))[:15]
+        """
+        List of highest enrollment schools to make getting to UT one click.
 
-        # Join the data with THECB taking priority
-        joined_enrollment = {}
-        for o in ipeds_queryset:
-            joined_enrollment[o.id] = o
-        for o in thecb_queryset:
-            joined_enrollment[o.id] = o
+        Used full time equivalent, which means we can't use THECB data since
+        getting it from them is difficult.
 
-        # Take the top schools by joined enrollment
-        short_list = sorted(joined_enrollment.values(), reverse=True,
-                            key=lambda o: o.enrollment_total)[:15]
+        To see which institutions are missing data, and to see what the latest
+        safe year to use, run this command:
 
-        return short_list
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context['short_list'] = self.get_short_list()
-        return context
+            for x in Institution.objects.published():
+                try:
+                    e = x.enrollment.latest('year')
+                    print e.year, x, e.fulltime_equivalent
+                except Enrollment.DoesNotExist:
+                    print '!!!!', x, 'MISSING'
+        """
+        # FIXME year is hard coded magic number
+        year = 2012
+        queryset = (Enrollment.objects.filter(year=year)
+            .select_related('institution')
+            .order_by('-fulltime_equivalent')[:15])
+        return queryset
 
 
 class InstitutionListView(ListView):

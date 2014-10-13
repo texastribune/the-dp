@@ -1,5 +1,17 @@
+"""
+Usage:
+
+    python load_enrollment.py
+
+Loads enrollment data from THECB's PREP online site:
+http://reports.thecb.state.tx.us/approot/dwprodrpt/enrmenu.htm
+
+NOTE: the total enrollment number is not a meaningful figure except for
+boasting purposes. The full time equivalent figure is a better measure of
+student population, which comes from the Accountability system, not PREP.
+"""
 from collections import defaultdict
-import sys
+import logging
 
 from pyquery import PyQuery as pq
 import requests
@@ -9,6 +21,8 @@ from tx_highered.thecb_importer.utils import create_or_update
 
 
 REPORT_URL = "http://reports.thecb.state.tx.us/ibi_apps/WFServlet?"
+
+CURRENT_YEAR = 2014  # TODO pull the current year directly from the data
 
 CATEGORY_DATA = {
     'public': {
@@ -29,6 +43,9 @@ TOTAL_CLASS = 'x15'
 KNOWN_CLASSES.append(TOTAL_CLASS)
 
 
+logger = logging.getLogger(__name__)
+
+
 def generate_payload(extra_data):
     return dict({
         'IBIC_server': 'EDASERVE',
@@ -43,6 +60,7 @@ def generate_payload(extra_data):
 
 
 def get_institutions(category):
+    logger.debug('get_institutions - {}'.format(category))
     institutions = []
 
     category_data = CATEGORY_DATA[category]
@@ -56,7 +74,7 @@ def get_institutions(category):
     current_name = None
     for tr in doc.find('tr'):
         name = None
-        current_year = 2011
+        current_year = CURRENT_YEAR
         for td in tr.getchildren():
             td_class = td.attrib.get('class')
             if td_class not in KNOWN_CLASSES or 'colspan' in td.attrib:
@@ -111,7 +129,7 @@ def clean_institution_data(data):
     try:
         institution = Institution.objects.get(fice_id=data['fice'])
     except Institution.DoesNotExist:
-        sys.stderr.write('missing FICE ID %(fice)s (%(name)s)\n' % data)
+        logger.warn('missing FICE ID %(fice)s (%(name)s)\n' % data)
         return
 
     # The data item looks like this (multiple ethnicities with a total):
@@ -140,6 +158,8 @@ def main():
             for cleaned_data in clean_institution_data(institution):
                 inst = cleaned_data.pop('institution')
                 year = cleaned_data.pop('year')
+                logger.info('Instutition: {}, Year: {}'.format(inst, year))
+                logger.debug('data: {}'.format(cleaned_data))
                 create_or_update(PublicEnrollment.objects, institution=inst,
                     year=year, defaults=cleaned_data)
 

@@ -207,5 +207,9 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'south': {
+            'level': 'DEBUG',
+            'propagate': False,
+        },
     }
 }

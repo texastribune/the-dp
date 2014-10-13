@@ -3,6 +3,8 @@ import unittest
 from django.test import TestCase
 
 from tx_highered import models
+from tx_highered.factories import (InstitutionFactory, EnrollmentFactory,
+    )
 
 
 class InstitutionTestCase(TestCase):
@@ -42,3 +44,24 @@ class InstitutionTestCase(TestCase):
                          u'public university')
         self.assertEqual(self.private_obj.sentence_institution_type,
                          u'private university')
+
+    def test_enrollment_buckets_work(self):
+        institution = InstitutionFactory()
+
+        # trivial case
+        data = institution.enrollment_buckets
+        self.assertEqual(data['years'], [])
+
+        # add ipeds data
+        EnrollmentFactory(
+            institution=institution,
+            year=2000,
+            fulltime_equivalent=100,
+        )
+
+        # bust cache
+        institution = models.Institution.objects.get(pk=institution.pk)
+        data = institution.enrollment_buckets
+        # assert year 2000 data appears
+        self.assertEqual(data['years'], [2000])
+        self.assertEqual(data['fulltime_equivalent'][2000], 100)

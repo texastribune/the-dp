@@ -30,6 +30,8 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     objects = models.Manager()
 
     total = models.IntegerField(null=True, help_text='Total full-time students')
+    # TODO fulltime_equivalent = models.IntegerField(null=True,
+    #    verbose_name='Full-time Equivalent')
 
     african_american_count = models.IntegerField(null=True)
     asian_count = models.IntegerField(null=True)
