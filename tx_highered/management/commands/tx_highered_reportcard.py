@@ -69,13 +69,23 @@ class Command(BaseCommand):
             header.append('Price Trends')
             row.append(latest_year(institution, 'pricetrends'))
 
+            # Bachelor Degree Graduation Rates
+            #
+            # We currently only care about bachelor's degrees, but will
+            # hopefully update the codebase to display associates degrees too.
             header.append('Graduation IPEDS')
-            row.append(latest_year(institution, 'graduationrates'))
+            row.append(latest_year(institution.graduationrates.filter(
+                Q(bachelor_4yr__isnull=False) |
+                Q(bachelor_6yr__isnull=False),
+            )))
             header.append('Graduation THECB')
             if institution.is_private:
                 row.append('NA')
             else:
-                row.append(latest_year(institution, 'publicgraduationrates'))
+                row.append(latest_year(institution.publicgraduationrates.filter(
+                    Q(bachelor_4yr__isnull=False) |
+                    Q(bachelor_6yr__isnull=False),
+                )))
 
             print ','.join(map(unicode, row))
 
