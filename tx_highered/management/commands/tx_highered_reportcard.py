@@ -26,38 +26,43 @@ class Command(BaseCommand):
             except IndexError:
                 return ''
 
-        header = ['name']
+        header = (
+            'slug',
+            'Admissions IPEDS',
+            'Admissions THECB',
+            'Test Scores',
+            'Full-Time Equivalent',
+            'Demographics IPEDS',
+            'Demographics THECB',
+            'Price Trends',
+            'Graduation IPEDS',
+            'Graduation THECB',
+        )
         print ','.join(header)
         for institution in Institution.objects.published():
             row = [institution.slug]
-            header.append('Admissions IPEDS')
             row.append(latest_year(institution, 'admissions'))
-            header.append('Admissions THECB')
             if institution.is_private:
                 row.append('NA')
             else:
                 row.append(latest_year(institution, 'publicadmissions'))
 
-            header.append('Test Scores')
             row.append(latest_year(institution, 'testscores'))
 
             # Enrollment
             #
             # We only care about fulltime equivalent, which is only in IPEDS
             # for now.
-            header.append('Full-Time Equivalent')
             row.append(latest_year(institution.enrollment.filter(
                 fulltime_equivalent__isnull=False)))
 
             # Demographics
             #
             # Assume that every school at least has white or black students
-            header.append('Demographics IPEDS')
             row.append(latest_year(institution.enrollment.filter(
                 Q(total_percent_white__isnull=False) |
                 Q(total_percent_black__isnull=False)
             )))
-            header.append('Demographics THECB')
             if institution.is_private:
                 row.append('NA')
             else:
@@ -66,19 +71,16 @@ class Command(BaseCommand):
                     Q(african_american_percent=False)
                 )))
 
-            header.append('Price Trends')
             row.append(latest_year(institution, 'pricetrends'))
 
             # Bachelor Degree Graduation Rates
             #
             # We currently only care about bachelor's degrees, but will
             # hopefully update the codebase to display associates degrees too.
-            header.append('Graduation IPEDS')
             row.append(latest_year(institution.graduationrates.filter(
                 Q(bachelor_4yr__isnull=False) |
                 Q(bachelor_6yr__isnull=False),
             )))
-            header.append('Graduation THECB')
             if institution.is_private:
                 row.append('NA')
             else:
@@ -88,6 +90,3 @@ class Command(BaseCommand):
                 )))
 
             print ','.join(map(unicode, row))
-
-        # print header
-        # print rows
