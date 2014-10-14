@@ -39,7 +39,9 @@ class Command(BaseCommand):
             'Graduation THECB',
         )
         print ','.join(header)
-        for institution in Institution.objects.published():
+        institutions = (Institution.objects.published()
+            .order_by('institution_type', 'is_private', 'name'))
+        for institution in institutions:
             row = [institution.slug]
             row.append(latest_year(institution, 'admissions'))
             if institution.is_private:
