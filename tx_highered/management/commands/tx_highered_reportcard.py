@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 
+from optparse import make_option
+
 from django.core.management.base import BaseCommand
 from django.db.models import Model, Q
 
@@ -12,6 +14,12 @@ class Command(BaseCommand):
         'Create a report card of our data quality. Run it through '
         'http://setosa.io/csv-fingerprint/ for a quick visualization.'
     )
+    option_list = BaseCommand.option_list + (
+        make_option('--year',
+            dest='year',
+            type='int',
+            help='Data must be from at least this year'),
+    )
 
     def handle(self, *args, **options):
 
@@ -22,7 +30,11 @@ class Command(BaseCommand):
             else:
                 queryset = model_or_queryset
             try:
-                return queryset.order_by('-year')[0].year
+                year = queryset.order_by('-year')[0].year
+                if options['year'] is not None and year < options['year']:
+                    return ''
+                else:
+                    return year
             except IndexError:
                 return ''
 
