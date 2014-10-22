@@ -164,3 +164,21 @@ PREP Ethnicities:
 * Multiracial (starts 2010)
 
 Sources: IPEDS, THECB Accountability (only for 2-year), THECB PREP
+
+
+Institution Notes
+-----------------
+
+If you're ever wondering about why an institution seems weird, the first thing
+to do is to check WikiPedia. After that, try the official school website.
+
+### Howard College
+
+Has a few campuses, but all data is aggregated to Howard College and/or Howard
+County Junior College District.
+
+THECB graduation rates: District
+
+### San Jacinto College
+
+Has a three campuses and six extension centers.

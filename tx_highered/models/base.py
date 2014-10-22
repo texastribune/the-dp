@@ -182,6 +182,9 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     system = models.ForeignKey(System, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
+    # WISHLIST change these institution identifiers to be charfields instead of
+    # ints so we can do zero-padding
+
     # Integrated Postsecondary Education Data System ID
     ipeds_id = models.IntegerField(null=True, blank=True)
     # Federal Interagency Committee on Education ID, used on the State Level
