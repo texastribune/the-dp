@@ -179,6 +179,10 @@ County Junior College District.
 
 THECB graduation rates: District
 
+### Lone Star College - University Park
+
+One of the campuses of Lone Star College, opened in 2010.
+
 ### San Jacinto College
 
 Has a three campuses and six extension centers.
