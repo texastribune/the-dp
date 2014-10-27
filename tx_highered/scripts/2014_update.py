@@ -61,6 +61,15 @@ def add_new_institutions():
         ),
     )
 
+
+def fix_old_institutions():
+    # This is a private law school, which is beyond the scope of this explorer
+    institution = Institution.objects.get(slug='south-texas-college-of-law')
+    institution.ipeds_id = None
+    institution.save()
+
+
 if __name__ == '__main__':
     add_new_institutions()
     associate_districts()
+    fix_old_institutions()
