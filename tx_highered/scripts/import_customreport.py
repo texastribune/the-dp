@@ -11,7 +11,8 @@ import sys
 
 from tx_highered.ipeds_csv_reader import IpedsCSVReader
 from tx_highered.models import (
-    Institution, PriceTrends, TestScores, Enrollment, GraduationRates,
+    Institution, Admissions, PriceTrends, TestScores, Enrollment,
+    GraduationRates,
 )
 
 
@@ -19,6 +20,9 @@ from tx_highered.models import (
 # into a Django model and field
 ReportDatum = namedtuple('ReportDatum', ['model', 'field', 'year_type'])
 FIELD_MAPPINGS = {
+    'ADMSSN': ReportDatum(Admissions, 'number_admitted', 'fall'),
+    'APPLCN': ReportDatum(Admissions, 'number_of_applicants', 'fall'),
+    'ENRLT': ReportDatum(Admissions, 'number_admitted_who_enrolled', 'fall'),
     # Price Trends
     'chg2ay3': ReportDatum(PriceTrends, 'tuition_fees_in_state', 'fall'),
     'chg3ay3': ReportDatum(PriceTrends, 'tuition_fees_outof_state', 'fall'),
