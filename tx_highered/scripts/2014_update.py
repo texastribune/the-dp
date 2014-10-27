@@ -35,7 +35,7 @@ def associate_districts():
 
     institution = Institution.objects.get(slug='san-jacinto-community-college')
     institution.fice_id = '029137'
-    institution.ipeds_id = '227979'
+    # San Jacinto College Central Campus has the ipeds id for the system
     institution.save()
 
     institution = Institution.objects.get(slug='tarrant-county-college-district')

@@ -73,6 +73,9 @@ def generic(path):
         assert unit_id == 'UnitID'
         try:
             institution = Institution.objects.get(ipeds_id=ipeds_id)
+        except Institution.MultipleObjectsReturned:
+            logger.critical('DUPLICATE IPEDS: {}'.format(ipeds_id))
+            sys.exit()
         except Institution.DoesNotExist:
             # TODO echo the name too
             logger.error('MISSING Institution: {}'.format(ipeds_id))
