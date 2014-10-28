@@ -36,6 +36,8 @@ mv ~/Downloads/Data_*.csv data/ipeds
 cd data && make all
 # load data
 make load
+# process the data
+django tx_highered_process
 ```
 
 Database:
