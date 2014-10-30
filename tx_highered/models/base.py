@@ -183,7 +183,9 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     description = models.TextField(null=True, blank=True)
 
     # WISHLIST change these institution identifiers to be charfields instead of
-    # ints so we can do zero-padding
+    # ints so we can do zero-padding because that's how they're reported,
+    # except then it'll be harder to look up institutions because you'll have
+    # to be careful about '0's.
 
     # Integrated Postsecondary Education Data System ID
     ipeds_id = models.IntegerField(null=True, blank=True)
