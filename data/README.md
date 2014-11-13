@@ -172,6 +172,15 @@ Institution Notes
 If you're ever wondering about why an institution seems weird, the first thing
 to do is to check WikiPedia. After that, try the official school website.
 
+Here's notes about data idiosyncrasies found in the data, in order that they
+appear in the data quality report card (`manage.py tx_highered_report card`)
+
+### Jacksonville College
+
+The only private junior college (Lon Morris ceased in 2012). Missing IPEDS
+admissions data after 2003. Though the admissions data is better than the old
+app. Graduation data is missing because we didn't account for junior colleges.
+
 ### Howard College
 
 Has a few campuses, but all data is aggregated to Howard College and/or Howard
@@ -186,3 +195,12 @@ One of the campuses of Lone Star College, opened in 2010.
 ### San Jacinto College
 
 Has a three campuses and six extension centers.
+
+### Lamar Institute of Technology, Lamar State College–Orange, Lamar State College–Port Arthur
+
+State Colleges that are effectively technical/community colleges. Two-year
+programs only.
+
+### Sul Ross State University 228501
+
+FIXME why is this data missing? it's in ipeds
