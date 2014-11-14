@@ -104,6 +104,9 @@
 
 
 {% block extra_script %}{{ block.super }}
+  <script>
+    var STATIC_URL = {{ STATIC_URL }};
+  </script>
   <script src="{% static 'tx_highered/vendor/leaflet/leaflet-src.js' %}"></script>
   <script src="{% static 'tx_highered/vendor/handlebars.js/handlebars-1.0.0.beta.6.js' %}"></script>
   <script src="{% static 'tx_highered/js/maps.js' %}"></script>
