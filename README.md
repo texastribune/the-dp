@@ -25,6 +25,9 @@ pip install -r requirements.txt
 # syncdb and load fixtures
 make resetdb
 
+# if using 2012 data, bump it up to 2014 standards
+python tx_highered/scripts/2014_update.py
+
 # get ipeds data, requires https://github.com/texastribune/ipeds_reporter
 ../ipeds_reporter/csv_downloader/csv_downloader.py \
   --uid data/ipeds/ipeds_institutions.uid --mvl data/ipeds
@@ -32,7 +35,10 @@ mv ~/Downloads/Data_*.csv data/ipeds
 # get thecb data
 cd data && make all
 # load data
+#   timing: 3m38.666s
 make load
+# post-process the data
+django tx_highered_process
 ```
 
 Database:

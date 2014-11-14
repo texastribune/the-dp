@@ -5,6 +5,7 @@
 db.sqlite
 .sass-cache
 .env
+.ipynb_checkpoints/
 
 # local backup data
 *.dump

@@ -98,13 +98,16 @@
 
 
 {% block extra_style %}{{ block.super }}
-  <link rel="stylesheet" href="{% static 'tx_highered/vendor/leaflet/leaflet.css' %}">
-  <!--[if lte IE 8]><link rel="stylesheet" href="{% static 'tx_highered/vendor/leaflet/leaflet.ie.css' %}" /><![endif]-->
+  <link rel="stylesheet" href="//s3.amazonaws.com/cdn.texastribune.org/lib/leaflet/0.6.4/leaflet.css">
+  <!--[if lte IE 8]><link rel="stylesheet" href="//s3.amazonaws.com/cdn.texastribune.org/lib/leaflet/0.6.4/leaflet.ie.css" /><![endif]-->
 {% endblock %}
 
 
 {% block extra_script %}{{ block.super }}
-  <script src="{% static 'tx_highered/vendor/leaflet/leaflet-src.js' %}"></script>
+  <script>
+    var STATIC_URL = {{ STATIC_URL }};
+  </script>
+  <script src="//s3.amazonaws.com/cdn.texastribune.org/lib/leaflet/0.6.4/leaflet-src.js"></script>
   <script src="{% static 'tx_highered/vendor/handlebars.js/handlebars-1.0.0.beta.6.js' %}"></script>
   <script src="{% static 'tx_highered/js/maps.js' %}"></script>
   <script>

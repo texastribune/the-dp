@@ -40,6 +40,7 @@ class Command(BaseCommand):
 
         header = (
             'slug',
+            'type',
             'Admissions IPEDS',
             'Admissions THECB',
             'Test Scores',
@@ -54,7 +55,7 @@ class Command(BaseCommand):
         institutions = (Institution.objects.published()
             .order_by('institution_type', 'is_private', 'name'))
         for institution in institutions:
-            row = [institution.slug]
+            row = [institution.slug, institution.institution_type]
             row.append(latest_year(institution, 'admissions'))
             if institution.is_private:
                 row.append('NA')

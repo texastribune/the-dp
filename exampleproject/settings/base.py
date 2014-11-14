@@ -152,10 +152,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 
-# heroku hacks
-s = os.environ.get('GEOS_LIBRARY_PATH')
-if s:
-    GEOS_LIBRARY_PATH = s
+# for Heroku support
+if 'GEOS_LIBRARY_PATH' in env:
+    GEOS_LIBRARY_PATH = env.get('GEOS_LIBRARY_PATH')
+    GDAL_LIBRARY_PATH = env.get('GDAL_LIBRARY_PATH')
+
 
 LOGGING = {
     'version': 1,
