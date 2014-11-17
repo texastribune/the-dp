@@ -28,15 +28,19 @@ test:
 dumpdb:
 	phd pg_dump -Fc > $$(basename $$DATABASE_URL)_$$(date +"%Y-%m-%d").dump
 
-# this doesn't work quite right because syncdb tries to load fixtures
-# also see bin/migrate.sh
+# delete and re-create your entire database
+# TODO should I just sqlclear | dbshell instead since there's only one app?
 resetdb:
 	$(MANAGE) reset_db --noinput
+
+# bring database up to speed
+syncdb:
 	$(MANAGE) syncdb --noinput --no-initial-data
 	$(MANAGE) migrate --noinput
 	# don't need initial data because it's in the tx_highered_2012 fixture
 	# $(MANAGE) syncdb --noinput
 	$(MANAGE) loaddata tx_highered_2012
+
 
 # Dump current system and institution data into a fixture
 .PHONY: tx_highered/fixtures/highered_base.json

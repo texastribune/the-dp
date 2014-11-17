@@ -24,6 +24,7 @@ pip install -r requirements.txt
 
 # syncdb and load fixtures
 make resetdb
+make syncdb
 
 # if using 2012 data, bump it up to 2014 standards
 python tx_highered/scripts/2014_update.py
