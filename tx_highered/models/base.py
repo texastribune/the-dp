@@ -259,10 +259,17 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         """ return the `Image` that represents the seal or `None` """
         return self.wikipedia_seal
 
-    @property
-    def number_of_full_time_students(self):
-        enrollment = self.latest_enrollment
-        return enrollment.total if enrollment else None
+    @cached_property
+    def enrollment_fte(self):
+        """
+        Quick stat to find out how many students are enrolled.
+
+        Designed to answer the question, "so how many students are at ____?"
+        Uses full time equivalent so community colleges with lots of part-time
+        enrollment aren't inflated.
+        """
+        enrollment = self.enrollment.latest('year')
+        return enrollment.fulltime_equivalent if enrollment else None
 
     @property
     def latest_tuition(self):

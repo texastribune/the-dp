@@ -50,9 +50,10 @@
     </p>
   {% endif %}
 
-  {% if institution.number_of_full_time_students %}
+  {% if institution.enrollment_fte %}
+  {# WISHLIST show how this number was derived and what it means (FTE vs total) #}
     <p class="rollup">
-        {{ institution.number_of_full_time_students|intcomma }} students
+      {{ institution.enrollment_fte|intcomma }} students
     </p>
   {% endif %}
 
