@@ -70,3 +70,4 @@ load_thecb:
 	@$(foreach file, $(wildcard data/*.csv), \
 		echo $(file) && \
 	  $(MANAGE) tx_highered_import thecb $(file) && ) true
+	python tx_highered/thecb_importer/load_enrollment.py
