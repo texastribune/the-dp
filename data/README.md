@@ -175,6 +175,13 @@ to do is to check WikiPedia. After that, try the official school website.
 Here's notes about data idiosyncrasies found in the data, in order that they
 appear in the data quality report card (`manage.py tx_highered_report card`)
 
+### Amarillo Technical Center
+
+FICE ID 009933
+http://www.tamuct.edu/index.php
+
+You can ignore this one. I'm not sure if they're active today.
+
 ### Jacksonville College
 
 The only private junior college (Lon Morris ceased in 2012). Missing IPEDS
@@ -204,3 +211,9 @@ programs only.
 ### Sul Ross State University 228501
 
 FIXME why is this data missing? it's in ipeds
+
+### Texas A&M Univ-Central Texas
+
+THECB's PREP seems to have it as FICE/FAFSA 042295, but I have it as 103631.
+The IPEDS id is 483036 but the OPEID is 04229500 (same as what PREP says).
+TODO change the fice_id?
