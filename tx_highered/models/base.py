@@ -1,5 +1,6 @@
 import logging
 from collections import defaultdict
+from urllib2 import URLError
 
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
@@ -9,6 +10,7 @@ from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
 from django.utils.functional import cached_property
+from geopy import geocoders
 
 from tx_lege_districts.models import District
 from tx_lege_districts.constants import SBOE
@@ -82,10 +84,6 @@ INSTITUTION_CHOICES = (
         ("pri_jr", "Junior College"),
         ("pri_chi", "Chiropractic Institution"),
     )
-
-
-from geopy import geocoders
-from urllib2 import URLError
 
 
 class ContactFieldsMixin(models.Model):
