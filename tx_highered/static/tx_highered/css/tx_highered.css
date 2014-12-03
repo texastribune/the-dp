@@ -2,6 +2,11 @@
 */
 .chart-data { font-family: sans-serif; font-size: 12px; }
 
+.wide-chart-wrapper { overflow-x: auto; }
+.wide-chart-wrapper > .chart-data { margin-left: 10em; }
+.wide-chart-wrapper tr > *:first-child { left: 0; margin-top: -1px; position: absolute; white-space: nowrap; width: 10em; }
+.wide-chart-wrapper tr:nth-child(2n) > *:first-child { background-color: white; }
+
 .chart-viz { height: 300px; }
 .chart-viz.loading { background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eee; }
 .chart-viz .axis { font-family: sans-serif; font-size: 12px; }
@@ -80,7 +85,7 @@ th aside { display: inline-block !important; width: 10%; }
 .data-app .app-header h1 { font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif; font-weight: 900; font-size: 2.75em; text-transform: uppercase; height: 60px; }
 .data-app .app-header h1 img { margin-right: 5px; }
 .data-app .app-header h1 a { color: #222; text-decoration: none; }
-.data-app .app-header h1 small { font-family: Helvetica; display: block; font-size: 0.45em; text-transform: none; margin-left: 3.65em; }
+.data-app .app-header h1 small { font-family: Helvetica, Arial, sans-serif; display: block; font-size: 0.45em; text-transform: none; margin-left: 3.65em; }
 .data-app .page-header { font-family: Helvetica, Arial, sans-serif; border-bottom-color: #eee; }
 .data-app h1, .data-app h2, .data-app h3 { font-family: Helvetica, Arial, sans-serif; }
 .data-app .rollup { font-family: Helvetica, Arial, sans-serif; font-size: 20px; }

@@ -19,7 +19,7 @@ class InstitutionTestCase(TestCase):
         self.assertEqual(latest, self.obj.latest_tuition)
 
     @unittest.skip('publicenrollment is empty in the fixture')
-    def test_number_of_full_time_students(self):
+    def test_enrollment_fte_works(self):
         total = self.obj.publicenrollment.latest('year').total
         self.assertEqual(total, self.obj.number_of_full_time_students)
 

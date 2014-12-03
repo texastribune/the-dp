@@ -65,8 +65,7 @@ class ReportView(SingleObjectMixin, ApiView):
 
 
 class InstitutionApiView(ApiView):
-    available_fields = ['is_private', 'number_of_full_time_students',
-                        'city', 'geojson']
+    available_fields = ['is_private', 'enrollment_fte', 'city', 'geojson']
     queryset = Institution.objects.published()
 
     def get_content_data(self):

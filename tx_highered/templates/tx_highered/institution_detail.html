@@ -50,9 +50,10 @@
     </p>
   {% endif %}
 
-  {% if institution.number_of_full_time_students %}
+  {% if institution.enrollment_fte %}
+  {# WISHLIST show how this number was derived and what it means (FTE vs total) #}
     <p class="rollup">
-        {{ institution.number_of_full_time_students|intcomma }} students
+      {{ institution.enrollment_fte|intcomma }} students
     </p>
   {% endif %}
 
@@ -276,6 +277,7 @@
       </div>
 
       {% if object.enrollment.all.exists %}
+        <div class="wide-chart-wrapper">
         <table class="chart-data table table-striped table-condensed">
           <thead>
             <tr>
@@ -328,6 +330,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <div class="row requires-svg">
           <div class="span12">
@@ -370,6 +373,7 @@
     {% if object.pricetrends.all.exists %}
       {% instachart object.pricetrends.all "pricetrends" %}
 
+      <div class="wide-chart-wrapper">
       <table class="chart-data table table-striped table-condensed">
         <thead>
           <tr>
@@ -428,6 +432,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
 
       <div class="row requires-svg">
         <div class="span12">

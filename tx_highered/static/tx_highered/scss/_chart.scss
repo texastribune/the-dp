@@ -4,6 +4,25 @@
   font-size: 12px;
 }
 
+$wide-chart-column-width: 10em;
+.wide-chart-wrapper {
+  overflow-x: auto;
+  > .chart-data {
+    margin-left: $wide-chart-column-width;
+  }
+  tr > *:first-child {
+    left: 0;
+    margin-top: -1px;  // nudge to compensate for absolute box calc for absolute
+    position: absolute;
+    white-space: nowrap;
+    width: $wide-chart-column-width;
+  }
+  // hack to so frozen column covers the content underneath
+  tr:nth-child(2n) > *:first-child {
+    background-color: white;
+  }
+}
+
 .chart-viz {
   height: 300px;
 
