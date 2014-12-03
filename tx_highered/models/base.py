@@ -10,7 +10,11 @@ from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
 from django.template.loader import get_template
 from django.utils.functional import cached_property
-from geopy import geocoders
+try:
+    from geopy import geocoders
+    CAN_GEOCODE = True
+except ImportError:
+    CAN_GEOCODE = False
 
 from tx_lege_districts.models import District
 from tx_lege_districts.constants import SBOE
@@ -101,6 +105,8 @@ class ContactFieldsMixin(models.Model):
         app_label = APP_LABEL
 
     def _guess_location(self, address_array):
+        if not CAN_GEOCODE:
+            return
         g = geocoders.Google()
         address = ", ".join(address_array)
         _, latlng = g.geocode(address)
@@ -110,6 +116,9 @@ class ContactFieldsMixin(models.Model):
 
     def guess_location(self):
         logger = logging.getLogger('tx_highered.models.geolocate')
+        if not CAN_GEOCODE:
+            logger.error(u'Attempted to geocode without geopy installed')
+            return
 
         # TODO better logging messages
         try:

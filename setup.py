@@ -9,7 +9,6 @@ setup(
     url='http://github.com/texastribune/tx_highered/',
     license='Apache Software License',
     install_requires=[
-        'geopy',
         'tx_lege_districts>=0.4.0',
     ],
     packages=['tx_highered'],
