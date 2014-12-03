@@ -9,7 +9,6 @@
 @import "chart";
 @import "map";
 
-@import "detail";
 @import "rail";
 @import "print";
 
@@ -128,32 +127,32 @@ th {
 }
 
 .data-app {
-    .app-header {
-        h1 {
-            font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif;
-            font-weight: 900;
-            font-size: 2.75em;
-            text-transform: uppercase;
-            height: 60px;
+  .app-header {
+    h1 {
+      font-family: "freight-sans-pro-n9", "freight-sans-pro", sans-serif;
+      font-weight: 900;
+      font-size: 2.75em;
+      text-transform: uppercase;
+      height: 60px;
 
-            img {
-              margin-right: 5px;
-            }
+      img {
+        margin-right: 5px;
+      }
 
-            a {
-              color: #222;
-              text-decoration: none;
-            }
+      a {
+        color: #222;
+        text-decoration: none;
+      }
 
-            small {
-                font-family: Helvetica;
-                display: block;
-                font-size: 0.45em;
-                text-transform: none;
-                margin-left: 3.5em + 0.15em; // 3.5em is the width of the icon
-            }
-        }
+      small {
+        font-family: $sansFontFamily;
+        display: block;
+        font-size: 0.45em;
+        text-transform: none;
+        margin-left: 3.5em + 0.15em; // 3.5em is the width of the icon
+      }
     }
+  }
 
   .page-header {
     font-family: $sansFontFamily;
