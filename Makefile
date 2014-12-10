@@ -67,7 +67,7 @@ load_ipeds:
 #
 # Assumes data is in data/*.csv
 load_thecb:
-	@$(foreach file, $(wildcard data/*.csv), \
+	@$(foreach file, $(wildcard data/thecb/*.csv), \
 		echo $(file) && \
 	  $(MANAGE) tx_highered_import thecb $(file) && ) true
 	python tx_highered/thecb_importer/load_enrollment.py

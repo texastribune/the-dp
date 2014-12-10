@@ -11,7 +11,7 @@ db.sqlite
 *.dump
 *.sql
 
-data/*.html
+data/**/*.html
 data/**/*.csv
 
 logs
