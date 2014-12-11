@@ -11,7 +11,7 @@ DATABASE_URL=postgis:///tx_highered
 HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
 ```
 
-Getting started:
+Complete guide to getting started (remove steps to suit you):
 
 ```bash
 # install postgresql libpq-dev
@@ -36,10 +36,10 @@ mv ~/Downloads/Data_*.csv data/ipeds
 # get thecb data
 cd data && make all
 # load data
-#   timing: 3m38.666s
+#   timing: 10m25.069s
 make load
 # post-process the data
-django tx_highered_process
+python exampleproject/manage.py tx_highered_process
 ```
 
 Database:
