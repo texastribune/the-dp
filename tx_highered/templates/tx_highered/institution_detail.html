@@ -265,13 +265,18 @@
           <div class="well well-small chart-help">
             <div class="item">
               Percent of student body by ethnicity
+              {% if b.data_source %}
+                <small class="data_source invisible">
+                  Source: {{ b.data_source }}
+                </small>
+              {% endif %}
             </div>
-            <div class="item">
+            <div class="item"><small>
               (Reporting criteria changed
               over reporting period. Specifically, prior to 2011, Pacific Islander
               was bundled with Asian; Multiracial was introduced in 2010; and
               Unknown was introduced in 2010.)
-            </div>
+            </small></div>
           </div>
         </div>
       </div>

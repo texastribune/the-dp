@@ -383,10 +383,11 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     def get_buckets(self, relation_name, pivot_on_field="year",
                     filter_on_field=None, fields=None):
         """ pivot a related report model about the year field """
+        # this cache logic can be pushed out by using `cached_property` on the
+        # callees
         cache_key = "_%s%s" % (relation_name, len(fields) if fields else "")
         if not hasattr(self, cache_key):
             b = defaultdict(dict)
-            b['data_source'] = ""
             pivot_axis = []
             relation = getattr(self, relation_name)
             if fields is None:
@@ -404,6 +405,11 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 for field in fields:
                     b[field][pivot] = getattr(report_obj, field)
             b[pivot_on_field + "s"] = pivot_axis  # poor man's `pluralize()`
+            # HACK way to know where this data came from
+            try:
+                b['data_source'] = report_obj.data_source
+            except AttributeError:
+                b['data_source'] = None
             setattr(self, cache_key, b)
             return b
         return getattr(self, cache_key)
@@ -416,7 +422,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         b['data_source'] = "IPEDS"
         return b
 
-    @property
+    @cached_property
     def demographics_buckets(self):
         if self.is_private:  # if not self.has_thecb_data
             # hack to hide empty column
