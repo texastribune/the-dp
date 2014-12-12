@@ -424,9 +424,25 @@ class Institution(ContactFieldsMixin, WikipediaFields):
 
     @cached_property
     def demographics_buckets(self):
-        if self.is_private:  # if not self.has_thecb_data
-            # hack to hide empty column
-            # FIXME assumes white is > 0
+        """
+        Get the most recent demographics data.
+
+        Sometimes ipeds has better data, sometimes it's thecb. There isn't a
+        magic way to figure out which is the latest without manually checking.
+
+        XXX assumes school has white people.
+        """
+        try:
+            latest_ipeds = self.enrollment.filter(
+                total_percent_white__isnull=False).latest('year').year
+        except ObjectDoesNotExist:
+            latest_ipeds = 0
+        try:
+            latest_thecb = self.publicenrollment.filter(
+                white_percent__isnull=False).latest('year').year
+        except ObjectDoesNotExist:
+            latest_thecb = 0
+        if latest_ipeds > latest_thecb:
             return self.get_buckets("enrollment", filter_on_field="total_percent_white")
         return self.get_buckets("publicenrollment")
 
