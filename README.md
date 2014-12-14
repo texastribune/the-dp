@@ -1,7 +1,8 @@
 The Texas Higher Education Data Project
 ---------------------------------------
+[![Build Status](https://travis-ci.org/texastribune/the-dp.svg)](https://travis-ci.org/texastribune/the-dp)
 
-A Very Rough guide to starting devlopment:
+## A very rough guide to starting development
 
 ### Example `.env` file for environment variables:
 

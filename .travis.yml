@@ -1,0 +1,11 @@
+language: python
+addons:
+  postgresql: "9.3"
+env:
+  PYTHONPATH='.'
+install: "pip install -r requirements.txt"
+before_script:
+  - psql -U postgres -c 'CREATE DATABASE tx_highered;'
+  - psql -U postgres -c "CREATE EXTENSION postgis" -d tx_highered
+  - psql -U postgres -c "CREATE EXTENSION postgis_topology" -d tx_highered
+script: make test
