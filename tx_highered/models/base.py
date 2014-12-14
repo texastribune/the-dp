@@ -390,6 +390,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             b = defaultdict(dict)
             pivot_axis = []
             relation = getattr(self, relation_name)
+            b['data_source'] = relation.model.data_source
             if fields is None:
                 # XXX requires instacharts
                 fields = [x[0] for x in relation.model.get_chart_series() if x[0] != pivot_on_field]
@@ -405,11 +406,6 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                 for field in fields:
                     b[field][pivot] = getattr(report_obj, field)
             b[pivot_on_field + "s"] = pivot_axis  # poor man's `pluralize()`
-            # HACK way to know where this data came from
-            try:
-                b['data_source'] = report_obj.data_source
-            except AttributeError:
-                b['data_source'] = None
             setattr(self, cache_key, b)
             return b
         return getattr(self, cache_key)
