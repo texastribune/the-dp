@@ -8,7 +8,6 @@ Your `.env` file:
 ```
 DJANGO_SETTINGS_MODULE=exampleproject.settings.dev
 DATABASE_URL=postgis:///tx_highered
-HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
 ```
 
 Complete guide to getting started (remove steps to suit you):
