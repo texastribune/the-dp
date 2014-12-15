@@ -333,7 +333,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             return None
 
     ############################## BUCKETS ##############################
-    @property
+    @cached_property
     def tuition_buckets(self):
         fields = ("in_state", "out_of_state", "books_and_supplies", "room_and_board_on_campus")
         return self.get_buckets('pricetrends', fields=fields)
@@ -375,7 +375,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
                     a.percent_of_admitted_who_enrolled)
         return b
 
-    @property
+    @cached_property
     def admission_top10_buckets(self):
         return self.get_buckets('admissions', fields=['percent_top10rule'],
                                 filter_on_field='percent_top10rule')
@@ -383,34 +383,28 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     def get_buckets(self, relation_name, pivot_on_field="year",
                     filter_on_field=None, fields=None):
         """ pivot a related report model about the year field """
-        # this cache logic can be pushed out by using `cached_property` on the
-        # callees
-        cache_key = "_%s%s" % (relation_name, len(fields) if fields else "")
-        if not hasattr(self, cache_key):
-            b = defaultdict(dict)
-            pivot_axis = []
-            relation = getattr(self, relation_name)
-            b['data_source'] = relation.model.data_source
-            if fields is None:
-                # XXX requires instacharts
-                fields = [x[0] for x in relation.model.get_chart_series() if x[0] != pivot_on_field]
-            for report_obj in relation.all():
-                if filter_on_field is not None:
-                    # make sure we want this data
-                    filter_value = getattr(report_obj, filter_on_field)
-                    if filter_value is None or filter_value is '':
-                        # null or blank
-                        continue
-                pivot = getattr(report_obj, pivot_on_field)
-                pivot_axis.append(pivot)
-                for field in fields:
-                    b[field][pivot] = getattr(report_obj, field)
-            b[pivot_on_field + "s"] = pivot_axis  # poor man's `pluralize()`
-            setattr(self, cache_key, b)
-            return b
-        return getattr(self, cache_key)
+        b = defaultdict(dict)
+        pivot_axis = []
+        relation = getattr(self, relation_name)
+        b['data_source'] = relation.model.data_source
+        if fields is None:
+            # XXX requires instacharts
+            fields = [x[0] for x in relation.model.get_chart_series() if x[0] != pivot_on_field]
+        for report_obj in relation.all():
+            if filter_on_field is not None:
+                # make sure we want this data
+                filter_value = getattr(report_obj, filter_on_field)
+                if filter_value is None or filter_value is '':
+                    # null or blank
+                    continue
+            pivot = getattr(report_obj, pivot_on_field)
+            pivot_axis.append(pivot)
+            for field in fields:
+                b[field][pivot] = getattr(report_obj, field)
+        b[pivot_on_field + "s"] = pivot_axis  # poor man's `pluralize()`
+        return b
 
-    @property
+    @cached_property
     def enrollment_buckets(self):
         """Get enrollment data from IPEDS."""
         b = self.get_buckets("enrollment",
@@ -442,7 +436,7 @@ class Institution(ContactFieldsMixin, WikipediaFields):
             return self.get_buckets("enrollment", filter_on_field="total_percent_white")
         return self.get_buckets("publicenrollment")
 
-    @property
+    @cached_property
     def graduationrates_buckets(self):
         if self.is_private:
             return self.get_buckets("graduationrates")
