@@ -1,17 +1,17 @@
 The Texas Higher Education Data Project
 ---------------------------------------
+[![Build Status](https://travis-ci.org/texastribune/the-dp.svg)](https://travis-ci.org/texastribune/the-dp)
 
-A Very Rough guide to starting devlopment:
+## A very rough guide to starting development
 
-Your `.env` file:
+### Example `.env` file for environment variables:
 
 ```
 DJANGO_SETTINGS_MODULE=exampleproject.settings.dev
 DATABASE_URL=postgis:///tx_highered
-HIGHER_ED_DATA=~/Dropbox/Data/Education-Higher
 ```
 
-Getting started:
+Complete guide to getting started (remove steps to suit you):
 
 ```bash
 # install postgresql libpq-dev
@@ -22,9 +22,22 @@ setvirtualenvproject
 add2virtualenv .
 pip install -r requirements.txt
 
-# syncdb and load fixtures
+# if you need to create a database:
+# `postdoc` greatly simplifies connecting to Docker databases
+pip install postdoc
+phd createdb --encoding=UTF8 -T template0
+echo "CREATE EXTENSION postgis;" | phd psql
+echo "CREATE EXTENSION postgis_topology;" | phd psql
+
+# or if you need to reset your database:
 make resetdb
+
+# syncdb and load fixtures
 make syncdb
+
+#######################################################################
+# You can stop at this point if you're just playing with the project. #
+#######################################################################
 
 # if using 2012 data, bump it up to 2014 standards
 python tx_highered/scripts/2014_update.py
@@ -36,10 +49,10 @@ mv ~/Downloads/Data_*.csv data/ipeds
 # get thecb data
 cd data && make all
 # load data
-#   timing: 3m38.666s
+#   timing: 10m25.069s
 make load
 # post-process the data
-django tx_highered_process
+python exampleproject/manage.py tx_highered_process
 ```
 
 Database:
