@@ -355,7 +355,7 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
 
-    data_source = "IPEDS"
+    data_source = 'IPEDS'
     # @property
     # def data_source(self):
     #     if ... return THECB
@@ -392,6 +392,8 @@ class GraduationRates(YearBasedInstitutionStatModel, SimpleChart):
         verbose_name=u"Bachelor degree within five years")
     bachelor_6yr = models.IntegerField(null=True,
         verbose_name=u"Bachelor degree within six years")
+
+    data_source = 'IPEDS'
 
     def __unicode__(self):
         return "Graduation Rates %s %s" % (self.display_year, self.institution)

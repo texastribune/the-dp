@@ -493,22 +493,27 @@
   </section>
 
   <section id="gradrates">
-    <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
-    <div class="row">
-      <div class="span12">
-        <div class="chart-help well well-small">
-          <!-- mentally remove the inline comment if you prefer proper English -->
-          Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
+    {% with b=object.graduationrates_buckets %}
+      <h2>Graduation Rates <small class="page-anchor"><a href="#gradrates"><i class="icon-share"></i></a></small></h2>
+      <div class="row">
+        <div class="span12">
+          <div class="chart-help well well-small">
+            <!-- mentally remove the inline comment if you prefer proper English -->
+            Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
+            {% if b.data_source %}
+              <small class="data_source invisible">
+                Source: {{ b.data_source }}
+              </small>
+            {% endif %}
+          </div>
         </div>
       </div>
-    </div>
 
-    {% if object.graduationrates_buckets.years|length %}
-      {% with object_list=object.get_graduation_rates %}
-        {% include "instachart/simplechart/gradrates.html" %}
-      {% endwith %}
+      {% if b.years|length %}
+        {% with object_list=object.get_graduation_rates %}
+          {% include "instachart/simplechart/gradrates.html" %}
+        {% endwith %}
 
-      {% with b=object.graduationrates_buckets %}
         <table class="chart-data table table-striped table-condensed">
           <thead>
             <tr>
@@ -531,32 +536,32 @@
             </tr>
           </tbody>
         </table>
-      {% endwith %}
 
-      <div class="row requires-svg">
-        <div class="span12">
-          <div class="well well-small chart-help">
-            Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
-          </div>
-        </div>
-      </div>
-
-      <div class="row requires-svg">
-        <div class="span10">
-          <div class="chart d3-viz chart-viz loading"></div>
-        </div>
-
-        <div class="span2">
-          <div class="chart-help">
-            <h3>Graduations</h3>
-            <div class="legend chart-legend">
+        <div class="row requires-svg">
+          <div class="span12">
+            <div class="well well-small chart-help">
+              Percent of {% gloss "first-time" %}, full-time students who graduated in four, five<!--, --> or six years
             </div>
           </div>
         </div>
-      </div>
-    {% else %}
-      {% include "tx_highered/includes/no_data.html" %}
-    {% endif %}
+
+        <div class="row requires-svg">
+          <div class="span10">
+            <div class="chart d3-viz chart-viz loading"></div>
+          </div>
+
+          <div class="span2">
+            <div class="chart-help">
+              <h3>Graduations</h3>
+              <div class="legend chart-legend">
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        {% include "tx_highered/includes/no_data.html" %}
+      {% endif %}
+    {% endwith %}
   </section>
 {% endblock %}
 
