@@ -62,7 +62,7 @@ class PublicEnrollment(YearBasedInstitutionStatModel, SimpleChart):
     white_percent = models.FloatField(null=True,
         verbose_name='% White')
 
-    data_source = "THECB"
+    data_source = 'THECB'
 
     @property
     def total_percent_white(self):
@@ -141,6 +141,8 @@ class PublicGraduationRates(YearBasedInstitutionStatModel, SimpleChart):
     bachelor_6yr = models.DecimalField(null=True,
         max_digits=5, decimal_places=2,
         verbose_name=u"Bachelor degree within six years")
+
+    data_source = 'THECB'
 
     def __unicode__(self):
         return "Graduation Rates %s %s" % (self.display_year, self.institution)
