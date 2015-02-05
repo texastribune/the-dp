@@ -53,6 +53,13 @@ cd data && make all
 make load
 # post-process the data
 python exampleproject/manage.py tx_highered_process
+
+
+####################################
+# placeholder for post-2014 update #
+####################################
+# the 2012->2014 specific stuff can go out and the above importing
+# instructions can get updated
 ```
 
 ### Database

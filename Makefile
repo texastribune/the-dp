@@ -21,7 +21,7 @@ clean:
 
 
 test:
-	ENVIRONMENT=test $(MANAGE) test test_tx_highered
+	DJANGO_SETTINGS_MODULE=exampleproject.settings ENVIRONMENT=test $(MANAGE) test test_tx_highered --noinput
 
 # requires `postdoc`:
 # pip install postdoc
