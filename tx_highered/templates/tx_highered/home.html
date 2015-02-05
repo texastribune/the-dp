@@ -1,6 +1,6 @@
 {% extends "tx_highered/twocolumn_base.html" %}
 {% load static from staticfiles %}
-{# load chunks %}{# FIXME chunks is not a requirement for the app #}
+{% load chunks %}{# FIXME chunks is not a requirement for the app #}
 
 
 {% block head_title %}Higher Education Explorer{% endblock %}
@@ -11,21 +11,7 @@
 
 {% block main %}
   <section id="intro">
-    {# chunk "higher-ed/explorer#intro" #}
-    <p>
-    The Texas Tribune Higher Education Explorer captures data on all 148 public
-    and private colleges and universities in the state. Combining key academic,
-    enrollment and financial records, this database collects and presents statistics
-    about Texas’ institutions of higher learning in a way that is easy to understand
-    and simple to navigate.
-    </p>
-    <p>
-    The Higher Ed Explorer complements our <a href="http://www.texastribune.org/public-ed/explore/">Public Schools Explorer</a>, a
-    comprehensive database of all of Texas’ 1,300 districts and 8,500 public
-    schools, which we launched in July 2012. Taken together, these databases
-    provide useful tools for parents, students and policymakers
-    interested in understanding the data and trends behind education in Texas.
-    </p>
+    {% chunk "higher-ed/explorer#intro" %}
   </section>
 
   <hr>
@@ -37,10 +23,7 @@
 
     <div>
       <h2>Search Colleges and Universities</h2>
-      {# {% chunk "higher-ed/explorer#search" %} #}
-      <p>
-      Type a college or university into the box below. You can also jump to the state's 15 largest universities by enrollment from the links below.
-      </p>
+      {% chunk "higher-ed/explorer#search" %}
       <div class="input-append">{% spaceless %}
         <input type="text" class="q span7" placeholder="College or university name">
         <span class="add-on active" data-action="reset">All</span>
