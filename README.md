@@ -55,7 +55,7 @@ make load
 python exampleproject/manage.py tx_highered_process
 ```
 
-Database:
+### Database
 
 This project currently requires a PostGIS database (hopefully not for long):
 
@@ -65,6 +65,16 @@ $ phd psql
 
 CREATE EXTENSION postgis;
 CREATE EXTENSION postgis_topology;
+```
+
+#### Moving data between databases
+
+You can do a sql dump to move data from one postgres database to another
+(excluding geo info):
+
+```bash
+$ phd SOURCE_DATABASE_URL pg_dump --no-owner --no-acl --table=tx_highered* --clean > tx_highered.sql
+$ phd DEST_DATABASE_URL psql -f tx_highered.sql
 ```
 
 Getting Data from the IPEDS Data Center
