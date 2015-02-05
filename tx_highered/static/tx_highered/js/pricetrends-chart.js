@@ -4,6 +4,10 @@ var makePriceTrendsCharts = function(){
 
   var $section = $('#pricetrends');
   var $source = $section.find('table.data-source');
+  if (!$source.length) {
+    // nothing to do
+    return;
+  }
   var data = $source.tabulate();
   var addDemarcation = function(chart) {
     chart.addDemarcationY(2004, "Public University Tuition Deregulation");
