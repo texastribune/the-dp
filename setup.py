@@ -1,8 +1,8 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='tx_highered',
-    version='0.2.1',
+    version='0.3.0',
     description='Django app for Texas higher education data',
     author='Texas Tribune',
     author_email='tech@texastribune.org',
@@ -21,6 +21,6 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Topic :: Other/NonlistedTopic'
+        'Topic :: Other/Nonlisted Topic'
     ],
 )
