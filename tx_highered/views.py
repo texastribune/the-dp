@@ -1,10 +1,13 @@
-from django.db.models import Max
-from django.core.cache import cache
 from django.views.generic import DetailView, ListView, TemplateView
 
 from armstrong.core.arm_layout.utils import get_layout_template_name
 
-from .models import Institution, Enrollment, PublicEnrollment
+from .models import Institution, Enrollment
+
+
+# Enrollment data trickles in at different times, so pick the latest year where
+# most institutions have data available.
+LATEST_ENROLLMENT_YEAR = 2012
 
 
 class RenderModelDetailView(DetailView):
@@ -54,9 +57,7 @@ class HomeView(TemplateView):
                 except Enrollment.DoesNotExist:
                     print '!!!!', x, 'MISSING'
         """
-        # FIXME year is hard coded magic number
-        year = 2012
-        queryset = (Enrollment.objects.filter(year=year)
+        queryset = (Enrollment.objects.filter(year=LATEST_ENROLLMENT_YEAR)
             .select_related('institution')
             .order_by('-fulltime_equivalent')[:15])
         return queryset
@@ -67,15 +68,8 @@ class InstitutionListView(ListView):
         order_by('name')
 
 
-class InstitutionDetailView(DetailView, FunnelMixin):
+class InstitutionDetailView(DetailView):
     model = Institution
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(InstitutionDetailView, self).get_context_data(*args, **kwargs)
-        context['preview'] = 'preview' in self.request.GET
-        context['prompt_for_chrome_frame'] = True  # magic!
-        # self.annotate_funnels(self.object)
-        return context
 
 
 ######################### REPORTS ##########################
