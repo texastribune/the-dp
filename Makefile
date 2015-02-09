@@ -1,6 +1,6 @@
 # ignore warnings because they just fill the console with junk we don't care about
 MANAGE=python -W ignore exampleproject/manage.py
-
+VERSION=0.3.1
 
 help:
 	@echo "make commands:"
@@ -71,3 +71,18 @@ load_thecb:
 		echo $(file) && \
 	  $(MANAGE) tx_highered_import thecb $(file) && ) true
 	python tx_highered/thecb_importer/load_enrollment.py
+
+
+version:
+	@sed -i -r /version/s/[0-9.]+/$(VERSION)/ setup.py
+	@-git commit -am "bump version to v$(VERSION)"
+	@-git tag v$(VERSION)
+
+
+# Release Instructions:
+#
+# 1. bump version number at the top of this file
+# 2. `make release`
+release: version
+	pip install wheel
+	python setup.py sdist bdist_wheel upload
