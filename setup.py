@@ -13,6 +13,7 @@ setup(
     ],
     packages=['tx_highered'],
     include_package_data=True,  # automatically include things from MANIFEST
+    zip_safe=True,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
