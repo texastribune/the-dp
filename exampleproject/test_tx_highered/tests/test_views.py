@@ -1,7 +1,8 @@
 from django.test import TestCase, RequestFactory
 
 from tx_highered.factories import InstitutionFactory, EnrollmentFactory
-from tx_highered.views import HomeView, LATEST_ENROLLMENT_YEAR
+from tx_highered.views import (HomeView, LATEST_ENROLLMENT_YEAR,
+    InstitutionDetailView)
 
 
 class HomeViewTest(TestCase):
@@ -33,3 +34,23 @@ class HomeViewTest(TestCase):
         with self.assertNumQueries(1):
             short_list = list(view.get_short_list())
         self.assertEqual(short_list[0].institution, institution)
+
+    def test_query_count(self):
+        # setup
+        institution = InstitutionFactory()
+        EnrollmentFactory(institution=institution, year=LATEST_ENROLLMENT_YEAR)
+
+        with self.assertNumQueries(1):
+            response = self.client.get('/')  # XXX magic constant
+        self.assertEqual(response.status_code, 200)
+
+
+class DetailViewTest(TestCase):
+    def test_query_count(self):
+        """Make sure the detail page is not too expensive to generate."""
+        # setup
+        institution = InstitutionFactory()
+
+        with self.assertNumQueries(15):
+            response = self.client.get(institution.get_absolute_url())
+        self.assertEqual(response.status_code, 200)

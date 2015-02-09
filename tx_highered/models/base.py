@@ -5,11 +5,13 @@ from urllib2 import URLError
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.template.defaultfilters import slugify
 from django.template import Context, TemplateDoesNotExist
+from django.template.defaultfilters import slugify
 from django.template.loader import get_template
 from django.utils.functional import cached_property
+
 try:
     from geopy import geocoders
     CAN_GEOCODE = True
@@ -145,9 +147,8 @@ class System(ContactFieldsMixin):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('tx_highered:system_detail', (), {'slug': self.slug})
+        return reverse('tx_highered:system_detail', kwargs={'slug': self.slug})
 
 
 class WikipediaFields(models.Model):
@@ -211,9 +212,9 @@ class Institution(ContactFieldsMixin, WikipediaFields):
         else:
             return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('tx_highered:institution_detail', (), {'slug': self.slug})
+        return reverse(
+            'tx_highered:institution_detail', kwargs={'slug': self.slug})
 
     #################### THECB / IPEDS ROUTERS #################
     def get_admissions(self):
