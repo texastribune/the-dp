@@ -115,6 +115,8 @@ class PriceTrends(YearBasedInstitutionStatModel, SimpleChart):
     room_and_board_off_campus = models.IntegerField(null=True)
     room_and_board_off_campus_w_family = models.IntegerField(null=True)
 
+    data_source = 'IPEDS'
+
     @property
     def in_state(self):
         return self.tuition_fees_in_state
@@ -186,7 +188,6 @@ class TestScoresManager(models.Manager):
 
 
 class TestScores(YearBasedInstitutionStatModel):
-    # possible data sources: IPEDS
     sat_verbal_25th_percentile = models.IntegerField(null=True)
     sat_verbal_75th_percentile = models.IntegerField(null=True)
     sat_math_25th_percentile = models.IntegerField(null=True)
@@ -205,6 +206,8 @@ class TestScores(YearBasedInstitutionStatModel):
     act_writing_75th_percentile = models.IntegerField(null=True)
     act_submitted_number = models.IntegerField(null=True)
     act_submitted_percent = models.IntegerField(null=True)
+
+    data_source = 'IPEDS'
 
     objects = TestScoresManager()
 
@@ -320,6 +323,8 @@ class Admissions(YearBasedInstitutionStatModel, SimpleChart):
     percent_top10rule = models.DecimalField(max_digits=4, decimal_places=1,
         null=True, verbose_name="First-Time Students in Top 10%")
 
+    data_source = 'IPEDS'
+
     objects = AdmissionsManager()
 
     def __unicode__(self):
@@ -352,14 +357,10 @@ class Enrollment(YearBasedInstitutionStatModel, SimpleChart):
     total_percent_unknown = models.IntegerField(null=True,
         verbose_name='% N/A')
 
+    data_source = 'IPEDS'
+
     def __unicode__(self):
         return "Enrollment Data %s %s" % (self.display_year, self.institution)
-
-    data_source = 'IPEDS'
-    # @property
-    # def data_source(self):
-    #     if ... return THECB
-    #     else ... return IPEDS
 
     race_attrs = ['total_percent_%s' % race for race in
             ('white', 'black', 'hispanic', 'native', 'asian', 'unknown')]
