@@ -75,8 +75,7 @@ load_thecb:
 
 version:
 	@sed -i -r /version/s/[0-9.]+/$(VERSION)/ setup.py
-	@-git commit -am "bump version to v$(VERSION)"
-	@-git tag v$(VERSION)
+	@sed -i -r /version/s/[0-9.]+/$(VERSION)/ tx_highered/__init__.py
 
 
 # Release Instructions:
@@ -84,5 +83,7 @@ version:
 # 1. bump version number at the top of this file
 # 2. `make release`
 release: version
-	pip install wheel
+	@-git commit -am "bump version to v$(VERSION)"
+	@-git tag v$(VERSION)
+	@-pip install wheel > /dev/null
 	python setup.py sdist bdist_wheel upload
