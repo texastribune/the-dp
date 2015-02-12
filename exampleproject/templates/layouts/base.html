@@ -10,12 +10,12 @@
   {% endblock %}
 
   {% block style_base %}
-
-    <!--[if lt IE 9]>
-      {# This needs to load after all other stylesheets so it overrides them. #}
-      <link rel="stylesheet" type="text/css" href="{% static 'tt_layouts/css/ie_responsive.css' %}" />
-    <![endif]-->
-
+    <style>
+      .wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+    </style>
     {% block extra_style %}{% endblock %}
   {% endblock %}
 
@@ -39,7 +39,7 @@
   {% endblock %}
 
   {% block topbar_base %}
-    <div class="wrapper-r">
+    <div class="wrapper">
       {% block topbar %}{# Not Currently Used #}{% endblock %}
 
       {% block roofline_base %}
