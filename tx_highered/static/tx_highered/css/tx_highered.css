@@ -3,9 +3,7 @@
 .chart-data { font-family: sans-serif; font-size: 12px; }
 
 .wide-chart-wrapper { overflow-x: auto; }
-.wide-chart-wrapper > .chart-data { margin-left: 10em; }
-.wide-chart-wrapper tr > *:first-child { left: 0; margin-top: -1px; position: absolute; white-space: nowrap; width: 10em; }
-.wide-chart-wrapper tr:nth-child(2n) > *:first-child { background-color: white; }
+.wide-chart-wrapper tr > *:first-child { white-space: nowrap; }
 
 .chart-viz { height: 300px; }
 .chart-viz.loading { background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eee; }
