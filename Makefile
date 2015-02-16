@@ -1,6 +1,6 @@
 # ignore warnings because they just fill the console with junk we don't care about
 MANAGE=python -W ignore exampleproject/manage.py
-VERSION=0.3.3
+VERSION=0.3.4
 
 help:
 	@echo "make commands:"
