@@ -1,1 +1,1 @@
- sass  --update scss/bootstrap.scss:css/ttstrap.css
+sass  --update scss/bootstrap.scss:css/ttstrap.css
