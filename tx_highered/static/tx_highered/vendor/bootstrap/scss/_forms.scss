@@ -392,6 +392,7 @@ select:focus:required:invalid {
     border-left-color: #ccc;
   }
   .add-on {
+    box-sizing: content-box;
     display: inline-block;
     width: auto;
     height: $baseLineHeight;
