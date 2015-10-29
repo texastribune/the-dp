@@ -6,7 +6,7 @@
 .wide-chart-wrapper tr > *:first-child { white-space: nowrap; }
 
 .chart-viz { height: 300px; }
-.chart-viz.loading { background: url(../../../common/images/ajax_bar.gif) no-repeat scroll 50% 50% #eee; }
+.chart-viz.loading { background: url(../images/ajax_bar.gif) no-repeat scroll 50% 50% #eee; }
 .chart-viz .axis { font-family: sans-serif; font-size: 12px; }
 .chart-viz .axis text { fill: #333; }
 
