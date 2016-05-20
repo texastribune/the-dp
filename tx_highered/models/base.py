@@ -175,7 +175,7 @@ class WikipediaFields(models.Model):
 class InstitutionManager(models.GeoManager):
     def published(self):
         """ only return institutions ready to be shown """
-        qs = self.get_query_set()
+        qs = self.get_queryset()
         return qs.filter(Q(ipeds_id__isnull=False) | Q(fice_id__isnull=False)).\
             exclude(Q(institution_type='med') | Q(institution_type='pri_chi'))
 
