@@ -26,7 +26,7 @@ class SummarySentences(object):
     def __init__(self, obj):
         self.obj = obj
         self.path = '%s/sentences/%s/%%s.txt' % (obj._meta.app_label,
-                obj._meta.module_name)
+                obj._meta.model_name)
         self.cache = {}
 
     def __getattr__(self, key):
