@@ -129,7 +129,6 @@ INSTALLED_APPS = [
     'django.contrib.gis',
 
     'django_object_actions',
-    'armstrong.core.arm_layout',
 
     # app
     'glossary',
