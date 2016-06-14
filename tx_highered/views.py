@@ -1,8 +1,6 @@
 from django.views.generic import DetailView, ListView, TemplateView
 
-from armstrong.core.arm_layout.utils import get_layout_template_name
-
-from .models import Institution, Enrollment
+from .models import Institution, Enrollment, System
 
 
 # Enrollment data trickles in at different times, so pick the latest year where
@@ -10,12 +8,13 @@ from .models import Institution, Enrollment
 LATEST_ENROLLMENT_YEAR = 2012
 
 
-class RenderModelDetailView(DetailView):
-    """ shortcut to rendering an object using render_model """
-    layout = None
+class SystemDetailView(DetailView):
+    model = System
 
     def get_template_names(self):
-        return get_layout_template_name(self.object, self.layout)
+        return ['layout/%s/%s/table.html' % (a._meta.app_label,
+                                             a._meta.object_name.lower())
+                for a in self.object.__class__.mro() if hasattr(a, '_meta')]
 
 
 class FunnelMixin(object):
