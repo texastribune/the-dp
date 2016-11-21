@@ -131,7 +131,6 @@ INSTALLED_APPS = [
     'django_object_actions',
 
     # app
-    'glossary',
     'tx_lege_districts',
     'tx_highered',
     'tx_highered.instachart',
