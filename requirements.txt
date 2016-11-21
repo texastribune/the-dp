@@ -4,7 +4,6 @@ project-runpy==0.3.1
 psycopg2
 django-object-actions==0.5.0
 django-extensions
-https://github.com/texastribune/tt-glossary/archive/master.tar.gz
 Pillow==2.5.3
 geopy
 # DELETEME make this an api call instead of a database integration
