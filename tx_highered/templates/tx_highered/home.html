@@ -1,6 +1,6 @@
 {% extends "tx_highered/twocolumn_base.html" %}
 {% load static from staticfiles %}
-{% load chunks %}{# FIXME chunks is not a requirement for the app #}
+{% load flatblocks %}
 
 
 {% block head_title %}Higher Education Explorer{% endblock %}
@@ -11,7 +11,7 @@
 
 {% block main %}
   <section id="intro">
-    {% chunk "higher-ed/explorer#intro" %}
+    {% flatblock "higher-ed/explorer#intro" %}
   </section>
 
   <hr>
@@ -23,7 +23,7 @@
 
     <div>
       <h2>Search Colleges and Universities</h2>
-      {% chunk "higher-ed/explorer#search" %}
+      {% flatblock "higher-ed/explorer#search" %}
       <div class="input-append">{% spaceless %}
         <input type="text" class="q span7" placeholder="College or university name">
         <span class="add-on active" data-action="reset">All</span>

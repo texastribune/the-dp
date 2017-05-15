@@ -4,6 +4,7 @@ project-runpy==0.3.1
 psycopg2
 django-object-actions==0.5.0
 django-extensions
+django-flatblocks==0.9.3
 Pillow==2.5.3
 geopy
 # DELETEME make this an api call instead of a database integration
