@@ -71,7 +71,8 @@ class YearBasedInstitutionStatModel(models.Model):
         ('aug', 'August 31st'))    # August
     year = models.IntegerField(default=1970, verbose_name=u'Year')
     year_type = models.CharField(max_length=10, choices=YEAR_TYPE_CHOICES, null=True)
-    institution = models.ForeignKey('Institution', related_name='%(class)s')
+    institution = models.ForeignKey('Institution', on_delete=models.CASCADE,
+                                    related_name='%(class)s')
 
     # eehhhh, this doesn't really belong here but whatever
     chart_excluded_fields = ('id', 'institution',)

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='tx_highered',
-    version='0.3.8.dev5',
+    version='0.3.8.dev6',
     description='Django app for Texas higher education data',
     author='Texas Tribune',
     author_email='tech@texastribune.org',

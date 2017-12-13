@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import ListView
 
 from .models import System
@@ -9,7 +9,10 @@ from .views import (HomeView,
 from . import api
 
 
-urlpatterns = patterns('',
+app_name = 'tx_highered'
+
+
+urlpatterns = [
     url(r'^$', HomeView.as_view(), name="home"),
     url(r'^institutions/$', InstitutionListView.as_view(),
         name="institution_list"),
@@ -22,11 +25,10 @@ urlpatterns = patterns('',
     url(r'^top10/$', Top10RuleReport.as_view()),
     url(r'^(?P<slug>[-\w]+)/$', InstitutionDetailView.as_view(),
         name="institution_detail"),
-) + patterns('tx_highered.api',
-    url(r'^api/institution/(?P<pk>\d+)/enrollment/$', 'enrollment_api',
+    url(r'^api/institution/(?P<pk>\d+)/enrollment/$', api.enrollment_api,
         name='enrollment_api'),
     url(r'^api/institution/(?P<pk>\d+)/(?P<metric>\w+)/$',
         api.ReportView.as_view(report_name='testscores'),
         name='institution_api'),
-    url(r'^api/institution/$', 'institution_api', name='institution_api'),
-)
+    url(r'^api/institution/$', api.institution_api, name='institution_api'),
+]
