@@ -33,7 +33,7 @@ class RenderQuerysetNode(template.Node):
     def render(self, context):
         qs = self.qs.resolve(context)
         name = self.name.resolve(context)
-        return render_queryset(qs, name, dictionary={}, context_instance=context)
+        return render_queryset(qs, name, context=context)
 
 
 class ChartsRenderQuerysetBackend(object):
@@ -45,18 +45,17 @@ class ChartsRenderQuerysetBackend(object):
             ret.append("instachart/%s/%s.html" % (a._meta.object_name.lower(), name))
         return ret
 
-    def render(self, qs, name, dictionary=None, context_instance=None):
-        dictionary = dictionary or {}
-        dictionary["object_list"] = qs
+    def render(self, qs, name, context=None):
+        context = context or {}
+        context["object_list"] = qs
         try:
-            dictionary["chart_header"] = qs.model.get_chart_header()
+            context["chart_header"] = qs.model.get_chart_header()
             template_name = self.get_layout_template_name(qs.model, name)
         except AttributeError:
             fields = [x.name for x in qs.model._meta.fields]
-            dictionary["chart_header"] = [ChartCell(qs.model, field) for field in fields]
+            context["chart_header"] = [ChartCell(qs.model, field) for field in fields]
             template_name = "instachart/simplechart/%s.html" % name
-        return mark_safe(render_to_string(template_name, dictionary=dictionary,
-            context_instance=context_instance))
+        return mark_safe(render_to_string(template_name, context=context))
 
     def __call__(self, *args, **kwargs):
         return self.render(*args, **kwargs)
