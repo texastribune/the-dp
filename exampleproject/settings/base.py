@@ -134,7 +134,6 @@ INSTALLED_APPS = [
     'tx_lege_districts',
     'tx_highered',
     'tx_highered.instachart',
-    'flatblocks',
 
     # Here for loading the test data
     'exampleproject.test_tx_highered',
