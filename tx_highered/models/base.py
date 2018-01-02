@@ -100,8 +100,6 @@ class ContactFieldsMixin(models.Model):
     url = models.URLField(null=True, blank=True)
     location = models.PointField(geography=True, null=True, blank=True)
 
-    objects = models.GeoManager()
-
     class Meta:
         abstract = True
         app_label = APP_LABEL
@@ -172,7 +170,7 @@ class WikipediaFields(models.Model):
         abstract = True
 
 
-class InstitutionManager(models.GeoManager):
+class InstitutionManager(models.Manager):
     def published(self):
         """ only return institutions ready to be shown """
         qs = self.get_queryset()
@@ -187,7 +185,8 @@ class Institution(ContactFieldsMixin, WikipediaFields):
     institution_type = models.CharField(max_length=30,
             choices=INSTITUTION_CHOICES, null=True, blank=True)
     # administrator officer
-    system = models.ForeignKey(System, null=True, blank=True)
+    system = models.ForeignKey(System, null=True, blank=True,
+                               on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
 
     # WISHLIST change these institution identifiers to be charfields instead of
