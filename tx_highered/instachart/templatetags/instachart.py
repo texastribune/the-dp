@@ -1,6 +1,6 @@
 from django import template
+from django.template import loader
 from django.template.base import TemplateSyntaxError
-from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 from ..models import SimpleChart, ChartCell
@@ -30,13 +30,6 @@ class RenderQuerysetNode(template.Node):
         self.qs = template.Variable(qs)
         self.name = template.Variable(name)
 
-    def render(self, context):
-        qs = self.qs.resolve(context)
-        name = self.name.resolve(context)
-        return render_queryset(qs, name, context=context)
-
-
-class ChartsRenderQuerysetBackend(object):
     def get_layout_template_name(self, obj, name):
         ret = []
         for a in obj.mro():
@@ -45,22 +38,25 @@ class ChartsRenderQuerysetBackend(object):
             ret.append("instachart/%s/%s.html" % (a._meta.object_name.lower(), name))
         return ret
 
-    def render(self, qs, name, context=None):
-        context = context or {}
-        context["object_list"] = qs
+    def render(self, context):
+        qs = self.qs.resolve(context)
+        name = self.name.resolve(context)
+
+        dictionary = {}
+        dictionary["object_list"] = qs
         try:
-            context["chart_header"] = qs.model.get_chart_header()
+            dictionary["chart_header"] = qs.model.get_chart_header()
             template_name = self.get_layout_template_name(qs.model, name)
         except AttributeError:
             fields = [x.name for x in qs.model._meta.fields]
-            context["chart_header"] = [ChartCell(qs.model, field) for field in fields]
-            template_name = "instachart/simplechart/%s.html" % name
-        return mark_safe(render_to_string(template_name, context=context))
+            dictionary["chart_header"] = [ChartCell(qs.model, field) for field in fields]
+            template_name = ["instachart/simplechart/%s.html" % name]
 
-    def __call__(self, *args, **kwargs):
-        return self.render(*args, **kwargs)
+        template = loader.select_template(template_name)
 
-render_queryset = ChartsRenderQuerysetBackend()
+        with context.push(dictionary):
+            string = template.template.render(context)
+        return mark_safe(string)
 
 
 @register.filter(name="chart_set")
