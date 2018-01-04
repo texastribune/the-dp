@@ -7,10 +7,11 @@ from django.contrib.gis.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.template import Context, TemplateDoesNotExist
+from django.template import TemplateDoesNotExist
 from django.template.defaultfilters import slugify
-from django.template.loader import get_template
+from django.template.loader import render_to_string
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 
 try:
     from geopy import geocoders
@@ -36,9 +37,10 @@ class SummarySentences(object):
 
     def generate_sentence(self, name):
         try:
-            t = get_template(self.path % name)
-            c = Context({'obj': self.obj})
-            return t.render(c).strip()
+            string = render_to_string(
+                self.path % name, context={'obj': self.obj}
+            ).strip()
+            return mark_safe(string)
         except TemplateDoesNotExist:
             return None
 
